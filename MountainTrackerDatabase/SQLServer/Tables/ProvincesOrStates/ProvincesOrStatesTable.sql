@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[ProvincesOrStates](
-	[CountryID] tinyint NOT NULL PRIMARY KEY,
-	[ID] smallint NOT NULL,
+	[CountryID] tinyint NOT NULL,
+	[ID] smallint NOT NULL PRIMARY KEY,
 	[EnglishFullName] varchar(100) NOT NULL,
 	[RegionCode] char(2) NOT NULL,
 

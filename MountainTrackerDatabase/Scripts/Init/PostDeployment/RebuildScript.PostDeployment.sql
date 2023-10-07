@@ -12,7 +12,7 @@ Post-Deployment Script Template
 
 --Adding data to the Countires table
 --insert all of the data
-INSERT INTO Countries ([ID], [EnglishFullName], [CountryCode])
+INSERT INTO [dbo].[Countries] ([ID], [EnglishFullName], [CountryCode])
 VALUES 
 ( 0, 'Afghanistan', 'AF'),
 ( 1, 'Aland Islands', 'AX'),
@@ -599,7 +599,7 @@ select @AlpineRackCode = ID from [Gear] where [EnglishFullName] = 'Alpine Rack'
 select @BongAndChocksCode = ID from [Gear] where [EnglishFullName] = 'Bongs/Chocks'
 
 --Link Gear types to gear
-INSERT INTO [GearLinkingTableForGearType] ([ClimbingTypeID], [GearID])
+INSERT INTO [GearToGearTypeLinks] ([ClimbingTypeID], [GearID])
 VALUES 
 --Used for all 
 (@TradClimbingCode, @RopeCode),--0,0
@@ -617,12 +617,12 @@ VALUES
 (@TradClimbingCode, @AlpineRackCode),
 (@TradClimbingCode, @BongAndChocksCode);
 
-if(exists(select [ClimbingTypeID], [GearID] from [GearLinkingTableForGearType] where [ClimbingTypeID] = @TradClimbingCode and [GearID] = @BongAndChocksCode))
-	print '[GearLinkingTableForGearType] successfully populated'
+if(exists(select [ClimbingTypeID], [GearID] from [GearToGearTypeLinks] where [ClimbingTypeID] = @TradClimbingCode and [GearID] = @BongAndChocksCode))
+	print '[GearToGearTypeLinks] successfully populated'
 else
 begin
-	print '[GearLinkingTableForGearType] unsuccessfully populated'
-	raiserror('[GearLinkingTableForGearType] unsuccessfully populated', 20, -1) with log
+	print '[GearToGearTypeLinks] unsuccessfully populated'
+	raiserror('[GearToGearTypeLinks] unsuccessfully populated', 20, -1) with log
 end
 go
 
@@ -737,32 +737,88 @@ VALUES (1, 'Test1', 'T1')
 DBCC CHECKIDENT ('ZoneAreas', RESEED, 0)
 INSERT INTO [ZoneAreas] ([DistrictZoneID], [EnglishFullName], [AreaCode])
 VALUES (1, 'Test1', 'T1')
-DBCC CHECKIDENT ('ClimbingWalls', RESEED, 0)
+DBCC CHECKIDENT ('RockClimbingWalls', RESEED, 0)
 INSERT INTO [ClimbingWalls] ([AreaID], [EnglishFullName], [WallCode])
 VALUES (1, 'Test1', 'T1')
-DBCC CHECKIDENT ('ClimbingWalls', RESEED, 0)
+DBCC CHECKIDENT ('RockClimbingWalls', RESEED, 0)
 INSERT INTO [ClimbingWalls] ([AreaID], [EnglishFullName], [WallCode])
 VALUES (1, 'Test1', 'T1')
 DBCC CHECKIDENT ('RockClimbingRoutes', RESEED, 0)
 INSERT INTO [RockClimbingRoutes] 
-([ClimbingWallID],[TypeID],[DifficultyID],[EnglishFullName], 
-[RouteCode],[RouteWallNumber],[Rating],[HieghtInMeters],
-[NumberOfPitchs], [SunAM],[SunPM],[Filtered],
-[Sunny],[Shady],[DriesFast],[DryInRain],
-[Windy],[ClimbAnglesHaveSlabs],[ClimbAnglesHaveVerticals],[ClimbAnglesHaveOverHangs],
-[ClimbAnglesHaveRoofs],[RockFalls],[Seepage],[StickClip],
-[Runout],[Reachy],[Dyno],[Pumpy], 
-[Techy],[Power],[PockSlashHole],[Crimpy],
-[SeatStart])
+([ClimbingWallID],
+	[TypeID],
+	[DifficultyID],
+	[EnglishFullName],
+	[RouteCode],
+	[Rating],
+	[HieghtInMeters],
+	[NumberOfPitchs],
+	[FirstAscent],
+	[FirstFreeAscent],
+	[SunAM],
+	[SunPM],
+	[FilteredSun],
+	[Sunny],
+	[Shady],
+	[DriesFast],
+	[DryInRain],
+	[Windy],
+	[ClimbAnglesHaveSlabs],
+	[ClimbAnglesHaveVerticals],
+	[ClimbAnglesHaveOverHangs],
+	[ClimbAnglesHaveRoofs],
+	[RockFalls],
+	[Seepage],
+	[StickClip],
+	[Runout],
+	[Reachy],
+	[Dyno],
+	[Pumpy],
+	[Techy],
+	[Power],
+	[PockSlashHole],
+	[Crimpy],
+	[Slopey],
+	[SeatStart],
+	[Info],
+	[ThumbPictureBytes])
 VALUES 
-(1,0,0,'Test1', 
-'T1',1,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0)
+(0,
+	0,
+	0,
+	'The Test Climing Route',
+	'cha',
+	2,
+	15,
+	2,
+	'The Test Climber',
+	'The Test Climber',
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	'test',
+	null)
 end
 go

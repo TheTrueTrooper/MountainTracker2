@@ -9,6 +9,7 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+--to do divide conserns to make more managable by pulling script apart and refernecing in other scripts.
 
 --Adding data to the Countires table
 --insert all of the data
@@ -728,10 +729,10 @@ begin
 end
 go
 
-print '>>>Reseeding Users'
+print '<<<Reseeding Users'
 DBCC CHECKIDENT ('Users', RESEED, 0)
-print '<<<Reseeded Users'
-print '>>>Recalling Users'
+print '>>>Reseeded Users'
+print '<<<Recalling Users'
 INSERT INTO Users
 SELECT 
 [FirstName],
@@ -753,7 +754,7 @@ SELECT
 [BannerPictureBytes],
 [Bio],
 [ProfileURL] FROM TempSavedUsers
-print '<<<Users Recalled'
+print '>>>Users Recalled'
 print '<<<Dropping Users Temp'
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.TempSavedUsers') AND Type = N'U')
 	drop table TempSavedUsers

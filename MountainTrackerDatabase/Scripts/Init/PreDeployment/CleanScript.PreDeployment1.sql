@@ -49,7 +49,7 @@ IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimb
 	delete [RockClimbingRoutes] where 1=1
 
 --Gear drill down reset
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.GearLinkingTableForGearType') AND Type = N'U')
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.GearToGearTypeLinks') AND Type = N'U')
 	delete [GearToGearTypeLinks] where 1=1
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.ClimbingTypes') AND Type = N'U')
 	delete [ClimbingTypes] where 1=1
@@ -62,15 +62,15 @@ IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimb
 	delete [RockClimbingDifficulties] where 1=1
 
 --Routes Rest cont
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingRoutes') AND Type = N'U')
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingWalls') AND Type = N'U')
 	delete [RockClimbingWalls] where 1=1
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingRoutes') AND Type = N'U')
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.ZoneAreas') AND Type = N'U')
 	delete ZoneAreas where 1=1
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingRoutes') AND Type = N'U')
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.DistrictZones') AND Type = N'U')
 	delete DistrictZones where 1=1
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingRoutes') AND Type = N'U')
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Districts') AND Type = N'U')
 	delete Districts where 1=1
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingRoutes') AND Type = N'U')
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Regions') AND Type = N'U')
 	delete Regions where 1=1
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Users') AND Type = N'U')
@@ -93,4 +93,12 @@ IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Countries
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.UserAccessLevels') AND Type = N'U')
 	delete UserAccessLevels where 1=1
-go
+
+	-- busy ratings reset
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.BusyRatings') AND Type = N'U')
+	delete [BusyRatings] where 1=1
+	-- busy ratings reset
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.ClimbingQualityRatings') AND Type = N'U')
+	delete [ClimbingQualityRatings] where 1=1
+
+GO

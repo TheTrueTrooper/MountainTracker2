@@ -367,11 +367,6 @@ begin
 	raiserror('US States unsuccessfully populated', 20, -1) with log
 end
 go
-
-INSERT INTO [ProvincesOrStates] ([ID], [EnglishFullName], [RegionCode], [CountryID])
-VALUES 
-( 63, 'Test1', 'T1', 0),
-( 64, 'Test2', 'T2', 0);
 --------------------------------------------------------------------------------Add Prov or states for Countries here
 
 --Climbing types Populating
@@ -672,6 +667,49 @@ begin
 end
 go
 
+--Add BusyRatings
+INSERT INTO [BusyRatings] ([ID], [EnglishName])
+VALUES 
+(0, 'Unkown'),
+(1, 'Not Rated'),
+(2, 'Not Busy At All'),
+(3, 'Sparsely Busy'),
+(4, 'Busy'),
+(5, 'Very Busy'),
+(6, 'Exceptionally Busy')
+
+
+if(exists(select [ID] from [BusyRatings] where [EnglishName] = 'Exceptionally Busy'))
+	print '[BusyRatings] successfully populated'
+else
+begin
+	print '[BusyRatings] unsuccessfully populated'
+	raiserror('[BusyRatings] unsuccessfully populated', 20, -1) with log
+end
+go
+
+--Add ClimbingQualityRatings
+INSERT INTO [ClimbingQualityRatings] ([ID], [EnglishName])
+VALUES 
+(0, 'Unkown'),
+(1, 'Not Rated'),
+(2, 'Unclimbable Danger'),
+(3, 'Slightly Dangerous'),
+(4, 'Very Difficult'),
+(5, 'Difficult'),
+(6, 'Average'),
+(7, 'Easy'),
+(9, 'Very Easy')
+
+if(exists(select [ID] from [BusyRatings] where [EnglishName] = 'Exceptionally Busy'))
+	print '[BusyRatings] successfully populated'
+else
+begin
+	print '[BusyRatings] unsuccessfully populated'
+	raiserror('[BusyRatings] unsuccessfully populated', 20, -1) with log
+end
+go
+
 INSERT INTO [UserAccessLevels] ([ID], [EnglishName])
 VALUES 
 (0, 'Unrestricted Admin'),
@@ -721,29 +759,89 @@ IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.TempSaved
 	drop table TempSavedUsers
 print '>>>Users Temp Dropped'
 
+--Reseed
+declare @reseed bit = 1
+if(@reseed = 1)
+begin
+DBCC CHECKIDENT ('Regions', RESEED, 0)
+DBCC CHECKIDENT ('Districts', RESEED, 0)
+DBCC CHECKIDENT ('DistrictZones', RESEED, 0)
+DBCC CHECKIDENT ('ZoneAreas', RESEED, 0)
+DBCC CHECKIDENT ('RockClimbingWalls', RESEED, 0)
+DBCC CHECKIDENT ('RockClimbingRoutes', RESEED, 0)
+end
+
+	--Populate Regions
+INSERT INTO [Regions] 
+	(ProvinceOrStateID, EnglishFullName, RegionCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
+VALUES 
+	(1,	'East Kootenays', 'EK', NULL, NULL, NULL, NULL)
+
+	--Populate Districts
+INSERT INTO [Districts] 
+	(RegionID, EnglishFullName, DistrictCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
+VALUES 
+	(1, 'Cranbrook',					'CB',	NULL, NULL, NULL, NULL),
+	(1, 'Canal Flats',					'CF',   NULL, NULL, NULL, NULL),
+	(1, 'Kimberley',					'KM',   NULL, NULL, NULL, NULL),
+	(1, 'Mount Fischer Boulder Creek',	'MFB',  NULL, NULL, NULL, NULL),
+	(1, 'Sulphur Creek Fernie',			'SCF',  NULL, NULL, NULL, NULL),
+	(1, 'Windermere',					'WD',   NULL, NULL, NULL, NULL)
+
+	--Populate DistrictZones
+INSERT INTO [DistrictZones] 
+	(DistrictID, EnglishFullName, ZoneCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
+VALUES 
+	(1, 'Lumberton Moyie Canyon',	'LMC',  	NULL,	NULL,	NULL,	NULL),
+	(1, 'Wycliff',					'WYC',  	NULL,	NULL,	NULL,	NULL),
+	(1, 'Pedley',					'PD',   	NULL,	NULL,	NULL,	NULL),
+	(2, 'Mount Sabine',				'MSB',  	NULL,	NULL,	NULL,	NULL),
+	(2, 'Doctor Creek',				'DC',   	NULL,	NULL,	NULL,	NULL),
+	(3, 'Kimberley Nature Park',	'KNP',  	NULL,	NULL,	NULL,	NULL),
+	(3, 'St Marys Lake',			'SML',  	NULL,	NULL,	NULL,	NULL),
+	(4, 'Fort Steele',				'FS',   	NULL,	NULL,	NULL,	NULL),
+	(5, 'Sulphur Creek',			'SC',   	NULL,	NULL,	NULL,	NULL),
+	(5, 'Fernie',					'FR',   	NULL,	NULL,	NULL,	NULL),
+	(5, 'Elko',						'EL',   	NULL,	NULL,	NULL,	NULL),
+	(5, 'Jaffray',					'JA',   	NULL,	NULL,	NULL,	NULL)
+
+	--Populate ZoneAreas
+INSERT INTO [ZoneAreas] 
+	(DistrictZoneID, EnglishFullName, AreaCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
+VALUES 
+	(1,	'Lumberton',		'A1',   	NULL,	NULL,	NULL,	NULL),
+	(3,	'Pedley Pass',		'A1',   	NULL,	NULL,	NULL,	NULL),
+	(2,	'Perry Creek',		'A1',   	NULL,	NULL,	NULL,	NULL),
+	(5,	'Doctor Lake Area',	'A1',   	NULL,	NULL,	NULL,	NULL),
+	(4,	'Bird',				'A1',   	NULL,	NULL,	NULL,	NULL),
+	(4,	'Red Rat',			'A2',   	NULL,	NULL,	NULL,	NULL),
+	(4,	'South Face',		'A3',   	NULL,	NULL,	NULL,	NULL),
+	(6,	'Tora Bora',		'A1',   	NULL,	NULL,	NULL,	NULL),
+	(6,	'Bootleg Mountain',	'A2',   	NULL,	NULL,	NULL,	NULL),
+	(7,	'Saint',			'A1',   	NULL,	NULL,	NULL,	NULL),
+	(7,	'Santa Maria',		'A2',   	NULL,	NULL,	NULL,	NULL),
+	(7,	'Riverside',		'A3',   	NULL,	NULL,	NULL,	NULL),
+	(8,	'Lakit Lake',		'A1',   	NULL,	NULL,	NULL,	NULL)
+
+
 --Quick Test Data build
 declare @Testing bit = 0
 if(@Testing = 1)
 begin
-DBCC CHECKIDENT ('Regions', RESEED, 0)
+INSERT INTO [ProvincesOrStates] ([ID], [EnglishFullName], [RegionCode], [CountryID])
+VALUES 
+( 63, 'Test1', 'T1', 0),
+( 64, 'Test2', 'T2', 0);
 INSERT INTO [Regions] ([ProvinceOrStateID], [EnglishFullName], [RegionCode])
 VALUES (63, 'Test1', 'T1')
-DBCC CHECKIDENT ('Districts', RESEED, 0)
 INSERT INTO [Districts] ([RegionID], [EnglishFullName], [DistrictCode])
 VALUES (1, 'Test1', 'T1')
-DBCC CHECKIDENT ('DistrictZones', RESEED, 0)
 INSERT INTO [DistrictZones] ([DistrictID], [EnglishFullName], [ZoneCode])
 VALUES (1, 'Test1', 'T1')
-DBCC CHECKIDENT ('ZoneAreas', RESEED, 0)
 INSERT INTO [ZoneAreas] ([DistrictZoneID], [EnglishFullName], [AreaCode])
 VALUES (1, 'Test1', 'T1')
-DBCC CHECKIDENT ('RockClimbingWalls', RESEED, 0)
 INSERT INTO [ClimbingWalls] ([AreaID], [EnglishFullName], [WallCode])
 VALUES (1, 'Test1', 'T1')
-DBCC CHECKIDENT ('RockClimbingWalls', RESEED, 0)
-INSERT INTO [ClimbingWalls] ([AreaID], [EnglishFullName], [WallCode])
-VALUES (1, 'Test1', 'T1')
-DBCC CHECKIDENT ('RockClimbingRoutes', RESEED, 0)
 INSERT INTO [RockClimbingRoutes] 
 ([ClimbingWallID],
 	[TypeID],

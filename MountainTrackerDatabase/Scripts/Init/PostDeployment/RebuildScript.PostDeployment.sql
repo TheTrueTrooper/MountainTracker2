@@ -386,6 +386,26 @@ begin
 end
 go
 
+--Climbing types Populating
+INSERT INTO [RockClimbingTypes] ([ID], [EnglishFullName], [ShortHand])
+VALUES 
+( 0,	'Unknown', 'Unkno'),
+( 1,	'Open', 'open'),
+( 2,	'Closed', 'closed'),
+( 3,	'Trad Climbing','Trad'),
+( 4,	'Sport Climbing','Sport'),
+( 5,	'Mixed Climbing', 'Mixed');
+
+if(exists(select ID from [RockClimbingTypes] where [EnglishFullName] = 'Mixed Climbing'))
+	print '[RockClimbingTypes] successfully populated'
+else
+begin
+	print '[RockClimbingTypes] unsuccessfully populated'
+	raiserror('[RockClimbingTypes] unsuccessfully populated', 20, -1) with log
+end
+go
+
+
 --Gear Populating
 
 --Gear
@@ -806,6 +826,24 @@ VALUES
 	(5, 'Elko',						'EL',   	NULL,	NULL,	NULL,	NULL),
 	(5, 'Jaffray',					'JA',   	NULL,	NULL,	NULL,	NULL)
 
+	--Populate ZoneAreas
+INSERT INTO [ZoneAreas] 
+	(DistrictZoneID, EnglishFullName, AreaCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
+VALUES 
+	(1,	'Lumberton',		'A1',   	NULL,	NULL,	NULL,	NULL),
+	(3,	'Pedley Pass',		'A1',   	NULL,	NULL,	NULL,	NULL),
+	(2,	'Perry Creek',		'A1',   	NULL,	NULL,	NULL,	NULL),
+	(5,	'Doctor Lake Area',	'A1',   	NULL,	NULL,	NULL,	NULL),
+	(4,	'Bird',				'A1',   	NULL,	NULL,	NULL,	NULL),
+	(4,	'Red Rat',			'A2',   	NULL,	NULL,	NULL,	NULL),
+	(4,	'South Face',		'A3',   	NULL,	NULL,	NULL,	NULL),
+	(6,	'Tora Bora',		'A1',   	NULL,	NULL,	NULL,	NULL),
+	(6,	'Bootleg Mountain',	'A2',   	NULL,	NULL,	NULL,	NULL),
+	(7,	'Saint',			'A1',   	NULL,	NULL,	NULL,	NULL),
+	(7,	'Santa Maria',		'A2',   	NULL,	NULL,	NULL,	NULL),
+	(7,	'Riverside',		'A3',   	NULL,	NULL,	NULL,	NULL),
+	(8,	'Lakit Lake',		'A1',   	NULL,	NULL,	NULL,	NULL)
+
 	--Populate Walls
 INSERT INTO [RockClimbingWalls] 
 	(AreaID, EnglishFullName, WallCode, Approach, LatitudeStartOrCenter, LongitudeStartOrCenter, LatitudeParking, LongitudeParking, ThumbPictureBytes, Info, 
@@ -887,8 +925,8 @@ VALUES
 	(13,	'Broke Back Alley',						'W11',  	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
 	(13,	'Steep And Shady',						'W12',  	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0)
 
-	--Populate ZoneAreas
-INSERT INTO [ZoneAreas] 
+	--Populate RockClimbingRoutes
+INSERT INTO [RockClimbingRoutes] 
 	(ClimbingWallID, TypeID, DifficultyID, EnglishFullName, RouteCode, Rating, HieghtInMeters, NumberOfPitchs, FirstAscent, FirstFreeAscent, 
 	SunAM, SunPM, FilteredSun, Sunny, Shady, DriesFast, DryInRain, Windy, ClimbAnglesHaveSlabs, ClimbAnglesHaveVerticals, ClimbAnglesHaveOverHangs, ClimbAnglesHaveRoofs, 
 	RockFalls, Seepage, StickClip, Runout, Reachy, Dyno, Pumpy, Techy, Power, PockSlashHole, Crimpy, Slopey, SeatStart, 

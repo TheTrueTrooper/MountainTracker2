@@ -11,6 +11,8 @@
 */
 --save users for reset
 print '<<<Saving Users For Later'
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.TempSavedUsers') AND Type = N'U')
+DROP TABLE [dbo].[TempSavedUsers]
 CREATE TABLE [dbo].[TempSavedUsers]
 (
 	[ID] INT NOT NULL, 
@@ -34,39 +36,45 @@ CREATE TABLE [dbo].[TempSavedUsers]
     [Bio] NVARCHAR(2500) NULL, 
 	[ProfileURL] NVARCHAR(100) NULL
 )
-INSERT INTO TempSavedUsers
-SELECT * FROM Users
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Users') AND Type = N'U')
+INSERT INTO [TempSavedUsers]
+SELECT * FROM [Users]
 print '>>>Users Saved'
+GO
 
 --reset the table for data by deleting old data to make a clean alter\
 --Routes Rest
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingRoutes') AND Type = N'U')
-	delete RockClimbingRoutes where 1=1
+	delete [RockClimbingRoutes] where 1=1
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingWalls') AND Type = N'U')
+	delete [RockClimbingWalls] where 1=1
 
 --Gear drill down reset
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.GearLinkingTableForGearType') AND Type = N'U')
-	delete [GearLinkingTableForGearType] where 1=1
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.GearToGearTypeLinks') AND Type = N'U')
+	delete [GearToGearTypeLinks] where 1=1
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.ClimbingTypes') AND Type = N'U')
 	delete [ClimbingTypes] where 1=1
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingTypes') AND Type = N'U')
+	delete [RockClimbingTypes] where 1=1
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.GearSizes') AND Type = N'U')
-	delete GearSizes where 1=1
+	delete [GearSizes] where 1=1
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Gear') AND Type = N'U')
-	delete Gear where 1=1
+	delete [Gear] where 1=1
 --Difficulties rest
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingDifficulties') AND Type = N'U')
-	delete RockClimbingDifficulties where 1=1
+	delete [RockClimbingDifficulties] where 1=1
 
 --Routes Rest cont
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingRoutes') AND Type = N'U')
-	delete ClimbingWalls where 1=1
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingRoutes') AND Type = N'U')
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingWalls') AND Type = N'U')
+	delete [RockClimbingWalls] where 1=1
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.ZoneAreas') AND Type = N'U')
 	delete ZoneAreas where 1=1
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingRoutes') AND Type = N'U')
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.DistrictZones') AND Type = N'U')
 	delete DistrictZones where 1=1
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingRoutes') AND Type = N'U')
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Districts') AND Type = N'U')
 	delete Districts where 1=1
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingRoutes') AND Type = N'U')
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Regions') AND Type = N'U')
 	delete Regions where 1=1
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Users') AND Type = N'U')
@@ -89,4 +97,12 @@ IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Countries
 
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.UserAccessLevels') AND Type = N'U')
 	delete UserAccessLevels where 1=1
-go
+
+	-- busy ratings reset
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.BusyRatings') AND Type = N'U')
+	delete [BusyRatings] where 1=1
+	-- busy ratings reset
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.ClimbingQualityRatings') AND Type = N'U')
+	delete [ClimbingQualityRatings] where 1=1
+
+GO

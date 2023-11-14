@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MountainTracker.Server.Models;
+using System;
 using System.Diagnostics;
 
 namespace MountainTracker.Server.Controllers
@@ -18,11 +19,7 @@ namespace MountainTracker.Server.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
+        [Route("/Error")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

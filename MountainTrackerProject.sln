@@ -7,21 +7,13 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MountainTracker.Database", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MountainTracker.Server", "MountainTracker.Server\MountainTracker.Server.csproj", "{F35094AE-6D84-496D-B9E7-B9D9409AC55C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MountainTracker.Shared.Models", "MountainTracker.Shared.Models\MountainTracker.Shared.Models.csproj", "{5C834F07-4369-49A0-B20C-15DAD1943128}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MountainTracker.Testing.Server.UnitTests", "MountainTracker.Testing.Server.UnitTests\MountainTracker.Testing.Server.UnitTests.csproj", "{C0F6D0E6-D560-40DB-894C-478F4208874A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MountainTracker.Testing.Server.UnitTests", "MountainTracker.Testing.Server.UnitTests\MountainTracker.Testing.Server.UnitTests.csproj", "{C0F6D0E6-D560-40DB-894C-478F4208874A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MountainTracker.Testing.Phone.UnitTests", "MountainTracker.Testing.Phone.UnitTests\MountainTracker.Testing.Phone.UnitTests.csproj", "{EF0EB173-3181-4166-AD2C-F66DF7485937}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{D9BE44F9-9A01-4C90-96FB-270CFCC6B3E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MountainTracker.Phone", "MountainTracker.Phone\MountainTracker.Phone.csproj", "{5CAEE4BC-BD08-4980-95B8-A4D31E74F52B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Phone", "Phone", "{665C664D-F545-48E2-990E-9F9B1742B397}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{38EF2154-829A-41A8-8334-A191F20BE993}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedAndDb", "SharedAndDb", "{17D47A38-9063-4A5C-90CC-85B70792FD84}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MountainTracker.Testing.Phone.UnitTests", "MountainTracker.Testing.Phone.UnitTests\MountainTracker.Testing.Phone.UnitTests.csproj", "{EF0EB173-3181-4166-AD2C-F66DF7485937}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MountainTracker.Phone", "MountainTracker.Phone\MountainTracker.Phone.csproj", "{5CAEE4BC-BD08-4980-95B8-A4D31E74F52B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MountainTracker.Shared.Model", "MountainTracker.Shared.Model\MountainTracker.Shared.Model.csproj", "{D99964FB-1A63-4A37-84DE-32C91DF373C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +31,6 @@ Global
 		{F35094AE-6D84-496D-B9E7-B9D9409AC55C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F35094AE-6D84-496D-B9E7-B9D9409AC55C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F35094AE-6D84-496D-B9E7-B9D9409AC55C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5C834F07-4369-49A0-B20C-15DAD1943128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C834F07-4369-49A0-B20C-15DAD1943128}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C834F07-4369-49A0-B20C-15DAD1943128}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C834F07-4369-49A0-B20C-15DAD1943128}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C0F6D0E6-D560-40DB-894C-478F4208874A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C0F6D0E6-D560-40DB-894C-478F4208874A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0F6D0E6-D560-40DB-894C-478F4208874A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,17 +45,13 @@ Global
 		{5CAEE4BC-BD08-4980-95B8-A4D31E74F52B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CAEE4BC-BD08-4980-95B8-A4D31E74F52B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5CAEE4BC-BD08-4980-95B8-A4D31E74F52B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D99964FB-1A63-4A37-84DE-32C91DF373C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D99964FB-1A63-4A37-84DE-32C91DF373C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D99964FB-1A63-4A37-84DE-32C91DF373C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D99964FB-1A63-4A37-84DE-32C91DF373C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{676E9223-831E-4C8E-A47E-C05D7AA1C081} = {17D47A38-9063-4A5C-90CC-85B70792FD84}
-		{F35094AE-6D84-496D-B9E7-B9D9409AC55C} = {38EF2154-829A-41A8-8334-A191F20BE993}
-		{5C834F07-4369-49A0-B20C-15DAD1943128} = {17D47A38-9063-4A5C-90CC-85B70792FD84}
-		{C0F6D0E6-D560-40DB-894C-478F4208874A} = {D9BE44F9-9A01-4C90-96FB-270CFCC6B3E2}
-		{EF0EB173-3181-4166-AD2C-F66DF7485937} = {D9BE44F9-9A01-4C90-96FB-270CFCC6B3E2}
-		{5CAEE4BC-BD08-4980-95B8-A4D31E74F52B} = {665C664D-F545-48E2-990E-9F9B1742B397}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {593C698F-FA10-4C34-92A4-04CCB1DA6608}

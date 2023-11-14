@@ -7,3 +7,4 @@
 *.dbmdl
 *.jfm
 .vs/*
+/MountainTracker.Server/wwwroot/browser

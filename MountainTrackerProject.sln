@@ -7,13 +7,13 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MountainTracker.Database", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MountainTracker.Server", "MountainTracker.Server\MountainTracker.Server.csproj", "{F35094AE-6D84-496D-B9E7-B9D9409AC55C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MountainTracker.Testing.Server.UnitTests", "MountainTracker.Testing.Server.UnitTests\MountainTracker.Testing.Server.UnitTests.csproj", "{C0F6D0E6-D560-40DB-894C-478F4208874A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MountainTracker.Testing.Server.UnitTests", "MountainTracker.Testing.Server.UnitTests\MountainTracker.Testing.Server.UnitTests.csproj", "{C0F6D0E6-D560-40DB-894C-478F4208874A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MountainTracker.Testing.Phone.UnitTests", "MountainTracker.Testing.Phone.UnitTests\MountainTracker.Testing.Phone.UnitTests.csproj", "{EF0EB173-3181-4166-AD2C-F66DF7485937}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MountainTracker.Testing.Phone.UnitTests", "MountainTracker.Testing.Phone.UnitTests\MountainTracker.Testing.Phone.UnitTests.csproj", "{EF0EB173-3181-4166-AD2C-F66DF7485937}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MountainTracker.Phone", "MountainTracker.Phone\MountainTracker.Phone.csproj", "{5CAEE4BC-BD08-4980-95B8-A4D31E74F52B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MountainTracker.Phone", "MountainTracker.Phone\MountainTracker.Phone.csproj", "{5CAEE4BC-BD08-4980-95B8-A4D31E74F52B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MountainTracker.Shared.Model", "MountainTracker.Shared.Model\MountainTracker.Shared.Model.csproj", "{D99964FB-1A63-4A37-84DE-32C91DF373C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MountainTracker.Shared.Model", "MountainTracker.Shared.Model\MountainTracker.Shared.Model.csproj", "{D99964FB-1A63-4A37-84DE-32C91DF373C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

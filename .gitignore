@@ -8,3 +8,5 @@
 *.jfm
 .vs/*
 /MountainTracker.Server/wwwroot/browser
+MountainTracker.Client/src/assets/R.jpg
+MountainTracker.Client/src/assets/G.png

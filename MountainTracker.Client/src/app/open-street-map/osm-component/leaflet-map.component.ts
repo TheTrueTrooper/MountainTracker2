@@ -7,7 +7,8 @@ import * as L from 'leaflet';
   styleUrls: ['./leaflet-map.component.scss']
 })
 export class LeafletMapComponent implements AfterViewInit {
-
+  @Input()
+  public MapBoxId: string = "map";
   @Input()
   public MapTileSource: TargetOSMap | null = null;
   public AdditionalTiles: TargetOSMap[] = [];
@@ -15,7 +16,7 @@ export class LeafletMapComponent implements AfterViewInit {
   private map: L.Map | null = null;
 
   private initMap(): void {
-    this.map = L.map('map', {
+    this.map = L.map(this.MapBoxId, {
       center: [ 39.8282, -98.5795 ],
       zoom: 3
     });

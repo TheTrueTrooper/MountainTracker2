@@ -1,12 +1,12 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
-import { CubeMapConfig, EquirectangularConfig, MultiresConfig, PannellumPanoramaType, PannellumPanoramaTypeEnum, PannellumViewer  } from '../pannellum-type/pannellum';
+import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
+import { PannellumCubeMapConfig, PannellumEquirectangularConfig, PannellumHotSpot, PannellumMultiresConfig, PannellumPanoramaType, PannellumPanoramaTypeEnum, PannellumViewer  } from '../pannellum/pannellum';
 
 @Component({
   selector: 'pannellum-panorama',
   templateUrl: './pannellum-panorama.component.html',
   styleUrls: ['./pannellum-panorama.component.scss']
 })
-export class PannellumComponent implements AfterViewInit {
+export class PannellumComponent implements AfterViewInit, OnDestroy {
   @Input()
   PanoramaId: string = "panorama"
   @Input()
@@ -14,17 +14,28 @@ export class PannellumComponent implements AfterViewInit {
   @Input()
   PanoramaType: PannellumPanoramaType = "equirectangular"
   @Input()
-  Options: EquirectangularConfig | CubeMapConfig | MultiresConfig | null = null;
+  Options: PannellumEquirectangularConfig | PannellumCubeMapConfig | PannellumMultiresConfig | null = null;
+  @Input()
+  HotSpots: PannellumHotSpot[] | null = null;
 
   private pannellumViewer: PannellumViewer | null = null
 
+  private ensureArray(array: any[] | null | undefined): any[]
+  {
+    return array ?? [];
+  }
+
   private initMap(): void {
-    if(PannellumPanoramaTypeEnum[this.PanoramaType] == PannellumPanoramaTypeEnum.equirectangular && this.PanoramaId != null && this.PanoramaSrc != null)
-    this.pannellumViewer = globalThis.window.pannellum.viewer(this.PanoramaId, {
+    let Options = {
       ...this.Options,
       type: this.PanoramaType,
-      panorama: this.PanoramaSrc,
-    } as EquirectangularConfig)
+      hotSpots: [...this.ensureArray(this.Options?.hotSpots), ...this.ensureArray(this.HotSpots)]
+    } as PannellumEquirectangularConfig
+    if(!Options!.panorama &&  PannellumPanoramaTypeEnum[this.PanoramaType] == PannellumPanoramaTypeEnum.equirectangular)
+    {
+      Options!.panorama = this.PanoramaSrc!;
+    }
+    this.pannellumViewer = globalThis.window.pannellum.viewer(this.PanoramaId, Options)
   }
 
   constructor() { }
@@ -32,4 +43,11 @@ export class PannellumComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.initMap();
    }
+
+  ngOnDestroy(): void {
+    if(this.pannellumViewer != null)
+    {
+      this.pannellumViewer.destroy();
+    }
+  }
 }

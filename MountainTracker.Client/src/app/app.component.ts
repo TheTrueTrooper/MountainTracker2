@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { OpenStreetMapModule, TargetOSMSourceFactory } from './open-street-map';
 import { CommonModule } from '@angular/common';
-import { EquirectangularConfig, PannellumPanoramaModule } from './pannellum';
+import { PannellumEquirectangularConfig, PannellumPanoramaModule } from './pannellum';
 
 @Component({
   selector: 'app-root',
@@ -16,5 +16,5 @@ export class AppComponent {
 
   protected readonly mapSource = TargetOSMSourceFactory;
 
-  Options: EquirectangularConfig = { autoLoad: true } as EquirectangularConfig
+  Options: PannellumEquirectangularConfig = { autoLoad: true } as PannellumEquirectangularConfig
 }

@@ -14,7 +14,7 @@ export type PannellumCrossOrigin = 'anonymous' | 'use-credentials' ;
 
 export type PannellumEventType = 'load' | 'scenechange' | 'fullscreenchange' | 'zoomchange' | 'scenechangefadedone' | 'animatefinished' | 'error' | 'errorcleared' | 'mousedown' | 'mouseup' | 'touchstart' | 'touchend';
 
-export type EquirectangularConfig = {
+export type PannellumEquirectangularConfig = {
   haov?: number
   vaov?: number 
   vOffset?: number 
@@ -23,14 +23,14 @@ export type EquirectangularConfig = {
   dynamic?: boolean
   dynamicUpdate?: boolean
   type: 'equirectangular'
-} & SharedConfig
+} & PannellumSharedConfig
 
-export type CubeMapConfig = {
+export type PannellumCubeMapConfig = {
   cubeMap: string[]
   type: 'cube'
-} & SharedConfig
+} & PannellumSharedConfig
 
-export type MultiresConfig = {
+export type PannellumMultiresConfig = {
   path: string
   basePath: string
   fallback: string
@@ -39,9 +39,9 @@ export type MultiresConfig = {
   maxLevel: number
   cubeResolution: number
   type: 'multires'
-} & SharedConfig
+} & PannellumSharedConfig
 
-export type SharedConfig = {
+type PannellumSharedConfig = {
     hfov?: number
     publicminHfov?: number
     multiResMinHfov?: boolean
@@ -82,7 +82,7 @@ export type SharedConfig = {
     capturedKeyNumbers?: number[]
     friction?: number
     compass?: boolean
-    hotSpots?: HotSpot[]
+    hotSpots?: PannellumHotSpot[]
     escapeHTML?: boolean
     basePath?: string
     strings?: PannellumStringsDictionary
@@ -97,15 +97,15 @@ export type SharedConfig = {
     [key: string]: any
   }
 
-  export type Scenes = {
-    [key: string]: EquirectangularConfig | CubeMapConfig | MultiresConfig
+  export type PannellumScenes = {
+    [key: string]: PannellumEquirectangularConfig | PannellumCubeMapConfig | PannellumMultiresConfig
   }
 
-  export type HotSpot = {
+  export type PannellumHotSpot = {
     pitch: number
     yaw: number
-    type: "info" | string //feel like there is more values here but I'm not sure and could not identify them so I'm leaving it open with a string for now but at least you have some help
-    text?: string
+    type: "info" | "scene"
+    text: string
     URL?: string
     attributes?: object
     sceneId?: string
@@ -113,27 +113,26 @@ export type SharedConfig = {
     targetYaw?: number
     targetHfov?: number
     id?: any
-    cssClass?: string | undefined
+    cssClass?: string
     createTooltipFunc?: ((createArgs: object)=> void)
     clickHandlerFunc?: ((createArgs: object)=> void)
     scale?: boolean
   }
 
-  export type PannellumRender = {
-    init(haov: number, vaov: number, voffset: number, callback: (()=>void), params: {horizonPitch : number, horizonRoll: number, backgroundColor: [number, number, number]}, image: HTMLImageElement | string[] | Object,  imageType: string, dynamic: boolean): void
+  export interface PannellumRender{
+    init(haov: number, vaov: number, voffset: number, callback: (()=>void), params?: {horizonPitch?: number, horizonRoll?: number, backgroundColor?: [number, number, number]}, image?: HTMLImageElement | string[] | Object,  imageType?: string, dynamic?: boolean): void
     getCanvas(): HTMLElement
     isLoading(): boolean
-    render(pitch: number, yaw: number, hfov: number, params: { roll: number, returnImage: boolean }): void | HTMLImageElement
+    render(pitch: number, yaw: number, hfov: number, params?: { roll?: number, returnImage?: boolean }): void | HTMLImageElement
     setPose(horizonPitch: number, horizonRoll: number): void
     resize(): void
     destroy(): void
   }
 
-
-  export type PannellumViewer = {
+  export interface PannellumViewer {
     isLoading(): boolean
     getPitch(): number
-    setPitch(set: number, animated: boolean | number, callback: ((callbackArgs: object)=>void), callbackArgs: object): PannellumViewer
+    setPitch(set: number, animated: boolean | number, callback?: ((callbackArgs: object)=>void), callbackArgs?: object): PannellumViewer
     getPitchBounds(): [min: number, max: number]
     setPitchBounds(set: [min: number, max: number]): PannellumViewer
     getYaw(): number
@@ -141,10 +140,10 @@ export type SharedConfig = {
     getYawBounds(): [min: number, max: number]
     setYawBounds(set: [min: number, max: number]): PannellumViewer
     getHfov(): number
-    setHfov(set: number, animated: boolean | number, callback: ((callbackArgs: object)=>void), callbackArgs: object): PannellumViewer
+    setHfov(set: number, animated: boolean | number, callback?: ((callbackArgs: object)=>void), callbackArgs?: object): PannellumViewer
     getHfovBounds(): [min: number, max: number]
     setHfovBounds(set: [min: number, max: number]): PannellumViewer
-    lookAt(pitch : number, yaw: number, hfov: number, animated: number | boolean, callback: ((callbackArgs: object)=>void), callbackArgs: object): PannellumViewer
+    lookAt(pitch : number, yaw: number, hfov: number, animated: number | boolean, callback?: ((callbackArgs: object)=>void), callbackArgs?: object): PannellumViewer
     getNorthOffset(): number
     setNorthOffset(set: number): PannellumViewer
     getHorizonRoll(): number
@@ -157,22 +156,22 @@ export type SharedConfig = {
     getRenderer(): PannellumRender
     setUpdate(force: boolean): PannellumViewer
     mouseEventToCoords(event: MouseEvent):[pitch : number, yaw: number]
-    loadScene(sceneId: string, pitch: number, yaw: number, hfov: number): PannellumViewer
+    loadScene(sceneId: string, pitch?: number, yaw?: number, hfov?: number): PannellumViewer
     getScene(): string
-    addScene(sceneId: string, config: EquirectangularConfig | CubeMapConfig | MultiresConfig | Scenes): PannellumViewer
+    addScene(sceneId: string, config: PannellumEquirectangularConfig | PannellumCubeMapConfig | PannellumMultiresConfig | PannellumScenes): PannellumViewer
     removeScene(sceneId: string): boolean
     toggleFullscreen(): boolean
-    getConfig():  EquirectangularConfig | CubeMapConfig | MultiresConfig | Scenes
+    getConfig():  PannellumEquirectangularConfig | PannellumCubeMapConfig | PannellumMultiresConfig | PannellumScenes
     getContainer(): HTMLElement
-    addHotSpot(config: HotSpot): PannellumViewer
-    removeHotSpot(hotSpotId: string, sceneId: string): boolean
+    addHotSpot(config: PannellumHotSpot, sceneId?: string): PannellumViewer
+    removeHotSpot(hotSpotId: string, sceneId?: string): boolean
     resize(): PannellumViewer
     isOrientationSupported(): boolean
     stopOrientation(): PannellumViewer
     startOrientation(): PannellumViewer
     isOrientationActive(): boolean
-    on(type: PannellumEventType,callback: ((event: Event)=>void)): PannellumRender
-    off(type: PannellumEventType,callback: ((event: Event)=>void)): PannellumViewer
+    on(type: PannellumEventType, callback: ((event: Event)=>void)): PannellumRender
+    off(type?: PannellumEventType, callback?: ((event: Event)=>void)): PannellumViewer
     destroy(): void
   }
 
@@ -187,6 +186,6 @@ export type SharedConfig = {
   }
 
   export interface PannellumFactories {
-    viewer(container: string | HTMLElement, config: EquirectangularConfig | CubeMapConfig | MultiresConfig | Scenes): PannellumViewer;
+    viewer(container: string | HTMLElement, config: PannellumEquirectangularConfig | PannellumCubeMapConfig | PannellumMultiresConfig | PannellumScenes): PannellumViewer;
     Renderer(container: HTMLElement): PannellumRender
   }

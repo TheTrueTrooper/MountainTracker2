@@ -3,27 +3,34 @@ import 'pannellum/src/js/pannellum'
 
 export type PannellumPanoramaType = 'equirectangular' | 'cube' | 'multires';
 
+export enum PannellumPanoramaTypeEnum 
+{
+  'equirectangular',
+  'cube',
+  'multires'
+}
+
 export type PannellumCrossOrigin = 'anonymous' | 'use-credentials' ;
 
 export type PannellumEventType = 'load' | 'scenechange' | 'fullscreenchange' | 'zoomchange' | 'scenechangefadedone' | 'animatefinished' | 'error' | 'errorcleared' | 'mousedown' | 'mouseup' | 'touchstart' | 'touchend';
 
 export type EquirectangularConfig = {
-  haov?: number | undefined
-  vaov?: number | undefined 
-  vOffset?: number | undefined 
-  panorama: string | undefined
-  ignoreGPanoXMP?: boolean | undefined
-  dynamic?: boolean | undefined
-  dynamicUpdate?: boolean | undefined
+  haov?: number
+  vaov?: number 
+  vOffset?: number 
+  panorama: string
+  ignoreGPanoXMP?: boolean
+  dynamic?: boolean
+  dynamicUpdate?: boolean
   type: 'equirectangular'
 } & SharedConfig
 
-export type cubeMapConfig = {
-  cubeMap: string[] | undefined
+export type CubeMapConfig = {
+  cubeMap: string[]
   type: 'cube'
 } & SharedConfig
 
-export type multiresConfig = {
+export type MultiresConfig = {
   path: string
   basePath: string
   fallback: string
@@ -91,7 +98,7 @@ export type SharedConfig = {
   }
 
   export type Scenes = {
-    [key: string]: EquirectangularConfig | cubeMapConfig | multiresConfig
+    [key: string]: EquirectangularConfig | CubeMapConfig | MultiresConfig
   }
 
   export type HotSpot = {
@@ -152,10 +159,10 @@ export type SharedConfig = {
     mouseEventToCoords(event: MouseEvent):[pitch : number, yaw: number]
     loadScene(sceneId: string, pitch: number, yaw: number, hfov: number): PannellumViewer
     getScene(): string
-    addScene(sceneId: string, config: EquirectangularConfig | cubeMapConfig | multiresConfig | Scenes): PannellumViewer
+    addScene(sceneId: string, config: EquirectangularConfig | CubeMapConfig | MultiresConfig | Scenes): PannellumViewer
     removeScene(sceneId: string): boolean
     toggleFullscreen(): boolean
-    getConfig():  EquirectangularConfig | cubeMapConfig | multiresConfig | Scenes
+    getConfig():  EquirectangularConfig | CubeMapConfig | MultiresConfig | Scenes
     getContainer(): HTMLElement
     addHotSpot(config: HotSpot): PannellumViewer
     removeHotSpot(hotSpotId: string, sceneId: string): boolean
@@ -180,6 +187,6 @@ export type SharedConfig = {
   }
 
   export interface PannellumFactories {
-    viewer(container: string | HTMLElement, config: EquirectangularConfig | cubeMapConfig | multiresConfig | Scenes): PannellumViewer;
+    viewer(container: string | HTMLElement, config: EquirectangularConfig | CubeMapConfig | MultiresConfig | Scenes): PannellumViewer;
     Renderer(container: HTMLElement): PannellumRender
   }

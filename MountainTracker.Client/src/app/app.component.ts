@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { OpenStreetMapModule, TargetOSMSourceFactory } from './open-street-map';
 import { CommonModule } from '@angular/common';
-import { PannellumPanoramaModule } from './pannellum';
+import { EquirectangularConfig, PannellumPanoramaModule } from './pannellum';
 
 @Component({
   selector: 'app-root',
@@ -15,4 +15,6 @@ export class AppComponent {
   title = 'MountainTracker';
 
   protected readonly mapSource = TargetOSMSourceFactory;
+
+  Options: EquirectangularConfig = { autoLoad: true } as EquirectangularConfig
 }

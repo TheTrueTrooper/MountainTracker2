@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
-import { EquirectangularConfig, PannellumViewer  } from '../pannellum-type/pannellum';
+import { CubeMapConfig, EquirectangularConfig, MultiresConfig, PannellumPanoramaType, PannellumPanoramaTypeEnum, PannellumViewer  } from '../pannellum-type/pannellum';
 
 @Component({
   selector: 'pannellum-panorama',
@@ -10,16 +10,20 @@ export class PannellumComponent implements AfterViewInit {
   @Input()
   PanoramaId: string = "panorama"
   @Input()
-  PanoramaSrc: string = "panorama"
+  PanoramaSrc: string | null = null;
+  @Input()
+  PanoramaType: PannellumPanoramaType = "equirectangular"
+  @Input()
+  Options: EquirectangularConfig | CubeMapConfig | MultiresConfig | null = null;
 
   private pannellumViewer: PannellumViewer | null = null
 
   private initMap(): void {
+    if(PannellumPanoramaTypeEnum[this.PanoramaType] == PannellumPanoramaTypeEnum.equirectangular && this.PanoramaId != null && this.PanoramaSrc != null)
     this.pannellumViewer = globalThis.window.pannellum.viewer(this.PanoramaId, {
-      type: "equirectangular",
-      panorama: "https://pannellum.org/images/cerro-toco-0.jpg",
-      autoLoad: true,
-      autoRotate: true
+      ...this.Options,
+      type: this.PanoramaType,
+      panorama: this.PanoramaSrc,
     } as EquirectangularConfig)
   }
 

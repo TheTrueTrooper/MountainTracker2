@@ -42,7 +42,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.initMap();
-   }
+  }
 
   ngOnDestroy(): void {
     if(this.pannellumViewer != null)

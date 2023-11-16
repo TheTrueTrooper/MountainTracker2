@@ -551,6 +551,7 @@ type PannellumSharedConfig = {
      * @returns Viewer this
      */
     off(type?: PannellumEventType, callback?: ((event: Event)=>void)): PannellumViewer
+    /** destroys object for clean up */
     destroy(): void
   }
 

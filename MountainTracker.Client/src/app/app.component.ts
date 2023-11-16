@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { OpenStreetMapModule, TargetOSMSourceFactory } from './open-street-map';
+import { OpenStreetMapModule, TargetOSMSourceFactory } from './shared-and-reusable-modules/open-street-map';
 import { CommonModule } from '@angular/common';
-import { PannellumEquirectangularConfig, PannellumPanoramaModule } from './pannellum';
+import { PannellumEquirectangularConfig, PannellumPanoramaModule } from './shared-and-reusable-modules/pannellum';
 
 @Component({
   selector: 'app-root',

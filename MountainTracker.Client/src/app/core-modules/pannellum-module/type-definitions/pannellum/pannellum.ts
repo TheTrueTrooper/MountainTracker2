@@ -82,7 +82,7 @@ export type PannellumMultiresConfig = PannellumSharedConfig & {
   type: 'multires'
 }
 
-type PannellumSharedConfig = {
+export type PannellumSharedConfig = {
     /** This specifies the panorama type. Can be equirectangular, cubemap, or multires. Defaults to equirectangular */
     type: PannellumPanoramaType
     /** If set, the value is displayed as the panorama's title. If no title is desired, don't set this parameter. */
@@ -191,7 +191,7 @@ type PannellumSharedConfig = {
 
   export type PannellumTour = {
     /** sets the default scene */
-    defualt: PannellumDefaultScene
+    default: PannellumDefaultScene
     /** sets the scene key value pairs */
     scenes: PannellumScenes
   }
@@ -267,9 +267,13 @@ type PannellumSharedConfig = {
      * @param dynamic Whether or not the image is dynamic (e.g. video).
      */
     init(haov: number, vaov: number, voffset: number, callback: (()=>void), params?: {horizonPitch?: number, horizonRoll?: number, backgroundColor?: [number, number, number]}, image?: HTMLImageElement | any[] | Object,  imageType?: string, dynamic?: boolean): void
-    /** Retrieve renderer’s canvas. */
-    getCanvas(): HTMLElement
-    /** Check if images are loading. */
+    /** Retrieve renderer’s canvas. 
+     * @returns Canvas element.
+    */
+    getCanvas(): HTMLCanvasElement 
+    /** Check if images are loading. 
+     * @returns true if image is loading
+    */
     isLoading(): boolean
     /**
      * Render new view of panorama.
@@ -279,6 +283,7 @@ type PannellumSharedConfig = {
      * @param params Object? Extra configuration parameters.
      * @param params.roll number? Camera roll (in radians).
      * @param params.returnImage boolean? Return rendered image?
+     * @returns void of nothing or a Image if set to return
      */
     render(pitch: number, yaw: number, hfov: number, params?: { roll?: number, returnImage?: boolean }): void | HTMLImageElement
     /**

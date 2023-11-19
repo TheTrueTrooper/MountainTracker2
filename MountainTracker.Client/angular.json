@@ -38,7 +38,7 @@
             "styles": [
               "./node_modules/pannellum/src/css/pannellum.css",
               "./node_modules/leaflet/dist/leaflet.css",
-              "src/custom-theme.scss",
+              "src/mountain-tracker-theme.scss",
               "src/styles.scss"
             ],
             "scripts": []

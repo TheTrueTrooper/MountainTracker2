@@ -484,7 +484,7 @@ export type PannellumSharedConfig = {
      * @param config string The configuration of the new scene
      * @returns Viewer this
      */
-    addScene(sceneId: string, config: PannellumEquirectangularConfig | PannellumCubeMapConfig | PannellumMultiresConfig | PannellumScenes): PannellumViewer
+    addScene(sceneId: string, config: PannellumEquirectangularConfig | PannellumCubeMapConfig | PannellumMultiresConfig): PannellumViewer
     /**
      * Remove a scene.
      * @param sceneId string The ID of the scene
@@ -500,7 +500,7 @@ export type PannellumSharedConfig = {
      * Get configuration of current scene.
      * @returns Object Configuration of current scene
      */
-    getConfig():  PannellumEquirectangularConfig | PannellumCubeMapConfig | PannellumMultiresConfig | PannellumScenes
+    getConfig():  PannellumEquirectangularConfig | PannellumCubeMapConfig | PannellumMultiresConfig | PannellumTour
     /**
      * Get viewer’s container element.
      * @returns HTMLElement Container div element

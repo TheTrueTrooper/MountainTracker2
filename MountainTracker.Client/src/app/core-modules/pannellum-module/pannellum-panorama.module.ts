@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PannellumComponent } from '.';
+import { PannellumComponent } from './components';
 
 
 @NgModule({

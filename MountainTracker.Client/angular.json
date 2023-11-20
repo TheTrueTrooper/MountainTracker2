@@ -36,6 +36,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/pannellum/src/css/pannellum.css",
               "./node_modules/leaflet/dist/leaflet.css",
               "src/mountain-tracker-theme.scss",
@@ -99,8 +100,6 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/pannellum/src/css/pannellum.css",
-              "./node_modules/leaflet/dist/leaflet.css",
               "src/styles.scss"
             ],
             "scripts": []

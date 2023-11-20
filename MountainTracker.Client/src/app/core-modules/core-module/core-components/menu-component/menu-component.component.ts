@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { faGear, faMountainSun, faBell } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-menu-component',
-  standalone: true,
-  imports: [CommonModule],
+  selector: 'app-menu',
   templateUrl: './menu-component.component.html',
   styleUrl: './menu-component.component.scss'
 })
-export class MenuComponentComponent {
-
+export class MenuComponent {
+  protected faBell = faBell;
+  protected faMountainSun = faMountainSun;
+  protected faGear = faGear;
 }

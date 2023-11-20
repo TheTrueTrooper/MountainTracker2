@@ -1,1 +1,25 @@
-<p>menu-component works!</p>
+
+<div class="container">
+    <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary bg-dark border-bottom" data-bs-theme="dark">
+      <div class="container-fluid menu">
+        <div class="bg-dark p-0 pr-2">
+          <button mat-menu-item ngClass="menu" [routerLink]="''" aria-label="Example icon-button with a menu">
+            <fa-icon [icon]="faMountainSun"></fa-icon>
+            MountainTracker&#8482;
+          </button>
+        </div>
+        <div class="bg-dark p-0 pr-2 d-flex">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <fa-icon class="menu-icon" [icon]="faGear"></fa-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <fa-icon class="menu-icon" [icon]="faBell"></fa-icon>
+              <span>Toggle alerts</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <mat-progress-bar mode="buffer"></mat-progress-bar>

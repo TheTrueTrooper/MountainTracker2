@@ -5,7 +5,9 @@ import { OpenStreetMapModule } from './core-modules/open-street-map-module';
 import { PannellumPanoramaModule } from './core-modules/pannellum-module';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
+import { CoreModule } from './core-modules/core-module/core-module.module';
 
 
 
@@ -13,7 +15,9 @@ import { routes } from './app.routes';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     CommonModule,
+    CoreModule,
     RouterOutlet, 
     OpenStreetMapModule, 
     PannellumPanoramaModule,

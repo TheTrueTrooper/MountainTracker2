@@ -1,8 +1,10 @@
-<!-- <leaflet-map [MapTileSource]="mapSource.CyclOSMap()"></leaflet-map> -->
-<!-- <pannellum-panorama [PanoramaSrc]="'assets/G.png'" [Options]="Options"></pannellum-panorama> -->
-<canvas baseChart
-        [datasets]="radarChartDatasets"
-        [options]="radarChartOptions"
-        [labels]="radarChartLabels"
-        [type]="'radar'">
-</canvas>
+<div class="container-fluid">
+        <div class="row">
+                <div class="col-4">
+                        <h1>Take a look at the map</h1>
+                        <p>with interactive maps you can find mountains near you! This way you can plan your trip in depth.</p>
+                        <leaflet-map [mapTileSource]="mapSource.CyclOSMap()"></leaflet-map>
+                </div>
+        </div>
+</div>
+

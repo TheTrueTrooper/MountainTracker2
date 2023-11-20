@@ -3,17 +3,18 @@ import { CommonModule } from '@angular/common';
 import { NgChartsModule } from 'ng2-charts'
 import { OpenStreetMapModule } from '../../core-modules/open-street-map-module';
 import { PannellumPanoramaModule } from '../../core-modules/pannellum-module';
-import { LandingComponent } from './views';
+import { LandingComponent, PageNotFoundComponent } from './views';
 
 
 
 @NgModule({
-  declarations: [LandingComponent],
+  declarations: [
+    LandingComponent,
+    PageNotFoundComponent,
+  ],
   imports: [
     CommonModule,
-    OpenStreetMapModule, 
-    PannellumPanoramaModule,
-    NgChartsModule
+    OpenStreetMapModule,
   ]
 })
 export class LandingModulesModule { }

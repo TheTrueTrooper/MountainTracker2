@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
 import * as L from 'leaflet';
+import { TargetOSMap } from '../models';
+import { TileConfig } from '../models/tile-config';
 
 @Component({
   selector: 'leaflet-map',
@@ -8,32 +10,70 @@ import * as L from 'leaflet';
 })
 export class LeafletMapComponent implements AfterViewInit {
   @Input()
-  public MapBoxId: string = "map";
+  public containerCustomCss: string = "";
   @Input()
-  public MapTileSource: TargetOSMap | null = null;
-  public AdditionalTiles: TargetOSMap[] = [];
+  public mapFrameCustomCss: string = "";
+  @Input()
+  public mapCustomCss: string = "";
+  @Input()
+  public mapBoxId: string = "map";
+  @Input()
+  public mapTileSource: TargetOSMap | null = null;
+  private init: boolean = false;
+  private _additionalTiles: TargetOSMap[] = [];
+  @Input()
+  public set additionalTiles(change: TargetOSMap[])
+  {
+    if(this.init)
+    {
+      let added = this.except(this._additionalTiles, change);
+      let removed = this.except(change, this._additionalTiles);
+      added.forEach(tile=>this.addTile(tile));
+      removed.forEach(tile=>this.removeTile(tile));
+    }
+    else
+    {
+      this._additionalTiles = change;
+    }
+  }
+  @Input()
+  public maxZoom:number = 18
+  @Input()
+  public minZoom:number = 3
 
   private map: L.Map | null = null;
 
+  private except(thisVal1: any[],  val2: any[]) {   
+    return thisVal1.filter((el)=>{return val2.indexOf(el)<0;})  
+  };
+
   private initMap(): void {
-    this.map = L.map(this.MapBoxId, {
+    this.map = L.map(this.mapBoxId, {
       center: [ 39.8282, -98.5795 ],
       zoom: 3
     });
 
-    if(this.MapTileSource != null)
+    if(this.mapTileSource != null)
     {
-      const tiles = L.tileLayer(this.MapTileSource.MapTileSource, {
-        maxZoom: 18,
-        minZoom: 3,
-        attribution: this.MapTileSource.MapAttribution
-      });
+      const tile = L.tileLayer(this.mapTileSource.mapTileSource, new TileConfig(
+        this.maxZoom,
+        this.minZoom,
+        this.mapTileSource.mapAttribution));
 
-      tiles.addTo(this.map);
+      tile.addTo(this.map);
+      this._additionalTiles.forEach(additionalTile=>{
+        L.tileLayer(additionalTile.mapTileSource,
+          new TileConfig(
+            this.maxZoom,
+            this.minZoom,
+            additionalTile.mapAttribution
+        )).addTo(this.map!)
+      });
     }
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => this.map!.setView([ position.coords.latitude, position.coords.longitude ], 10));
     }
+    this.init = true;
   }
 
   public addTile(targetOSMap: TargetOSMap)
@@ -41,14 +81,32 @@ export class LeafletMapComponent implements AfterViewInit {
     if(this.map == null)
       throw new Error("Map is not initialized yet. Please waith until the after the ngAfterViewInit.");
 
-    const tiles = L.tileLayer(targetOSMap.MapTileSource, {
-      maxZoom: 18,
-      minZoom: 3,
-      attribution: targetOSMap.MapAttribution
-    });
+    const tiles = L.tileLayer(targetOSMap.mapTileSource, new TileConfig(
+      this.maxZoom,
+      this.minZoom,
+      targetOSMap.mapAttribution
+    ));
 
     tiles.addTo(this.map!);
-    this.AdditionalTiles.push(targetOSMap);
+    this._additionalTiles.push(targetOSMap);
+  }
+
+  public removeTile(targetOSMap: TargetOSMap)
+  {
+    if(this.map == null)
+      throw new Error("Map is not initialized yet. Please waith until the after the ngAfterViewInit.");
+
+    const tiles = L.tileLayer(targetOSMap.mapTileSource, new TileConfig(
+      this.maxZoom,
+      this.minZoom,
+      targetOSMap.mapAttribution
+    ));
+
+    tiles.remove();
+    let index = this._additionalTiles.indexOf(targetOSMap);
+    if (index > -1) {
+      this._additionalTiles.splice(index, 1);
+    }
   }
 
   constructor() { }
@@ -56,40 +114,4 @@ export class LeafletMapComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.initMap();
    }
-}
-
-export class TargetOSMap
-{
-  public  MapTileSource: string;
-  public  MapAttribution: string;
-
-  constructor(mapTileSource: string, mapAttribution: string)
-  {
-    this.MapTileSource = mapTileSource;
-    this.MapAttribution = mapAttribution;
-  }
-}
-
-export const TargetOSMSourceFactory = 
-{
-  OSMap: function() {
-    return new TargetOSMap('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors')
-  },
-  CyclOSMap: function() {
-    return new TargetOSMap('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors')
-  },
-  OpenTopoMap: function() {
-    return new TargetOSMap('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors')
-  },
-  PianoOSMap: function() {
-    return new TargetOSMap('https://{s}.piano.tiles.quaidorsay.fr/fr/{z}/{x}/{y}.png', 'Tiles <a href="https://github.com/tilery/pianoforte">PianoFr</a> | &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors')
-  },
-  OverlaySources:{
-    CyclOSMapLite: function() {
-      return new TargetOSMap('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm-lite/{z}/{x}/{y}.png', 'CyclOSM Lite')
-    },
-    WaymarkedTrails: function() {
-      return new TargetOSMap('https://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png', '<a href="https://cycling.waymarkedtrails.org/">https://cycling.waymarkedtrails.org/</a>')
-    }
-  }
 }

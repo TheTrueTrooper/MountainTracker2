@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using MountainTracker.Shared.Model;
 
-namespace MountainTracker.Shared.Model;
+namespace MountainTracker.Server.Model.Contexts.MountainTracker;
 
 public partial class MountainTrackerDatabase1Context : DbContext
 {

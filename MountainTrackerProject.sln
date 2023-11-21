@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MountainTracker.Phone", "Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MountainTracker.Shared.Model", "MountainTracker.Shared.Model\MountainTracker.Shared.Model.csproj", "{D99964FB-1A63-4A37-84DE-32C91DF373C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{ADDA1279-0671-4FF2-89AC-D10E6963E1C9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,10 +49,6 @@ Global
 		{D99964FB-1A63-4A37-84DE-32C91DF373C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D99964FB-1A63-4A37-84DE-32C91DF373C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D99964FB-1A63-4A37-84DE-32C91DF373C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ADDA1279-0671-4FF2-89AC-D10E6963E1C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ADDA1279-0671-4FF2-89AC-D10E6963E1C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ADDA1279-0671-4FF2-89AC-D10E6963E1C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ADDA1279-0671-4FF2-89AC-D10E6963E1C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

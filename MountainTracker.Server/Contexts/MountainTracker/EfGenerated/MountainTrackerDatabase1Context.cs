@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using MountainTracker.Shared.Model;
 
-namespace MountainTracker.Server.Model.Contexts.MountainTracker;
+namespace MountainTracker.Server.Contexts.MountainTracker.EfGenerated;
 
 public partial class MountainTrackerDatabase1Context : DbContext
 {

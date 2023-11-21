@@ -15,14 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Partial\_PartialGenerator.tt">
+    <None Update="Partial\_PartialGenerator.text">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_PartialGenerator.txt</LastGenOutput>
     </None>
     <None Update="Partial\_PartialGenerator.txt">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>_PartialGenerator.tt</DependentUpon>
+      <DependentUpon>_PartialGenerator.text</DependentUpon>
     </None>
     <None Update="Partial\PartialGenerate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

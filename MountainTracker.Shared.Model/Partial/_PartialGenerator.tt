@@ -1,0 +1,25 @@
+﻿﻿<#@ include file="$(T4TemplateRoot)" #>
+<#
+	string currentDirectory = System.IO.Directory.GetCurrentDirectory();
+	string targetFolder = $"{currentDirectory}\\MountainTracker.Shared.Model\\EfGenerated\\";
+	string outputFolder = $"{currentDirectory}\\MountainTracker.Shared.Model\\Partial\\";
+	string[] targetFiles = Directory.GetFiles(targetFolder);
+	string[] outputFiles = Directory.GetFiles(outputFolder);
+	string[] missingFiles = GetFileDifs(targetFiles, outputFiles);
+	bool writeAsClassicSyntax = false;
+	bool rewriteAll = false;
+	bool printAll = false;
+#>
+CurrentDirectory <#=currentDirectory#>
+Target Files:
+<# PrintFiles(targetFiles); #>
+Output Files:
+<# PrintFiles(outputFiles); #>
+File To Template:
+<# PrintFiles(missingFiles); #>
+Classes:
+<# CreateTemplateFiles(PrintType.PartialClass, targetFolder, outputFolder, 
+(builder, targetClass)=>{},
+writeAsClassicSyntax: writeAsClassicSyntax,
+rewriteAll: rewriteAll,
+printAll: printAll); #> 

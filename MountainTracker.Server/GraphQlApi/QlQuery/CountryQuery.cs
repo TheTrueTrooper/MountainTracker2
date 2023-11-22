@@ -2,7 +2,7 @@
 using MountainTracker.Server.Services;
 using MountainTracker.Shared.Model;
 
-namespace MountainTracker.Server.Models.GraphQlApi.QlQuery;
+namespace MountainTracker.Server.GraphQlApi.QlQuery;
 
 public class CountryQuery
 {

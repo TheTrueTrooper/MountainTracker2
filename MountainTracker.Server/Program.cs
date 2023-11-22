@@ -1,6 +1,3 @@
-using GraphQL;
-using MountainTracker.Server.Models.GraphQlApi;
-using MountainTracker.Server.Services;
 using MountainTracker.Server.Startup;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
@@ -15,12 +12,8 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddMountainTrackerServices(builder.Configuration);
-builder.Services.AddScoped<ICountryService, CountryService>();
 
-builder.Services.AddGraphQL(b => b
-    .AddSchema<MountainTrackerSchema>()
-    .AddAutoClrMappings()  // schema
-    .AddSystemTextJson()); 
+builder.Services.AddGraphQl(builder.Configuration);
 
 var app = builder.Build();
 
@@ -44,12 +37,6 @@ app.UseWebSockets();
 //app.MapFallbackToController("Index", "Home");
 app.MapControllers();
 
-const string ApiGraphEndpoint = "/api/graphql";
-
-app.UseGraphQL(ApiGraphEndpoint);
-app.UseGraphQLPlayground("/graphql", new GraphQL.Server.Ui.Playground.PlaygroundOptions
-{
-    GraphQLEndPoint = ApiGraphEndpoint,
-});
+app.AddGraphQl(app.Configuration);
 
 app.Run();

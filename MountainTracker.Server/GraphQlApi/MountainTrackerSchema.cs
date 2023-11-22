@@ -2,7 +2,7 @@
 using GraphQL.Types;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace MountainTracker.Server.Models.GraphQlApi;
+namespace MountainTracker.Server.GraphQlApi;
 
 public class MountainTrackerSchema : Schema
 {

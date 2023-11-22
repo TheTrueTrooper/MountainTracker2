@@ -5,7 +5,6 @@
         private static string SetQlName(Type typeToName)
         {
             return nameof(typeToName)
-                .Replace("QueryGraphType", "")
                 .Replace("GraphType", "");
         }
 

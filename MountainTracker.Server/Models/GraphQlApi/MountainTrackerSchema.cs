@@ -1,17 +1,17 @@
 ﻿using GraphQL.Instrumentation;
 using GraphQL.Types;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MountainTracker.Server.Models.GraphQlApi;
 
 public class MountainTrackerSchema : Schema
 {
     public MountainTrackerSchema(IServiceProvider provider)
-        : base(provider)
+    : base(provider)
     {
 
-        Query = (QueryGraphType)provider.GetService(typeof(QueryGraphType)) ?? throw new InvalidOperationException();
-        //Mutation = (StarWarsMutation)provider.GetService(typeof(StarWarsMutation)) ?? throw new InvalidOperationException();
-
-        FieldMiddleware.Use(new InstrumentFieldsMiddleware());
+        Query = new AutoRegisteringObjectGraphType<Query>();
+        //Mutation = new AutoRegisteringObjectGraphType<Mutation>();
+        //Subscription = new AutoRegisteringObjectGraphType<Subscription>();
     }
 }

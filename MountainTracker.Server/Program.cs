@@ -1,11 +1,7 @@
 using GraphQL;
-using GraphQL.Types;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
 using MountainTracker.Server.Models.GraphQlApi;
-using MountainTracker.Server.Startup;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
@@ -19,6 +15,12 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<MountainTrackerDatabase1Context>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+builder.Services.AddGraphQL(b => b
+    .AddSchema<MountainTrackerSchema>()
+    .AddAutoClrMappings()  // schema
+    .AddSystemTextJson()); 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -34,9 +36,19 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+app.UseWebSockets();
 
-app.MapFallbackToController("Index", "Home");
+//app.MapFallbackToController("Index", "Home");
 app.MapControllers();
+
+const string ApiGraphEndpoint = "/api/graphql";
+
+app.UseGraphQL(ApiGraphEndpoint);
+app.UseGraphQLPlayground("/graphql", new GraphQL.Server.Ui.Playground.PlaygroundOptions
+{
+    GraphQLEndPoint = ApiGraphEndpoint,
+});
 
 app.Run();

@@ -1,3 +1,12 @@
+using GraphQL;
+using GraphQL.Types;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using MountainTracker.Server.Contexts.MountainTrackerContext;
+using MountainTracker.Server.Models.GraphQlApi;
+using MountainTracker.Server.Startup;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
     ApplicationName = typeof(Program).Assembly.FullName,
@@ -9,6 +18,7 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<MountainTrackerDatabase1Context>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,8 +1,7 @@
 using GraphQL;
-using Microsoft.EntityFrameworkCore;
-using MountainTracker.Server.Contexts.MountainTrackerContext;
 using MountainTracker.Server.Models.GraphQlApi;
 using MountainTracker.Server.Services;
+using MountainTracker.Server.Startup;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
@@ -15,7 +14,7 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<MountainTrackerDatabase1Context>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddMountainTrackerServices(builder.Configuration);
 builder.Services.AddScoped<ICountryService, CountryService>();
 
 builder.Services.AddGraphQL(b => b

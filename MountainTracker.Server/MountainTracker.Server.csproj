@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Misc\" />
-    <Folder Include="Startup\" />
     <Folder Include="wwwroot" />
   </ItemGroup>
 

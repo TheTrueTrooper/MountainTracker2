@@ -4,12 +4,12 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.Services;
 
-public class CountryService
+public class CountryService: ICountryService
 {
     MountainTrackerDatabase1Context Context;
     DbSet<Countries> Countries;
 
-    CountryService(MountainTrackerDatabase1Context context)
+    public CountryService(MountainTrackerDatabase1Context context)
     {
         this.Context = context;
         this.Countries = Context.Countries;

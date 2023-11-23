@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using MountainTracker.Server.Startup;
+
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
     ApplicationName = typeof(Program).Assembly.FullName,
@@ -8,6 +11,13 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddMountainTrackerServices(builder.Configuration);
+
+builder.Services.AddGraphQl(builder.Configuration);
+
+builder.Services.AddLogging(builder => builder.AddConsole());
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -24,9 +34,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+app.UseWebSockets();
 
 app.MapFallbackToController("Index", "Home");
 app.MapControllers();
+
+app.AddGraphQl(app.Configuration);
 
 app.Run();

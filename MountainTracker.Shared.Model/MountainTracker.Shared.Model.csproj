@@ -14,20 +14,13 @@
     <Folder Include="EfGenerated\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Partial\_PartialGenerator.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>_PartialGenerator.txt</LastGenOutput>
-    </None>
-    <None Update="Partial\_PartialGenerator.txt">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
+  <ItemGroup>   
+    <!--Disabled for now due to broken includes-->
+    <!--<None Update="Partial\_PartialGenerator.tt">
       <DependentUpon>_PartialGenerator.tt</DependentUpon>
-    </None>
-    <None Update="Partial\PartialGenerate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TextTemplate1.txt</LastGenOutput>
-    </None>
+    </None>-->
   </ItemGroup>
 
   <ItemGroup>

@@ -38,7 +38,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseWebSockets();
 
-//app.MapFallbackToController("Index", "Home");
+app.MapFallbackToController("Index", "Home");
 app.MapControllers();
 
 app.AddGraphQl(app.Configuration);

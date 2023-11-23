@@ -3,12 +3,14 @@ using MountainTracker.Server.GraphQlApi.QlQuery;
 
 namespace MountainTracker.Server.GraphQlApi;
 
-public class MoutainTrackerMutation: ObjectGraphType
+public class MountainTrackerMutation: ObjectGraphType
 {
-    public MoutainTrackerMutation(CountryMutation countryMutation)
+    //placeholder input
+    public MountainTrackerMutation(CountryQuery countryMutation)
     {
-        Name = "mutation";
+        Name = "Mutation";
 
+        //placeholder
         Field<CountryQuery>("CountryMutation")
                 .Resolve(context => countryMutation);
 

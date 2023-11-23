@@ -3,12 +3,13 @@ using MountainTracker.Server.GraphQlApi.QlQuery;
 
 namespace MountainTracker.Server.GraphQlApi;
 
-public class MoutainTrackerQuery: ObjectGraphType
+public class MoutainTrackerSubscription: ObjectGraphType
 {
-    public MoutainTrackerQuery(CountryQuery countryQuery)
+    //placeholder input
+    public MoutainTrackerSubscription(CountryQuery countryQuery)
     {
-        Name = "query";
-
+        Name = "Subscription";
+        //placeholder
         Field<CountryQuery>("CountryQuery")
             .Resolve(context=>countryQuery);
     }

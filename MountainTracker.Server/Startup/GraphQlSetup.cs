@@ -16,13 +16,6 @@ namespace MountainTracker.Server.Startup
 
         public static IServiceCollection AddGraphQl(this IServiceCollection services, ConfigurationManager configurationManager)
         {
-            //services.AddScoped<MountainTrackerSchema>();
-            //services.Scan(scan => scan
-            //    .FromAssemblyOf<MountainTrackerSchema>()
-            //    .AddClasses(classes => classes.AssignableTo<GraphQL.Types.GraphType>())
-            //        .AsSelf()
-            //        .WithScopedLifetime());
-
             services.AddGraphQL(builder => builder
                 .ConfigureExecutionOptions(options=> 
                 {
@@ -33,7 +26,10 @@ namespace MountainTracker.Server.Startup
                 .AddErrorInfoProvider()
                 .AddAutoClrMappings()
                 .AddSystemTextJson()
-                .AddErrorInfoProvider(opt => opt.ExposeExceptionDetails = true)
+                .AddErrorInfoProvider(options => 
+                {
+                    options.ExposeExceptionDetails = true;
+                })
                 .AddGraphTypes());
             return services;
         }

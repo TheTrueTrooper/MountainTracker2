@@ -15,8 +15,8 @@ public class CountryService: ICountryService
         this.Countries = Context.Countries;
     }
 
-    public IEnumerable<Countries> GetAllCountries()
+    public async Task<IEnumerable<Countries>> GetAllCountries()
     {
-        return Countries.ToArray();
+        return await Countries.ToArrayAsync();
     }
 }

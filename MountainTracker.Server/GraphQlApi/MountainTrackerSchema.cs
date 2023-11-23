@@ -1,6 +1,4 @@
-﻿using GraphQL.Instrumentation;
-using GraphQL.Types;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+﻿using GraphQL.Types;
 
 namespace MountainTracker.Server.GraphQlApi;
 
@@ -10,8 +8,8 @@ public class MountainTrackerSchema : Schema
     : base(provider)
     {
 
-        Query = new AutoRegisteringObjectGraphType<Query>();
-        //Mutation = new AutoRegisteringObjectGraphType<Mutation>();
+        Query = provider.GetRequiredService<MoutainTrackerQuery>();
+        Mutation = provider.GetRequiredService<MoutainTrackerMutation>();
         //Subscription = new AutoRegisteringObjectGraphType<Subscription>();
     }
 }

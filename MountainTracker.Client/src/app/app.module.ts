@@ -8,8 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { CoreModule } from './core-modules/core-module/core-module.module';
-import { ClientConfig } from './configuration/client-config';
-import { Window } from './configuration/_global-config-def';
+import { ClientConfig, ConfigurationFactory } from './configuration';
 
 
 
@@ -26,7 +25,7 @@ import { Window } from './configuration/_global-config-def';
     RouterModule.forRoot(routes)
   ],
   providers: [{
-    provide: ClientConfig, useFactory:()=>{ return {...globalThis.window.clientConfig} as ClientConfig }}
+    provide: ClientConfig, useFactory:ConfigurationFactory.ClientConfigFactory}
   ],
   exports: [RouterModule],
   bootstrap:[AppComponent]

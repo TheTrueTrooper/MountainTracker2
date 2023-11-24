@@ -6,6 +6,8 @@ declare global {
     }
   }
 
-export interface Window { 
-    clientConfig: ClientConfig
+
+export const ClientConfigFactory = function()
+{ 
+    return {...globalThis.window.clientConfig} as ClientConfig
 }

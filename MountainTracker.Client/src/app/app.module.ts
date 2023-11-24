@@ -24,8 +24,8 @@ import { ClientConfig, ConfigurationFactory } from './configuration';
     PannellumPanoramaModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [{
-    provide: ClientConfig, useFactory:ConfigurationFactory.ClientConfigFactory}
+  providers: [
+    {provide: ClientConfig, useFactory:ConfigurationFactory.ClientConfigFactory}
   ],
   exports: [RouterModule],
   bootstrap:[AppComponent]

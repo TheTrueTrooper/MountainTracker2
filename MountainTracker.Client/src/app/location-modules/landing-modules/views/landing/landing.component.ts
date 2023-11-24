@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TargetOSMSourceFactory } from '../../../../core-modules/open-street-map-module';
 import { PannellumEquirectangularConfig } from '../../../../core-modules/pannellum-module';
-import { ClientConfig } from '../../../../configuration/client-config';
+import { ClientConfig, LandingConfig } from '../../../../configuration';
 
 @Component({
   selector: 'app-landing',
@@ -11,16 +11,18 @@ import { ClientConfig } from '../../../../configuration/client-config';
 export class LandingComponent {
   protected readonly mapSource = TargetOSMSourceFactory;
 
-  protected readonly PannellumEquirectangularConfig: PannellumEquirectangularConfig = {
-    autoRotate: true,
-    autoRotateInactivityDelay: 2000,
-    autoLoad: true,
-  } as PannellumEquirectangularConfig;
+  protected readonly PannellumEquirectangularConfig: PannellumEquirectangularConfig;
 
-  protected readonly clientConfig: ClientConfig
+  protected readonly config: LandingConfig;
 
-  constructor(protected readonly _clientConfig: ClientConfig)
+  constructor(protected readonly clientConfig: ClientConfig)
   {
-    this.clientConfig = _clientConfig
+    this.config = this.clientConfig.LandingPage!;
+
+    this.PannellumEquirectangularConfig = {
+      autoRotate: this.config.AutoLoad,
+      autoRotateInactivityDelay: this.config.AutoRotateDelay,
+      autoLoad: this.config.AutoLoad,
+    } as PannellumEquirectangularConfig;
   }
 }

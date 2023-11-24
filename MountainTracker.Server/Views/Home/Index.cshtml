@@ -1,5 +1,7 @@
-﻿@{
-    Layout = null; 
+﻿@using MountainTracker.Server.Config;
+@{
+    Layout = null;
+    string config = (string)ViewBag.clientConfig;
 }
 <!doctype html>
 <html lang="en">
@@ -15,6 +17,16 @@
     <link rel="modulepreload" href="chunk-QUYKG63W.js">
 </head>
 <body class="mat-typography">
+    <script>
+        //load config and remove self to hide
+        loadConfig = function() {
+            let config = '@Html.Raw(config)'
+            globalThis.window.clientConfig = JSON.parse(config);
+            currentScript = document.currentScript || document.scripts[0];
+            currentScript.parentNode.removeChild(currentScript);
+        } 
+        loadConfig();
+    </script>
     <app-root></app-root>
     <script src="polyfills.js" type="module"></script>
     <script src="main.js" type="module"></script>

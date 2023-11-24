@@ -25,7 +25,6 @@
             "extractLicenses": false,
             "namedChunks": true,
             "outputHashing": "none",
-            "baseHref" : "/",
             "polyfills": [
               "zone.js"
             ],

@@ -8,6 +8,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { CoreModule } from './core-modules/core-module/core-module.module';
+import { ClientConfig } from './configuration/client-config';
+import { Window } from './configuration/_global-config-def';
 
 
 
@@ -23,7 +25,9 @@ import { CoreModule } from './core-modules/core-module/core-module.module';
     PannellumPanoramaModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [{
+    provide: ClientConfig, useFactory:()=>{ return {...globalThis.window.clientConfig} as ClientConfig }}
+  ],
   exports: [RouterModule],
   bootstrap:[AppComponent]
 })

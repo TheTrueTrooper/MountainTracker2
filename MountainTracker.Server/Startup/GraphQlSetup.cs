@@ -1,18 +1,12 @@
 ﻿using GraphQL;
-using GraphQL.Types;
-using Microsoft.AspNetCore.Builder;
 using MountainTracker.Server.Config;
 using MountainTracker.Server.GraphQlApi;
-using MountainTracker.Server.GraphQlApi.GraphTypes;
-using MountainTracker.Server.GraphQlApi.QlQuery;
-using MountainTracker.Server.Services;
-using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.Startup
 {
     public static class GraphQlSetup
     {
-        const string configKey = "GraphQlConfig";
+        const string configKey = GlobalConfigKeys.GraphQlConfigKey;
 
         public static IServiceCollection AddGraphQl(this IServiceCollection services, ConfigurationManager configurationManager)
         {
@@ -38,7 +32,7 @@ namespace MountainTracker.Server.Startup
         {
             GraphQlConfig config = configuration.GetSection(configKey).Get<GraphQlConfig>()!;
 
-            webApp.UseGraphQL<MountainTrackerSchema>(config.ApiEndpoint, config => {
+            webApp.UseGraphQL<MountainTrackerSchema>(config.GraphQlApiEndpoint, config => {
                 config.AuthorizationRequired = false;
                 config.HandlePost = true;
                 config.HandleWebSockets = true;
@@ -48,14 +42,14 @@ namespace MountainTracker.Server.Startup
             {
                 webApp.UseGraphQLPlayground(config.UiEndpoint, new GraphQL.Server.Ui.Playground.PlaygroundOptions
                 {
-                    GraphQLEndPoint = config.ApiEndpoint,
+                    GraphQLEndPoint = config.GraphQlApiEndpoint,
                 });
             }
             if (config.ShowVisualNodes)
             {
                 webApp.UseGraphQLVoyager(config.VisualNodesEndpoint, new GraphQL.Server.Ui.Voyager.VoyagerOptions
                 {
-                    GraphQLEndPoint = config.ApiEndpoint,
+                    GraphQLEndPoint = config.GraphQlApiEndpoint,
                 });
             }
             return webApp;

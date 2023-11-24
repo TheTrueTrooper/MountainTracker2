@@ -19,6 +19,16 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public options: PannellumEquirectangularConfig | PannellumCubeMapConfig | PannellumMultiresConfig | PannellumTour | null = null;
   @Input()
   public hotSpots: PannellumHotSpot[] | null = null;
+  @Input()
+  public containerCustomCss: string = "";
+  @Input()
+  public panoramaFrameCustomCss: string = "";
+  @Input()
+  public panoramaCustomCss: string = "";
+  @Input()
+  public width: string = "100%";
+  @Input()
+  public height: string = "100%";
 
   @Output()
   public onMouseDown: EventEmitter<object> = new EventEmitter<object>();

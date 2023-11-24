@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using MountainTracker.Server.Startup;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
@@ -16,8 +15,9 @@ builder.Services.AddMountainTrackerServices(builder.Configuration);
 
 builder.Services.AddGraphQl(builder.Configuration);
 
+builder.Services.AddClientConfig(builder.Configuration);
+
 builder.Services.AddLogging(builder => builder.AddConsole());
-builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

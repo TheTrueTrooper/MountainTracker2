@@ -2,8 +2,17 @@
         <div class="row">
                 <div class="col-4">
                         <h1>Take a look at the map</h1>
-                        <p>with interactive maps you can find mountains near you! This way you can plan your trip in depth.</p>
+                        <p>With interactive maps you can find mountains near you! This way you can plan your trip in depth.</p>
                         <leaflet-map [mapTileSource]="mapSource.CyclOSMap()"></leaflet-map>
+                </div>
+                <div class="col-4">
+                        <h1>Take a look at site before</h1>
+                        <p>With pannaramic views you can take a look at the mountains near before you go! This way you can plan your trip in depth.</p>
+                        <pannellum-panorama [panoramaSrc]="'/assets/G.png'" [options]="PannellumEquirectangularConfig"></pannellum-panorama>
+                </div>
+                <div class="col-4">
+                        <h1>Take a look at site before</h1>
+                        {{clientConfig | json}}
                 </div>
         </div>
 </div>

@@ -15,6 +15,7 @@ import { LandingComponent, PageNotFoundComponent } from './views';
   imports: [
     CommonModule,
     OpenStreetMapModule,
+    PannellumPanoramaModule
   ]
 })
 export class LandingModulesModule { }

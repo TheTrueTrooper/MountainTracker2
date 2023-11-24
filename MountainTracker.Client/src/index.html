@@ -17,7 +17,8 @@
         AutoLoad: true
       },
       BaseEndpoint: "", //optional, but falls back to ""
-      GraphQlApiEndpoint: "/api/graphql" //optional, but falls back to GraphQlConfig
+      GraphQlApiEndpoint: "https://localhost:7106/api/graphql", //set to use the vs server
+      GraphQlApiName: "MountainTracker",
     }
   //load config and remove self to hide
   loadConfig = function() {

@@ -7,7 +7,6 @@ public static class ClientSetup
 {
     const string configKey = GlobalConfigKeys.ClientConfigKey;
     const string graphConfigKey = GlobalConfigKeys.ClientConfigKey;
-    const string LandingPageSubKey = "LandingPage";
 
     public static IServiceCollection AddClientConfig(this IServiceCollection services, ConfigurationManager configurationManager)
     {

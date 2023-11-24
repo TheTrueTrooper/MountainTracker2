@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-4">
                         <h1>Take a look at site before</h1>
-                        {{clientConfig | json}}
+                        {{(countries$ | async) | json}}
                 </div>
         </div>
 </div>

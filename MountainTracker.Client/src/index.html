@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<script>
+<script id="config">
   let ClientConfig = {
       LandingPage: { //all optional using defaults
         AutoRotateDelay: 2500,
@@ -23,7 +23,7 @@
   loadConfig = function() {
       let config = JSON.stringify(ClientConfig)//simulate the server here
       globalThis.window.clientConfig = JSON.parse(config);
-      currentScript = document.currentScript || document.scripts[0];
+      currentScript = document.currentScript || document.scripts.namedItem("config");
       currentScript.parentNode.removeChild(currentScript);
   } 
   loadConfig();

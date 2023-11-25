@@ -22,7 +22,7 @@
         loadConfig = function() {
             let config = '@Html.Raw(config)'
             globalThis.window.clientConfig = JSON.parse(config);
-            currentScript = document.currentScript || document.scripts[0];
+            currentScript = document.currentScript || document.scripts.namedItem("config");
             currentScript.parentNode.removeChild(currentScript);
         } 
         loadConfig();

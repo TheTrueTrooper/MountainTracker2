@@ -11,6 +11,8 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddCorsConfig(builder.Configuration);
+
 builder.Services.AddMountainTrackerServices(builder.Configuration);
 
 builder.Services.AddGraphQl(builder.Configuration);
@@ -20,6 +22,8 @@ builder.Services.AddClientConfig(builder.Configuration);
 builder.Services.AddLogging(builder => builder.AddConsole());
 
 var app = builder.Build();
+
+app.UseCorsConfig(app.Configuration);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

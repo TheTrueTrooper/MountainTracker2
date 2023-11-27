@@ -12,7 +12,8 @@ public class MountainTrackerMutation: ObjectGraphType
 
         //placeholder
         Field<CountryQuery>("CountryMutation")
-                .Resolve(context => countryMutation);
+                .Resolve(context => countryMutation)
+                .Description("The country related mutations");
 
     }
 }

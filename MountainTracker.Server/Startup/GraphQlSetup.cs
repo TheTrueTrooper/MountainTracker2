@@ -1,4 +1,5 @@
 ﻿using GraphQL;
+using GraphQL.DataLoader;
 using MountainTracker.Server.Config;
 using MountainTracker.Server.GraphQlApi;
 
@@ -10,6 +11,8 @@ namespace MountainTracker.Server.Startup
 
         public static IServiceCollection AddGraphQl(this IServiceCollection services, ConfigurationManager configurationManager)
         {
+            services.AddScoped<IDataLoaderContextAccessor, DataLoaderContextAccessor>();
+            services.AddScoped<DataLoaderDocumentListener>();
             services.AddGraphQL(builder => builder
                 .ConfigureExecutionOptions(options=> 
                 {
@@ -24,6 +27,7 @@ namespace MountainTracker.Server.Startup
                 {
                     options.ExposeExceptionDetails = true;
                 })
+                .AddDataLoader()
                 .AddGraphTypes());
             return services;
         }

@@ -11,6 +11,7 @@ public static class MountainTrackerServicesSetup
     {
         services.AddDbContext<MountainTrackerDatabase1Context>(options => options.UseSqlServer(configurationManager.GetConnectionString(connectionKey)));
         services.AddScoped<ICountryService, CountryService>();
+        services.AddScoped<IProvinceOrStateService, ProvinceOrStateService>();
         return services;
     }
 }

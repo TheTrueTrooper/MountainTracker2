@@ -6,11 +6,11 @@ public interface IProvinceOrStateService
 {
     public Task<IEnumerable<ProvincesOrStates>> GetAllProvincesOrStates();
 
-    public Task<ProvincesOrStates?> GetProvincesOrStatesByCode(string regionCode);
+    public Task<ProvincesOrStates?> GetProvinceOrStateByCode(string regionCode);
 
-    public Task<ProvincesOrStates?> GetProvincesOrStatesById(int id);
+    public Task<ProvincesOrStates?> GetProvinceOrStateById(short id);
 
-    public Task<ProvincesOrStates?> GetProvincesOrStatesByCountry(int id);
+    public Task<List<ProvincesOrStates>> GetProvincesOrStatesByCountry(byte countryId);
 
-    public Task<ILookup<int, ProvincesOrStates>> GetProvincesOrStatesByCountries(IEnumerable<int> countryIds);
+    public Task<ILookup<byte, ProvincesOrStates>> GetProvincesOrStatesByCountries(IEnumerable<byte> countryIds);
 }

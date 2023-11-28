@@ -5,7 +5,7 @@ namespace MountainTracker.Server.Services
     public interface ICountryService
     {
         Task<IEnumerable<Countries>> GetAllCountries();
-        Task<Countries?> GetCountryById(int id);
+        Task<Countries?> GetCountryById(byte countryId);
         Task<Countries?> GetCountryByCode(string countryCode);
     }
 }

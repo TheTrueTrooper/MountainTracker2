@@ -1,12 +1,7 @@
-﻿using GraphQL;
-using GraphQL.DataLoader;
+﻿using GraphQL.DataLoader;
 using GraphQL.Types;
-using Microsoft.EntityFrameworkCore.Metadata;
 using MountainTracker.Server.Services;
 using MountainTracker.Shared.Model;
-using static GraphQL.Validation.Rules.OverlappingFieldsCanBeMerged;
-using System.Reflection.Metadata;
-using System;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
@@ -24,8 +19,9 @@ public class CountryType : ObjectGraphType<Countries>
         Field<ListGraphType<ProvinceOrStateType>, IEnumerable<ProvincesOrStates>>("provincesOrStates")
             .ResolveAsync(context =>
             {
-                var loader = accessor.Context.GetOrAddCollectionBatchLoader<int, ProvincesOrStates>("GetProvincesOrStatesByCountries", provinceOrStateService.GetProvincesOrStatesByCountries);
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<byte, ProvincesOrStates>("GetProvincesOrStatesByCountries", provinceOrStateService.GetProvincesOrStatesByCountries);
                 return loader.LoadAsync(context.Source.Id);
-            });
+            })
+            .Description("Country's associated provinces or states or offical regions");
     }
 }

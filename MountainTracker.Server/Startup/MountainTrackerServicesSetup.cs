@@ -12,6 +12,10 @@ public static class MountainTrackerServicesSetup
         services.AddDbContext<MountainTrackerDatabase1Context>(options => options.UseSqlServer(configurationManager.GetConnectionString(connectionKey)));
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<IProvinceOrStateService, ProvinceOrStateService>();
+        services.AddScoped<IRegionService, RegionService>();
+        services.AddScoped<IDistrictService, DistrictService>();
+        services.AddScoped<IZoneService, ZoneService>();
+        services.AddScoped<IAreaService, AreaService>();
         return services;
     }
 }

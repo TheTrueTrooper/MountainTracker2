@@ -25,7 +25,7 @@ public class CountryService: ICountryService
         return await Countries.AsNoTracking().FirstOrDefaultAsync(c => c.CountryCode == countryCode);
     }
 
-    public async Task<Countries?> GetCountryById(int id)
+    public async Task<Countries?> GetCountryById(byte id)
     {
         return await Countries.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }

@@ -21,24 +21,24 @@ public class ProvinceOrStateService : IProvinceOrStateService
         return await ProvincesOrStates.AsNoTracking().ToArrayAsync();
     }
 
-    public async Task<ProvincesOrStates?> GetProvincesOrStatesByCode(string regionCode)
+    public async Task<ProvincesOrStates?> GetProvinceOrStateByCode(string regionCode)
     {
         return await ProvincesOrStates.AsNoTracking().FirstOrDefaultAsync(c => c.RegionCode == regionCode);
     }
 
-    public async Task<ProvincesOrStates?> GetProvincesOrStatesById(int id)
+    public async Task<ProvincesOrStates?> GetProvinceOrStateById(short id)
     {
         return await ProvincesOrStates.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<ProvincesOrStates?> GetProvincesOrStatesByCountry(int id)
+    public async Task<List<ProvincesOrStates>> GetProvincesOrStatesByCountry(byte countryId)
     {
-        return await ProvincesOrStates.AsNoTracking().FirstOrDefaultAsync(c => c.CountryId == id);
+        return await ProvincesOrStates.AsNoTracking().Where(c => c.CountryId == countryId).ToListAsync();
     }
 
-    public async Task<ILookup<int,ProvincesOrStates>> GetProvincesOrStatesByCountries(IEnumerable<int> countryIds)
+    public async Task<ILookup<byte,ProvincesOrStates>> GetProvincesOrStatesByCountries(IEnumerable<byte> countryIds)
     {
         var list = await ProvincesOrStates.AsNoTracking().Where(c => countryIds.Contains(c.CountryId)).ToListAsync();
-        return list.ToLookup(list=>(int)list.CountryId);
+        return list.ToLookup(list=>list.CountryId);
     }
 }

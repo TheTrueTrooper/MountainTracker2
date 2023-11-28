@@ -16,9 +16,9 @@ public class CountryQuery: ObjectGraphType
             .ResolveAsync(async context=>await countryService.GetAllCountries())
             .Description("Gets a list of all of the countries");
         Field<CountryType>("countryById")
-            .Argument<IntGraphType>("id")
+            .Argument<ByteGraphType>("id")
             .ResolveAsync(async context => {
-                int id = context.GetArgument<int>("id");
+                byte id = context.GetArgument<byte>("id");
                 return await countryService.GetCountryById(id);
             })
             .Description("Gets a country by its db id");

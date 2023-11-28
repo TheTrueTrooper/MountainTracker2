@@ -18,6 +18,10 @@ export class LeafletMapComponent implements AfterViewInit {
   @Input()
   public mapBoxId: string = "map";
   @Input()
+  public width: string = "100%";
+  @Input()
+  public height: string = "100%";
+  @Input()
   public mapTileSource: TargetOSMap | null = null;
   private init: boolean = false;
   private _additionalTiles: TargetOSMap[] = [];

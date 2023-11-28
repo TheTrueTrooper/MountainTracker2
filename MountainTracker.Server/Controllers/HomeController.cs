@@ -1,23 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MountainTracker.Server.Contexts.MountainTrackerContext;
+using MountainTracker.Server.Config.Client;
 using MountainTracker.Server.Models;
-using System;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace MountainTracker.Server.Controllers;
 
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<HomeController> Logger;
+    private readonly IClientConfig ClientConfig;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IClientConfig clientConfig)
     {
-        _logger = logger;
+        Logger = logger;
+        ClientConfig = clientConfig;
     }
 
     public IActionResult Index()
     {
+        ViewBag.ClientConfig = JsonSerializer.Serialize(ClientConfig).Replace('\n', ' ');
         return View();
     }
 

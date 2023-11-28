@@ -1,0 +1,27 @@
+    ::ng-deep .panorama-container {
+        width: 100% !important;
+        height: 500px !important;
+    }
+  
+    ::ng-deep .panorama-frame {
+        border: 2px solid black !important;
+        height: 100% !important;
+    }
+    
+    ::ng-deep #panorama {
+        height: 100% !important;
+    }
+
+    ::ng-deep .map-container {
+        width: 100% !important;
+        height: 500px !important;
+    }
+
+    ::ng-deep .map-frame {
+    border: 2px solid black !important;
+    height: 100% !important;
+    }
+
+    ::ng-deep #map {
+    height: 100% !important;
+    }

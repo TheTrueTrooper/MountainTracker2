@@ -10,6 +10,7 @@ public class MountainTrackerQuery: ObjectGraphType
         Name = "Query";
 
         Field<CountryQuery>("CountryQuery")
-            .Resolve(context=>countryQuery);
+            .Resolve(context=>countryQuery)
+            .Description("The country related queries");
     }
 }

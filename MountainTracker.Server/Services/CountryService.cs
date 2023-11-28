@@ -17,6 +17,16 @@ public class CountryService: ICountryService
 
     public async Task<IEnumerable<Countries>> GetAllCountries()
     {
-        return await Countries.ToArrayAsync();
+        return await Countries.AsNoTracking().ToArrayAsync();
+    }
+
+    public async Task<Countries?> GetCountryByCode(string countryCode)
+    {
+        return await Countries.AsNoTracking().FirstOrDefaultAsync(c => c.CountryCode == countryCode);
+    }
+
+    public async Task<Countries?> GetCountryById(byte id)
+    {
+        return await Countries.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 }

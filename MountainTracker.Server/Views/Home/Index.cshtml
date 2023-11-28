@@ -1,5 +1,7 @@
-﻿@{
-    Layout = null; 
+﻿@using MountainTracker.Server.Config;
+@{
+    Layout = null;
+    string config = (string)ViewBag.clientConfig;
 }
 <!doctype html>
 <html lang="en">
@@ -12,9 +14,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="modulepreload" href="chunk-QUYKG63W.js">
+    <link rel="modulepreload" href="chunk-4KSUAUMS.js">
 </head>
 <body class="mat-typography">
+    <script>
+        //load config and remove self to hide
+        loadConfig = function() {
+            let config = '@Html.Raw(config)'
+            globalThis.window.clientConfig = JSON.parse(config);
+            currentScript = document.currentScript || document.scripts.namedItem("config");
+            currentScript.parentNode.removeChild(currentScript);
+        } 
+        loadConfig();
+    </script>
     <app-root></app-root>
     <script src="polyfills.js" type="module"></script>
     <script src="main.js" type="module"></script>

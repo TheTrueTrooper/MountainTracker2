@@ -20,7 +20,6 @@ public class ZoneType : ObjectGraphType<DistrictZones>
         Field(d => d.Info, nullable: true).Description("Zone's english info");
         Field(d => d.ThumbPictureBytes, nullable: true).Description("Zone's thumb picture in bytes");
 
-
         Field<ListGraphType<AreaType>, IEnumerable<ZoneAreas>>("areas")
             .ResolveAsync(context =>
             {

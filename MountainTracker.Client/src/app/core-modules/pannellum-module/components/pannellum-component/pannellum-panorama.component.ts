@@ -58,119 +58,119 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public get getConfig(): PannellumEquirectangularConfig | PannellumCubeMapConfig | PannellumMultiresConfig | PannellumTour
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.getConfig() as PannellumEquirectangularConfig | PannellumCubeMapConfig | PannellumMultiresConfig | PannellumTour
   }
 
   public get getContainer(): HTMLElement
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.getContainer();
   }
 
   public get getHorizontalFieldView(): number
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.getHfov();
   }
 
   public get getHorizontalFieldViewBounds(): [min: number, max: number]
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.getHfovBounds();
   }
 
   public get getHorizonPitch(): number
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.getHorizonPitch();
   }
 
   public get getHorizonRoll(): number
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.getHorizonRoll();
   }
 
   public get getNorthOffset(): number
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.getNorthOffset();
   }
 
   public get getPitch(): number
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.getPitch();
   }
 
   public get getPitchBounds(): [min: number, max: number]
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.getPitchBounds();
   }
 
   public get getRenderer(): PannellumRender
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.getRenderer();
   }
 
   public get getSceneId(): string
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.getScene();
   }
 
   public get getYaw(): number
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.getYaw();
   }
 
   public get getYawBounds(): [min: number, max: number]
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.getYawBounds();
   }
 
   public get isViewerLoaded(): boolean
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.isLoaded();
   }
 
   public get isViewerLoading(): boolean
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.isLoading();
   }
 
   public get isOrientationActive(): boolean
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.isOrientationActive();
   }
 
   public addScene(sceneId: string, sceneConfig: PannellumEquirectangularConfig | PannellumCubeMapConfig | PannellumMultiresConfig): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.addScene(sceneId, sceneConfig);
     return this;
   }
@@ -178,7 +178,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public addHotSpot(hotspotConfig: PannellumHotSpot, sceneId?: string): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.addHotSpot(hotspotConfig, sceneId);
     return this;
   }
@@ -186,7 +186,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public loadScene(sceneId: string, pitch?: number, yaw?: number, hfov?: number): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.loadScene(sceneId, pitch, yaw, hfov);
     return this;
   }
@@ -194,7 +194,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public lookAt(pitch: number, yaw: number, hfov: number, animated: number | boolean = false, callback?: ((callbackArgs: object) => void), callbackArgs?: object): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.lookAt(pitch, yaw, hfov, animated, callback, callbackArgs);
     return this;
   }
@@ -202,7 +202,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public mouseEventToCoords(event: MouseEvent): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.mouseEventToCoords(event);
     return this;
   }
@@ -210,14 +210,14 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public removeHotSpot(hotSpotId: string, sceneId?: string): boolean
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     return this.pannellumViewer.removeHotSpot(hotSpotId, sceneId);
   }
 
   public setHorizontalFieldView(hfov: number, animated: number | boolean, callback?: ((callbackArgs: object) => void), callbackArgs?: object): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.setHfov(hfov, animated, callback, callbackArgs);
     return this;
   }
@@ -225,7 +225,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public setHorizontalFieldViewBounds(bounds: [min: number, max: number]): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.setHfovBounds(bounds);
     return this;
   }
@@ -233,7 +233,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public setHorizonPitch(pitch: number): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.setHorizonPitch(pitch);
     return this;
   }
@@ -241,7 +241,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public setHorizonRoll(roll: number): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.setHorizonRoll(roll);
     return this;
   }
@@ -249,7 +249,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public setNorthOffset(heading: number): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.setNorthOffset(heading);
     return this;
   }
@@ -257,7 +257,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public setPitch(pitch: number, animated: number | boolean, callback?: ((callbackArgs: object) => void), callbackArgs?: object): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.setPitch(pitch, animated, callback, callbackArgs);
     return this;
   }
@@ -265,7 +265,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public setPitchBounds(bounds: [min: number, max: number]): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.setPitchBounds(bounds);
     return this;
   }
@@ -273,7 +273,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public setUpdate(force: boolean): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.setUpdate(force);
     return this;
   }
@@ -281,7 +281,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public setYaw(yaw: number, animated: number | boolean, callback?: ((callbackArgs: object) => void), callbackArgs?: object): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.setYaw(yaw, animated, callback, callbackArgs);
     return this;
   }
@@ -289,7 +289,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public setYawBounds(bounds: [min: number, max: number]): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.setYawBounds(bounds);
     return this;
   }
@@ -297,7 +297,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public startAutoRotate(speed?: number, pitch?: number): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.startAutoRotate(speed, pitch);
     return this;
   }
@@ -305,7 +305,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public stopAutoRotate(): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.stopAutoRotate();
     return this;
   }
@@ -313,7 +313,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public stopMovement(): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.stopMovement();
     return this;
   }
@@ -321,7 +321,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public stopOrientation(): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.stopOrientation();
     return this;
   }
@@ -329,7 +329,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
   public toggleFullscreen(): PannellumComponent
   {
     if(this.pannellumViewer == null)
-      throw Error(initErrorMessage);
+      throw new Error(initErrorMessage);
     this.pannellumViewer.toggleFullscreen();
     return this;
   }
@@ -381,7 +381,7 @@ export class PannellumComponent implements AfterViewInit, OnDestroy {
     }
     else
     {
-      throw Error(`PannellumComponent Error:0: Minimun configuration not met in ${this.panoramaId}'s PannellumComponent. Please specify either the options or set the quick options for PanoramaSrc and PanoramaType as equirectangular. Note that other types to not suport quick sourcing. Consider using options object for advanced types`)
+      throw new Error(`PannellumComponent Error:0: Minimun configuration not met in ${this.panoramaId}'s PannellumComponent. Please specify either the options or set the quick options for PanoramaSrc and PanoramaType as equirectangular. Note that other types to not suport quick sourcing. Consider using options object for advanced types`)
     }
     this.subscribeTo();
   }

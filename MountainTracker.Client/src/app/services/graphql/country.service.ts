@@ -4,6 +4,8 @@ import { ClientConfig } from '../../configuration';
 import { BaseService } from './base.service';
 import { Observable, map } from 'rxjs';
 import { Country } from '../../models';
+import * as graphqlHelpers from '../../graphql-helpers/graphql-helper';
+import { QlSelectionSet } from '../../graphql-helpers';
 
 @Injectable({
   providedIn: 'root'
@@ -15,23 +17,22 @@ export class CountryService extends BaseService {
     super(clientConfig, apolloProvider)
    }
 
-   public getAllCountries(): Observable<Country>
+   public getAllCountries(selection?: QlSelectionSet): Observable<Country>
    {
-    return this.moutainTrackerApi.query<Country>({
-      query: gql`
-      query
+    let query = `
+    query
+    {
+      countryQuery
       {
-        countryQuery
+        allCountries
         {
-          allCountries
-          {
-            id
-            countryCode
-            englishFullName
-          }
+          ${graphqlHelpers.selectToQlFields(selection) ?? graphqlHelpers.ensureQlFields(Country)}
         }
       }
-      `,
+    }
+    `
+    return this.moutainTrackerApi.query<Country>({
+      query: gql`${query}`,                                                                                                                                                                                                                                
     }).pipe(map(result => result.data));
    }
 }

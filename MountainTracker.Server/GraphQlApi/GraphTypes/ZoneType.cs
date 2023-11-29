@@ -20,6 +20,9 @@ public class ZoneType : ObjectGraphType<DistrictZones>
         Field(d => d.Info, nullable: true).Description("Zone's english info");
         Field(d => d.ThumbPictureBytes, nullable: true).Description("Zone's thumb picture in bytes");
 
+        Field(d => d.LatitudeStartOrCenter, nullable: true).Description("Zone's latitude location by center or start");
+        Field(d => d.LongitudeStartOrCenter, nullable: true).Description("Zone's latitude location by center or start");
+
         Field<ListGraphType<AreaType>, IEnumerable<ZoneAreas>>("areas")
             .ResolveAsync(context =>
             {

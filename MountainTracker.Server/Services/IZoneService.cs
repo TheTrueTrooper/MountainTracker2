@@ -8,7 +8,7 @@ public interface IZoneService
 {
     public Task<IEnumerable<DistrictZones>> GetAllZones();
 
-    public Task<DistrictZones?> GetZoneByCode(string ZoneCode);
+    public Task<DistrictZones?> GetZoneByCode(string zoneCode);
 
     public Task<DistrictZones?> GetZoneById(int id);
 

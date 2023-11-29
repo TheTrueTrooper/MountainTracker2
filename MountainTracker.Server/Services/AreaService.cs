@@ -20,9 +20,9 @@ public class AreaService : IAreaService
         return await ZoneAreas.AsNoTracking().ToArrayAsync();
     }
 
-    public async Task<ZoneAreas?> GetAreaByCode(string AreaCode)
+    public async Task<ZoneAreas?> GetAreaByCode(string areaCode)
     {
-        return await ZoneAreas.AsNoTracking().FirstOrDefaultAsync(c => c.AreaCode == AreaCode);
+        return await ZoneAreas.AsNoTracking().FirstOrDefaultAsync(c => c.AreaCode == areaCode);
     }
 
     public async Task<ZoneAreas?> GetAreaById(int id)

@@ -8,7 +8,7 @@ public interface IAreaService
 {
     public Task<IEnumerable<ZoneAreas>> GetAllAreas();
 
-    public Task<ZoneAreas?> GetAreaByCode(string AreaCode);
+    public Task<ZoneAreas?> GetAreaByCode(string areaCode);
 
     public Task<ZoneAreas?> GetAreaById(int id);
 

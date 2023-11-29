@@ -35,9 +35,9 @@ public class DistrictService : IDistrictService
         return await Districts.AsNoTracking().Where(c => c.RegionId == regionId).ToListAsync();
     }
 
-    public async Task<ILookup<int, Districts>> GetDistrictsByRegions(IEnumerable<int> RegionIds)
+    public async Task<ILookup<int, Districts>> GetDistrictsByRegions(IEnumerable<int> regionIds)
     {
-        var list = await Districts.AsNoTracking().Where(c => RegionIds.Contains(c.RegionId)).ToListAsync();
+        var list = await Districts.AsNoTracking().Where(c => regionIds.Contains(c.RegionId)).ToListAsync();
         return list.ToLookup(list=>list.RegionId);
     }
 }

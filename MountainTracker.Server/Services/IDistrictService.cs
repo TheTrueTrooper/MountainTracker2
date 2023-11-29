@@ -14,5 +14,5 @@ public interface IDistrictService
 
     public Task<List<Districts>?> GetDistrictsByRegion(int regionId);
 
-    public Task<ILookup<int, Districts>> GetDistrictsByRegions(IEnumerable<int> RegionIds);
+    public Task<ILookup<int, Districts>> GetDistrictsByRegions(IEnumerable<int> regionIds);
 }

@@ -19,7 +19,7 @@ public class ProvinceOrStateType : ObjectGraphType<ProvincesOrStates>
         Field(d => d.CountryId, nullable: false).Description("Province's or State's country id");
 
 
-        Field<ListGraphType<RegionType>, IEnumerable<Regions>>("Regions")
+        Field<ListGraphType<RegionType>, IEnumerable<Regions>>("regions")
             .ResolveAsync(context =>
             {
                 var loader = accessor.Context!.GetOrAddCollectionBatchLoader<short, Regions>("GetRegionsByProvincesOrStates", regionService.GetRegionsByProvincesOrStates);

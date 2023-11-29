@@ -14,12 +14,14 @@ public class DistrictType : ObjectGraphType<Districts>
         Description = "District Type";
 
         Field(d => d.Id, nullable: false).Description("Database Id");
-        Field(d => d.DistrictCode, nullable: false).Description("Code for District or state");
+        Field(d => d.DistrictCode, nullable: false).Description("Code for district");
         Field(d => d.EnglishFullName, nullable: false).Description("District's english name");
         Field(d => d.RegionId, nullable: false).Description("District's province or state id");
         Field(d => d.Info, nullable: true).Description("District's english info");
         Field(d => d.ThumbPictureBytes, nullable: true).Description("District's thumb picture in bytes");
 
+        Field(d => d.LatitudeStartOrCenter, nullable: true).Description("District's latitude location by center or start");
+        Field(d => d.LongitudeStartOrCenter, nullable: true).Description("District's latitude location by center or start");
 
         Field<ListGraphType<ZoneType>, IEnumerable<DistrictZones>>("zones")
             .ResolveAsync(context =>

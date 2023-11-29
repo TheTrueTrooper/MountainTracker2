@@ -11,4 +11,6 @@ public interface IZoneGeoFenceNodeService
     public Task<List<ZoneGeoFenceNodes>?> GetZoneGeoFenceNodesByZone(int zoneId);
 
     public Task<ILookup<int, ZoneGeoFenceNodes>> GetZoneGeoFenceNodesByZones(IEnumerable<int> zoneIds);
+
+    public Task<ILookup<int, ZoneGeoFenceNodes>> GetZoneGeoFenceNodesByIds(IEnumerable<int> ids);
 }

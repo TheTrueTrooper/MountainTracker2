@@ -7,7 +7,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
 {
-    public RockClimbingWallType(IDataLoaderContextAccessor accessor, IRockClimbingRouteService rockClimbingRouteService, IRockClimbingWallGeoFenceNodeService rockClimbingWallGeoFenceNodeService)
+    public RockClimbingWallType(IDataLoaderContextAccessor accessor, IRockClimbingRouteService rockClimbingRouteService, IAreaService areaService, IRockClimbingWallGeoFenceNodeService rockClimbingWallGeoFenceNodeService)
     {
         Name = "RockClimbingWall";
         Description = "Rock Climbing Wall Type";
@@ -50,6 +50,14 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
         Field(d => d.OctSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in October");
         Field(d => d.NovSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in November");
         Field(d => d.DecSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in December");
+
+        Field<AreaType, Areas>("area")
+            .ResolveAsync(async context =>
+            {
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Areas>("GetAreasByIds", areaService.GetAreasByIds);
+                return loader.LoadAsync(context.Source.AreaId).Then(x => x.First());
+            })
+            .Description("Wall's associated area");
 
         Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>>("routes")
             .ResolveAsync(context =>

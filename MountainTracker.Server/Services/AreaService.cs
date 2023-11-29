@@ -35,6 +35,12 @@ public class AreaService : IAreaService
         return await Areas.AsNoTracking().Where(c => c.ZoneId == zoneId).ToListAsync();
     }
 
+    public async Task<ILookup<int, Areas>> GetAreasByIds(IEnumerable<int> ids)
+    {
+        var list = await Areas.AsNoTracking().Where(c => ids.Contains(c.Id)).ToListAsync();
+        return list.ToLookup(list => list.Id);
+    }
+
     public async Task<ILookup<int, Areas>> GetAreasByZones(IEnumerable<int> zoneIds)
     {
         var list = await Areas.AsNoTracking().Where(c => zoneIds.Contains(c.ZoneId)).ToListAsync();

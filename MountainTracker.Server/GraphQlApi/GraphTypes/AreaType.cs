@@ -7,7 +7,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class AreaType : ObjectGraphType<Areas>
 {
-    public AreaType(IDataLoaderContextAccessor accessor, IRockClimbingWallService rockClimbingWallService, IAreaGeoFenceNodeService areaGeoFenceNodeService)
+    public AreaType(IDataLoaderContextAccessor accessor, IZoneService zoneService, IRockClimbingWallService rockClimbingWallService, IAreaGeoFenceNodeService areaGeoFenceNodeService)
     {
         Name = "Area";
         Description = "Area Type";
@@ -21,6 +21,14 @@ public class AreaType : ObjectGraphType<Areas>
 
         Field(d => d.LatitudeStartOrCenter, nullable: true).Description("Area's latitude location by center or start");
         Field(d => d.LongitudeStartOrCenter, nullable: true).Description("Area's latitude location by center or start");
+
+        Field<ZoneType, Zones>("zone")
+            .ResolveAsync(async context =>
+            {
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Zones>("GetZonesByIds", zoneService.GetZonesByIds);
+                return loader.LoadAsync(context.Source.ZoneId).Then(x => x.First());
+            })
+            .Description("Area's associated zone");
 
         Field<ListGraphType<RockClimbingWallType>, IEnumerable<RockClimbingWalls>>("rockWalls")
             .ResolveAsync(context =>

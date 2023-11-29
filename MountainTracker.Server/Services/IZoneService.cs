@@ -13,4 +13,6 @@ public interface IZoneService
     public Task<List<Zones>?> GetZonesByRegion(int districtsId);
 
     public Task<ILookup<int, Zones>> GetZonesByRegions(IEnumerable<int> districtsIds);
+
+    public Task<ILookup<int, Zones>> GetZonesByIds(IEnumerable<int> ids);
 }

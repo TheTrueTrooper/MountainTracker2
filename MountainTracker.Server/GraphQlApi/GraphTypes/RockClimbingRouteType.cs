@@ -7,7 +7,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>
 {
-    public RockClimbingRouteType(IDataLoaderContextAccessor accessor, IRockClimbingTypeService rockClimbingTypeService)
+    public RockClimbingRouteType(IDataLoaderContextAccessor accessor, IRockClimbingWallService rockClimbingWallService, IRockClimbingTypeService rockClimbingTypeService)
     {
         Name = "RockClimbingRoute";
         Description = "Rock Climbing Route Type";
@@ -57,6 +57,14 @@ public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>
 
         Field(d => d.TypeId, nullable: false).Description("Wall's type id");
         Field(d => d.DifficultyId, nullable: false).Description("Wall's difficulty id");
+
+        Field<RockClimbingWallType, RockClimbingWalls>("climbingWall")
+            .ResolveAsync(async context =>
+            {
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, RockClimbingWalls>("GetRockClimbingWallsByIds", rockClimbingWallService.GetRockClimbingWallsByIds);
+                return loader.LoadAsync(context.Source.ClimbingWallId).Then(x => x.First());
+            })
+            .Description("Route's associated wall");
 
         Field<RockClimbingTypeType, RockClimbingTypes>("climbingType")
             .ResolveAsync(async context =>

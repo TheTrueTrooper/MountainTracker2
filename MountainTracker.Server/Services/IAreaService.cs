@@ -13,4 +13,6 @@ public interface IAreaService
     public Task<List<Areas>?> GetAreaByZone(int districtZoneId);
 
     public Task<ILookup<int, Areas>> GetAreasByZones(IEnumerable<int> zoneIds);
+
+    public Task<ILookup<int, Areas>> GetAreasByIds(IEnumerable<int> ids);
 }

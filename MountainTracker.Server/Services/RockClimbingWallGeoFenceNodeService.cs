@@ -25,6 +25,12 @@ public class RockClimbingWallGeoFenceNodeService : IRockClimbingWallGeoFenceNode
         return await RockClimbingWallGeoFenceNodes.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 
+    public async Task<ILookup<int, RockClimbingWallGeoFenceNodes>> GetRockClimbingWallGeoFenceNodesByIds(IEnumerable<int> ids)
+    {
+        var list = await RockClimbingWallGeoFenceNodes.AsNoTracking().Where(c => ids.Contains(c.Id)).ToListAsync();
+        return list.ToLookup(list => list.Id);
+    }
+
     public async Task<List<RockClimbingWallGeoFenceNodes>?> GetRockClimbingWallGeoFenceNodesByRockClimbingWall(int climbingWallId)
     {
         return await RockClimbingWallGeoFenceNodes.AsNoTracking().Where(c => c.ClimbingWallId == climbingWallId).ToListAsync();

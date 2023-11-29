@@ -7,7 +7,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class DistrictType : ObjectGraphType<Districts>
 {
-    public DistrictType(IDataLoaderContextAccessor accessor, IZoneService zoneService, IDistrictGeoFenceNodeService geoFenceNodeService)
+    public DistrictType(IDataLoaderContextAccessor accessor, IRegionService regionService, IZoneService zoneService, IDistrictGeoFenceNodeService geoFenceNodeService)
     {
         Name = "District";
         Description = "District Type";
@@ -21,6 +21,14 @@ public class DistrictType : ObjectGraphType<Districts>
 
         Field(d => d.LatitudeStartOrCenter, nullable: true).Description("District's latitude location by center or start");
         Field(d => d.LongitudeStartOrCenter, nullable: true).Description("District's latitude location by center or start");
+
+        Field<RegionType, Regions>("regions")
+            .ResolveAsync(async context =>
+            {
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Regions>("GetRegionsByIds", regionService.GetRegionsByIds);
+                return loader.LoadAsync(context.Source.RegionId).Then(x => x.First());
+            })
+            .Description("District's associated region");
 
         Field<ListGraphType<ZoneType>, IEnumerable<Zones>>("zones")
             .ResolveAsync(context =>

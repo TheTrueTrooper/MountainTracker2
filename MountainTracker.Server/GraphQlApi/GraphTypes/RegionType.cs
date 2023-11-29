@@ -7,7 +7,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class RegionType : ObjectGraphType<Regions>
 {
-    public RegionType(IDataLoaderContextAccessor accessor, IDistrictService districtService, IRegionGeoFenceNodeService regionGeoFenceNodeService)
+    public RegionType(IDataLoaderContextAccessor accessor, IProvinceOrStateService provinceOrStateService, IDistrictService districtService, IRegionGeoFenceNodeService regionGeoFenceNodeService)
     {
         Name = "Region";
         Description = "Region Type";
@@ -21,6 +21,14 @@ public class RegionType : ObjectGraphType<Regions>
 
         Field(d => d.LatitudeStartOrCenter, nullable: true).Description("Region's thumb picture in bytes");
         Field(d => d.LongitudeStartOrCenter, nullable: true).Description("Region's thumb picture in bytes");
+
+        Field<ProvinceOrStateType, ProvincesOrStates>("provinceOrState")
+            .ResolveAsync(async context =>
+            {
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<short, ProvincesOrStates>("GetProvincesOrStatesByIds", provinceOrStateService.GetProvincesOrStatesByIds);
+                return loader.LoadAsync(context.Source.ProvinceOrStateId).Then(x => x.First());
+            })
+            .Description("Region's associated provinces or states");
 
         Field<ListGraphType<DistrictType>, IEnumerable<Districts>>("districts")
             .ResolveAsync(context =>

@@ -35,4 +35,10 @@ public class AreaGeoFenceNodeService : IAreaGeoFenceNodeService
         var list = await AreaGeoFenceNodes.AsNoTracking().Where(c => areaIds.Contains(c.AreaId)).ToListAsync();
         return list.ToLookup(list=>list.AreaId);
     }
+
+    public async Task<ILookup<int, AreaGeoFenceNodes>> GetAreaGeoFenceNodesByIds(IEnumerable<int> ids)
+    {
+        var list = await AreaGeoFenceNodes.AsNoTracking().Where(c => ids.Contains(c.Id)).ToListAsync();
+        return list.ToLookup(list => list.Id);
+    }
 }

@@ -35,4 +35,10 @@ public class DistrictGeoFenceNodeService : IDistrictGeoFenceNodeService
         var list = await DistrictGeoFenceNodes.AsNoTracking().Where(c => districtIds.Contains(c.DistrictId)).ToListAsync();
         return list.ToLookup(list=>list.DistrictId);
     }
+
+    public async Task<ILookup<int, DistrictGeoFenceNodes>> GetDistrictGeoFenceNodesByIds(IEnumerable<int> ids)
+    {
+        var list = await DistrictGeoFenceNodes.AsNoTracking().Where(c => ids.Contains(c.Id)).ToListAsync();
+        return list.ToLookup(list => list.Id);
+    }
 }

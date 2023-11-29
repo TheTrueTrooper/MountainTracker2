@@ -13,4 +13,6 @@ public interface IRegionService
     public Task<List<Regions>?> GetRegionsByProvinceOrState(int provinceOrStateIds);
 
     public Task<ILookup<short, Regions>> GetRegionsByProvincesOrStates(IEnumerable<short> provinceOrStateIds);
+
+    public Task<ILookup<int, Regions>> GetRegionsByIds(IEnumerable<int> ids);
 }

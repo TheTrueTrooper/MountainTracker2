@@ -30,6 +30,12 @@ public class RockClimbingRouteService : IRockClimbingRouteService
         return await RockClimbingRoutes.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 
+    public async Task<ILookup<int, RockClimbingRoutes>> GetRockClimbingRoutesByIds(IEnumerable<int> ids)
+    {
+        var list = await RockClimbingRoutes.AsNoTracking().Where(c => ids.Contains(c.Id)).ToListAsync();
+        return list.ToLookup(list => list.Id);
+    }
+
     public async Task<List<RockClimbingRoutes>?> GetRockClimbingRoutesByRockClimbingWall(int climbingWallId)
     {
         return await RockClimbingRoutes.AsNoTracking().Where(c => c.ClimbingWallId == climbingWallId).ToListAsync();

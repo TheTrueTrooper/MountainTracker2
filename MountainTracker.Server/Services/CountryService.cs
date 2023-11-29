@@ -29,4 +29,10 @@ public class CountryService: ICountryService
     {
         return await Countries.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
+
+    public async Task<ILookup<byte, Countries>> GetCountriesByIds(IEnumerable<byte> ids)
+    {
+        var list = await Countries.AsNoTracking().Where(c => ids.Contains(c.Id)).ToListAsync();
+        return list.ToLookup(list => list.Id);
+    }
 }

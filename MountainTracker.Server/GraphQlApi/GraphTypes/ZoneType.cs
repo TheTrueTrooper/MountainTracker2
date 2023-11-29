@@ -33,7 +33,7 @@ public class ZoneType : ObjectGraphType<Zones>
         Field<ListGraphType<ZoneGeoFenceNodeType>, IEnumerable<ZoneGeoFenceNodes>>("geoFenceNodes")
             .ResolveAsync(context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, ZoneGeoFenceNodes>("GetZoneGeoFenceNodesbyZones", zoneGeoFenceNodeService.GetZoneGeoFenceNodesbyZones);
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, ZoneGeoFenceNodes>("GetZoneGeoFenceNodesByZones", zoneGeoFenceNodeService.GetZoneGeoFenceNodesByZones);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Zone's associated geo fence nodes");

@@ -33,7 +33,7 @@ public class RegionType : ObjectGraphType<Regions>
         Field<ListGraphType<RegionGeoFenceNodeType>, IEnumerable<RegionGeoFenceNodes>>("geoFenceNodes")
             .ResolveAsync(context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, RegionGeoFenceNodes>("GetRegionGeoFenceNodesbyRegions", regionGeoFenceNodeService.GetRegionGeoFenceNodesbyRegions);
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, RegionGeoFenceNodes>("GetRegionGeoFenceNodesByRegions", regionGeoFenceNodeService.GetRegionGeoFenceNodesByRegions);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Region's associated geo fence nodes");

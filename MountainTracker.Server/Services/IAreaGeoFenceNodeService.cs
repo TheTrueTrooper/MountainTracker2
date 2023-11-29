@@ -8,7 +8,7 @@ public interface IAreaGeoFenceNodeService
 
     public Task<AreaGeoFenceNodes?> GetAreaGeoFenceNodeById(int id);
 
-    public Task<List<AreaGeoFenceNodes>?> GetAreaGeoFenceNodesbyArea(int areaId);
+    public Task<List<AreaGeoFenceNodes>?> GetAreaGeoFenceNodesByArea(int areaId);
 
-    public Task<ILookup<int, AreaGeoFenceNodes>> GetAreaGeoFenceNodesbyAreas(IEnumerable<int> areaIds);
+    public Task<ILookup<int, AreaGeoFenceNodes>> GetAreaGeoFenceNodesByAreas(IEnumerable<int> areaIds);
 }

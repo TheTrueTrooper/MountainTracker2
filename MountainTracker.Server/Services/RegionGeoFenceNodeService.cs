@@ -25,12 +25,12 @@ public class RegionGeoFenceNodeService : IRegionGeoFenceNodeService
         return await RegionGeoFenceNodes.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<List<RegionGeoFenceNodes>?> GetRegionGeoFenceNodesbyRegion(int regionId)
+    public async Task<List<RegionGeoFenceNodes>?> GetRegionGeoFenceNodesByRegion(int regionId)
     {
         return await RegionGeoFenceNodes.AsNoTracking().Where(c => c.RegionId == regionId).ToListAsync();
     }
 
-    public async Task<ILookup<int, RegionGeoFenceNodes>> GetRegionGeoFenceNodesbyRegions(IEnumerable<int> regionIds)
+    public async Task<ILookup<int, RegionGeoFenceNodes>> GetRegionGeoFenceNodesByRegions(IEnumerable<int> regionIds)
     {
         var list = await RegionGeoFenceNodes.AsNoTracking().Where(c => regionIds.Contains(c.RegionId)).ToListAsync();
         return list.ToLookup(list => list.RegionId);

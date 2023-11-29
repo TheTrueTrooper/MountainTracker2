@@ -51,7 +51,6 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
         Field(d => d.NovSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in November");
         Field(d => d.DecSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in December");
 
-
         Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>>("routes")
             .ResolveAsync(context =>
             {
@@ -63,7 +62,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
         Field<ListGraphType<RockClimbingWallGeoFenceNodeType>, IEnumerable<RockClimbingWallGeoFenceNodes>>("geoFenceNodes")
             .ResolveAsync(context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, RockClimbingWallGeoFenceNodes>("GetRockClimbingWallGeoFenceNodesbyRockClimbingWalls", rockClimbingWallGeoFenceNodeService.GetRockClimbingWallGeoFenceNodesbyRockClimbingWalls);
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, RockClimbingWallGeoFenceNodes>("GetRockClimbingWallGeoFenceNodesByRockClimbingWalls", rockClimbingWallGeoFenceNodeService.GetRockClimbingWallGeoFenceNodesByRockClimbingWalls);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Wall's associated geo fence nodes");

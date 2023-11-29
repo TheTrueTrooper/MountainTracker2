@@ -33,7 +33,7 @@ public class AreaType : ObjectGraphType<Areas>
         Field<ListGraphType<AreaGeoFenceNodeType>, IEnumerable<AreaGeoFenceNodes>>("geoFenceNodes")
             .ResolveAsync(context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, AreaGeoFenceNodes>("GetAreaGeoFenceNodesbyAreas", areaGeoFenceNodeService.GetAreaGeoFenceNodesbyAreas);
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, AreaGeoFenceNodes>("GetAreaGeoFenceNodesByAreas", areaGeoFenceNodeService.GetAreaGeoFenceNodesByAreas);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Area's associated geo fence nodes");

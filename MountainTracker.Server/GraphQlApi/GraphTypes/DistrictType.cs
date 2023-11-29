@@ -33,7 +33,7 @@ public class DistrictType : ObjectGraphType<Districts>
         Field<ListGraphType<DistrictGeoFenceNodeType>, IEnumerable<DistrictGeoFenceNodes>>("geoFenceNodes")
             .ResolveAsync(context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, DistrictGeoFenceNodes>("GetDistrictsGeoFenceNodesbyDistricts", geoFenceNodeService.GetDistrictGeoFenceNodesbyDistricts);
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, DistrictGeoFenceNodes>("GetDistrictGeoFenceNodesByDistricts", geoFenceNodeService.GetDistrictGeoFenceNodesByDistricts);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("District's associated geo fence nodes");

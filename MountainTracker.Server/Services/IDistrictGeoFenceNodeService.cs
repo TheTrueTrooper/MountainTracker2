@@ -8,7 +8,7 @@ public interface IDistrictGeoFenceNodeService
 
     public Task<DistrictGeoFenceNodes?> GetDistrictGeoFenceNodeById(int id);
 
-    public Task<List<DistrictGeoFenceNodes>?> GetDistrictGeoFenceNodesbyDistrict(int districtId);
+    public Task<List<DistrictGeoFenceNodes>?> GetDistrictGeoFenceNodesByDistrict(int districtId);
 
-    public Task<ILookup<int, DistrictGeoFenceNodes>> GetDistrictGeoFenceNodesbyDistricts(IEnumerable<int> districtIds);
+    public Task<ILookup<int, DistrictGeoFenceNodes>> GetDistrictGeoFenceNodesByDistricts(IEnumerable<int> districtIds);
 }

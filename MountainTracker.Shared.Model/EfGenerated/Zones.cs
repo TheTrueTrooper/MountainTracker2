@@ -25,5 +25,5 @@ public partial class Zones
 
     public virtual Districts District { get; set; } = null!;
 
-    public virtual ICollection<ZonesGeoFenceNodes> ZonesGeoFenceNodes { get; set; } = new List<ZonesGeoFenceNodes>();
+    public virtual ICollection<ZoneGeoFenceNodes> ZoneGeoFenceNodes { get; set; } = new List<ZoneGeoFenceNodes>();
 }

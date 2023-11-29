@@ -7,7 +7,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
 {
-    public RockClimbingWallType(IDataLoaderContextAccessor accessor, IRockClimbingRouteService rockClimbingRouteService)
+    public RockClimbingWallType(IDataLoaderContextAccessor accessor, IRockClimbingRouteService rockClimbingRouteService, IRockClimbingWallGeoFenceNodeService rockClimbingWallGeoFenceNodeService)
     {
         Name = "RockClimbingWall";
         Description = "Rock Climbing Wall Type";
@@ -59,5 +59,13 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Wall's associated routes");
+
+        Field<ListGraphType<RockClimbingWallGeoFenceNodeType>, IEnumerable<RockClimbingWallGeoFenceNodes>>("geoFenceNodes")
+            .ResolveAsync(context =>
+            {
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, RockClimbingWallGeoFenceNodes>("GetRockClimbingWallGeoFenceNodesbyRockClimbingWalls", rockClimbingWallGeoFenceNodeService.GetRockClimbingWallGeoFenceNodesbyRockClimbingWalls);
+                return loader.LoadAsync(context.Source.Id);
+            })
+            .Description("Wall's associated geo fence nodes");
     }
 }

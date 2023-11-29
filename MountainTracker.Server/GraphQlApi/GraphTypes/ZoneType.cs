@@ -7,7 +7,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class ZoneType : ObjectGraphType<Zones>
 {
-    public ZoneType(IDataLoaderContextAccessor accessor, IAreaService areaService)
+    public ZoneType(IDataLoaderContextAccessor accessor, IAreaService areaService, IZoneGeoFenceNodeService zoneGeoFenceNodeService)
     {
         Name = "Zone";
         Description = "Zone Type";
@@ -29,5 +29,13 @@ public class ZoneType : ObjectGraphType<Zones>
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Zone's associated areas");
+
+        Field<ListGraphType<ZoneGeoFenceNodeType>, IEnumerable<ZoneGeoFenceNodes>>("geoFenceNodes")
+            .ResolveAsync(context =>
+            {
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, ZoneGeoFenceNodes>("GetZoneGeoFenceNodesbyZones", zoneGeoFenceNodeService.GetZoneGeoFenceNodesbyZones);
+                return loader.LoadAsync(context.Source.Id);
+            })
+            .Description("Zone's associated geo fence nodes");
     }
 }

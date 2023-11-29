@@ -18,6 +18,11 @@ public static class MountainTrackerServicesSetup
         services.AddScoped<IAreaService, AreaService>();
         services.AddScoped<IRockClimbingWallService, RockClimbingWallService>();
         services.AddScoped<IRockClimbingRouteService, RockClimbingRouteService>();
+        services.AddScoped<IRegionGeoFenceNodeService, RegionGeoFenceNodeService>();
+        services.AddScoped<IDistrictGeoFenceNodeService, DistrictGeoFenceNodeService>();
+        services.AddScoped<IZoneGeoFenceNodeService, ZoneGeoFenceNodeService>();
+        services.AddScoped<IAreaGeoFenceNodeService, AreaGeoFenceNodeService>();
+        services.AddScoped<IRockClimbingWallGeoFenceNodeService, RockClimbingWallGeoFenceNodeService>();
         return services;
     }
 }

@@ -124,8 +124,8 @@
     <Build Include="SQLServer\Tables\ClimbingQualityRatings\ClimbingQualityRatingsTable.sql" />
     <Build Include="SQLServer\Tables\Countries\CountriesTable.sql" />
     <Build Include="SQLServer\Tables\Districts\DistrictsTable.sql" />
-    <Build Include="SQLServer\Tables\DistrictsGeoFenceNodes\DistrictsGeoFenceNodesTable.sql" />
-    <Build Include="SQLServer\Tables\ZonesGeoFenceNodes\ZonesGeoFenceNodesTable.sql" />
+    <Build Include="SQLServer\Tables\DistrictsGeoFenceNodes\DistrictGeoFenceNodesTable.sql" />
+    <Build Include="SQLServer\Tables\ZonesGeoFenceNodes\ZoneGeoFenceNodesTable.sql" />
     <Build Include="SQLServer\Tables\Gear\GearTable.sql" />
     <Build Include="SQLServer\Tables\Zones\ZonesTable.sql" />
     <Build Include="SQLServer\Tables\GearToGearTypeLinks\GearToGearTypeLinksTable.sql" />
@@ -144,7 +144,7 @@
     <Build Include="SQLServer\Tables\RockClimbingRoutesToGearLinks\RockClimbingRoutesToGearLinksTable.sql" />
     <Build Include="SQLServer\Tables\RockClimbingTypes\RockClimbingTypesTable.sql" />
     <Build Include="SQLServer\Tables\RockClimbingWalls\RockClimbingWallsTable.sql" />
-    <Build Include="SQLServer\Tables\RockClimbingWallsGeoFenceNodes\RockClimbingWallsGeoFenceNodesTable.sql" />
+    <Build Include="SQLServer\Tables\RockClimbingWallsGeoFenceNodes\RockClimbingWallGeoFenceNodesTable.sql" />
     <Build Include="SQLServer\Tables\ClimbingTypes\ClimbingTypesTable.sql" />
     <Build Include="SQLServer\Tables\UserAccessLevels\UserAccessLevelsTable.sql" />
     <Build Include="SQLServer\Tables\UserAccessTokens\UserAccessTokensTable.sql" />
@@ -157,7 +157,7 @@
     <Build Include="SQLServer\Tables\UsersRockClimbs\UsersRockClimbsTable.sql" />
     <Build Include="SQLServer\Tables\UsersRockClimbingWallFavorites\UsersRockClimbingWallFavoritesTable.sql" />
     <Build Include="SQLServer\Tables\Areas\AreasTable.sql" />
-    <Build Include="SQLServer\Tables\AreasGeoFenceNodes\ZoneAreasGeoFenceNodesTable.sql" />
+    <Build Include="SQLServer\Tables\AreasGeoFenceNodes\AreaGeoFenceNodesTable.sql" />
     <Build Include="SQLServer\Tables\Users\StoredProcedure\UserLoginProcedure.sql" />
     <Build Include="SQLServer\Tables\GroupMessagingGroups\StoredProcedure\OpenNewMessageGroupProcedure.sql" />
     <Build Include="SQLServer\Tables\GroupMessagingGroups\Triggers\LeavingMessagingGroupDatabaseTrigger.sql" />

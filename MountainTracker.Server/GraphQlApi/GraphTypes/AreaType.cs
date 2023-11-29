@@ -7,7 +7,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class AreaType : ObjectGraphType<Areas>
 {
-    public AreaType(IDataLoaderContextAccessor accessor, IRockClimbingWallService rockClimbingWallService)
+    public AreaType(IDataLoaderContextAccessor accessor, IRockClimbingWallService rockClimbingWallService, IAreaGeoFenceNodeService areaGeoFenceNodeService)
     {
         Name = "Area";
         Description = "Area Type";
@@ -29,5 +29,13 @@ public class AreaType : ObjectGraphType<Areas>
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Area's associated rock climbing walls");
+
+        Field<ListGraphType<AreaGeoFenceNodeType>, IEnumerable<AreaGeoFenceNodes>>("geoFenceNodes")
+            .ResolveAsync(context =>
+            {
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, AreaGeoFenceNodes>("GetAreaGeoFenceNodesbyAreas", areaGeoFenceNodeService.GetAreaGeoFenceNodesbyAreas);
+                return loader.LoadAsync(context.Source.Id);
+            })
+            .Description("Area's associated geo fence nodes");
     }
 }

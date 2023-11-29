@@ -21,7 +21,7 @@ public partial class Areas
 
     public string? Info { get; set; }
 
-    public virtual ICollection<AreasGeoFenceNodes> AreasGeoFenceNodes { get; set; } = new List<AreasGeoFenceNodes>();
+    public virtual ICollection<AreaGeoFenceNodes> AreaGeoFenceNodes { get; set; } = new List<AreaGeoFenceNodes>();
 
     public virtual ICollection<RockClimbingWalls> RockClimbingWalls { get; set; } = new List<RockClimbingWalls>();
 

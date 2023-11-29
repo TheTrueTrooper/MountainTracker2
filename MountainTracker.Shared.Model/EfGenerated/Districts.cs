@@ -21,7 +21,7 @@ public partial class Districts
 
     public string? Info { get; set; }
 
-    public virtual ICollection<DistrictsGeoFenceNodes> DistrictsGeoFenceNodes { get; set; } = new List<DistrictsGeoFenceNodes>();
+    public virtual ICollection<DistrictGeoFenceNodes> DistrictGeoFenceNodes { get; set; } = new List<DistrictGeoFenceNodes>();
 
     public virtual Regions Region { get; set; } = null!;
 

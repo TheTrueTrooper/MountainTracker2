@@ -786,8 +786,8 @@ if(@reseed = 1)
 begin
 DBCC CHECKIDENT ('Regions', RESEED, 0)
 DBCC CHECKIDENT ('Districts', RESEED, 0)
-DBCC CHECKIDENT ('DistrictZones', RESEED, 0)
-DBCC CHECKIDENT ('ZoneAreas', RESEED, 0)
+DBCC CHECKIDENT ('Zones', RESEED, 0)
+DBCC CHECKIDENT ('Areas', RESEED, 0)
 DBCC CHECKIDENT ('RockClimbingWalls', RESEED, 0)
 DBCC CHECKIDENT ('RockClimbingRoutes', RESEED, 0)
 end
@@ -810,7 +810,7 @@ VALUES
 	(1, 'Windermere',					'WD',   NULL, NULL, NULL, NULL)
 
 	--Populate DistrictZones
-INSERT INTO [DistrictZones] 
+INSERT INTO [Zones] 
 	(DistrictID, EnglishFullName, ZoneCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
 VALUES 
 	(1, 'Lumberton Moyie Canyon',	'LMC',  	NULL,	NULL,	NULL,	NULL),
@@ -827,8 +827,8 @@ VALUES
 	(5, 'Jaffray',					'JA',   	NULL,	NULL,	NULL,	NULL)
 
 	--Populate ZoneAreas
-INSERT INTO [ZoneAreas] 
-	(DistrictZoneID, EnglishFullName, AreaCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
+INSERT INTO [Areas] 
+	(ZoneID, EnglishFullName, AreaCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
 VALUES 
 	(1,	'Lumberton',		'A1',   	NULL,	NULL,	NULL,	NULL),
 	(3,	'Pedley Pass',		'A1',   	NULL,	NULL,	NULL,	NULL),
@@ -927,7 +927,7 @@ VALUES
 
 	--Populate RockClimbingRoutes
 INSERT INTO [RockClimbingRoutes] 
-	(ClimbingWallID, TypeID, DifficultyID, EnglishFullName, RouteCode, Rating, HieghtInMeters, NumberOfPitchs, FirstAscent, FirstFreeAscent, 
+	(ClimbingWallID, TypeID, DifficultyID, EnglishFullName, RouteCode, Rating, HeightInMeters, NumberOfPitchs, FirstAscent, FirstFreeAscent, 
 	SunAM, SunPM, FilteredSun, Sunny, Shady, DriesFast, DryInRain, Windy, ClimbAnglesHaveSlabs, ClimbAnglesHaveVerticals, ClimbAnglesHaveOverHangs, ClimbAnglesHaveRoofs, 
 	RockFalls, Seepage, StickClip, Runout, Reachy, Dyno, Pumpy, Techy, Power, PockSlashHole, Crimpy, Slopey, SeatStart, 
 	Info, ThumbPictureBytes)
@@ -1274,7 +1274,7 @@ INSERT INTO [RockClimbingRoutes]
 	[EnglishFullName],
 	[RouteCode],
 	[Rating],
-	[HieghtInMeters],
+	[HeightInMeters],
 	[NumberOfPitchs],
 	[FirstAscent],
 	[FirstFreeAscent],

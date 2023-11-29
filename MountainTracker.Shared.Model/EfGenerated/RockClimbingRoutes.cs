@@ -19,9 +19,9 @@ public partial class RockClimbingRoutes
 
     public byte Rating { get; set; }
 
-    public double HieghtInMeters { get; set; }
+    public double HeightInMeters { get; set; }
 
-    public double? HieghtInFeet { get; set; }
+    public double HeightInFeet { get; set; }
 
     public byte NumberOfPitchs { get; set; }
 

@@ -7,37 +7,37 @@ namespace MountainTracker.Server.Services;
 public class AreaService : IAreaService
 {
     MountainTrackerDatabase1Context Context;
-    DbSet<ZoneAreas> ZoneAreas;
+    DbSet<Areas> Areas;
 
     public AreaService(MountainTrackerDatabase1Context context)
     {
         this.Context = context;
-        this.ZoneAreas = Context.ZoneAreas;
+        this.Areas = Context.Areas;
     }
 
-    public async Task<IEnumerable<ZoneAreas>> GetAllAreas()
+    public async Task<IEnumerable<Areas>> GetAllAreas()
     {
-        return await ZoneAreas.AsNoTracking().ToArrayAsync();
+        return await Areas.AsNoTracking().ToArrayAsync();
     }
 
-    public async Task<ZoneAreas?> GetAreaByCode(string areaCode)
+    public async Task<Areas?> GetAreaByCode(string areaCode)
     {
-        return await ZoneAreas.AsNoTracking().FirstOrDefaultAsync(c => c.AreaCode == areaCode);
+        return await Areas.AsNoTracking().FirstOrDefaultAsync(c => c.AreaCode == areaCode);
     }
 
-    public async Task<ZoneAreas?> GetAreaById(int id)
+    public async Task<Areas?> GetAreaById(int id)
     {
-        return await ZoneAreas.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
+        return await Areas.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<List<ZoneAreas>?> GetAreaByZone(int districtZoneId)
+    public async Task<List<Areas>?> GetAreaByZone(int zoneId)
     {
-        return await ZoneAreas.AsNoTracking().Where(c => c.DistrictZoneId == districtZoneId).ToListAsync();
+        return await Areas.AsNoTracking().Where(c => c.ZoneId == zoneId).ToListAsync();
     }
 
-    public async Task<ILookup<int, ZoneAreas>> GetAreasByZones(IEnumerable<int> zoneIds)
+    public async Task<ILookup<int, Areas>> GetAreasByZones(IEnumerable<int> zoneIds)
     {
-        var list = await ZoneAreas.AsNoTracking().Where(c => zoneIds.Contains(c.DistrictZoneId)).ToListAsync();
-        return list.ToLookup(list=>list.DistrictZoneId);
+        var list = await Areas.AsNoTracking().Where(c => zoneIds.Contains(c.ZoneId)).ToListAsync();
+        return list.ToLookup(list=>list.ZoneId);
     }
 }

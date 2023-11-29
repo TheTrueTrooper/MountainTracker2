@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace MountainTracker.Shared.Model;
 
-public partial class ZoneAreasGeoFenceNodes
+public partial class ZonesGeoFenceNodes
 {
-    public int ZoneAreasId { get; set; }
+    public int ZonesId { get; set; }
 
     public int Id { get; set; }
 
@@ -13,5 +13,5 @@ public partial class ZoneAreasGeoFenceNodes
 
     public double? Longitude { get; set; }
 
-    public virtual ZoneAreas ZoneAreas { get; set; } = null!;
+    public virtual Zones Zones { get; set; } = null!;
 }

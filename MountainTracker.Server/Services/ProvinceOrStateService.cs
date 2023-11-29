@@ -1,5 +1,4 @@
-﻿using GraphQL;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
 using MountainTracker.Shared.Model;
 

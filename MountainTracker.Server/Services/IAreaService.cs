@@ -1,18 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MountainTracker.Server.Contexts.MountainTrackerContext;
-using MountainTracker.Shared.Model;
+﻿using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.Services;
 
 public interface IAreaService
 {
-    public Task<IEnumerable<ZoneAreas>> GetAllAreas();
+    public Task<IEnumerable<Areas>> GetAllAreas();
 
-    public Task<ZoneAreas?> GetAreaByCode(string areaCode);
+    public Task<Areas?> GetAreaByCode(string areaCode);
 
-    public Task<ZoneAreas?> GetAreaById(int id);
+    public Task<Areas?> GetAreaById(int id);
 
-    public Task<List<ZoneAreas>?> GetAreaByZone(int districtZoneId);
+    public Task<List<Areas>?> GetAreaByZone(int districtZoneId);
 
-    public Task<ILookup<int, ZoneAreas>> GetAreasByZones(IEnumerable<int> zoneIds);
+    public Task<ILookup<int, Areas>> GetAreasByZones(IEnumerable<int> zoneIds);
 }

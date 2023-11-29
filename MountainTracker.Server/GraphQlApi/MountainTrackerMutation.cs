@@ -3,7 +3,7 @@ using MountainTracker.Server.GraphQlApi.QlQuery;
 
 namespace MountainTracker.Server.GraphQlApi;
 
-public class MountainTrackerMutation: ObjectGraphType
+public class MountainTrackerMutation : ObjectGraphType
 {
     //placeholder input
     public MountainTrackerMutation(CountryQuery countryMutation)

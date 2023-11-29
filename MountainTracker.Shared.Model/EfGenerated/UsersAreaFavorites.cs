@@ -11,7 +11,7 @@ public partial class UsersAreaFavorites
 
     public string? Notes { get; set; }
 
-    public virtual ZoneAreas Area { get; set; } = null!;
+    public virtual Areas Area { get; set; } = null!;
 
     public virtual Users User { get; set; } = null!;
 }

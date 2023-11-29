@@ -1,5 +1,4 @@
 ﻿using GraphQL.DataLoader;
-using GraphQL.Reflection;
 using GraphQL.Types;
 using MountainTracker.Server.Services;
 using MountainTracker.Shared.Model;
@@ -23,10 +22,10 @@ public class DistrictType : ObjectGraphType<Districts>
         Field(d => d.LatitudeStartOrCenter, nullable: true).Description("District's latitude location by center or start");
         Field(d => d.LongitudeStartOrCenter, nullable: true).Description("District's latitude location by center or start");
 
-        Field<ListGraphType<ZoneType>, IEnumerable<DistrictZones>>("zones")
+        Field<ListGraphType<ZoneType>, IEnumerable<Zones>>("zones")
             .ResolveAsync(context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, DistrictZones>("GetZonesByRegions", zoneService.GetZonesByRegions);
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Zones>("GetZonesByRegions", zoneService.GetZonesByRegions);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("District's associated zones");

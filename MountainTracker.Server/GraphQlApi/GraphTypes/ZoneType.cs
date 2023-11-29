@@ -1,12 +1,11 @@
 ﻿using GraphQL.DataLoader;
-using GraphQL.Reflection;
 using GraphQL.Types;
 using MountainTracker.Server.Services;
 using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
-public class ZoneType : ObjectGraphType<DistrictZones>
+public class ZoneType : ObjectGraphType<Zones>
 {
     public ZoneType(IDataLoaderContextAccessor accessor, IAreaService areaService)
     {
@@ -23,10 +22,10 @@ public class ZoneType : ObjectGraphType<DistrictZones>
         Field(d => d.LatitudeStartOrCenter, nullable: true).Description("Zone's latitude location by center or start");
         Field(d => d.LongitudeStartOrCenter, nullable: true).Description("Zone's latitude location by center or start");
 
-        Field<ListGraphType<AreaType>, IEnumerable<ZoneAreas>>("areas")
+        Field<ListGraphType<AreaType>, IEnumerable<Areas>>("areas")
             .ResolveAsync(context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, ZoneAreas>("GetAreasByZones", areaService.GetAreasByZones);
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Areas>("GetAreasByZones", areaService.GetAreasByZones);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Zone's associated areas");

@@ -1,5 +1,4 @@
 ﻿using GraphQL.DataLoader;
-using GraphQL.Reflection;
 using GraphQL.Types;
 using MountainTracker.Server.Services;
 using MountainTracker.Shared.Model;
@@ -8,7 +7,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
 {
-    public RockClimbingWallType(IDataLoaderContextAccessor accessor, IAreaService areaService)
+    public RockClimbingWallType(IDataLoaderContextAccessor accessor, IRockClimbingRouteService rockClimbingRouteService)
     {
         Name = "RockClimbingWall";
         Description = "Rock Climbing Wall Type";
@@ -53,12 +52,12 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
         Field(d => d.DecSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in December");
 
 
-        //Field<ListGraphType<AreaType>, IEnumerable<ZoneAreas>>("areas")
-        //    .ResolveAsync(context =>
-        //    {
-        //        var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, ZoneAreas>("GetAreasByZones", areaService.GetAreasByZones);
-        //        return loader.LoadAsync(context.Source.Id);
-        //    })
-        //    .Description("Zone's associated areas");
+        Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>>("routes")
+            .ResolveAsync(context =>
+            {
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, RockClimbingRoutes>("GetRockClimbingRoutesByRockClimbingWalls", rockClimbingRouteService.GetRockClimbingRoutesByRockClimbingWalls);
+                return loader.LoadAsync(context.Source.Id);
+            })
+            .Description("Wall's associated routes");
     }
 }

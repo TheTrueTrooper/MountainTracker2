@@ -79,7 +79,7 @@ public partial class RockClimbingWalls
 
     public virtual ClimbingQualityRatings AprSeasonalClimbingQualityRating { get; set; } = null!;
 
-    public virtual ZoneAreas Area { get; set; } = null!;
+    public virtual Areas Area { get; set; } = null!;
 
     public virtual BusyRatings AugSeasonalBusyRating { get; set; } = null!;
 

@@ -6,5 +6,5 @@
 	PRIMARY KEY ([UserID], [AreaID]),
 
 	CONSTRAINT [FK_UsersAreaFavorites_Users] FOREIGN KEY([UserID])REFERENCES [dbo].[Users] ([ID]),
-	CONSTRAINT [FK_UsersAreaFavorites_ZoneAreas] FOREIGN KEY([AreaID])REFERENCES [dbo].[ZoneAreas] ([ID]),
+	CONSTRAINT [FK_UsersAreaFavorites_Areas] FOREIGN KEY([AreaID])REFERENCES [dbo].[Areas] ([ID]),
 )

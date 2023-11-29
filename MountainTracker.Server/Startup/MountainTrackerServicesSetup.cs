@@ -17,6 +17,7 @@ public static class MountainTrackerServicesSetup
         services.AddScoped<IZoneService, ZoneService>();
         services.AddScoped<IAreaService, AreaService>();
         services.AddScoped<IRockClimbingWallService, RockClimbingWallService>();
+        services.AddScoped<IRockClimbingRouteService, RockClimbingRouteService>();
         return services;
     }
 }

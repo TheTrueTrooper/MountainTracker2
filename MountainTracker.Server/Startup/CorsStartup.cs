@@ -10,7 +10,7 @@ public static class CorsStartup
     public static IServiceCollection AddCorsConfig(this IServiceCollection services, ConfigurationManager configurationManager)
     {
         string? allowedConfig = configurationManager.GetValue<string>(configKey);
-        string[] allowed = allowedConfig.Split(';');
+        string[] allowed = allowedConfig!.Split(';');
         services.AddCors(options =>
         {
             options.AddPolicy(CorsName,
@@ -25,7 +25,7 @@ public static class CorsStartup
         return services;
     }
 
-    public static async void UseCorsConfig(this IApplicationBuilder webApp, IConfiguration configuration)
+    public static void UseCorsConfig(this IApplicationBuilder webApp, IConfiguration configuration)
     {
         webApp.UseCors(CorsName);
     }

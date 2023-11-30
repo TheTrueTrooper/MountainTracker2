@@ -1,5 +1,4 @@
 ﻿using GraphQL.DataLoader;
-using GraphQL.Reflection;
 using GraphQL.Types;
 using MountainTracker.Server.Services;
 using MountainTracker.Shared.Model;
@@ -8,25 +7,43 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class DistrictType : ObjectGraphType<Districts>
 {
-    public DistrictType(IDataLoaderContextAccessor accessor, IZoneService zoneService)
+    public DistrictType(IDataLoaderContextAccessor accessor, IRegionService regionService, IZoneService zoneService, IDistrictGeoFenceNodeService geoFenceNodeService)
     {
         Name = "District";
         Description = "District Type";
 
         Field(d => d.Id, nullable: false).Description("Database Id");
-        Field(d => d.DistrictCode, nullable: false).Description("Code for District or state");
+        Field(d => d.DistrictCode, nullable: false).Description("Code for district");
         Field(d => d.EnglishFullName, nullable: false).Description("District's english name");
         Field(d => d.RegionId, nullable: false).Description("District's province or state id");
         Field(d => d.Info, nullable: true).Description("District's english info");
         Field(d => d.ThumbPictureBytes, nullable: true).Description("District's thumb picture in bytes");
 
+        Field(d => d.LatitudeStartOrCenter, nullable: true).Description("District's latitude location by center or start");
+        Field(d => d.LongitudeStartOrCenter, nullable: true).Description("District's latitude location by center or start");
 
-        Field<ListGraphType<ZoneType>, IEnumerable<DistrictZones>>("zones")
+        Field<RegionType, Regions>("regions")
+            .ResolveAsync(async context =>
+            {
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Regions>("GetRegionsByIds", regionService.GetRegionsByIds);
+                return loader.LoadAsync(context.Source.RegionId).Then(x => x.First());
+            })
+            .Description("District's associated region");
+
+        Field<ListGraphType<ZoneType>, IEnumerable<Zones>>("zones")
             .ResolveAsync(context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, DistrictZones>("GetZonesByRegions", zoneService.GetZonesByRegions);
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Zones>("GetZonesByRegions", zoneService.GetZonesByRegions);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("District's associated zones");
+
+        Field<ListGraphType<DistrictGeoFenceNodeType>, IEnumerable<DistrictGeoFenceNodes>>("geoFenceNodes")
+            .ResolveAsync(context =>
+            {
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, DistrictGeoFenceNodes>("GetDistrictGeoFenceNodesByDistricts", geoFenceNodeService.GetDistrictGeoFenceNodesByDistricts);
+                return loader.LoadAsync(context.Source.Id);
+            })
+            .Description("District's associated geo fence nodes");
     }
 }

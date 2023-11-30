@@ -1,5 +1,4 @@
 ﻿using GraphQL.DataLoader;
-using GraphQL.Reflection;
 using GraphQL.Types;
 using MountainTracker.Server.Services;
 using MountainTracker.Shared.Model;
@@ -8,7 +7,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class ProvinceOrStateType : ObjectGraphType<ProvincesOrStates>
 {
-    public ProvinceOrStateType(IDataLoaderContextAccessor accessor, IRegionService regionService)
+    public ProvinceOrStateType(IDataLoaderContextAccessor accessor, ICountryService countryService, IRegionService regionService)
     {
         Name = "ProvinceOrState";
         Description = "Province Or State Type";
@@ -18,8 +17,15 @@ public class ProvinceOrStateType : ObjectGraphType<ProvincesOrStates>
         Field(d => d.EnglishFullName, nullable: false).Description("Province's Or State's english name");
         Field(d => d.CountryId, nullable: false).Description("Province's or State's country id");
 
+        Field<CountryType, Countries>("country")
+            .ResolveAsync(async context =>
+            {
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<byte, Countries>("GetRegionsByIds", countryService.GetCountriesByIds);
+                return loader.LoadAsync(context.Source.CountryId).Then(x => x.First());
+            })
+            .Description("Province or state's associated country");
 
-        Field<ListGraphType<RegionType>, IEnumerable<Regions>>("Regions")
+        Field<ListGraphType<RegionType>, IEnumerable<Regions>>("regions")
             .ResolveAsync(context =>
             {
                 var loader = accessor.Context!.GetOrAddCollectionBatchLoader<short, Regions>("GetRegionsByProvincesOrStates", regionService.GetRegionsByProvincesOrStates);

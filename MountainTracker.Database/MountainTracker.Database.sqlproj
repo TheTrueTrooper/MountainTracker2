@@ -63,7 +63,7 @@
     <Folder Include="Utility" />
     <Folder Include="SQLServer" />
     <Folder Include="SQLServer\Tables" />
-    <Folder Include="SQLServer\Tables\ZoneAreas" />
+    <Folder Include="SQLServer\Tables\Areas" />
     <Folder Include="SQLServer\Tables\UsersRockClimbComments" />
     <Folder Include="SQLServer\Tables\UserDirectMessages" />
     <Folder Include="SQLServer\Tables\Users" />
@@ -81,7 +81,7 @@
     <Folder Include="SQLServer\Tables\GearSizes" />
     <Folder Include="SQLServer\Tables\Gear" />
     <Folder Include="SQLServer\Tables\Districts" />
-    <Folder Include="SQLServer\Tables\DistrictZones" />
+    <Folder Include="SQLServer\Tables\Zones" />
     <Folder Include="SQLServer\Tables\Countries" />
     <Folder Include="SQLServer\Tables\RockClimbingWalls" />
     <Folder Include="SQLServer\Tables\RockClimbingTypes" />
@@ -89,7 +89,7 @@
     <Folder Include="SQLServer\Tables\BusyRatings" />
     <Folder Include="SQLServer\Tables\ClimbingQualityRatings" />
     <Folder Include="SQLServer\Tables\DistrictsGeoFenceNodes" />
-    <Folder Include="SQLServer\Tables\DistrictZonesGeoFenceNodes" />
+    <Folder Include="SQLServer\Tables\ZonesGeoFenceNodes" />
     <Folder Include="SQLServer\Tables\GearToGearTypeLinks" />
     <Folder Include="SQLServer\Tables\MountainToRockClimbingWallLinks" />
     <Folder Include="SQLServer\Tables\RegionsGeoFenceNodes" />
@@ -101,7 +101,7 @@
     <Folder Include="SQLServer\Tables\UsersRockClimbRouteFavorites" />
     <Folder Include="SQLServer\Tables\UsersRockClimbs" />
     <Folder Include="SQLServer\Tables\UsersRockClimbingWallFavorites" />
-    <Folder Include="SQLServer\Tables\ZoneAreasGeoFenceNodes" />
+    <Folder Include="SQLServer\Tables\AreasGeoFenceNodes" />
     <Folder Include="SQLServer\Tables\Users\StoredProcedure" />
     <Folder Include="SQLServer\Tables\GroupMessagingGroups\StoredProcedure" />
     <Folder Include="SQLServer\Tables\GroupMessagingGroups\Triggers" />
@@ -124,10 +124,10 @@
     <Build Include="SQLServer\Tables\ClimbingQualityRatings\ClimbingQualityRatingsTable.sql" />
     <Build Include="SQLServer\Tables\Countries\CountriesTable.sql" />
     <Build Include="SQLServer\Tables\Districts\DistrictsTable.sql" />
-    <Build Include="SQLServer\Tables\DistrictsGeoFenceNodes\DistrictsGeoFenceNodesTable.sql" />
-    <Build Include="SQLServer\Tables\DistrictZonesGeoFenceNodes\DistrictZonesGeoFenceNodesTable.sql" />
+    <Build Include="SQLServer\Tables\DistrictsGeoFenceNodes\DistrictGeoFenceNodesTable.sql" />
+    <Build Include="SQLServer\Tables\ZonesGeoFenceNodes\ZoneGeoFenceNodesTable.sql" />
     <Build Include="SQLServer\Tables\Gear\GearTable.sql" />
-    <Build Include="SQLServer\Tables\DistrictZones\DistrictZonesTable.sql" />
+    <Build Include="SQLServer\Tables\Zones\ZonesTable.sql" />
     <Build Include="SQLServer\Tables\GearToGearTypeLinks\GearToGearTypeLinksTable.sql" />
     <Build Include="SQLServer\Tables\GearSizes\GearSizesTable.sql" />
     <Build Include="SQLServer\Tables\GroupMessagingGroups\GroupMessagingGroupsTable.sql" />
@@ -144,7 +144,7 @@
     <Build Include="SQLServer\Tables\RockClimbingRoutesToGearLinks\RockClimbingRoutesToGearLinksTable.sql" />
     <Build Include="SQLServer\Tables\RockClimbingTypes\RockClimbingTypesTable.sql" />
     <Build Include="SQLServer\Tables\RockClimbingWalls\RockClimbingWallsTable.sql" />
-    <Build Include="SQLServer\Tables\RockClimbingWallsGeoFenceNodes\RockClimbingWallsGeoFenceNodesTable.sql" />
+    <Build Include="SQLServer\Tables\RockClimbingWallsGeoFenceNodes\RockClimbingWallGeoFenceNodesTable.sql" />
     <Build Include="SQLServer\Tables\ClimbingTypes\ClimbingTypesTable.sql" />
     <Build Include="SQLServer\Tables\UserAccessLevels\UserAccessLevelsTable.sql" />
     <Build Include="SQLServer\Tables\UserAccessTokens\UserAccessTokensTable.sql" />
@@ -156,8 +156,8 @@
     <Build Include="SQLServer\Tables\UsersRockClimbRouteFavorites\UsersRockClimbRouteFavoritesTable.sql" />
     <Build Include="SQLServer\Tables\UsersRockClimbs\UsersRockClimbsTable.sql" />
     <Build Include="SQLServer\Tables\UsersRockClimbingWallFavorites\UsersRockClimbingWallFavoritesTable.sql" />
-    <Build Include="SQLServer\Tables\ZoneAreas\ZoneAreasTable.sql" />
-    <Build Include="SQLServer\Tables\ZoneAreasGeoFenceNodes\ZoneAreasGeoFenceNodesTable.sql" />
+    <Build Include="SQLServer\Tables\Areas\AreasTable.sql" />
+    <Build Include="SQLServer\Tables\AreasGeoFenceNodes\AreaGeoFenceNodesTable.sql" />
     <Build Include="SQLServer\Tables\Users\StoredProcedure\UserLoginProcedure.sql" />
     <Build Include="SQLServer\Tables\GroupMessagingGroups\StoredProcedure\OpenNewMessageGroupProcedure.sql" />
     <Build Include="SQLServer\Tables\GroupMessagingGroups\Triggers\LeavingMessagingGroupDatabaseTrigger.sql" />

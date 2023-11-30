@@ -79,7 +79,7 @@ public partial class RockClimbingWalls
 
     public virtual ClimbingQualityRatings AprSeasonalClimbingQualityRating { get; set; } = null!;
 
-    public virtual ZoneAreas Area { get; set; } = null!;
+    public virtual Areas Area { get; set; } = null!;
 
     public virtual BusyRatings AugSeasonalBusyRating { get; set; } = null!;
 
@@ -125,7 +125,7 @@ public partial class RockClimbingWalls
 
     public virtual ICollection<RockClimbingRoutes> RockClimbingRoutes { get; set; } = new List<RockClimbingRoutes>();
 
-    public virtual ICollection<RockClimbingWallsGeoFenceNodes> RockClimbingWallsGeoFenceNodes { get; set; } = new List<RockClimbingWallsGeoFenceNodes>();
+    public virtual ICollection<RockClimbingWallGeoFenceNodes> RockClimbingWallGeoFenceNodes { get; set; } = new List<RockClimbingWallGeoFenceNodes>();
 
     public virtual BusyRatings SepSeasonalBusyRating { get; set; } = null!;
 

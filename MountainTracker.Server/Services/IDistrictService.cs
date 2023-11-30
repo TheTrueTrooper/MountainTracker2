@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MountainTracker.Server.Contexts.MountainTrackerContext;
-using MountainTracker.Shared.Model;
+﻿using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.Services;
 
@@ -14,5 +12,7 @@ public interface IDistrictService
 
     public Task<List<Districts>?> GetDistrictsByRegion(int regionId);
 
-    public Task<ILookup<int, Districts>> GetDistrictsByRegions(IEnumerable<int> RegionIds);
+    public Task<ILookup<int, Districts>> GetDistrictsByRegions(IEnumerable<int> regionIds);
+
+    public Task<ILookup<int, Districts>> GetDistrictsByIds(IEnumerable<int> ids);
 }

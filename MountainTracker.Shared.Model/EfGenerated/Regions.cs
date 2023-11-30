@@ -25,5 +25,5 @@ public partial class Regions
 
     public virtual ProvincesOrStates ProvinceOrState { get; set; } = null!;
 
-    public virtual ICollection<RegionsGeoFenceNodes> RegionsGeoFenceNodes { get; set; } = new List<RegionsGeoFenceNodes>();
+    public virtual ICollection<RegionGeoFenceNodes> RegionGeoFenceNodes { get; set; } = new List<RegionGeoFenceNodes>();
 }

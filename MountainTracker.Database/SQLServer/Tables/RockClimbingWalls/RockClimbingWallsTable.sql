@@ -62,7 +62,7 @@
 	CONSTRAINT [FK_RockClimbingWalls_ClimbingQualityRatings_Nov] FOREIGN KEY([NovSeasonalClimbingQualityRatingID]) REFERENCES [dbo].[ClimbingQualityRatings] ([ID]),
 	CONSTRAINT [FK_RockClimbingWalls_ClimbingQualityRatings_Oct] FOREIGN KEY([OctSeasonalClimbingQualityRatingID]) REFERENCES [dbo].[ClimbingQualityRatings] ([ID]),
 	CONSTRAINT [FK_RockClimbingWalls_ClimbingQualityRatings_Sep] FOREIGN KEY([SepSeasonalClimbingQualityRatingID]) REFERENCES [dbo].[ClimbingQualityRatings] ([ID]),
-	CONSTRAINT [FK_RockClimbingWalls_ZoneAreas] FOREIGN KEY([AreaID]) REFERENCES [dbo].[ZoneAreas] ([ID]),
+	CONSTRAINT [FK_RockClimbingWalls_Areas] FOREIGN KEY([AreaID]) REFERENCES [dbo].[Areas] ([ID]),
 
 	CONSTRAINT [CK_RockClimbingWalls_LatitudeStartOrCenter_Max] CHECK ([LatitudeStartOrCenter]<=90),
 	CONSTRAINT [CK_RockClimbingWalls_LatitudeStartOrCenter_Min] CHECK ([LatitudeStartOrCenter]<=-90),

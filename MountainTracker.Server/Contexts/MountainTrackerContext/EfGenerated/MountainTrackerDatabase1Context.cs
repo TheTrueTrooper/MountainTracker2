@@ -12,6 +12,10 @@ public partial class MountainTrackerDatabase1Context : DbContext
     {
     }
 
+    public virtual DbSet<AreaGeoFenceNodes> AreaGeoFenceNodes { get; set; }
+
+    public virtual DbSet<Areas> Areas { get; set; }
+
     public virtual DbSet<BoulderingRoutes> BoulderingRoutes { get; set; }
 
     public virtual DbSet<BusyRatings> BusyRatings { get; set; }
@@ -22,13 +26,9 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
     public virtual DbSet<Countries> Countries { get; set; }
 
-    public virtual DbSet<DistrictZones> DistrictZones { get; set; }
-
-    public virtual DbSet<DistrictZonesGeoFenceNodes> DistrictZonesGeoFenceNodes { get; set; }
+    public virtual DbSet<DistrictGeoFenceNodes> DistrictGeoFenceNodes { get; set; }
 
     public virtual DbSet<Districts> Districts { get; set; }
-
-    public virtual DbSet<DistrictsGeoFenceNodes> DistrictsGeoFenceNodes { get; set; }
 
     public virtual DbSet<Gear> Gear { get; set; }
 
@@ -46,9 +46,9 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
     public virtual DbSet<ProvincesOrStates> ProvincesOrStates { get; set; }
 
-    public virtual DbSet<Regions> Regions { get; set; }
+    public virtual DbSet<RegionGeoFenceNodes> RegionGeoFenceNodes { get; set; }
 
-    public virtual DbSet<RegionsGeoFenceNodes> RegionsGeoFenceNodes { get; set; }
+    public virtual DbSet<Regions> Regions { get; set; }
 
     public virtual DbSet<RockClimbingDifficulties> RockClimbingDifficulties { get; set; }
 
@@ -58,9 +58,9 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
     public virtual DbSet<RockClimbingTypes> RockClimbingTypes { get; set; }
 
-    public virtual DbSet<RockClimbingWalls> RockClimbingWalls { get; set; }
+    public virtual DbSet<RockClimbingWallGeoFenceNodes> RockClimbingWallGeoFenceNodes { get; set; }
 
-    public virtual DbSet<RockClimbingWallsGeoFenceNodes> RockClimbingWallsGeoFenceNodes { get; set; }
+    public virtual DbSet<RockClimbingWalls> RockClimbingWalls { get; set; }
 
     public virtual DbSet<UserAccessLevels> UserAccessLevels { get; set; }
 
@@ -82,15 +82,55 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
     public virtual DbSet<UsersRockClimbs> UsersRockClimbs { get; set; }
 
-    public virtual DbSet<ZoneAreas> ZoneAreas { get; set; }
+    public virtual DbSet<ZoneGeoFenceNodes> ZoneGeoFenceNodes { get; set; }
 
-    public virtual DbSet<ZoneAreasGeoFenceNodes> ZoneAreasGeoFenceNodes { get; set; }
+    public virtual DbSet<Zones> Zones { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<AreaGeoFenceNodes>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC27DDCE7825");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.AreaId).HasColumnName("AreaID");
+
+            entity.HasOne(d => d.Area).WithMany(p => p.AreaGeoFenceNodes)
+                .HasForeignKey(d => d.AreaId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_AreaGeoFenceNodes_Areas");
+        });
+
+        modelBuilder.Entity<Areas>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Areas__3214EC27E5BB9B61");
+
+            entity.HasIndex(e => new { e.ZoneId, e.AreaCode }, "UQ_Areas_Code").IsUnique();
+
+            entity.HasIndex(e => new { e.ZoneId, e.EnglishFullName }, "UQ_Areas_Name").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.AreaCode)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .IsFixedLength();
+            entity.Property(e => e.EnglishFullName)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.Info)
+                .HasMaxLength(5000)
+                .IsUnicode(false);
+            entity.Property(e => e.ZoneId).HasColumnName("ZoneID");
+
+            entity.HasOne(d => d.Zone).WithMany(p => p.Areas)
+                .HasForeignKey(d => d.ZoneId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Areas_Zones");
+        });
+
         modelBuilder.Entity<BoulderingRoutes>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Boulderi__3214EC27702AAA71");
+            entity.HasKey(e => e.Id).HasName("PK__Boulderi__3214EC27A1742EE1");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -105,7 +145,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<BusyRatings>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__BusyRati__3214EC279A2E3670");
+            entity.HasKey(e => e.Id).HasName("PK__BusyRati__3214EC2731592CD9");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.EnglishName)
@@ -115,7 +155,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<ClimbingQualityRatings>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Climbing__3214EC270818EF7C");
+            entity.HasKey(e => e.Id).HasName("PK__Climbing__3214EC27D9E89DDA");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.EnglishName)
@@ -125,7 +165,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<ClimbingTypes>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Climbing__3214EC27DDF13A1D");
+            entity.HasKey(e => e.Id).HasName("PK__Climbing__3214EC2755D4E87B");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.EnglishFullName)
@@ -145,7 +185,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
                         .HasConstraintName("FK_GearToGearTypeLinks_ClimbingTypes"),
                     j =>
                     {
-                        j.HasKey("ClimbingTypeId", "GearId").HasName("PK__GearToGe__9FD373F872B43121");
+                        j.HasKey("ClimbingTypeId", "GearId").HasName("PK__GearToGe__9FD373F8BCE5121A");
                         j.IndexerProperty<byte>("ClimbingTypeId").HasColumnName("ClimbingTypeID");
                         j.IndexerProperty<byte>("GearId").HasColumnName("GearID");
                     });
@@ -153,7 +193,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<Countries>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Countrie__3214EC270A76E6DE");
+            entity.HasKey(e => e.Id).HasName("PK__Countrie__3214EC2778A79FC4");
 
             entity.HasIndex(e => e.CountryCode, "UQ_Countries_Code").IsUnique();
 
@@ -169,49 +209,22 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<DistrictZones>(entity =>
+        modelBuilder.Entity<DistrictGeoFenceNodes>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__District__3214EC27031CACEE");
-
-            entity.HasIndex(e => new { e.DistrictId, e.ZoneCode }, "UQ_DistrictZones_Code").IsUnique();
-
-            entity.HasIndex(e => new { e.DistrictId, e.EnglishFullName }, "UQ_DistrictZones_Name").IsUnique();
+            entity.HasKey(e => e.Id).HasName("PK__District__3214EC27B24DF21A");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.DistrictId).HasColumnName("DistrictID");
-            entity.Property(e => e.EnglishFullName)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.Info)
-                .HasMaxLength(5000)
-                .IsUnicode(false);
-            entity.Property(e => e.ZoneCode)
-                .HasMaxLength(5)
-                .IsUnicode(false)
-                .IsFixedLength();
 
-            entity.HasOne(d => d.District).WithMany(p => p.DistrictZones)
+            entity.HasOne(d => d.District).WithMany(p => p.DistrictGeoFenceNodes)
                 .HasForeignKey(d => d.DistrictId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_DistrictZones_Districts");
-        });
-
-        modelBuilder.Entity<DistrictZonesGeoFenceNodes>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__District__3214EC279FFDC67D");
-
-            entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.DistrictZonesId).HasColumnName("DistrictZonesID");
-
-            entity.HasOne(d => d.DistrictZones).WithMany(p => p.DistrictZonesGeoFenceNodes)
-                .HasForeignKey(d => d.DistrictZonesId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_DistrictZonesGeoFenceNodes_DistrictZones");
+                .HasConstraintName("FK_DistrictGeoFenceNodes_District");
         });
 
         modelBuilder.Entity<Districts>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__District__3214EC27F0C3A262");
+            entity.HasKey(e => e.Id).HasName("PK__District__3214EC274A3A1CB4");
 
             entity.HasIndex(e => new { e.RegionId, e.DistrictCode }, "UQ_Districts_Code").IsUnique();
 
@@ -236,22 +249,9 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasConstraintName("FK_Districts_Regions");
         });
 
-        modelBuilder.Entity<DistrictsGeoFenceNodes>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__District__3214EC27C0CD5713");
-
-            entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.DistrictsId).HasColumnName("DistrictsID");
-
-            entity.HasOne(d => d.Districts).WithMany(p => p.DistrictsGeoFenceNodes)
-                .HasForeignKey(d => d.DistrictsId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_DistrictsGeoFenceNodes_DistrictZones");
-        });
-
         modelBuilder.Entity<Gear>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Gear__3214EC276B139B53");
+            entity.HasKey(e => e.Id).HasName("PK__Gear__3214EC2775AF251D");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.EnglishFullName)
@@ -261,7 +261,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<GearSizes>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__GearSize__3214EC27FE4B637E");
+            entity.HasKey(e => e.Id).HasName("PK__GearSize__3214EC2702250B0C");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.EnglishFullName)
@@ -277,7 +277,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<GroupMessagingGroups>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__GroupMes__3214EC273CDC119F");
+            entity.HasKey(e => e.Id).HasName("PK__GroupMes__3214EC27DAB45892");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.GroupsName).HasMaxLength(50);
@@ -288,7 +288,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<GroupMessagingMembers>(entity =>
         {
-            entity.HasKey(e => new { e.UserId, e.GroupMessagingId }).HasName("PK__GroupMes__3491EC20E1C10336");
+            entity.HasKey(e => new { e.UserId, e.GroupMessagingId }).HasName("PK__GroupMes__3491EC20C2C70508");
 
             entity.ToTable(tb => tb.HasTrigger("LeavingMessagingGroupTrigger"));
 
@@ -317,7 +317,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<GroupMessagingMessages>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__GroupMes__3214EC2705DDD791");
+            entity.HasKey(e => e.Id).HasName("PK__GroupMes__3214EC277423D4E3");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.GroupMessagingId).HasColumnName("GroupMessagingID");
@@ -340,7 +340,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<IceClimbingRoutes>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__IceClimb__3214EC271AC364C1");
+            entity.HasKey(e => e.Id).HasName("PK__IceClimb__3214EC27D52ECE00");
 
             entity.Property(e => e.Id)
                 .ValueGeneratedNever()
@@ -350,7 +350,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<Mountains>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Mountain__3214EC276FBE4A51");
+            entity.HasKey(e => e.Id).HasName("PK__Mountain__3214EC27975947C7");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.EnglishFullName)
@@ -373,7 +373,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
                         .HasConstraintName("FK_MountainToRockClimbingWallLinks_Mountains"),
                     j =>
                     {
-                        j.HasKey("MountainId", "ClimbingWallsId").HasName("PK__Mountain__CC24E4298E91A4FC");
+                        j.HasKey("MountainId", "ClimbingWallsId").HasName("PK__Mountain__CC24E42986BE9C60");
                         j.IndexerProperty<int>("MountainId").HasColumnName("MountainID");
                         j.IndexerProperty<int>("ClimbingWallsId").HasColumnName("ClimbingWallsID");
                     });
@@ -381,7 +381,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<ProvincesOrStates>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Province__3214EC272847FE5C");
+            entity.HasKey(e => e.Id).HasName("PK__Province__3214EC27DA9A26BF");
 
             entity.HasIndex(e => new { e.CountryId, e.RegionCode }, "UQ_ProvincesOrStates_Code").IsUnique();
 
@@ -405,9 +405,22 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasConstraintName("FK_ProvincesOrStates_Countries");
         });
 
+        modelBuilder.Entity<RegionGeoFenceNodes>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__RegionGe__3214EC27C1E7ABCF");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.RegionId).HasColumnName("RegionID");
+
+            entity.HasOne(d => d.Region).WithMany(p => p.RegionGeoFenceNodes)
+                .HasForeignKey(d => d.RegionId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RegionGeoFenceNodes_Regions");
+        });
+
         modelBuilder.Entity<Regions>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Regions__3214EC272F8E9AD0");
+            entity.HasKey(e => e.Id).HasName("PK__Regions__3214EC279286D96F");
 
             entity.HasIndex(e => new { e.ProvinceOrStateId, e.RegionCode }, "UQ_Region_Code").IsUnique();
 
@@ -432,22 +445,9 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasConstraintName("FK_Regions_ProvincesOrStates");
         });
 
-        modelBuilder.Entity<RegionsGeoFenceNodes>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__RegionsG__3214EC27F5F558C8");
-
-            entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.RegionsId).HasColumnName("RegionsID");
-
-            entity.HasOne(d => d.Regions).WithMany(p => p.RegionsGeoFenceNodes)
-                .HasForeignKey(d => d.RegionsId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_RegionsGeoFenceNodes_Regions");
-        });
-
         modelBuilder.Entity<RockClimbingDifficulties>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__RockClim__3214EC27FCEA3063");
+            entity.HasKey(e => e.Id).HasName("PK__RockClim__3214EC277CEB81D5");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.EnglishCode)
@@ -457,7 +457,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<RockClimbingRoutes>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__RockClim__3214EC2763AF2D56");
+            entity.HasKey(e => e.Id).HasName("PK__RockClim__3214EC276BCC0FD0");
 
             entity.HasIndex(e => new { e.ClimbingWallId, e.RouteCode }, "UQ_RockClimbingRoutes_Code").IsUnique();
 
@@ -477,7 +477,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasDefaultValueSql("('Unknown')");
-            entity.Property(e => e.HieghtInFeet).HasComputedColumnSql("((3.28084)*[HieghtInMeters])", false);
+            entity.Property(e => e.HeightInFeet).HasComputedColumnSql("((3.28084)*[HeightInMeters])", false);
             entity.Property(e => e.Info)
                 .HasMaxLength(5000)
                 .IsUnicode(false);
@@ -502,7 +502,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<RockClimbingRoutesToGearLinks>(entity =>
         {
-            entity.HasKey(e => new { e.RockClimbingRoutesId, e.GearSizeId }).HasName("PK__RockClim__C3324E3AC439A066");
+            entity.HasKey(e => new { e.RockClimbingRoutesId, e.GearSizeId }).HasName("PK__RockClim__C3324E3A162DD9B1");
 
             entity.Property(e => e.RockClimbingRoutesId).HasColumnName("RockClimbingRoutesID");
             entity.Property(e => e.GearSizeId).HasColumnName("GearSizeID");
@@ -521,7 +521,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<RockClimbingTypes>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__RockClim__3214EC278B6C7F73");
+            entity.HasKey(e => e.Id).HasName("PK__RockClim__3214EC270C61B79F");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.EnglishFullName)
@@ -532,9 +532,22 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<RockClimbingWallGeoFenceNodes>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__RockClim__3214EC27FF46A267");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.ClimbingWallId).HasColumnName("ClimbingWallID");
+
+            entity.HasOne(d => d.ClimbingWall).WithMany(p => p.RockClimbingWallGeoFenceNodes)
+                .HasForeignKey(d => d.ClimbingWallId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RockClimbingWallGeoFenceNodes_RockClimbingWalls");
+        });
+
         modelBuilder.Entity<RockClimbingWalls>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__RockClim__3214EC27A99FBA52");
+            entity.HasKey(e => e.Id).HasName("PK__RockClim__3214EC27DA4C6A92");
 
             entity.HasIndex(e => new { e.AreaId, e.WallCode }, "UQ_RockClimbingWalls_Code").IsUnique();
 
@@ -594,7 +607,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
             entity.HasOne(d => d.Area).WithMany(p => p.RockClimbingWalls)
                 .HasForeignKey(d => d.AreaId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_RockClimbingWalls_ZoneAreas");
+                .HasConstraintName("FK_RockClimbingWalls_Areas");
 
             entity.HasOne(d => d.AugSeasonalBusyRating).WithMany(p => p.RockClimbingWallsAugSeasonalBusyRating)
                 .HasForeignKey(d => d.AugSeasonalBusyRatingId)
@@ -707,22 +720,9 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasConstraintName("FK_RockClimbingWalls_ClimbingQualityRatings_Sep");
         });
 
-        modelBuilder.Entity<RockClimbingWallsGeoFenceNodes>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__RockClim__3214EC2741150B21");
-
-            entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.ClimbingWallsId).HasColumnName("ClimbingWallsID");
-
-            entity.HasOne(d => d.ClimbingWalls).WithMany(p => p.RockClimbingWallsGeoFenceNodes)
-                .HasForeignKey(d => d.ClimbingWallsId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_RockClimbingWallsGeoFenceNodes_RockClimbingWalls");
-        });
-
         modelBuilder.Entity<UserAccessLevels>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__UserAcce__3214EC274C4CCCF0");
+            entity.HasKey(e => e.Id).HasName("PK__UserAcce__3214EC27E0087B06");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.EnglishName)
@@ -732,7 +732,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<UserAccessTokens>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__UserAcce__3214EC27392AF425");
+            entity.HasKey(e => e.Id).HasName("PK__UserAcce__3214EC270B4E865A");
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.DaysValid).HasDefaultValueSql("((0))");
@@ -754,7 +754,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<UserDirectMessages>(entity =>
         {
-            entity.HasKey(e => e.DirectMessageId).HasName("PK__UserDire__8332D27CFE06EF5A");
+            entity.HasKey(e => e.DirectMessageId).HasName("PK__UserDire__8332D27C503799C0");
 
             entity.Property(e => e.DirectMessageId).HasColumnName("DirectMessageID");
             entity.Property(e => e.Message)
@@ -779,7 +779,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<UserFriends>(entity =>
         {
-            entity.HasKey(e => new { e.UserFromId, e.UserToId }).HasName("PK__UserFrie__D4302545AE75B1E6");
+            entity.HasKey(e => new { e.UserFromId, e.UserToId }).HasName("PK__UserFrie__D4302545F0D07AC5");
 
             entity.Property(e => e.UserFromId).HasColumnName("UserFromID");
             entity.Property(e => e.UserToId).HasColumnName("UserToID");
@@ -801,7 +801,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<Users>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC279B2AC7E2");
+            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC272CF17D32");
 
             entity.HasIndex(e => e.PrimaryPersonalEmail, "UQ_PrimaryPersonalEmail").IsUnique();
 
@@ -856,7 +856,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<UsersAreaFavorites>(entity =>
         {
-            entity.HasKey(e => new { e.UserId, e.AreaId }).HasName("PK__UsersAre__80834EAEAAEFE724");
+            entity.HasKey(e => new { e.UserId, e.AreaId }).HasName("PK__UsersAre__80834EAE76DAF971");
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.AreaId).HasColumnName("AreaID");
@@ -867,7 +867,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
             entity.HasOne(d => d.Area).WithMany(p => p.UsersAreaFavorites)
                 .HasForeignKey(d => d.AreaId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UsersAreaFavorites_ZoneAreas");
+                .HasConstraintName("FK_UsersAreaFavorites_Areas");
 
             entity.HasOne(d => d.User).WithMany(p => p.UsersAreaFavorites)
                 .HasForeignKey(d => d.UserId)
@@ -877,7 +877,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<UsersRockClimbComments>(entity =>
         {
-            entity.HasKey(e => e.CommentId).HasName("PK__UsersRoc__C3B4DFAAB168F2D0");
+            entity.HasKey(e => e.CommentId).HasName("PK__UsersRoc__C3B4DFAA253AD024");
 
             entity.Property(e => e.CommentId)
                 .ValueGeneratedOnAdd()
@@ -904,7 +904,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<UsersRockClimbRouteFavorites>(entity =>
         {
-            entity.HasKey(e => new { e.UserId, e.RockClimbingRoutesId }).HasName("PK__UsersRoc__C5CBB65F92C103A9");
+            entity.HasKey(e => new { e.UserId, e.RockClimbingRoutesId }).HasName("PK__UsersRoc__C5CBB65FA1853CBF");
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.RockClimbingRoutesId).HasColumnName("RockClimbingRoutesID");
@@ -925,7 +925,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<UsersRockClimbingWallFavorites>(entity =>
         {
-            entity.HasKey(e => new { e.UserId, e.RockClimbingWallId }).HasName("PK__UsersRoc__35FF1B6C61B8F627");
+            entity.HasKey(e => new { e.UserId, e.RockClimbingWallId }).HasName("PK__UsersRoc__35FF1B6CC0138FFE");
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.RockClimbingWallId).HasColumnName("RockClimbingWallID");
@@ -946,7 +946,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<UsersRockClimbs>(entity =>
         {
-            entity.HasKey(e => e.ClimbId).HasName("PK__UsersRoc__2FC3D4C0E86F7CC0");
+            entity.HasKey(e => e.ClimbId).HasName("PK__UsersRoc__2FC3D4C018D82566");
 
             entity.Property(e => e.ClimbId)
                 .ValueGeneratedOnAdd()
@@ -971,44 +971,44 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasConstraintName("FK_UsersRockClimbTracker_Users");
         });
 
-        modelBuilder.Entity<ZoneAreas>(entity =>
+        modelBuilder.Entity<ZoneGeoFenceNodes>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ZoneArea__3214EC2773299864");
-
-            entity.HasIndex(e => new { e.DistrictZoneId, e.AreaCode }, "UQ_ZoneAreas_Code").IsUnique();
-
-            entity.HasIndex(e => new { e.DistrictZoneId, e.EnglishFullName }, "UQ_ZoneAreas_Name").IsUnique();
+            entity.HasKey(e => e.Id).HasName("PK__ZoneGeoF__3214EC27529D14D4");
 
             entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.AreaCode)
-                .HasMaxLength(5)
-                .IsUnicode(false)
-                .IsFixedLength();
-            entity.Property(e => e.DistrictZoneId).HasColumnName("DistrictZoneID");
+            entity.Property(e => e.ZoneId).HasColumnName("ZoneID");
+
+            entity.HasOne(d => d.Zone).WithMany(p => p.ZoneGeoFenceNodes)
+                .HasForeignKey(d => d.ZoneId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ZoneGeoFenceNodes_Zones");
+        });
+
+        modelBuilder.Entity<Zones>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Zones__3214EC27831E47B8");
+
+            entity.HasIndex(e => new { e.DistrictId, e.ZoneCode }, "UQ_Zones_Code").IsUnique();
+
+            entity.HasIndex(e => new { e.DistrictId, e.EnglishFullName }, "UQ_Zones_Name").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.DistrictId).HasColumnName("DistrictID");
             entity.Property(e => e.EnglishFullName)
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Info)
                 .HasMaxLength(5000)
                 .IsUnicode(false);
+            entity.Property(e => e.ZoneCode)
+                .HasMaxLength(5)
+                .IsUnicode(false)
+                .IsFixedLength();
 
-            entity.HasOne(d => d.DistrictZone).WithMany(p => p.ZoneAreas)
-                .HasForeignKey(d => d.DistrictZoneId)
+            entity.HasOne(d => d.District).WithMany(p => p.Zones)
+                .HasForeignKey(d => d.DistrictId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ZoneAreas_DistrictZones");
-        });
-
-        modelBuilder.Entity<ZoneAreasGeoFenceNodes>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__ZoneArea__3214EC27E9CBD5B3");
-
-            entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.ZoneAreasId).HasColumnName("ZoneAreasID");
-
-            entity.HasOne(d => d.ZoneAreas).WithMany(p => p.ZoneAreasGeoFenceNodes)
-                .HasForeignKey(d => d.ZoneAreasId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ZoneAreasGeoFenceNodes_ZoneAreas");
+                .HasConstraintName("FK_Zones_Districts");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -68,10 +68,10 @@ IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimb
 --Routes Rest cont
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.RockClimbingWalls') AND Type = N'U')
 	delete [RockClimbingWalls] where 1=1
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.ZoneAreas') AND Type = N'U')
-	delete ZoneAreas where 1=1
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.DistrictZones') AND Type = N'U')
-	delete DistrictZones where 1=1
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Areas') AND Type = N'U')
+	delete Areas where 1=1
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Zones') AND Type = N'U')
+	delete Zones where 1=1
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Districts') AND Type = N'U')
 	delete Districts where 1=1
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Regions') AND Type = N'U')

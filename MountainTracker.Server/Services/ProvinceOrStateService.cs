@@ -1,7 +1,7 @@
-﻿using GraphQL;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
 using MountainTracker.Shared.Model;
+using System.Linq;
 
 namespace MountainTracker.Server.Services;
 
@@ -36,9 +36,15 @@ public class ProvinceOrStateService : IProvinceOrStateService
         return await ProvincesOrStates.AsNoTracking().Where(c => c.CountryId == countryId).ToListAsync();
     }
 
-    public async Task<ILookup<byte,ProvincesOrStates>> GetProvincesOrStatesByCountries(IEnumerable<byte> countryIds)
+    public async Task<ILookup<byte, ProvincesOrStates>> GetProvincesOrStatesByCountries(IEnumerable<byte> countryIds)
     {
         var list = await ProvincesOrStates.AsNoTracking().Where(c => countryIds.Contains(c.CountryId)).ToListAsync();
         return list.ToLookup(list=>list.CountryId);
+    }
+
+    public async Task<ILookup<short, ProvincesOrStates>> GetProvincesOrStatesByIds(IEnumerable<short> ids)
+    {
+        var list = await ProvincesOrStates.AsNoTracking().Where(c => ids.Contains(c.Id)).ToListAsync();
+        return list.ToLookup(list => list.Id);
     }
 }

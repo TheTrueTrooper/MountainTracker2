@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
+using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
 
-namespace MountainTracker.Server.Services;
+namespace MountainTracker.Server.Services.LocalServices.Services;
 
 public class RegionGeoFenceNodeService : IRegionGeoFenceNodeService
 {
@@ -11,8 +12,8 @@ public class RegionGeoFenceNodeService : IRegionGeoFenceNodeService
 
     public RegionGeoFenceNodeService(MountainTrackerDatabase1Context context)
     {
-        this.Context = context;
-        this.RegionGeoFenceNodes = Context.RegionGeoFenceNodes;
+        Context = context;
+        RegionGeoFenceNodes = Context.RegionGeoFenceNodes;
     }
 
     public async Task<IEnumerable<RegionGeoFenceNodes>> GetAllRegionGeoFenceNodes()

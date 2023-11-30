@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
+using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
 
-namespace MountainTracker.Server.Services;
+namespace MountainTracker.Server.Services.LocalServices.Services;
 
 public class ZoneGeoFenceNodeService : IZoneGeoFenceNodeService
 {
@@ -11,8 +12,8 @@ public class ZoneGeoFenceNodeService : IZoneGeoFenceNodeService
 
     public ZoneGeoFenceNodeService(MountainTrackerDatabase1Context context)
     {
-        this.Context = context;
-        this.ZoneGeoFenceNodes = Context.ZoneGeoFenceNodes;
+        Context = context;
+        ZoneGeoFenceNodes = Context.ZoneGeoFenceNodes;
     }
 
     public async Task<IEnumerable<ZoneGeoFenceNodes>> GetAllZoneGeoFenceNodes()
@@ -39,6 +40,6 @@ public class ZoneGeoFenceNodeService : IZoneGeoFenceNodeService
     public async Task<ILookup<int, ZoneGeoFenceNodes>> GetZoneGeoFenceNodesByZones(IEnumerable<int> zoneIds)
     {
         var list = await ZoneGeoFenceNodes.AsNoTracking().Where(c => zoneIds.Contains(c.ZoneId)).ToListAsync();
-        return list.ToLookup(list=>list.ZoneId);
+        return list.ToLookup(list => list.ZoneId);
     }
 }

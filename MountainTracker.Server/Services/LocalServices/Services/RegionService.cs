@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
+using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
 
-namespace MountainTracker.Server.Services;
+namespace MountainTracker.Server.Services.LocalServices.Services;
 
 public class RegionService : IRegionService
 {
@@ -11,8 +12,8 @@ public class RegionService : IRegionService
 
     public RegionService(MountainTrackerDatabase1Context context)
     {
-        this.Context = context;
-        this.Regions = Context.Regions;
+        Context = context;
+        Regions = Context.Regions;
     }
 
     public async Task<IEnumerable<Regions>> GetAllRegions()
@@ -44,6 +45,6 @@ public class RegionService : IRegionService
     public async Task<ILookup<short, Regions>> GetRegionsByProvincesOrStates(IEnumerable<short> provinceOrStateIds)
     {
         var list = await Regions.AsNoTracking().Where(c => provinceOrStateIds.Contains(c.ProvinceOrStateId)).ToListAsync();
-        return list.ToLookup(list=>list.ProvinceOrStateId);
+        return list.ToLookup(list => list.ProvinceOrStateId);
     }
 }

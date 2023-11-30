@@ -1,18 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
+using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
 
-namespace MountainTracker.Server.Services;
+namespace MountainTracker.Server.Services.LocalServices.Services;
 
-public class CountryService: ICountryService
+public class CountryService : ICountryService
 {
     MountainTrackerDatabase1Context Context;
     DbSet<Countries> Countries;
 
     public CountryService(MountainTrackerDatabase1Context context)
     {
-        this.Context = context;
-        this.Countries = Context.Countries;
+        Context = context;
+        Countries = Context.Countries;
     }
 
     public async Task<IEnumerable<Countries>> GetAllCountries()

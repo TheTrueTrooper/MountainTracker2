@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
+using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
 using System.Linq;
 
-namespace MountainTracker.Server.Services;
+namespace MountainTracker.Server.Services.LocalServices.Services;
 
 public class ProvinceOrStateService : IProvinceOrStateService
 {
@@ -12,8 +13,8 @@ public class ProvinceOrStateService : IProvinceOrStateService
 
     public ProvinceOrStateService(MountainTrackerDatabase1Context context)
     {
-        this.Context = context;
-        this.ProvincesOrStates = Context.ProvincesOrStates;
+        Context = context;
+        ProvincesOrStates = Context.ProvincesOrStates;
     }
 
     public async Task<IEnumerable<ProvincesOrStates>> GetAllProvincesOrStates()
@@ -39,7 +40,7 @@ public class ProvinceOrStateService : IProvinceOrStateService
     public async Task<ILookup<byte, ProvincesOrStates>> GetProvincesOrStatesByCountries(IEnumerable<byte> countryIds)
     {
         var list = await ProvincesOrStates.AsNoTracking().Where(c => countryIds.Contains(c.CountryId)).ToListAsync();
-        return list.ToLookup(list=>list.CountryId);
+        return list.ToLookup(list => list.CountryId);
     }
 
     public async Task<ILookup<short, ProvincesOrStates>> GetProvincesOrStatesByIds(IEnumerable<short> ids)

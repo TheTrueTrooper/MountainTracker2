@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
+using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
 
-namespace MountainTracker.Server.Services;
+namespace MountainTracker.Server.Services.LocalServices.Services;
 
 public class RockClimbingRouteService : IRockClimbingRouteService
 {
@@ -11,8 +12,8 @@ public class RockClimbingRouteService : IRockClimbingRouteService
 
     public RockClimbingRouteService(MountainTrackerDatabase1Context context)
     {
-        this.Context = context;
-        this.RockClimbingRoutes = Context.RockClimbingRoutes;
+        Context = context;
+        RockClimbingRoutes = Context.RockClimbingRoutes;
     }
 
     public async Task<IEnumerable<RockClimbingRoutes>> GetAllRockClimbingRoutes()

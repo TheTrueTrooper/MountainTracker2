@@ -1,7 +1,7 @@
 ﻿using GraphQL.DataLoader;
 using GraphQL.Reflection;
 using GraphQL.Types;
-using MountainTracker.Server.Services;
+using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;

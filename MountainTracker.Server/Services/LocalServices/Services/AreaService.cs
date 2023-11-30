@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
+using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
 
-namespace MountainTracker.Server.Services;
+namespace MountainTracker.Server.Services.LocalServices.Services;
 
 public class AreaService : IAreaService
 {
@@ -11,8 +12,8 @@ public class AreaService : IAreaService
 
     public AreaService(MountainTrackerDatabase1Context context)
     {
-        this.Context = context;
-        this.Areas = Context.Areas;
+        Context = context;
+        Areas = Context.Areas;
     }
 
     public async Task<IEnumerable<Areas>> GetAllAreas()
@@ -44,6 +45,6 @@ public class AreaService : IAreaService
     public async Task<ILookup<int, Areas>> GetAreasByZones(IEnumerable<int> zoneIds)
     {
         var list = await Areas.AsNoTracking().Where(c => zoneIds.Contains(c.ZoneId)).ToListAsync();
-        return list.ToLookup(list=>list.ZoneId);
+        return list.ToLookup(list => list.ZoneId);
     }
 }

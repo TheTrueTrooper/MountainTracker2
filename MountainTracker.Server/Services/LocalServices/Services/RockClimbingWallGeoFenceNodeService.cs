@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
+using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
 
-namespace MountainTracker.Server.Services;
+namespace MountainTracker.Server.Services.LocalServices.Services;
 
 public class RockClimbingWallGeoFenceNodeService : IRockClimbingWallGeoFenceNodeService
 {
@@ -11,8 +12,8 @@ public class RockClimbingWallGeoFenceNodeService : IRockClimbingWallGeoFenceNode
 
     public RockClimbingWallGeoFenceNodeService(MountainTrackerDatabase1Context context)
     {
-        this.Context = context;
-        this.RockClimbingWallGeoFenceNodes = Context.RockClimbingWallGeoFenceNodes;
+        Context = context;
+        RockClimbingWallGeoFenceNodes = Context.RockClimbingWallGeoFenceNodes;
     }
 
     public async Task<IEnumerable<RockClimbingWallGeoFenceNodes>> GetAllRockClimbingWallGeoFenceNodes()
@@ -39,6 +40,6 @@ public class RockClimbingWallGeoFenceNodeService : IRockClimbingWallGeoFenceNode
     public async Task<ILookup<int, RockClimbingWallGeoFenceNodes>> GetRockClimbingWallGeoFenceNodesByRockClimbingWalls(IEnumerable<int> climbingWallIds)
     {
         var list = await RockClimbingWallGeoFenceNodes.AsNoTracking().Where(c => climbingWallIds.Contains(c.ClimbingWallId)).ToListAsync();
-        return list.ToLookup(list=>list.ClimbingWallId);
+        return list.ToLookup(list => list.ClimbingWallId);
     }
 }

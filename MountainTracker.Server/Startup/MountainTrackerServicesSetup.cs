@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
-using MountainTracker.Server.Services;
+using MountainTracker.Server.Services.LocalServices.Interfaces;
+using MountainTracker.Server.Services.LocalServices.Services;
 
 namespace MountainTracker.Server.Startup;
 

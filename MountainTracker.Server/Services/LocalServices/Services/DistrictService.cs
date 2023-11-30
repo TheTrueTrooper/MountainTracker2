@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
+using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
 
-namespace MountainTracker.Server.Services;
+namespace MountainTracker.Server.Services.LocalServices.Services;
 
 public class DistrictService : IDistrictService
 {
@@ -11,8 +12,8 @@ public class DistrictService : IDistrictService
 
     public DistrictService(MountainTrackerDatabase1Context context)
     {
-        this.Context = context;
-        this.Districts = Context.Districts;
+        Context = context;
+        Districts = Context.Districts;
     }
 
     public async Task<IEnumerable<Districts>> GetAllDistricts()
@@ -44,6 +45,6 @@ public class DistrictService : IDistrictService
     public async Task<ILookup<int, Districts>> GetDistrictsByRegions(IEnumerable<int> regionIds)
     {
         var list = await Districts.AsNoTracking().Where(c => regionIds.Contains(c.RegionId)).ToListAsync();
-        return list.ToLookup(list=>list.RegionId);
+        return list.ToLookup(list => list.RegionId);
     }
 }

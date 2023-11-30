@@ -22,6 +22,7 @@ public class AreaType : ObjectGraphType<Areas>
         Field(d => d.LatitudeStartOrCenter, nullable: true).Description("Area's latitude location by center or start");
         Field(d => d.LongitudeStartOrCenter, nullable: true).Description("Area's latitude location by center or start");
 
+#pragma warning disable CS1998 // The lib handels but does not suppress when method Then is called (but requires async)
         Field<ZoneType, Zones>("zone")
             .ResolveAsync(async context =>
             {
@@ -29,6 +30,7 @@ public class AreaType : ObjectGraphType<Areas>
                 return loader.LoadAsync(context.Source.ZoneId).Then(x => x.First());
             })
             .Description("Area's associated zone");
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
         Field<ListGraphType<RockClimbingWallType>, IEnumerable<RockClimbingWalls>>("rockWalls")
             .ResolveAsync(context =>

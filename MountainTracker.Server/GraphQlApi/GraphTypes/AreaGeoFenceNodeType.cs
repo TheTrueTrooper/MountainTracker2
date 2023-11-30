@@ -18,6 +18,7 @@ public class AreaGeoFenceNodeType : ObjectGraphType<AreaGeoFenceNodes>
         Field(d => d.Latitude, nullable: false).Description("Latitude of node in geo fence");
         Field(d => d.Longitude, nullable: false).Description("Longitude of node in geo fence");
 
+#pragma warning disable CS1998 // The lib handels but does not suppress when method Then is called (but requires async)
         Field<AreaType, Areas>("area")
             .ResolveAsync(async context =>
             {
@@ -25,5 +26,6 @@ public class AreaGeoFenceNodeType : ObjectGraphType<AreaGeoFenceNodes>
                 return loader.LoadAsync(context.Source.AreaId).Then(x => x.First());
             })
             .Description("Area geo fence node's associated area");
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     }
 }

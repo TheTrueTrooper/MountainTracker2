@@ -10,5 +10,5 @@ export class Country
     @QlField()
     public countryCode?:string
 
-    public provincesOrStates?: ProvinceOrState
+    public provincesOrStates?: ProvinceOrState[]
 }

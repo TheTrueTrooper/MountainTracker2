@@ -2,11 +2,14 @@
 using GraphQL.Types;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
-public class ProvinceOrStateType : ObjectGraphType<ProvincesOrStates>
+public class ProvinceOrStateType : ObjectGraphType<ProvincesOrStates>, IDisposable
 {
+    private List<IServiceScope> scopes = new List<IServiceScope>(2);
+
     public ProvinceOrStateType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
         Name = "ProvinceOrState";
@@ -17,7 +20,7 @@ public class ProvinceOrStateType : ObjectGraphType<ProvincesOrStates>
         Field(d => d.EnglishFullName, nullable: false).Description("Province's Or State's english name");
         Field(d => d.CountryId, nullable: false).Description("Province's or State's country id");
 
-        var countryScope = serviceProvider.CreateScope();
+        var countryScope = CreateScope(serviceProvider);
         Field<CountryType, Countries>("country")
             .ResolveAsync(async context =>
             {
@@ -27,7 +30,7 @@ public class ProvinceOrStateType : ObjectGraphType<ProvincesOrStates>
             })
             .Description("Province or state's associated country");
 
-        var geoFenceNodesScope = serviceProvider.CreateScope();
+        var geoFenceNodesScope = CreateScope(serviceProvider);
         Field<ListGraphType<RegionType>, IEnumerable<Regions>>("regions")
             .ResolveAsync(context =>
             {
@@ -36,5 +39,20 @@ public class ProvinceOrStateType : ObjectGraphType<ProvincesOrStates>
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Province's associated regions");
+    }
+
+    private IServiceScope CreateScope(IServiceProvider serviceProvider)
+    {
+        var scope = serviceProvider.CreateScope();
+        scopes.Add(scope);
+        return scope;
+    }
+
+    public void Dispose()
+    {
+        foreach (var scope in scopes)
+        {
+            scope.Dispose();
+        }
     }
 }

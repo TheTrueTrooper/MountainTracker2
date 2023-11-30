@@ -1,18 +1,17 @@
 import { QlField } from "../../graphql-helpers";
-import { Country } from "./country";
 import { Region } from "./region";
 
-export class ProvinceOrState
+export class District
 {
     @QlField()
-    public countryId?: number;
+    public regionId?: number;
     @QlField()
     public id?: number;
     @QlField()
     public englishFullName?: string;
     @QlField()
-    public regionCode?: string;
+    public districtCode?: string;
 
-    public country?: Country;
-    public regions?: Region[];
+    public region?: Region;
+    
 }

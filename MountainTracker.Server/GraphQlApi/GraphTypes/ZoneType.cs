@@ -3,11 +3,14 @@ using GraphQL.Types;
 using Microsoft.Extensions.DependencyInjection;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
-public class ZoneType : ObjectGraphType<Zones>
+public class ZoneType : ObjectGraphType<Zones>, IDisposable
 {
+    private List<IServiceScope> scopes = new List<IServiceScope>(3);
+
     public ZoneType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
         Name = "Zone";
@@ -23,7 +26,7 @@ public class ZoneType : ObjectGraphType<Zones>
         Field(d => d.LatitudeStartOrCenter, nullable: true).Description("Zone's latitude location by center or start");
         Field(d => d.LongitudeStartOrCenter, nullable: true).Description("Zone's latitude location by center or start");
 
-        var districtScope = serviceProvider.CreateScope();
+        var districtScope = CreateScope(serviceProvider);
         Field<DistrictType, Districts>("district")
             .ResolveAsync(async context =>
             {
@@ -33,7 +36,7 @@ public class ZoneType : ObjectGraphType<Zones>
             })
             .Description("Zones's associated district");
 
-        var areasScope = serviceProvider.CreateScope();
+        var areasScope = CreateScope(serviceProvider);
         Field<ListGraphType<AreaType>, IEnumerable<Areas>>("areas")
             .ResolveAsync(context =>
             {
@@ -43,7 +46,7 @@ public class ZoneType : ObjectGraphType<Zones>
             })
             .Description("Zone's associated areas");
 
-        var geoFenceNodesScope = serviceProvider.CreateScope();
+        var geoFenceNodesScope = CreateScope(serviceProvider);
         Field<ListGraphType<ZoneGeoFenceNodeType>, IEnumerable<ZoneGeoFenceNodes>>("geoFenceNodes")
             .ResolveAsync(context =>
             {
@@ -52,5 +55,20 @@ public class ZoneType : ObjectGraphType<Zones>
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Zone's associated geo fence nodes");
+    }
+
+    private IServiceScope CreateScope(IServiceProvider serviceProvider)
+    {
+        var scope = serviceProvider.CreateScope();
+        scopes.Add(scope);
+        return scope;
+    }
+
+    public void Dispose()
+    {
+        foreach (var scope in scopes)
+        {
+            scope.Dispose();
+        }
     }
 }

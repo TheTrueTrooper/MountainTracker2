@@ -2,11 +2,14 @@
 using GraphQL.Types;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
-public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
+public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposable
 {
+    private List<IServiceScope> scopes = new List<IServiceScope>(3);
+
     public RockClimbingWallType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
         Name = "RockClimbingWall";
@@ -51,7 +54,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
         Field(d => d.NovSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in November");
         Field(d => d.DecSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in December");
 
-        var areaScope = serviceProvider.CreateScope();
+        var areaScope = CreateScope(serviceProvider);
         Field<AreaType, Areas>("area")
             .ResolveAsync(async context =>
             {
@@ -61,7 +64,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
             })
             .Description("Wall's associated area");
 
-        var routesScope = serviceProvider.CreateScope();
+        var routesScope = CreateScope(serviceProvider);
         Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>>("routes")
             .ResolveAsync(context =>
             {
@@ -71,7 +74,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
             })
             .Description("Wall's associated routes");
 
-        var geoFenceNodesScope = serviceProvider.CreateScope();
+        var geoFenceNodesScope = CreateScope(serviceProvider);
         Field<ListGraphType<RockClimbingWallGeoFenceNodeType>, IEnumerable<RockClimbingWallGeoFenceNodes>>("geoFenceNodes")
             .ResolveAsync(context =>
             {
@@ -80,5 +83,20 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Wall's associated geo fence nodes");
+    }
+
+    private IServiceScope CreateScope(IServiceProvider serviceProvider)
+    {
+        var scope = serviceProvider.CreateScope();
+        scopes.Add(scope);
+        return scope;
+    }
+
+    public void Dispose()
+    {
+        foreach (var scope in scopes)
+        {
+            scope.Dispose();
+        }
     }
 }

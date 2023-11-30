@@ -3,11 +3,14 @@ using GraphQL.Reflection;
 using GraphQL.Types;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
-public class DistrictGeoFenceNodeType : ObjectGraphType<DistrictGeoFenceNodes>
+public class DistrictGeoFenceNodeType : ObjectGraphType<DistrictGeoFenceNodes>, IDisposable
 {
+    private List<IServiceScope> scopes = new List<IServiceScope>(1);
+
     public DistrictGeoFenceNodeType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
         Name = "DistrictGeoFenceNode";
@@ -18,7 +21,7 @@ public class DistrictGeoFenceNodeType : ObjectGraphType<DistrictGeoFenceNodes>
         Field(d => d.Latitude, nullable: false).Description("Latitude of node in geo fence");
         Field(d => d.Longitude, nullable: false).Description("Longitude of node in geo fence");
 
-        var districtScope = serviceProvider.CreateScope();
+        var districtScope = CreateScope(serviceProvider);
         Field<DistrictType, Districts>("district")
             .ResolveAsync(async context =>
             {
@@ -27,5 +30,20 @@ public class DistrictGeoFenceNodeType : ObjectGraphType<DistrictGeoFenceNodes>
                 return loader.LoadAsync(context.Source.DistrictId);
             })
             .Description("District geo fence node's associated district");
+    }
+
+    private IServiceScope CreateScope(IServiceProvider serviceProvider)
+    {
+        var scope = serviceProvider.CreateScope();
+        scopes.Add(scope);
+        return scope;
+    }
+
+    public void Dispose()
+    {
+        foreach (var scope in scopes)
+        {
+            scope.Dispose();
+        }
     }
 }

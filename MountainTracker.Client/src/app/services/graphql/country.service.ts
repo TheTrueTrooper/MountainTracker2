@@ -5,7 +5,7 @@ import { BaseService } from './base.service';
 import { Observable, map } from 'rxjs';
 import { Country } from '../../models';
 import * as graphqlHelpers from '../../graphql-helpers/graphql-helper';
-import { QlSelectionSet } from '../../graphql-helpers';
+import { QlSelectionSet, QlSelectionSetTyped } from '../../graphql-helpers';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class CountryService extends BaseService {
     super(clientConfig, apolloProvider)
    }
 
-   public getAllCountries(selection?: QlSelectionSet): Observable<Country>
+   public getAllCountries(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<Country>
    {
     let query = `
     query

@@ -12,7 +12,7 @@ import { routes } from './app.routes';
 import { CoreModule } from './core-modules/core-module/core-module.module';
 import { ClientConfig, ConfigurationFactory } from './configuration';
 import { InMemoryCache } from '@apollo/client/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 
 
 

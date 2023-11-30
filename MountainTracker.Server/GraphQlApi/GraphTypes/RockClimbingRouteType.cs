@@ -2,11 +2,14 @@
 using GraphQL.Types;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
-public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>
+public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>, IDisposable
 {
+    private List<IServiceScope> scopes = new List<IServiceScope>(2);
+
     public RockClimbingRouteType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
         Name = "RockClimbingRoute";
@@ -58,7 +61,7 @@ public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>
         Field(d => d.TypeId, nullable: false).Description("Wall's type id");
         Field(d => d.DifficultyId, nullable: false).Description("Wall's difficulty id");
 
-        var climbingWallScope = serviceProvider.CreateScope();
+        var climbingWallScope = CreateScope(serviceProvider);
         Field<RockClimbingWallType, RockClimbingWalls>("climbingWall")
             .ResolveAsync(async context =>
             {
@@ -68,7 +71,7 @@ public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>
             })
             .Description("Route's associated wall");
 
-        var climbingTypeScope = serviceProvider.CreateScope();
+        var climbingTypeScope = CreateScope(serviceProvider);
         Field<RockClimbingTypeType, RockClimbingTypes>("climbingType")
             .ResolveAsync(async context =>
             {
@@ -77,6 +80,21 @@ public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>
                 return loader.LoadAsync(context.Source.TypeId);
             })
             .Description("Route's associated type");
+    }
+
+    private IServiceScope CreateScope(IServiceProvider serviceProvider)
+    {
+        var scope = serviceProvider.CreateScope();
+        scopes.Add(scope);
+        return scope;
+    }
+
+    public void Dispose()
+    {
+        foreach (var scope in scopes)
+        {
+            scope.Dispose();
+        }
     }
 }
 

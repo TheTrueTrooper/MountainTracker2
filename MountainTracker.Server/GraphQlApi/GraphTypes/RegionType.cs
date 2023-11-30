@@ -2,11 +2,14 @@
 using GraphQL.Types;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
-public class RegionType : ObjectGraphType<Regions>
+public class RegionType : ObjectGraphType<Regions>, IDisposable
 {
+    private List<IServiceScope> scopes = new List<IServiceScope>(3);
+
     public RegionType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
         Name = "Region";
@@ -23,7 +26,7 @@ public class RegionType : ObjectGraphType<Regions>
         Field(d => d.LongitudeStartOrCenter, nullable: true).Description("Region's thumb picture in bytes");
 
         //create a scope for each service call. this will isolate them from one another. But it must be outside of the function or the data loader will suffer as it uses the scope to keep its self going.
-        var provinceOrStateScope = serviceProvider.CreateScope();
+        var provinceOrStateScope = CreateScope(serviceProvider);
         Field<ProvinceOrStateType, ProvincesOrStates>("provinceOrState")
             .ResolveAsync(async context =>
             {
@@ -33,7 +36,7 @@ public class RegionType : ObjectGraphType<Regions>
             })
             .Description("Region's associated provinces or states");
 
-        var districtsScope = serviceProvider.CreateScope();
+        var districtsScope = CreateScope(serviceProvider);
         Field<ListGraphType<DistrictType>, IEnumerable<Districts>>("districts")
             .ResolveAsync(context =>
             {
@@ -43,7 +46,7 @@ public class RegionType : ObjectGraphType<Regions>
             })
             .Description("Region's associated districts");
 
-        var geoFenceNodesScope = serviceProvider.CreateScope();
+        var geoFenceNodesScope = CreateScope(serviceProvider);
         Field<ListGraphType<RegionGeoFenceNodeType>, IEnumerable<RegionGeoFenceNodes>>("geoFenceNodes")
             .ResolveAsync(context =>
             {
@@ -52,5 +55,21 @@ public class RegionType : ObjectGraphType<Regions>
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Region's associated geo fence nodes");
+
+    }
+
+    private IServiceScope CreateScope(IServiceProvider serviceProvider)
+    {
+        var scope = serviceProvider.CreateScope();
+        scopes.Add(scope);
+        return scope;
+    }
+
+    public void Dispose()
+    {
+        foreach (var scope in scopes)
+        {
+            scope.Dispose();
+        }
     }
 }

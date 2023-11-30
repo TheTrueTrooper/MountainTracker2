@@ -3,11 +3,14 @@ using GraphQL.Types;
 using Microsoft.Extensions.DependencyInjection;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
-public class RockClimbingWallGeoFenceNodeType : ObjectGraphType<RockClimbingWallGeoFenceNodes>
+public class RockClimbingWallGeoFenceNodeType : ObjectGraphType<RockClimbingWallGeoFenceNodes>, IDisposable
 {
+    private List<IServiceScope> scopes = new List<IServiceScope>(1);
+
     public RockClimbingWallGeoFenceNodeType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
         Name = "RockClimbingWallGeoFenceNode";
@@ -18,7 +21,7 @@ public class RockClimbingWallGeoFenceNodeType : ObjectGraphType<RockClimbingWall
         Field(d => d.Latitude, nullable: false).Description("Latitude of node in geo fence");
         Field(d => d.Longitude, nullable: false).Description("Longitude of node in geo fence");
 
-        var climbingWallScope = serviceProvider.CreateScope();
+        var climbingWallScope = CreateScope(serviceProvider);
         Field<RockClimbingWallType, RockClimbingWalls>("climbingWall")
         .ResolveAsync(async context =>
         {
@@ -28,5 +31,20 @@ public class RockClimbingWallGeoFenceNodeType : ObjectGraphType<RockClimbingWall
         })
         .Description("Rock climbingWall geo fence node's associated wall");
 
+    }
+
+    private IServiceScope CreateScope(IServiceProvider serviceProvider)
+    {
+        var scope = serviceProvider.CreateScope();
+        scopes.Add(scope);
+        return scope;
+    }
+
+    public void Dispose()
+    {
+        foreach (var scope in scopes)
+        {
+            scope.Dispose();
+        }
     }
 }

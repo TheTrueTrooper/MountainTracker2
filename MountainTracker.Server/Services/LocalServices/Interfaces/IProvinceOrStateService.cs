@@ -10,9 +10,9 @@ public interface IProvinceOrStateService
 
     public Task<ProvincesOrStates?> GetProvinceOrStateById(short id);
 
-    public Task<List<ProvincesOrStates>> GetProvincesOrStatesByCountry(byte countryId);
+    public Task<IEnumerable<ProvincesOrStates>> GetProvincesOrStatesByCountry(byte countryId);
 
     public Task<ILookup<byte, ProvincesOrStates>> GetProvincesOrStatesByCountries(IEnumerable<byte> countryIds);
 
-    public Task<ILookup<short, ProvincesOrStates>> GetProvincesOrStatesByIds(IEnumerable<short> ids);
+    public Task<IDictionary<short, ProvincesOrStates>> GetProvincesOrStatesByIds(IEnumerable<short> ids);
 }

@@ -31,13 +31,12 @@ public class DistrictService : IDistrictService
         return await Districts.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<ILookup<int, Districts>> GetDistrictsByIds(IEnumerable<int> ids)
+    public async Task<IDictionary<int, Districts>> GetDistrictsByIds(IEnumerable<int> ids)
     {
-        var list = await Districts.AsNoTracking().Where(c => ids.Contains(c.Id)).ToListAsync();
-        return list.ToLookup(list => list.Id);
+        return await Districts.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
     }
 
-    public async Task<List<Districts>?> GetDistrictsByRegion(int regionId)
+    public async Task<IEnumerable<Districts>?> GetDistrictsByRegion(int regionId)
     {
         return await Districts.AsNoTracking().Where(c => c.RegionId == regionId).ToListAsync();
     }

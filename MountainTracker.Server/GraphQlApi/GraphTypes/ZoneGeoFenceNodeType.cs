@@ -1,13 +1,15 @@
 ﻿using GraphQL.DataLoader;
 using GraphQL.Types;
+using Microsoft.Extensions.DependencyInjection;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
+using System;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class ZoneGeoFenceNodeType : ObjectGraphType<ZoneGeoFenceNodes>
 {
-    public ZoneGeoFenceNodeType(IDataLoaderContextAccessor accessor, IZoneService zoneService)
+    public ZoneGeoFenceNodeType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
         Name = "ZoneGeoFenceNode";
         Description = "Zone Geo Fence Node Type";
@@ -17,14 +19,14 @@ public class ZoneGeoFenceNodeType : ObjectGraphType<ZoneGeoFenceNodes>
         Field(d => d.Latitude, nullable: false).Description("Latitude of node in geo fence");
         Field(d => d.Longitude, nullable: false).Description("Longitude of node in geo fence");
 
-#pragma warning disable CS1998 // The lib handels but does not suppress when method Then is called (but requires async)
+        var zoneScope = serviceProvider.CreateScope();
         Field<ZoneType, Zones>("zone")
             .ResolveAsync(async context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Zones>("GetZonesByIds", zoneService.GetZonesByIds);
-                return loader.LoadAsync(context.Source.ZoneId).Then(x => x.First());
+                var zoneService = zoneScope.ServiceProvider.GetService<IZoneService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<int, Zones>("GetZonesByIds", zoneService.GetZonesByIds);
+                return loader.LoadAsync(context.Source.ZoneId);
             })
             .Description("Zone geo fence node's associated zone");
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     }
 }

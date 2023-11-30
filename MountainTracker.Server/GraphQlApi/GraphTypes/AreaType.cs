@@ -7,7 +7,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class AreaType : ObjectGraphType<Areas>
 {
-    public AreaType(IDataLoaderContextAccessor accessor, IZoneService zoneService, IRockClimbingWallService rockClimbingWallService, IAreaGeoFenceNodeService areaGeoFenceNodeService)
+    public AreaType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
         Name = "Area";
         Description = "Area Type";
@@ -22,27 +22,31 @@ public class AreaType : ObjectGraphType<Areas>
         Field(d => d.LatitudeStartOrCenter, nullable: true).Description("Area's latitude location by center or start");
         Field(d => d.LongitudeStartOrCenter, nullable: true).Description("Area's latitude location by center or start");
 
-#pragma warning disable CS1998 // The lib handels but does not suppress when method Then is called (but requires async)
+        var zoneScope = serviceProvider.CreateScope();
         Field<ZoneType, Zones>("zone")
             .ResolveAsync(async context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Zones>("GetZonesByIds", zoneService.GetZonesByIds);
-                return loader.LoadAsync(context.Source.ZoneId).Then(x => x.First());
+                var zoneService = zoneScope.ServiceProvider.GetService<IZoneService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<int, Zones>("GetZonesByIds", zoneService.GetZonesByIds);
+                return loader.LoadAsync(context.Source.ZoneId);
             })
             .Description("Area's associated zone");
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
-        Field<ListGraphType<RockClimbingWallType>, IEnumerable<RockClimbingWalls>>("rockWalls")
+        var rockClimbingWallsScope = serviceProvider.CreateScope();
+        Field<ListGraphType<RockClimbingWallType>, IEnumerable<RockClimbingWalls>>("rockClimbingWalls")
             .ResolveAsync(context =>
             {
+                var rockClimbingWallService = rockClimbingWallsScope.ServiceProvider.GetService<IRockClimbingWallService>()!;
                 var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, RockClimbingWalls>("GetRockClimbingWallsByAreas", rockClimbingWallService.GetRockClimbingWallsByAreas);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Area's associated rock climbing walls");
 
+        var geoFenceNodesScope = serviceProvider.CreateScope();
         Field<ListGraphType<AreaGeoFenceNodeType>, IEnumerable<AreaGeoFenceNodes>>("geoFenceNodes")
             .ResolveAsync(context =>
             {
+                var areaGeoFenceNodeService = geoFenceNodesScope.ServiceProvider.GetService<IAreaGeoFenceNodeService>()!;
                 var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, AreaGeoFenceNodes>("GetAreaGeoFenceNodesByAreas", areaGeoFenceNodeService.GetAreaGeoFenceNodesByAreas);
                 return loader.LoadAsync(context.Source.Id);
             })

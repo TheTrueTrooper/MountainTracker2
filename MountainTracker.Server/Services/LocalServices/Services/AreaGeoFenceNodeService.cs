@@ -26,7 +26,7 @@ public class AreaGeoFenceNodeService : IAreaGeoFenceNodeService
         return await AreaGeoFenceNodes.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<List<AreaGeoFenceNodes>?> GetAreaGeoFenceNodesByArea(int areaId)
+    public async Task<IEnumerable<AreaGeoFenceNodes>?> GetAreaGeoFenceNodesByArea(int areaId)
     {
         return await AreaGeoFenceNodes.AsNoTracking().Where(c => c.AreaId == areaId).ToListAsync();
     }
@@ -37,9 +37,8 @@ public class AreaGeoFenceNodeService : IAreaGeoFenceNodeService
         return list.ToLookup(list => list.AreaId);
     }
 
-    public async Task<ILookup<int, AreaGeoFenceNodes>> GetAreaGeoFenceNodesByIds(IEnumerable<int> ids)
+    public async Task<IDictionary<int, AreaGeoFenceNodes>> GetAreaGeoFenceNodesByIds(IEnumerable<int> ids)
     {
-        var list = await AreaGeoFenceNodes.AsNoTracking().Where(c => ids.Contains(c.Id)).ToListAsync();
-        return list.ToLookup(list => list.Id);
+        return await AreaGeoFenceNodes.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
     }
 }

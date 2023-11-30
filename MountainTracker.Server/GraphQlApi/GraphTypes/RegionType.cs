@@ -7,7 +7,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class RegionType : ObjectGraphType<Regions>
 {
-    public RegionType(IDataLoaderContextAccessor accessor, IProvinceOrStateService provinceOrStateService, IDistrictService districtService, IRegionGeoFenceNodeService regionGeoFenceNodeService)
+    public RegionType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
         Name = "Region";
         Description = "Region Type";
@@ -22,27 +22,32 @@ public class RegionType : ObjectGraphType<Regions>
         Field(d => d.LatitudeStartOrCenter, nullable: true).Description("Region's thumb picture in bytes");
         Field(d => d.LongitudeStartOrCenter, nullable: true).Description("Region's thumb picture in bytes");
 
-#pragma warning disable CS1998 // The lib handels but does not suppress when method Then is called (but requires async)
+        //create a scope for each service call. this will isolate them from one another. But it must be outside of the function or the data loader will suffer as it uses the scope to keep its self going.
+        var provinceOrStateScope = serviceProvider.CreateScope();
         Field<ProvinceOrStateType, ProvincesOrStates>("provinceOrState")
             .ResolveAsync(async context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<short, ProvincesOrStates>("GetProvincesOrStatesByIds", provinceOrStateService.GetProvincesOrStatesByIds);
-                return loader.LoadAsync(context.Source.ProvinceOrStateId).Then(x => x.First());
+                var provinceOrStateService = provinceOrStateScope.ServiceProvider.GetService<IProvinceOrStateService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<short, ProvincesOrStates>("GetProvincesOrStatesByIds", provinceOrStateService.GetProvincesOrStatesByIds);
+                return loader.LoadAsync(context.Source.ProvinceOrStateId);
             })
             .Description("Region's associated provinces or states");
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
+        var districtsScope = serviceProvider.CreateScope();
         Field<ListGraphType<DistrictType>, IEnumerable<Districts>>("districts")
             .ResolveAsync(context =>
             {
+                var districtService = districtsScope.ServiceProvider.GetService<IDistrictService>()!;
                 var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Districts>("GetDistrictsByRegions", districtService.GetDistrictsByRegions);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Region's associated districts");
 
+        var geoFenceNodesScope = serviceProvider.CreateScope();
         Field<ListGraphType<RegionGeoFenceNodeType>, IEnumerable<RegionGeoFenceNodes>>("geoFenceNodes")
             .ResolveAsync(context =>
             {
+                var regionGeoFenceNodeService = geoFenceNodesScope.ServiceProvider.GetService<IRegionGeoFenceNodeService>()!;
                 var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, RegionGeoFenceNodes>("GetRegionGeoFenceNodesByRegions", regionGeoFenceNodeService.GetRegionGeoFenceNodesByRegions);
                 return loader.LoadAsync(context.Source.Id);
             })

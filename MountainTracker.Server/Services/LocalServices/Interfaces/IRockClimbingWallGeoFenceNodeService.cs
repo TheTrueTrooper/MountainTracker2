@@ -8,9 +8,9 @@ public interface IRockClimbingWallGeoFenceNodeService
 
     public Task<RockClimbingWallGeoFenceNodes?> GetRockClimbingWallGeoFenceNodeById(int id);
 
-    public Task<List<RockClimbingWallGeoFenceNodes>?> GetRockClimbingWallGeoFenceNodesByRockClimbingWall(int climbingWallId);
+    public Task<IEnumerable<RockClimbingWallGeoFenceNodes>?> GetRockClimbingWallGeoFenceNodesByRockClimbingWall(int climbingWallId);
 
     public Task<ILookup<int, RockClimbingWallGeoFenceNodes>> GetRockClimbingWallGeoFenceNodesByRockClimbingWalls(IEnumerable<int> climbingWallIds);
 
-    public Task<ILookup<int, RockClimbingWallGeoFenceNodes>> GetRockClimbingWallGeoFenceNodesByIds(IEnumerable<int> ids);
+    public Task<IDictionary<int, RockClimbingWallGeoFenceNodes>> GetRockClimbingWallGeoFenceNodesByIds(IEnumerable<int> ids);
 }

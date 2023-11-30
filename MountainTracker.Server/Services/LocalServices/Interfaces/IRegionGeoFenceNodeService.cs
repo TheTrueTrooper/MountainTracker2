@@ -8,9 +8,9 @@ public interface IRegionGeoFenceNodeService
 
     public Task<RegionGeoFenceNodes?> GetRegionGeoFenceNodeById(int id);
 
-    public Task<List<RegionGeoFenceNodes>?> GetRegionGeoFenceNodesByRegion(int regionId);
+    public Task<IEnumerable<RegionGeoFenceNodes>?> GetRegionGeoFenceNodesByRegion(int regionId);
 
     public Task<ILookup<int, RegionGeoFenceNodes>> GetRegionGeoFenceNodesByRegions(IEnumerable<int> regionIds);
 
-    public Task<ILookup<int, RegionGeoFenceNodes>> GetRegionGeoFenceNodesByIds(IEnumerable<int> ids);
+    public Task<IDictionary<int, RegionGeoFenceNodes>> GetRegionGeoFenceNodesByIds(IEnumerable<int> ids);
 }

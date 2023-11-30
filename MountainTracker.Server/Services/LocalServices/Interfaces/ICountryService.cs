@@ -10,6 +10,6 @@ namespace MountainTracker.Server.Services.LocalServices.Interfaces
 
         Task<Countries?> GetCountryByCode(string countryCode);
 
-        public Task<ILookup<byte, Countries>> GetCountriesByIds(IEnumerable<byte> ids);
+        public Task<IDictionary<byte, Countries>> GetCountriesByIds(IEnumerable<byte> ids);
     }
 }

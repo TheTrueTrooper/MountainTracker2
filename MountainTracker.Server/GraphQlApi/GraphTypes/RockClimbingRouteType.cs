@@ -7,7 +7,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>
 {
-    public RockClimbingRouteType(IDataLoaderContextAccessor accessor, IRockClimbingWallService rockClimbingWallService, IRockClimbingTypeService rockClimbingTypeService)
+    public RockClimbingRouteType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
         Name = "RockClimbingRoute";
         Description = "Rock Climbing Route Type";
@@ -58,24 +58,25 @@ public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>
         Field(d => d.TypeId, nullable: false).Description("Wall's type id");
         Field(d => d.DifficultyId, nullable: false).Description("Wall's difficulty id");
 
-#pragma warning disable CS1998 // The lib handels but does not suppress when method Then is called (but requires async)
+        var climbingWallScope = serviceProvider.CreateScope();
         Field<RockClimbingWallType, RockClimbingWalls>("climbingWall")
             .ResolveAsync(async context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, RockClimbingWalls>("GetRockClimbingWallsByIds", rockClimbingWallService.GetRockClimbingWallsByIds);
-                return loader.LoadAsync(context.Source.ClimbingWallId).Then(x => x.First());
+                var rockClimbingWallService = climbingWallScope.ServiceProvider.GetService<IRockClimbingWallService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<int, RockClimbingWalls>("GetRockClimbingWallsByIds", rockClimbingWallService.GetRockClimbingWallsByIds);
+                return loader.LoadAsync(context.Source.TypeId);
             })
             .Description("Route's associated wall");
 
-
+        var climbingTypeScope = serviceProvider.CreateScope();
         Field<RockClimbingTypeType, RockClimbingTypes>("climbingType")
             .ResolveAsync(async context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<byte, RockClimbingTypes>("GetRockClimbingTypesByIds", rockClimbingTypeService.GetRockClimbingTypesByIds);
-                return loader.LoadAsync(context.Source.TypeId).Then(x=>x.First());
+                var rockClimbingTypeService = climbingTypeScope.ServiceProvider.GetService<IRockClimbingTypeService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, RockClimbingTypes>("GetRockClimbingTypesByIds", rockClimbingTypeService.GetRockClimbingTypesByIds);
+                return loader.LoadAsync(context.Source.TypeId);
             })
             .Description("Route's associated type");
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     }
 }
 

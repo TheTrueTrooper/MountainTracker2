@@ -8,7 +8,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class RegionGeoFenceNodeType : ObjectGraphType<RegionGeoFenceNodes>
 {
-    public RegionGeoFenceNodeType(IDataLoaderContextAccessor accessor, IRegionService regionService)
+    public RegionGeoFenceNodeType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
         Name = "RegionGeoFenceNode";
         Description = "Region Geo Fence Node Type";
@@ -18,14 +18,15 @@ public class RegionGeoFenceNodeType : ObjectGraphType<RegionGeoFenceNodes>
         Field(d => d.Latitude, nullable: false).Description("Latitude of node in geo fence");
         Field(d => d.Longitude, nullable: false).Description("Longitude of node in geo fence");
 
-#pragma warning disable CS1998 // The lib handels but does not suppress when method Then is called (but requires async)
+        var regionScope = serviceProvider.CreateScope();
         Field<RegionType, Regions>("region")
             .ResolveAsync(async context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Regions>("GetRegionsByIds", regionService.GetRegionsByIds);
-                return loader.LoadAsync(context.Source.RegionId).Then(x => x.First());
+                var regionService = regionScope.ServiceProvider.GetService<IRegionService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<int, Regions>("GetRegionsByIds", regionService.GetRegionsByIds);
+                return loader.LoadAsync(context.Source.RegionId);
             })
             .Description("Region geo fence node's associated region");
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+
     }
 }

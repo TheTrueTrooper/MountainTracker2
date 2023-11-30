@@ -32,7 +32,7 @@ public class ProvinceOrStateService : IProvinceOrStateService
         return await ProvincesOrStates.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<List<ProvincesOrStates>> GetProvincesOrStatesByCountry(byte countryId)
+    public async Task<IEnumerable<ProvincesOrStates>> GetProvincesOrStatesByCountry(byte countryId)
     {
         return await ProvincesOrStates.AsNoTracking().Where(c => c.CountryId == countryId).ToListAsync();
     }
@@ -43,9 +43,8 @@ public class ProvinceOrStateService : IProvinceOrStateService
         return list.ToLookup(list => list.CountryId);
     }
 
-    public async Task<ILookup<short, ProvincesOrStates>> GetProvincesOrStatesByIds(IEnumerable<short> ids)
+    public async Task<IDictionary<short, ProvincesOrStates>> GetProvincesOrStatesByIds(IEnumerable<short> ids)
     {
-        var list = await ProvincesOrStates.AsNoTracking().Where(c => ids.Contains(c.Id)).ToListAsync();
-        return list.ToLookup(list => list.Id);
+        return await ProvincesOrStates.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key => key.Id, value => value);
     }
 }

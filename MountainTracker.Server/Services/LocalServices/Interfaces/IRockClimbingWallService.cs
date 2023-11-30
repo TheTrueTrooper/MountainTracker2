@@ -10,9 +10,9 @@ public interface IRockClimbingWallService
 
     public Task<RockClimbingWalls?> GetRockClimbingWallById(int id);
 
-    public Task<List<RockClimbingWalls>?> GetRockClimbingWallsByArea(int areaId);
+    public Task<IEnumerable<RockClimbingWalls>?> GetRockClimbingWallsByArea(int areaId);
 
     public Task<ILookup<int, RockClimbingWalls>> GetRockClimbingWallsByAreas(IEnumerable<int> areaIds);
 
-    public Task<ILookup<int, RockClimbingWalls>> GetRockClimbingWallsByIds(IEnumerable<int> ids);
+    public Task<IDictionary<int, RockClimbingWalls>> GetRockClimbingWallsByIds(IEnumerable<int> ids);
 }

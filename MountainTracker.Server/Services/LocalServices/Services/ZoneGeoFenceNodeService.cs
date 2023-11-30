@@ -26,13 +26,12 @@ public class ZoneGeoFenceNodeService : IZoneGeoFenceNodeService
         return await ZoneGeoFenceNodes.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<ILookup<int, ZoneGeoFenceNodes>> GetZoneGeoFenceNodesByIds(IEnumerable<int> ids)
+    public async Task<IDictionary<int, ZoneGeoFenceNodes>> GetZoneGeoFenceNodesByIds(IEnumerable<int> ids)
     {
-        var list = await ZoneGeoFenceNodes.AsNoTracking().Where(c => ids.Contains(c.Id)).ToListAsync();
-        return list.ToLookup(list => list.Id);
+        return await ZoneGeoFenceNodes.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key => key.Id, value => value);
     }
 
-    public async Task<List<ZoneGeoFenceNodes>?> GetZoneGeoFenceNodesByZone(int zoneId)
+    public async Task<IEnumerable<ZoneGeoFenceNodes>?> GetZoneGeoFenceNodesByZone(int zoneId)
     {
         return await ZoneGeoFenceNodes.AsNoTracking().Where(c => c.ZoneId == zoneId).ToListAsync();
     }

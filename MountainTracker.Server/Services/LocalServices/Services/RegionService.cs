@@ -18,6 +18,7 @@ public class RegionService : IRegionService
 
     public async Task<IEnumerable<Regions>> GetAllRegions()
     {
+        
         return await Regions.AsNoTracking().ToArrayAsync();
     }
 
@@ -31,13 +32,12 @@ public class RegionService : IRegionService
         return await Regions.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<ILookup<int, Regions>> GetRegionsByIds(IEnumerable<int> ids)
+    public async Task<IDictionary<int, Regions>> GetRegionsByIds(IEnumerable<int> ids)
     {
-        var list = await Regions.AsNoTracking().Where(c => ids.Contains(c.Id)).ToListAsync();
-        return list.ToLookup(list => list.Id);
+        return await Regions.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
     }
 
-    public async Task<List<Regions>?> GetRegionsByProvinceOrState(int provinceOrStateId)
+    public async Task<IEnumerable<Regions>?> GetRegionsByProvinceOrState(int provinceOrStateId)
     {
         return await Regions.AsNoTracking().Where(c => c.ProvinceOrStateId == provinceOrStateId).ToListAsync();
     }

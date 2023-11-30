@@ -31,15 +31,14 @@ public class AreaService : IAreaService
         return await Areas.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<List<Areas>?> GetAreaByZone(int zoneId)
+    public async Task<IEnumerable<Areas>?> GetAreaByZone(int zoneId)
     {
         return await Areas.AsNoTracking().Where(c => c.ZoneId == zoneId).ToListAsync();
     }
 
-    public async Task<ILookup<int, Areas>> GetAreasByIds(IEnumerable<int> ids)
+    public async Task<IDictionary<int, Areas>> GetAreasByIds(IEnumerable<int> ids)
     {
-        var list = await Areas.AsNoTracking().Where(c => ids.Contains(c.Id)).ToListAsync();
-        return list.ToLookup(list => list.Id);
+        return await Areas.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
     }
 
     public async Task<ILookup<int, Areas>> GetAreasByZones(IEnumerable<int> zoneIds)

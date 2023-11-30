@@ -58,6 +58,7 @@ public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>
         Field(d => d.TypeId, nullable: false).Description("Wall's type id");
         Field(d => d.DifficultyId, nullable: false).Description("Wall's difficulty id");
 
+#pragma warning disable CS1998 // The lib handels but does not suppress when method Then is called (but requires async)
         Field<RockClimbingWallType, RockClimbingWalls>("climbingWall")
             .ResolveAsync(async context =>
             {
@@ -66,6 +67,7 @@ public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>
             })
             .Description("Route's associated wall");
 
+
         Field<RockClimbingTypeType, RockClimbingTypes>("climbingType")
             .ResolveAsync(async context =>
             {
@@ -73,6 +75,7 @@ public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>
                 return loader.LoadAsync(context.Source.TypeId).Then(x=>x.First());
             })
             .Description("Route's associated type");
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     }
 }
 

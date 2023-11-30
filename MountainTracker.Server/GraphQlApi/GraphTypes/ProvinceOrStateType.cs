@@ -17,6 +17,7 @@ public class ProvinceOrStateType : ObjectGraphType<ProvincesOrStates>
         Field(d => d.EnglishFullName, nullable: false).Description("Province's Or State's english name");
         Field(d => d.CountryId, nullable: false).Description("Province's or State's country id");
 
+#pragma warning disable CS1998 // The lib handels but does not suppress when method Then is called (but requires async)
         Field<CountryType, Countries>("country")
             .ResolveAsync(async context =>
             {
@@ -24,6 +25,7 @@ public class ProvinceOrStateType : ObjectGraphType<ProvincesOrStates>
                 return loader.LoadAsync(context.Source.CountryId).Then(x => x.First());
             })
             .Description("Province or state's associated country");
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
         Field<ListGraphType<RegionType>, IEnumerable<Regions>>("regions")
             .ResolveAsync(context =>

@@ -51,6 +51,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
         Field(d => d.NovSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in November");
         Field(d => d.DecSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in December");
 
+#pragma warning disable CS1998 // The lib handels but does not suppress when method Then is called (but requires async)
         Field<AreaType, Areas>("area")
             .ResolveAsync(async context =>
             {
@@ -58,6 +59,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
                 return loader.LoadAsync(context.Source.AreaId).Then(x => x.First());
             })
             .Description("Wall's associated area");
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
         Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>>("routes")
             .ResolveAsync(context =>

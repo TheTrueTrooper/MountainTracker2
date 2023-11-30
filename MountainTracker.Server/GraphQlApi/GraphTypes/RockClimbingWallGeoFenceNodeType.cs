@@ -23,6 +23,6 @@ public class RockClimbingWallGeoFenceNodeType : ObjectGraphType<RockClimbingWall
                 var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, RockClimbingWalls>("GetRockClimbingWallsByIds", rockClimbingWallService.GetRockClimbingWallsByIds);
                 return loader.LoadAsync(context.Source.ClimbingWallId).Then(x => x.First());
             })
-            .Description("Node's associated wall");
+            .Description("Rock climbingWall geo fence node's associated wall");
     }
 }

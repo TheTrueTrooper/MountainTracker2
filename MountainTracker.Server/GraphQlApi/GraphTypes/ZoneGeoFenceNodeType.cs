@@ -23,6 +23,6 @@ public class ZoneGeoFenceNodeType : ObjectGraphType<ZoneGeoFenceNodes>
                 var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Zones>("GetZonesByIds", zoneService.GetZonesByIds);
                 return loader.LoadAsync(context.Source.ZoneId).Then(x => x.First());
             })
-            .Description("ZoneGeoFenceNode's associated zone");
+            .Description("Zone geo fence node's associated zone");
     }
 }

@@ -46,4 +46,10 @@ public class RockClimbingRouteService : IRockClimbingRouteService
         var list = await RockClimbingRoutes.AsNoTracking().Where(c => climbingWallIds.Contains(c.ClimbingWallId)).ToListAsync();
         return list.ToLookup(list => list.ClimbingWallId);
     }
+
+    public async Task<ILookup<byte, RockClimbingRoutes>> GetRockClimbingRoutesByTypes(IEnumerable<byte> typeIds)
+    {
+        var list = await RockClimbingRoutes.AsNoTracking().Where(c => typeIds.Contains(c.TypeId)).ToListAsync();
+        return list.ToLookup(list => list.TypeId);
+    }
 }

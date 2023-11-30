@@ -15,4 +15,6 @@ public interface IRockClimbingRouteService
     public Task<ILookup<int, RockClimbingRoutes>> GetRockClimbingRoutesByRockClimbingWalls(IEnumerable<int> climbingWallIds);
 
     public Task<ILookup<int, RockClimbingRoutes>> GetRockClimbingRoutesByIds(IEnumerable<int> ids);
+
+    public Task<ILookup<byte, RockClimbingRoutes>> GetRockClimbingRoutesByTypes(IEnumerable<byte> typeIds);
 }

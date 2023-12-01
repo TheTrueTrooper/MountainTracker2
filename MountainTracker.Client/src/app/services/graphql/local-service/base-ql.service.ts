@@ -15,7 +15,7 @@ export abstract class BaseQlService {
    T extends {
      new (): any;
    }
-   >(classToCreate: T, query:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, any>, queryParam: string = "")
+   >(classToGet: T, query:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, any>, queryParam: string = "")
    {
     return gql`
     query${queryParam}
@@ -24,7 +24,7 @@ export abstract class BaseQlService {
       {
         ${query}
         {
-          ${graphqlHelpers.selectToQlFields(selection) ?? graphqlHelpers.ensureQlFields(classToCreate.prototype.constructor)}
+          ${graphqlHelpers.selectToQlFields(selection) ?? graphqlHelpers.ensureQlFields(classToGet.prototype.constructor)}
         }
       }
     }

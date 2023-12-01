@@ -1,5 +1,5 @@
 import { Apollo, ApolloBase } from "apollo-angular";
-import { ClientConfig } from "../../configuration";
+import { ClientConfig } from "../../../configuration";
 
 export abstract class BaseService {
     protected moutainTrackerApi: ApolloBase;

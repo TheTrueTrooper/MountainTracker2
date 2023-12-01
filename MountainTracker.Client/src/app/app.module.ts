@@ -13,6 +13,10 @@ import { CoreModule } from './core-modules/core-module/core-module.module';
 import { ClientConfig, ConfigurationFactory } from './configuration';
 import { InMemoryCache } from '@apollo/client/core';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { effects, reducers } from './services/entity-state-services';
+import { EffectsModule } from '@ngrx/effects';
+import { routerReducer } from '@ngrx/router-store';
 
 
 
@@ -28,7 +32,9 @@ import { HttpClientModule } from '@angular/common/http';
     OpenStreetMapModule, 
     PannellumPanoramaModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    StoreModule.forRoot({router: routerReducer, utility: reducers.utlity.utilityReducer, countries: reducers.country.countryReducer}),
+    EffectsModule.forRoot(effects.CountryEffects)
   ],
   providers: [
     {provide: ClientConfig, useFactory:ConfigurationFactory.ClientConfigFactory},

@@ -1,13 +1,16 @@
 ﻿using GraphQL.DataLoader;
 using GraphQL.Types;
-using MountainTracker.Server.Services;
+using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
-public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
+public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposable
 {
-    public RockClimbingWallType(IDataLoaderContextAccessor accessor, IRockClimbingRouteService rockClimbingRouteService, IAreaService areaService, IRockClimbingWallGeoFenceNodeService rockClimbingWallGeoFenceNodeService)
+    private List<IServiceScope> scopes = new List<IServiceScope>(3);
+
+    public RockClimbingWallType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
         Name = "RockClimbingWall";
         Description = "Rock Climbing Wall Type";
@@ -51,28 +54,49 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>
         Field(d => d.NovSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in November");
         Field(d => d.DecSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in December");
 
+        var areaScope = CreateScope(serviceProvider);
         Field<AreaType, Areas>("area")
             .ResolveAsync(async context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Areas>("GetAreasByIds", areaService.GetAreasByIds);
-                return loader.LoadAsync(context.Source.AreaId).Then(x => x.First());
+                var areaService = areaScope.ServiceProvider.GetService<IAreaService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<int, Areas>("GetAreasByIds", areaService.GetAreasByIds);
+                return loader.LoadAsync(context.Source.AreaId);
             })
             .Description("Wall's associated area");
 
+        var routesScope = CreateScope(serviceProvider);
         Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>>("routes")
             .ResolveAsync(context =>
             {
+                var rockClimbingRouteService = routesScope.ServiceProvider.GetService<IRockClimbingRouteService>()!;
                 var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, RockClimbingRoutes>("GetRockClimbingRoutesByRockClimbingWalls", rockClimbingRouteService.GetRockClimbingRoutesByRockClimbingWalls);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Wall's associated routes");
 
+        var geoFenceNodesScope = CreateScope(serviceProvider);
         Field<ListGraphType<RockClimbingWallGeoFenceNodeType>, IEnumerable<RockClimbingWallGeoFenceNodes>>("geoFenceNodes")
             .ResolveAsync(context =>
             {
+                var rockClimbingWallGeoFenceNodeService = geoFenceNodesScope.ServiceProvider.GetService<IRockClimbingWallGeoFenceNodeService>()!;
                 var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, RockClimbingWallGeoFenceNodes>("GetRockClimbingWallGeoFenceNodesByRockClimbingWalls", rockClimbingWallGeoFenceNodeService.GetRockClimbingWallGeoFenceNodesByRockClimbingWalls);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Wall's associated geo fence nodes");
+    }
+
+    private IServiceScope CreateScope(IServiceProvider serviceProvider)
+    {
+        var scope = serviceProvider.CreateScope();
+        scopes.Add(scope);
+        return scope;
+    }
+
+    public void Dispose()
+    {
+        foreach (var scope in scopes)
+        {
+            scope.Dispose();
+        }
     }
 }

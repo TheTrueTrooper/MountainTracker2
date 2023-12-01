@@ -1,13 +1,16 @@
 ﻿using GraphQL.DataLoader;
 using GraphQL.Types;
-using MountainTracker.Server.Services;
+using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
-public class DistrictType : ObjectGraphType<Districts>
+public class DistrictType : ObjectGraphType<Districts>, IDisposable
 {
-    public DistrictType(IDataLoaderContextAccessor accessor, IRegionService regionService, IZoneService zoneService, IDistrictGeoFenceNodeService geoFenceNodeService)
+    private List<IServiceScope> scopes = new List<IServiceScope>(3);
+
+    public DistrictType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
         Name = "District";
         Description = "District Type";
@@ -22,28 +25,49 @@ public class DistrictType : ObjectGraphType<Districts>
         Field(d => d.LatitudeStartOrCenter, nullable: true).Description("District's latitude location by center or start");
         Field(d => d.LongitudeStartOrCenter, nullable: true).Description("District's latitude location by center or start");
 
-        Field<RegionType, Regions>("regions")
+        var regionsScope = CreateScope(serviceProvider);
+        Field<RegionType, Regions>("region")
             .ResolveAsync(async context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Regions>("GetRegionsByIds", regionService.GetRegionsByIds);
-                return loader.LoadAsync(context.Source.RegionId).Then(x => x.First());
+                var regionService = regionsScope.ServiceProvider.GetService<IRegionService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<int, Regions>("GetRegionsByIds", regionService.GetRegionsByIds);
+                return loader.LoadAsync(context.Source.RegionId);
             })
             .Description("District's associated region");
 
+        var zonesScope = CreateScope(serviceProvider);
         Field<ListGraphType<ZoneType>, IEnumerable<Zones>>("zones")
             .ResolveAsync(context =>
             {
+                var zoneService = zonesScope.ServiceProvider.GetService<IZoneService>()!;
                 var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Zones>("GetZonesByRegions", zoneService.GetZonesByRegions);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("District's associated zones");
 
+        var geoFenceNodesScope = CreateScope(serviceProvider);
         Field<ListGraphType<DistrictGeoFenceNodeType>, IEnumerable<DistrictGeoFenceNodes>>("geoFenceNodes")
             .ResolveAsync(context =>
             {
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, DistrictGeoFenceNodes>("GetDistrictGeoFenceNodesByDistricts", geoFenceNodeService.GetDistrictGeoFenceNodesByDistricts);
+                var districtGeoFenceNodeService = geoFenceNodesScope.ServiceProvider.GetService<IDistrictGeoFenceNodeService>()!;
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, DistrictGeoFenceNodes>("GetDistrictGeoFenceNodesByDistricts", districtGeoFenceNodeService.GetDistrictGeoFenceNodesByDistricts);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("District's associated geo fence nodes");
+    }
+
+    private IServiceScope CreateScope(IServiceProvider serviceProvider)
+    {
+        var scope = serviceProvider.CreateScope();
+        scopes.Add(scope);
+        return scope;
+    }
+
+    public void Dispose()
+    {
+        foreach (var scope in scopes)
+        {
+            scope.Dispose();
+        }
     }
 }

@@ -9,29 +9,29 @@ begin
 		where 
 			(R.LatitudeStartOrCenter >= @BottomLeftLat and R.LatitudeStartOrCenter <= @TopRightLat and R.LongitudeStartOrCenter >= @BottomLeftLong and R.LongitudeStartOrCenter <= @TopRightLong) 
 		or Exists(
-			select RGF.ID from RegionsGeoFenceNodes as RGF where RGF.RegionsID = R.ID and 
+			select RGF.ID from RegionGeoFenceNodes as RGF where RGF.RegionID = R.ID and 
 				RGF.Latitude >= @BottomLeftLat and RGF.Latitude <= @TopRightLat and RGF.Longitude >= @BottomLeftLong and RGF.Longitude <= @TopRightLong) 
 				or Exists(select RR.ID from Regions as RR where RR.ID = R.ID and 
 					(
-					(	(select min(RRGF.Latitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) <= @BottomLeftLat and 
-						(select max(RRGF.Latitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) >= @BottomLeftLat and 
-						(select min(RRGF.Longitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) <= @BottomLeftLong and 
-						(select max(RRGF.Longitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) >= @BottomLeftLong) 
+					(	(select min(RRGF.Latitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) <= @BottomLeftLat and 
+						(select max(RRGF.Latitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) >= @BottomLeftLat and 
+						(select min(RRGF.Longitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) <= @BottomLeftLong and 
+						(select max(RRGF.Longitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) >= @BottomLeftLong) 
 					or
-					(	(select min(RRGF.Latitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) <= @TopRightLat and 
-						(select max(RRGF.Latitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) >= @TopRightLat and 
-						(select min(RRGF.Longitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) <= @TopRightLong and 
-						(select max(RRGF.Longitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) >= @TopRightLong) 
+					(	(select min(RRGF.Latitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) <= @TopRightLat and 
+						(select max(RRGF.Latitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) >= @TopRightLat and 
+						(select min(RRGF.Longitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) <= @TopRightLong and 
+						(select max(RRGF.Longitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) >= @TopRightLong) 
 					or
-					(	(select min(RRGF.Latitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) <= @BottomLeftLat and 
-						(select max(RRGF.Latitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) >= @BottomLeftLat and 
-						(select min(RRGF.Longitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) <= @TopRightLong and 
-						(select max(RRGF.Longitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) >= @TopRightLong) 
+					(	(select min(RRGF.Latitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) <= @BottomLeftLat and 
+						(select max(RRGF.Latitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) >= @BottomLeftLat and 
+						(select min(RRGF.Longitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) <= @TopRightLong and 
+						(select max(RRGF.Longitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) >= @TopRightLong) 
 					or
-					(	(select min(RRGF.Latitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) <= @TopRightLat and 
-						(select max(RRGF.Latitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) >= @TopRightLat and 
-						(select min(RRGF.Longitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) <= @BottomLeftLong and 
-						(select max(RRGF.Longitude) from RegionsGeoFenceNodes as RRGF where RRGF.RegionsID = RR.ID) >= @BottomLeftLong)
+					(	(select min(RRGF.Latitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) <= @TopRightLat and 
+						(select max(RRGF.Latitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) >= @TopRightLat and 
+						(select min(RRGF.Longitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) <= @BottomLeftLong and 
+						(select max(RRGF.Longitude) from RegionGeoFenceNodes as RRGF where RRGF.RegionID = RR.ID) >= @BottomLeftLong)
 					)
 				)
 	RETURN 0

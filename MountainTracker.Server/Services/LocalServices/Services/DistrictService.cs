@@ -23,7 +23,12 @@ public class DistrictService : IDistrictService
 
     public async Task<Districts?> GetDistrictByCode(string regionCode)
     {
-        return await Districts.AsNoTracking().FirstOrDefaultAsync(c => c.DistrictCode == regionCode);
+        string[] codes = regionCode.Split('-');
+        if (codes.Length < 4)
+        {
+            return null;
+        }
+        return await Districts.AsNoTracking().FirstOrDefaultAsync(c => c.DistrictCode == codes[3] && c.Region.RegionCode == codes[2] && c.Region.ProvinceOrState.RegionCode == codes[1] && c.Region.ProvinceOrState.Country.CountryCode == codes[0]);
     }
 
     public async Task<Districts?> GetDistrictById(int id)

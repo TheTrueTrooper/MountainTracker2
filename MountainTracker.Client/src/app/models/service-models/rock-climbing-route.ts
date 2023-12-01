@@ -1,5 +1,5 @@
 import { QlField } from "../../graphql-helpers";
-import { RockClimbingTypeType } from "./rock-climbing-type";
+import { RockClimbingType } from "./rock-climbing-type";
 import { RockClimbingWall } from "./rock-climbing-wall";
 
 export class RockClimbingRoute {
@@ -83,5 +83,5 @@ export class RockClimbingRoute {
         public difficultyId?: number;
         
         climbingWall?: RockClimbingWall
-        climbingType?: RockClimbingTypeType
+        climbingType?: RockClimbingType
     }

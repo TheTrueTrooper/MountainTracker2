@@ -23,7 +23,12 @@ public class RockClimbingWallService : IRockClimbingWallService
 
     public async Task<RockClimbingWalls?> GetRockClimbingWallByCode(string wallCode)
     {
-        return await RockClimbingWalls.AsNoTracking().FirstOrDefaultAsync(c => c.WallCode == wallCode);
+        string[] codes = wallCode.Split('-');
+        if (codes.Length < 7)
+        {
+            return null;
+        }
+        return await RockClimbingWalls.AsNoTracking().FirstOrDefaultAsync(c => c.WallCode == codes[6] && c.Area.AreaCode == codes[5] && c.Area.Zone.ZoneCode == codes[4] && c.Area.Zone.District.DistrictCode == codes[3] && c.Area.Zone.District.Region.RegionCode == codes[2] && c.Area.Zone.District.Region.ProvinceOrState.RegionCode == codes[1] && c.Area.Zone.District.Region.ProvinceOrState.Country.CountryCode == codes[0]);
     }
 
     public async Task<RockClimbingWalls?> GetRockClimbingWallById(int id)

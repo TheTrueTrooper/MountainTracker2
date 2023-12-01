@@ -23,7 +23,12 @@ public class AreaService : IAreaService
 
     public async Task<Areas?> GetAreaByCode(string areaCode)
     {
-        return await Areas.AsNoTracking().FirstOrDefaultAsync(c => c.AreaCode == areaCode);
+        string[] codes = areaCode.Split('-');
+        if (codes.Length < 6)
+        {
+            return null;
+        }
+        return await Areas.AsNoTracking().FirstOrDefaultAsync(c => c.AreaCode == codes[5] && c.Zone.ZoneCode == codes[4] && c.Zone.District.DistrictCode == codes[3] && c.Zone.District.Region.RegionCode == codes[2] && c.Zone.District.Region.ProvinceOrState.RegionCode == codes[1] && c.Zone.District.Region.ProvinceOrState.Country.CountryCode == codes[0]);
     }
 
     public async Task<Areas?> GetAreaById(int id)

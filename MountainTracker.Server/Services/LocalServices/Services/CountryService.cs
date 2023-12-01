@@ -23,7 +23,12 @@ public class CountryService : ICountryService
 
     public async Task<Countries?> GetCountryByCode(string countryCode)
     {
-        return await Countries.AsNoTracking().FirstOrDefaultAsync(c => c.CountryCode == countryCode);
+        string[] codes = countryCode.Split('-');
+        if (codes.Length < 1)
+        {
+            return null;
+        }
+        return await Countries.AsNoTracking().FirstOrDefaultAsync(c => c.CountryCode == codes[0]);
     }
 
     public async Task<Countries?> GetCountryById(byte id)

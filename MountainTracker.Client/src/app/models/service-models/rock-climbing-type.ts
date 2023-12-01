@@ -1,7 +1,7 @@
 import { QlField } from "../../graphql-helpers"
 import { RockClimbingRoute } from "./rock-climbing-route"
 
-export class RockClimbingTypeType {
+export class RockClimbingType {
 
     @QlField()
     public id?: number;

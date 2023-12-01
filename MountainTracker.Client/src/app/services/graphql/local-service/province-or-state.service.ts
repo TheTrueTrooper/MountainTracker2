@@ -11,9 +11,8 @@ import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
 })
 export class ProvinceOrStateService extends BaseQlService {
 
-  constructor(protected override readonly clientConfig: ClientConfig,
-      protected override apolloProvider: Apollo) {
-  super(clientConfig, apolloProvider)
+  constructor(protected override apolloProvider: Apollo) {
+  super(apolloProvider)
   }
 
   protected override queryObj: string = "provinceOrStateQuery"

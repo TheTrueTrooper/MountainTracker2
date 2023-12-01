@@ -6,8 +6,7 @@ import * as graphqlHelpers from '../../../graphql-helpers/graphql-helper';
 export abstract class BaseQlService {
     protected moutainTrackerApi: ApolloBase;
     protected queryObj: string = "";
-    constructor(protected readonly clientConfig: ClientConfig,
-                protected apolloProvider: Apollo) {
+    constructor(protected apolloProvider: Apollo) {
       this.moutainTrackerApi = this.apolloProvider.use("MountainTracker");
      }
 
@@ -17,19 +16,6 @@ export abstract class BaseQlService {
    }
    >(classToGet: T, query:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, any>, queryVar: string = "", queryParam: string = "")
    {
-    console.log(`
-    query${queryVar}
-    {
-      ${this.queryObj}
-      {
-        ${query}${queryParam}
-        {
-          ${graphqlHelpers.selectToQlFields(selection) ?? graphqlHelpers.ensureQlFields(classToGet.prototype.constructor)}
-        }
-      }
-    }
-    `);
-    
     return gql`
     query${queryVar}
     {

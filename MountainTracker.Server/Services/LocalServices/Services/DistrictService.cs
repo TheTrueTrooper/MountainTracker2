@@ -21,9 +21,9 @@ public class DistrictService : IDistrictService
         return await Districts.AsNoTracking().ToArrayAsync();
     }
 
-    public async Task<Districts?> GetDistrictByCode(string regionCode)
+    public async Task<Districts?> GetDistrictByCode(string districtCode)
     {
-        string[] codes = regionCode.Split('-');
+        string[] codes = districtCode.Split('-');
         if (codes.Length < 4)
         {
             return null;

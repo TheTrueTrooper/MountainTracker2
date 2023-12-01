@@ -26,7 +26,7 @@ public class ProvinceOrStateQuery : ObjectGraphType
             })
             .Description("Gets a country by its db id");
 
-        Field<ProvinceOrStateType>("provinceOrStateByCode")
+        Field<ProvinceOrStateType, ProvincesOrStates>("provinceOrStateByCode")
             .Argument<StringGraphType>("regionCode")
             .ResolveAsync(async context =>
             {

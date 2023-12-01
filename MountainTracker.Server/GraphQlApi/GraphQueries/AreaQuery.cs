@@ -26,14 +26,13 @@ public class AreaQuery : ObjectGraphType
             })
             .Description("Gets a country by its db id");
 
-        //to do sort the code system out
-        //Field<ZoneType>("countryByCode")
-        //    .Argument<StringGraphType>("countryCode")
-        //    .ResolveAsync(async context =>
-        //    {
-        //        string countryCode = context.GetArgument<string>("countryCode");
-        //        return await countryService.GetCountryByCode(countryCode);
-        //    })
-        //    .Description("Gets a country by its iso country code");
+        Field<AreaType, Areas>("areaByCode")
+            .Argument<StringGraphType>("areaCode")
+            .ResolveAsync(async context =>
+            {
+                string areaCode = context.GetArgument<string>("areaCode");
+                return await areaService.GetAreaByCode(areaCode);
+            })
+            .Description("Gets a are by its iso area code");
     }
 }

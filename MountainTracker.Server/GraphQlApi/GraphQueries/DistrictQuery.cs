@@ -26,14 +26,13 @@ public class DistrictQuery : ObjectGraphType
             })
             .Description("Gets a country by its db id");
 
-        //to do sort the code system out
-        //Field<DistrictType>("countryByCode")
-        //    .Argument<StringGraphType>("countryCode")
-        //    .ResolveAsync(async context =>
-        //    {
-        //        string countryCode = context.GetArgument<string>("countryCode");
-        //        return await countryService.GetCountryByCode(countryCode);
-        //    })
-        //    .Description("Gets a country by its iso country code");
+        Field<DistrictType, Districts>("districtByCode")
+            .Argument<StringGraphType>("districtCode")
+            .ResolveAsync(async context =>
+            {
+                string districtCode = context.GetArgument<string>("districtCode");
+                return await districtService.GetDistrictByCode(districtCode);
+            })
+            .Description("Gets a country by its iso country code");
     }
 }

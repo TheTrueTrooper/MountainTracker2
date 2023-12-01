@@ -26,14 +26,13 @@ public class RockClimbingWallQuery : ObjectGraphType
             })
             .Description("Gets a country by its db id");
 
-        //to do sort the code system out
-        //Field<ZoneType>("countryByCode")
-        //    .Argument<StringGraphType>("countryCode")
-        //    .ResolveAsync(async context =>
-        //    {
-        //        string countryCode = context.GetArgument<string>("countryCode");
-        //        return await countryService.GetCountryByCode(countryCode);
-        //    })
-        //    .Description("Gets a country by its iso country code");
+        Field<RockClimbingWallType, RockClimbingWalls>("rockClimbingWallByCode")
+            .Argument<StringGraphType>("wallCode")
+            .ResolveAsync(async context =>
+            {
+                string wallCode = context.GetArgument<string>("wallCode");
+                return await rockClimbingWallService.GetRockClimbingWallByCode(wallCode);
+            })
+            .Description("Gets a country by its iso country code");
     }
 }

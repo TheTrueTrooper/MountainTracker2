@@ -26,14 +26,13 @@ public class ZoneQuery : ObjectGraphType
             })
             .Description("Gets a country by its db id");
 
-        //to do sort the code system out
-        //Field<ZoneType>("countryByCode")
-        //    .Argument<StringGraphType>("countryCode")
-        //    .ResolveAsync(async context =>
-        //    {
-        //        string countryCode = context.GetArgument<string>("countryCode");
-        //        return await countryService.GetCountryByCode(countryCode);
-        //    })
-        //    .Description("Gets a country by its iso country code");
+        Field<ZoneType, Zones>("zoneByCode")
+            .Argument<StringGraphType>("zoneCode")
+            .ResolveAsync(async context =>
+            {
+                string zoneCode = context.GetArgument<string>("countryCode");
+                return await zoneService.GetZoneByCode(zoneCode);
+            })
+            .Description("Gets a country by its iso country code");
     }
 }

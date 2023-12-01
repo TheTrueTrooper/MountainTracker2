@@ -15,7 +15,7 @@ public class ProvinceOrStateQuery : ObjectGraphType
 
         Field<ListGraphType<ProvinceOrStateType>, IEnumerable<ProvincesOrStates>>("allprovincesOrStates")
             .ResolveAsync(async context => await provinceOrStateService.GetAllProvincesOrStates())
-            .Description("Gets a list of all of the countries");
+            .Description("Gets a list of all of the provinces or states");
 
         Field<ProvinceOrStateType, ProvincesOrStates>("provinceOrStateById")
             .Argument<short>("id")
@@ -24,7 +24,7 @@ public class ProvinceOrStateQuery : ObjectGraphType
                 short id = context.GetArgument<short>("id");
                 return await provinceOrStateService.GetProvinceOrStateById(id);
             })
-            .Description("Gets a country by its db id");
+            .Description("Gets a province or state by its db id");
 
         Field<ProvinceOrStateType, ProvincesOrStates>("provinceOrStateByCode")
             .Argument<StringGraphType>("regionCode")
@@ -33,6 +33,6 @@ public class ProvinceOrStateQuery : ObjectGraphType
                 string regionCode = context.GetArgument<string>("regionCode");
                 return await provinceOrStateService.GetProvinceOrStateByCode(regionCode);
             })
-            .Description("Gets a country by its iso country code");
+            .Description("Gets a province or state by its iso province or state code");
     }
 }

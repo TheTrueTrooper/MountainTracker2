@@ -5,12 +5,12 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.Services.LocalServices.Services;
 
-public class BusyRatingsService : IBusyRatingsService
+public class BusyRatingService : IBusyRatingService
 {
     MountainTrackerDatabase1Context Context;
     DbSet<BusyRatings> BusyRatings;
 
-    public BusyRatingsService(MountainTrackerDatabase1Context context)
+    public BusyRatingService(MountainTrackerDatabase1Context context)
     {
         Context = context;
         BusyRatings = Context.BusyRatings;

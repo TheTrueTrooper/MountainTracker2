@@ -5,12 +5,12 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.Services.LocalServices.Services;
 
-public class ClimbingQualityRatingsService : IClimbingQualityRatingsService
+public class ClimbingQualityRatingService : IClimbingQualityRatingService
 {
     MountainTrackerDatabase1Context Context;
     DbSet<ClimbingQualityRatings> ClimbingQualityRatings;
 
-    public ClimbingQualityRatingsService(MountainTrackerDatabase1Context context)
+    public ClimbingQualityRatingService(MountainTrackerDatabase1Context context)
     {
         Context = context;
         ClimbingQualityRatings = Context.ClimbingQualityRatings;

@@ -8,7 +8,7 @@ public class MountainTrackerSchema : Schema
     : base(provider)
     {
         Query = provider.GetRequiredService<MountainTrackerQuery>();
-        Mutation = provider.GetRequiredService<MountainTrackerMutation>();
-        Subscription = provider.GetRequiredService<MoutainTrackerSubscription>();
+        //Mutation = provider.GetRequiredService<MountainTrackerMutation>();
+        //Subscription = provider.GetRequiredService<MoutainTrackerSubscription>();
     }
 }

@@ -4,7 +4,7 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.Services.LocalServices.Interfaces;
 
-public interface IClimbingQualityRatingsService
+public interface IClimbingQualityRatingService
 {
     public Task<IEnumerable<ClimbingQualityRatings>> GetAllClimbingQualityRatings();
 

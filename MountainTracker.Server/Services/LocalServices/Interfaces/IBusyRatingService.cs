@@ -4,7 +4,7 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.Services.LocalServices.Interfaces;
 
-public interface IBusyRatingsService
+public interface IBusyRatingService
 {
     public Task<IEnumerable<BusyRatings>> GetAllBusyRatings();
 

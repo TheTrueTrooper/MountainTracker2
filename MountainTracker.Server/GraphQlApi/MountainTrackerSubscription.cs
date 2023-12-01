@@ -1,16 +1,16 @@
-﻿using GraphQL.Types;
-using MountainTracker.Server.GraphQlApi.QlQuery;
+﻿//using GraphQL.Types;
+//using MountainTracker.Server.GraphQlApi.QlQuery;
 
-namespace MountainTracker.Server.GraphQlApi;
+//namespace MountainTracker.Server.GraphQlApi;
 
-public class MoutainTrackerSubscription : ObjectGraphType
-{
-    //placeholder input
-    public MoutainTrackerSubscription(CountryQuery countryQuery)
-    {
-        Name = "Subscription";
-        //placeholder
-        Field<CountryQuery>("CountryQuery")
-            .Resolve(context => countryQuery);
-    }
-}
+//public class MoutainTrackerSubscription : ObjectGraphType
+//{
+//    //placeholder input
+//    public MoutainTrackerSubscription(CountryQuery countryQuery)
+//    {
+//        Name = "Subscription";
+//        //placeholder
+//        Field<CountryQuery>("CountryQuery")
+//            .Resolve(context => countryQuery);
+//    }
+//}

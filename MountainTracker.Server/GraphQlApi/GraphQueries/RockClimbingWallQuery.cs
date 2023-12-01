@@ -11,11 +11,11 @@ public class RockClimbingWallQuery : ObjectGraphType
     public RockClimbingWallQuery(IRockClimbingWallService rockClimbingWallService)
     {
         Name = "RockClimbingWallQuery";
-        Description = "Queries for region rock climbing wall type";
+        Description = "Queries for rock climbing wall type";
 
         Field<ListGraphType<RockClimbingWallType>, IEnumerable<RockClimbingWalls>> ("allRockClimbingWall")
             .ResolveAsync(async context => await rockClimbingWallService.GetAllRockClimbingWalls())
-            .Description("Gets a list of all of the countries");
+            .Description("Gets a list of all of the rock climbing walls");
 
         Field<RockClimbingWallType, RockClimbingWalls>("rockClimbingWallById")
             .Argument<int>("id")
@@ -24,7 +24,7 @@ public class RockClimbingWallQuery : ObjectGraphType
                 int id = context.GetArgument<int>("id");
                 return await rockClimbingWallService.GetRockClimbingWallById(id);
             })
-            .Description("Gets a country by its db id");
+            .Description("Gets a rock climbing wall by its db id");
 
         Field<RockClimbingWallType, RockClimbingWalls>("rockClimbingWallByCode")
             .Argument<StringGraphType>("wallCode")
@@ -33,6 +33,6 @@ public class RockClimbingWallQuery : ObjectGraphType
                 string wallCode = context.GetArgument<string>("wallCode");
                 return await rockClimbingWallService.GetRockClimbingWallByCode(wallCode);
             })
-            .Description("Gets a country by its iso country code");
+            .Description("Gets a rock climbing wall by its rock climbing wall code");
     }
 }

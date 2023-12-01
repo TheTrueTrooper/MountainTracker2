@@ -11,11 +11,11 @@ public class ZoneQuery : ObjectGraphType
     public ZoneQuery(IZoneService zoneService)
     {
         Name = "ZoneQuery";
-        Description = "Queries for region zone type";
+        Description = "Queries for zone type";
 
         Field<ListGraphType<ZoneType>, IEnumerable<Zones>>("allZones")
             .ResolveAsync(async context => await zoneService.GetAllZones())
-            .Description("Gets a list of all of the countries");
+            .Description("Gets a list of all of the zones");
 
         Field<ZoneType, Zones>("ZoneById")
             .Argument<int>("id")
@@ -24,7 +24,7 @@ public class ZoneQuery : ObjectGraphType
                 int id = context.GetArgument<int>("id");
                 return await zoneService.GetZoneById(id);
             })
-            .Description("Gets a country by its db id");
+            .Description("Gets a zone by its db id");
 
         Field<ZoneType, Zones>("zoneByCode")
             .Argument<StringGraphType>("zoneCode")
@@ -33,6 +33,6 @@ public class ZoneQuery : ObjectGraphType
                 string zoneCode = context.GetArgument<string>("countryCode");
                 return await zoneService.GetZoneByCode(zoneCode);
             })
-            .Description("Gets a country by its iso country code");
+            .Description("Gets a zone by its zone code");
     }
 }

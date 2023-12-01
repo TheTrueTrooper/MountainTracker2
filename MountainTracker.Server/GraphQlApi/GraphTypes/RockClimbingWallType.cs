@@ -57,7 +57,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<ClimbingQualityRatingType, ClimbingQualityRatings>("janSeasonalClimbingQualityRating")
             .ResolveAsync(async context =>
             {
-                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
                 return loader.LoadAsync(context.Source.JanSeasonalClimbingQualityRatingId);
             })
@@ -65,7 +65,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<ClimbingQualityRatingType, ClimbingQualityRatings>("febSeasonalClimbingQualityRating")
             .ResolveAsync(async context =>
             {
-                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
                 return loader.LoadAsync(context.Source.FebSeasonalClimbingQualityRatingId);
             })
@@ -73,7 +73,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<ClimbingQualityRatingType, ClimbingQualityRatings>("marSeasonalClimbingQualityRating")
             .ResolveAsync(async context =>
             {
-                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
                 return loader.LoadAsync(context.Source.MarSeasonalClimbingQualityRatingId);
             })
@@ -81,7 +81,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<ClimbingQualityRatingType, ClimbingQualityRatings>("aprSeasonalClimbingQualityRating")
             .ResolveAsync(async context =>
             {
-                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
                 return loader.LoadAsync(context.Source.AprSeasonalClimbingQualityRatingId);
             })
@@ -89,7 +89,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<ClimbingQualityRatingType, ClimbingQualityRatings>("maySeasonalClimbingQualityRating")
             .ResolveAsync(async context =>
             {
-                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
                 return loader.LoadAsync(context.Source.MaySeasonalClimbingQualityRatingId);
             })
@@ -97,7 +97,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<ClimbingQualityRatingType, ClimbingQualityRatings>("junSeasonalClimbingQualityRating")
             .ResolveAsync(async context =>
             {
-                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
                 return loader.LoadAsync(context.Source.JunSeasonalClimbingQualityRatingId);
             })
@@ -105,7 +105,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<ClimbingQualityRatingType, ClimbingQualityRatings>("julSeasonalClimbingQualityRating")
             .ResolveAsync(async context =>
             {
-                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
                 return loader.LoadAsync(context.Source.JulSeasonalClimbingQualityRatingId);
             })
@@ -113,7 +113,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<ClimbingQualityRatingType, ClimbingQualityRatings>("augSeasonalClimbingQualityRating")
             .ResolveAsync(async context =>
             {
-                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
                 return loader.LoadAsync(context.Source.AugSeasonalClimbingQualityRatingId);
             })
@@ -121,7 +121,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<ClimbingQualityRatingType, ClimbingQualityRatings>("sepSeasonalClimbingQualityRating")
             .ResolveAsync(async context =>
             {
-                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
                 return loader.LoadAsync(context.Source.SepSeasonalClimbingQualityRatingId);
             })
@@ -129,7 +129,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<ClimbingQualityRatingType, ClimbingQualityRatings>("octSeasonalClimbingQualityRating")
             .ResolveAsync(async context =>
             {
-                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
                 return loader.LoadAsync(context.Source.OctSeasonalClimbingQualityRatingId);
             })
@@ -137,7 +137,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<ClimbingQualityRatingType, ClimbingQualityRatings>("novSeasonalClimbingQualityRating")
             .ResolveAsync(async context =>
             {
-                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
                 return loader.LoadAsync(context.Source.NovSeasonalClimbingQualityRatingId);
             })
@@ -145,7 +145,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<ClimbingQualityRatingType, ClimbingQualityRatings>("decSeasonalClimbingQualityRating")
             .ResolveAsync(async context =>
             {
-                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
                 return loader.LoadAsync(context.Source.DecSeasonalClimbingQualityRatingId);
             })
@@ -155,7 +155,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<BusyRatingType, BusyRatings>("janSeasonalBusyRating")
             .ResolveAsync(async context =>
             {
-                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingsService>()!;
+                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, BusyRatings>("GetBusyRatingByIds", busyRatingsService.GetBusyRatingByIds);
                 return loader.LoadAsync(context.Source.JanSeasonalBusyRatingId);
             })
@@ -163,7 +163,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<BusyRatingType, BusyRatings>("febSeasonalBusyRating")
             .ResolveAsync(async context =>
             {
-                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingsService>()!;
+                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, BusyRatings>("GetBusyRatingByIds", busyRatingsService.GetBusyRatingByIds);
                 return loader.LoadAsync(context.Source.FebSeasonalBusyRatingId);
             })
@@ -171,7 +171,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<BusyRatingType, BusyRatings>("marSeasonalBusyRating")
             .ResolveAsync(async context =>
             {
-                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingsService>()!;
+                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, BusyRatings>("GetBusyRatingByIds", busyRatingsService.GetBusyRatingByIds);
                 return loader.LoadAsync(context.Source.MarSeasonalBusyRatingId);
             })
@@ -179,7 +179,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<BusyRatingType, BusyRatings>("aprSeasonalBusyRating")
             .ResolveAsync(async context =>
             {
-                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingsService>()!;
+                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, BusyRatings>("GetBusyRatingByIds", busyRatingsService.GetBusyRatingByIds);
                 return loader.LoadAsync(context.Source.AprSeasonalBusyRatingId);
             })
@@ -187,7 +187,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<BusyRatingType, BusyRatings>("maySeasonalBusyRating")
             .ResolveAsync(async context =>
             {
-                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingsService>()!;
+                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, BusyRatings>("GetBusyRatingByIds", busyRatingsService.GetBusyRatingByIds);
                 return loader.LoadAsync(context.Source.MaySeasonalBusyRatingId);
             })
@@ -195,7 +195,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<BusyRatingType, BusyRatings>("junSeasonalBusyRating")
             .ResolveAsync(async context =>
             {
-                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingsService>()!;
+                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, BusyRatings>("GetBusyRatingByIds", busyRatingsService.GetBusyRatingByIds);
                 return loader.LoadAsync(context.Source.JunSeasonalBusyRatingId);
             })
@@ -203,7 +203,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<BusyRatingType, BusyRatings>("julSeasonalBusyRating")
             .ResolveAsync(async context =>
             {
-                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingsService>()!;
+                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, BusyRatings>("GetBusyRatingByIds", busyRatingsService.GetBusyRatingByIds);
                 return loader.LoadAsync(context.Source.JulSeasonalBusyRatingId);
             })
@@ -211,7 +211,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<BusyRatingType, BusyRatings>("augSeasonalBusyRating")
             .ResolveAsync(async context =>
             {
-                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingsService>()!;
+                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, BusyRatings>("GetBusyRatingByIds", busyRatingsService.GetBusyRatingByIds);
                 return loader.LoadAsync(context.Source.AugSeasonalBusyRatingId);
             })
@@ -219,7 +219,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<BusyRatingType, BusyRatings>("sepSeasonalBusyRating")
             .ResolveAsync(async context =>
             {
-                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingsService>()!;
+                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, BusyRatings>("GetBusyRatingByIds", busyRatingsService.GetBusyRatingByIds);
                 return loader.LoadAsync(context.Source.SepSeasonalBusyRatingId);
             })
@@ -227,7 +227,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<BusyRatingType, BusyRatings>("octSeasonalBusyRating")
             .ResolveAsync(async context =>
             {
-                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingsService>()!;
+                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, BusyRatings>("GetBusyRatingByIds", busyRatingsService.GetBusyRatingByIds);
                 return loader.LoadAsync(context.Source.OctSeasonalBusyRatingId);
             })
@@ -235,7 +235,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<BusyRatingType, BusyRatings>("novSeasonalBusyRating")
             .ResolveAsync(async context =>
             {
-                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingsService>()!;
+                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, BusyRatings>("GetBusyRatingByIds", busyRatingsService.GetBusyRatingByIds);
                 return loader.LoadAsync(context.Source.NovSeasonalBusyRatingId);
             })
@@ -243,7 +243,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field<BusyRatingType, BusyRatings>("decSeasonalBusyRating")
             .ResolveAsync(async context =>
             {
-                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingsService>()!;
+                var busyRatingsService = busyRatingsScope.ServiceProvider.GetService<IBusyRatingService>()!;
                 var loader = accessor.Context!.GetOrAddBatchLoader<byte, BusyRatings>("GetBusyRatingByIds", busyRatingsService.GetBusyRatingByIds);
                 return loader.LoadAsync(context.Source.DecSeasonalBusyRatingId);
             })

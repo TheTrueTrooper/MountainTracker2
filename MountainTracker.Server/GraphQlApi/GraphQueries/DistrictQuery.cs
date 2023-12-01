@@ -11,11 +11,11 @@ public class DistrictQuery : ObjectGraphType
     public DistrictQuery(IDistrictService districtService)
     {
         Name = "DistrictQuery";
-        Description = "Queries for region district dype";
+        Description = "Queries for district type";
 
         Field<ListGraphType<DistrictType>, IEnumerable<Districts>>("allDistricts")
             .ResolveAsync(async context => await districtService.GetAllDistricts())
-            .Description("Gets a list of all of the countries");
+            .Description("Gets a list of all of the districts");
 
         Field<DistrictType, Districts>("districById")
             .Argument<int>("id")
@@ -24,7 +24,7 @@ public class DistrictQuery : ObjectGraphType
                 int id = context.GetArgument<int>("id");
                 return await districtService.GetDistrictById(id);
             })
-            .Description("Gets a country by its db id");
+            .Description("Gets a district by its db id");
 
         Field<DistrictType, Districts>("districtByCode")
             .Argument<StringGraphType>("districtCode")
@@ -33,6 +33,6 @@ public class DistrictQuery : ObjectGraphType
                 string districtCode = context.GetArgument<string>("districtCode");
                 return await districtService.GetDistrictByCode(districtCode);
             })
-            .Description("Gets a country by its iso country code");
+            .Description("Gets a district by its district code");
     }
 }

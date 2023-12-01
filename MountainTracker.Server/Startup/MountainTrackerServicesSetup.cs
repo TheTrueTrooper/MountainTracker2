@@ -12,6 +12,8 @@ public static class MountainTrackerServicesSetup
     {
         services.AddDbContext<MountainTrackerDatabase1Context>(options => options.UseSqlServer(configurationManager.GetConnectionString(connectionKey)));
         services.AddScoped<IRockClimbingTypeService, RockClimbingTypeService>();
+        services.AddScoped<IBusyRatingsService, BusyRatingsService>();
+        services.AddScoped<IClimbingQualityRatingsService, ClimbingQualityRatingsService>();
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<IProvinceOrStateService, ProvinceOrStateService>();
         services.AddScoped<IRegionService, RegionService>();

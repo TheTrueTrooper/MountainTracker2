@@ -33,7 +33,7 @@ export class LandingComponent {
       autoLoad: this.config.AutoLoad,
     } as PannellumEquirectangularConfig;
 
-    this.countries$ = this.store.select(selectAllCountries);
+    this.countries$ = countryService.getAllCountries() //this.store.select(selectAllCountries);
 
     this.store.dispatch(actions.loadCountries());
   }

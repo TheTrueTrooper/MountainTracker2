@@ -1,23 +1,23 @@
 # MountainTracker2
- Upgrade of mountain tracker to .NET Core and Angular 13+&#10;&#13;
-Features:&#10;&#13;
--Client:&#10;&#13;
-->Newest Angular 17 frame work in typescript&#10;&#13;
-->Leaflet for Openstreetmaps (cycle map) interactive map (native js lib with a definitely typed import)&#10;&#13;
-->Pannellum for panoramic views (Fully native JS (no type def in 'definitely typed' or other available) import to typescript with componet)&#10;&#13;
-->GraphQL as Apollo&#10;&#13;
-->NgRx Store (with Entity Addapter & async Effects) for reactive state control and data management&#10;&#13;
-->Testing will be as Jest&#10;&#13;
--Server:&#10;&#13;
-->ASP.NET Core with Angular 17 intergration&#10;&#13;
-->API GraphQL as GraphGL.NET&#10;&#13;
-->Maybe additional API as classic REST&#10;&#13;
-->SQL intergration as Entity Framework (EF) Core&#10;&#13;
-->Testing will be as XUnit&#10;&#13;
--Database:&#10;&#13;
-->Tables&#10;&#13;
-->Stored Procedures&#10;&#13;
-->Triggers&#10;&#13;
-->Classic selects&#10;&#13;
-->Pred deployment and post deployment rebuild scripts&#10;&#13;
-->Versioning will be done additional though update scrips&#10;&#13;
+<h1>Upgrade of mountain tracker to .NET Core and Angular 13+</h1>
+<p>Features:</p>
+-Client:<br/>
+->Newest Angular 17 frame work in typescript<br/>
+->Leaflet for Openstreetmaps (cycle map) interactive map (native js lib with a definitely typed import)<br/>
+->Pannellum for panoramic views (Fully native JS (no type def in 'definitely typed' or other available) import to typescript with componet)<br/>
+->GraphQL as Apollo<br/>
+->NgRx Store (with Entity Addapter & async Effects) for reactive state control and data management
+->Testing will be as Jest</p>
+<p>-Server:<br/>
+->ASP.NET Core with Angular 17 intergration<br/>
+->API GraphQL as GraphGL.NET<br/>
+->Maybe additional API as classic REST<br/>
+->SQL intergration as Entity Framework (EF) Core<br/>
+->Testing will be as XUnit</p>
+<p>-Database:<br/>
+->Tables<br/>
+->Stored Procedures<br/>
+->Triggers<br/>
+->Classic selects<br/>
+->Pred deployment and post deployment rebuild scripts<br/>
+->Versioning will be done additional though update scrips</p>

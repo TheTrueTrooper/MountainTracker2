@@ -28,27 +28,27 @@ export class ProvinceOrStateService extends BaseQlService {
 
   public getProvinceOrStateServiceById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ProvinceOrState>): Observable<ProvinceOrState>
   {
-    const queryVar = '($id: Byte!)'
-    const query = 'provinceOrStateServiceById'
+    const queryVar = '($id: Short!)'
+    const query = 'provinceOrStateById'
     const queryParam = '(id: $id)'
     return this.moutainTrackerApi.query<ProvinceOrState>({
-      query: this.generateQuery(ProvinceOrState, `${query}${queryParam}`, selection, queryVar),
+      query: this.generateQuery(ProvinceOrState, query, selection, queryVar, queryParam),
       variables:{
       id: id
     }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
 
-  // not implemented yet
-  // public countryByCode(countryCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ProvinceOrState>): Observable<ProvinceOrState>
-  // {
-  //   const queryParam = '($countryCode: String!)'
-  //   const query = 'provinceOrStateServiceByCode(countryCode: $countryCode)'
-  //   return this.moutainTrackerApi.query<ProvinceOrState>({
-  //     query: this.generateQuery(ProvinceOrState, query, selection, queryParam),
-  //     variables:{
-  //     countryCode: countryCode
-  //   }                                                                                                                                                                                                                                
-  //   }).pipe(map((result: any) => result.data.countryQuery.countryByCode))
-  // }
+  public provinceOrStateByCode(regionCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ProvinceOrState>): Observable<ProvinceOrState>
+  {
+    const queryVar = '($regionCode: String!)'
+    const query = 'provinceOrStateByCode'
+    const queryParam = '(regionCode: $regionCode)'
+    return this.moutainTrackerApi.query<ProvinceOrState>({
+      query: this.generateQuery(ProvinceOrState, query, selection, queryVar, queryParam),
+      variables:{
+        regionCode: regionCode
+      }                                                                                                                                                                                                                                
+    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+  }
 }

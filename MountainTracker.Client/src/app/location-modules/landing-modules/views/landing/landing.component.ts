@@ -3,7 +3,7 @@ import { TargetOSMSourceFactory } from '../../../../core-modules/open-street-map
 import { PannellumEquirectangularConfig } from '../../../../core-modules/pannellum-module';
 import { ClientConfig, LandingConfig } from '../../../../configuration';
 import { Observable } from 'rxjs';
-import { Country } from '../../../../models';
+import { Country, ProvinceOrState } from '../../../../models';
 import { Store } from '@ngrx/store';
 import { selectAllCountries } from '../../../../services/entity-state-services/selectors';
 import { actions } from '../../../../services/entity-state-services';
@@ -21,9 +21,9 @@ export class LandingComponent {
 
   protected readonly config: LandingConfig;
 
-  protected countries$: Observable<Country[]>;
+  protected countries$: Observable<ProvinceOrState>;
 
-  constructor(protected readonly clientConfig: ClientConfig, private store: Store, private service: CountryService)
+  constructor(protected readonly clientConfig: ClientConfig, private store: Store, private service: ProvinceOrStateService)
   {
     this.config = this.clientConfig.LandingPage!;
 
@@ -33,7 +33,7 @@ export class LandingComponent {
       autoLoad: this.config.AutoLoad,
     } as PannellumEquirectangularConfig;
 
-    this.countries$ = service.getAllCountries() //this.store.select(selectAllCountries);
+    this.countries$ = service.provinceOrStateByCode("CA-BC") //this.store.select(selectAllCountries);
 
     this.store.dispatch(actions.loadCountries());
   }

@@ -16,7 +16,8 @@ public class ProvinceOrStateQuery : ObjectGraphType
         Field<ListGraphType<ProvinceOrStateType>, IEnumerable<ProvincesOrStates>>("allprovincesOrStates")
             .ResolveAsync(async context => await provinceOrStateService.GetAllProvincesOrStates())
             .Description("Gets a list of all of the countries");
-        Field<ProvinceOrStateType, ProvincesOrStates>("provinceOrStateServiceById")
+
+        Field<ProvinceOrStateType, ProvincesOrStates>("provinceOrStateById")
             .Argument<short>("id")
             .ResolveAsync(async context =>
             {
@@ -24,14 +25,14 @@ public class ProvinceOrStateQuery : ObjectGraphType
                 return await provinceOrStateService.GetProvinceOrStateById(id);
             })
             .Description("Gets a country by its db id");
-        //to do sort the code system out
-        //Field<ProvinceOrStateType>("countryByCode")
-        //    .Argument<StringGraphType>("countryCode")
-        //    .ResolveAsync(async context =>
-        //    {
-        //        string countryCode = context.GetArgument<string>("countryCode");
-        //        return await countryService.GetCountryByCode(countryCode);
-        //    })
-        //    .Description("Gets a country by its iso country code");
+
+        Field<ProvinceOrStateType>("provinceOrStateByCode")
+            .Argument<StringGraphType>("regionCode")
+            .ResolveAsync(async context =>
+            {
+                string regionCode = context.GetArgument<string>("regionCode");
+                return await provinceOrStateService.GetProvinceOrStateByCode(regionCode);
+            })
+            .Description("Gets a country by its iso country code");
     }
 }

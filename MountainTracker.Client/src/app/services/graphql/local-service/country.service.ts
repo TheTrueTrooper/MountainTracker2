@@ -32,7 +32,7 @@ export class CountryService extends BaseQlService {
     const query = 'provinceOrStateServiceById'
     const queryParam = '(id: $id)'
     return this.moutainTrackerApi.query<Country>({
-      query: this.generateQuery(Country, `${query}${queryParam}`, selection, queryVar),
+      query: this.generateQuery(Country, query, selection, queryVar, queryParam),
       variables:{
         id: id
       }                                                                                                                                                                                                                                
@@ -45,7 +45,7 @@ export class CountryService extends BaseQlService {
     const query = 'countryByCode'
     const queryParam = '(countryCode: $countryCode)'
     return this.moutainTrackerApi.query<Country>({
-      query: this.generateQuery(Country, `${query}${queryParam}`, selection, queryVar),
+      query: this.generateQuery(Country, query, selection, queryVar, queryParam),
       variables:{
         countryCode: countryCode
       }                                                                                                                                                                                                                                

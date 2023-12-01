@@ -1,18 +1,18 @@
 import { QlField } from "../../graphql-helpers";
-import { DistrictGeoFenceNode } from "./district-geo-fence-node";
-import { Region } from "./region";
+import { AreaGeoFenceNode } from "./area-geo-fence-node";
+import { RockClimbingWall } from "./rock-climbing-wall";
 import { Zone } from "./zones";
 
 
-export class District {
+export class Area {
     @QlField()
-    public regionId?: number;
+    public zoneId?: number;
     @QlField()
     public id?: number;
     @QlField()
     public englishFullName?: string;
     @QlField()
-    public districtCode?: string;
+    public areaCode?: string;
     @QlField()
     public info?: String | null;
     @QlField()
@@ -22,7 +22,7 @@ export class District {
     @QlField()
     public thumbPictureBytes?: number[] | null;
 
-    public region?: Region;
-    public zones?: Zone;
-    public geoFenceNodes?: DistrictGeoFenceNode[];
+    public zone?: Zone;
+    public rockClimbingWalls?: RockClimbingWall;
+    public geoFenceNodes?: AreaGeoFenceNode[];
 }

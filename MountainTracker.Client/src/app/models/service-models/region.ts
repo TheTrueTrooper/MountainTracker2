@@ -12,7 +12,16 @@ export class Region
     public englishFullName?: string;
     @QlField()
     public regionCode?: string;
+    @QlField()
+    public info?: String | null;
+    @QlField()
+    public latitudeStartOrCenter?: number | null;
+    @QlField()
+    public longitudeStartOrCenter?: number | null;
+    @QlField()
+    public thumbPictureBytes?: number[] | null;
 
     public provinceOrState?: ProvinceOrState;
     public districts?: District[];
+    //geoFenceNodes: RegionGeoFenceNode[];
 }

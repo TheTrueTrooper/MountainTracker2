@@ -16,6 +16,7 @@ public class RockClimbingWallQuery : ObjectGraphType
         Field<ListGraphType<RockClimbingWallType>, IEnumerable<RockClimbingWalls>> ("allRockClimbingWall")
             .ResolveAsync(async context => await rockClimbingWallService.GetAllRockClimbingWalls())
             .Description("Gets a list of all of the countries");
+
         Field<RockClimbingWallType, RockClimbingWalls>("rockClimbingWallById")
             .Argument<int>("id")
             .ResolveAsync(async context =>
@@ -24,6 +25,7 @@ public class RockClimbingWallQuery : ObjectGraphType
                 return await rockClimbingWallService.GetRockClimbingWallById(id);
             })
             .Description("Gets a country by its db id");
+
         //to do sort the code system out
         //Field<ZoneType>("countryByCode")
         //    .Argument<StringGraphType>("countryCode")

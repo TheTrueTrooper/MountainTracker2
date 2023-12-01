@@ -15,14 +15,27 @@ export abstract class BaseQlService {
    T extends {
      new (): any;
    }
-   >(classToGet: T, query:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, any>, queryParam: string = "")
+   >(classToGet: T, query:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, any>, queryVar: string = "", queryParam: string = "")
    {
-    return gql`
-    query${queryParam}
+    console.log(`
+    query${queryVar}
     {
       ${this.queryObj}
       {
-        ${query}
+        ${query}${queryParam}
+        {
+          ${graphqlHelpers.selectToQlFields(selection) ?? graphqlHelpers.ensureQlFields(classToGet.prototype.constructor)}
+        }
+      }
+    }
+    `);
+    
+    return gql`
+    query${queryVar}
+    {
+      ${this.queryObj}
+      {
+        ${query}${queryParam}
         {
           ${graphqlHelpers.selectToQlFields(selection) ?? graphqlHelpers.ensureQlFields(classToGet.prototype.constructor)}
         }

@@ -16,6 +16,7 @@ public class AreaQuery : ObjectGraphType
         Field<ListGraphType<AreaType>, IEnumerable<Areas>>("allAreas")
             .ResolveAsync(async context => await areaService.GetAllAreas())
             .Description("Gets a list of all of the countries");
+
         Field<AreaType, Areas>("areaById")
             .Argument<int>("id")
             .ResolveAsync(async context =>
@@ -24,6 +25,7 @@ public class AreaQuery : ObjectGraphType
                 return await areaService.GetAreaById(id);
             })
             .Description("Gets a country by its db id");
+
         //to do sort the code system out
         //Field<ZoneType>("countryByCode")
         //    .Argument<StringGraphType>("countryCode")

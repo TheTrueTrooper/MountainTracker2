@@ -16,6 +16,7 @@ public class DistrictQuery : ObjectGraphType
         Field<ListGraphType<DistrictType>, IEnumerable<Districts>>("allDistricts")
             .ResolveAsync(async context => await districtService.GetAllDistricts())
             .Description("Gets a list of all of the countries");
+
         Field<DistrictType, Districts>("districById")
             .Argument<int>("id")
             .ResolveAsync(async context =>
@@ -24,6 +25,7 @@ public class DistrictQuery : ObjectGraphType
                 return await districtService.GetDistrictById(id);
             })
             .Description("Gets a country by its db id");
+
         //to do sort the code system out
         //Field<DistrictType>("countryByCode")
         //    .Argument<StringGraphType>("countryCode")

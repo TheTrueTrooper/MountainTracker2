@@ -26,7 +26,7 @@ public class BusyRatingsService : IBusyRatingsService
         return await BusyRatings.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<IDictionary<byte, BusyRatings>> GetBusyRatingsByIds(IEnumerable<byte> ids)
+    public async Task<IDictionary<byte, BusyRatings>> GetBusyRatingByIds(IEnumerable<byte> ids)
     {
         return await BusyRatings.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key => key.Id, value => value);
     }

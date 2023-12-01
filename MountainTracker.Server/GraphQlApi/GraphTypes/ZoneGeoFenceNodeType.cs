@@ -1,10 +1,7 @@
 ﻿using GraphQL.DataLoader;
 using GraphQL.Types;
-using Microsoft.Extensions.DependencyInjection;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
-using System;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 

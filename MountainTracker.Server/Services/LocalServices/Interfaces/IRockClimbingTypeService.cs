@@ -10,5 +10,5 @@ public interface IRockClimbingTypeService
 
     public Task<RockClimbingTypes?> GetRockClimbingTypeById(byte id);
 
-    public Task<IDictionary<byte, RockClimbingTypes>> GetRockClimbingTypesByIds(IEnumerable<byte> ids);
+    public Task<IDictionary<byte, RockClimbingTypes>> GetRockClimbingTypeByIds(IEnumerable<byte> ids);
 }

@@ -2,7 +2,6 @@
 using GraphQL.Types;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
@@ -66,7 +65,7 @@ public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>, IDispo
             .ResolveAsync(async context =>
             {
                 var rockClimbingWallService = climbingWallScope.ServiceProvider.GetService<IRockClimbingWallService>()!;
-                var loader = accessor.Context!.GetOrAddBatchLoader<int, RockClimbingWalls>("GetRockClimbingWallsByIds", rockClimbingWallService.GetRockClimbingWallsByIds);
+                var loader = accessor.Context!.GetOrAddBatchLoader<int, RockClimbingWalls>("GetRockClimbingWallByIds", rockClimbingWallService.GetRockClimbingWallByIds);
                 return loader.LoadAsync(context.Source.TypeId);
             })
             .Description("Route's associated wall");
@@ -76,7 +75,7 @@ public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>, IDispo
             .ResolveAsync(async context =>
             {
                 var rockClimbingTypeService = climbingTypeScope.ServiceProvider.GetService<IRockClimbingTypeService>()!;
-                var loader = accessor.Context!.GetOrAddBatchLoader<byte, RockClimbingTypes>("GetRockClimbingTypesByIds", rockClimbingTypeService.GetRockClimbingTypesByIds);
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, RockClimbingTypes>("GetRockClimbingTypeByIds", rockClimbingTypeService.GetRockClimbingTypeByIds);
                 return loader.LoadAsync(context.Source.TypeId);
             })
             .Description("Route's associated type");

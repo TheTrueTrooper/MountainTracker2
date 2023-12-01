@@ -47,8 +47,14 @@ public class RockClimbingWallService : IRockClimbingWallService
         return list.ToLookup(list => list.AreaId);
     }
 
-    public async Task<IDictionary<int, RockClimbingWalls>> GetRockClimbingWallsByIds(IEnumerable<int> ids)
+    public async Task<IDictionary<int, RockClimbingWalls>> GetRockClimbingWallByIds(IEnumerable<int> ids)
     {
         return await RockClimbingWalls.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key => key.Id, value => value);
+    }
+
+    public async Task<ILookup<int, RockClimbingWalls>> GetRockClimbingWallsByIds(IEnumerable<int> ids)
+    {
+        var list = await RockClimbingWalls.AsNoTracking().Where(c => ids.Contains(c.Id)).ToListAsync();
+        return list.ToLookup(list => list.AreaId);
     }
 }

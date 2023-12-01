@@ -10,5 +10,5 @@ public interface IBusyRatingsService
 
     public Task<BusyRatings?> GetBusyRatingById(byte id);
 
-    public Task<IDictionary<byte, BusyRatings>> GetBusyRatingsByIds(IEnumerable<byte> ids);
+    public Task<IDictionary<byte, BusyRatings>> GetBusyRatingByIds(IEnumerable<byte> ids);
 }

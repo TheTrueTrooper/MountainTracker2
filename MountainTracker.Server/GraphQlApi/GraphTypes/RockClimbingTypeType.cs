@@ -2,8 +2,6 @@
 using GraphQL.Types;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
-using System.Collections;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
@@ -20,11 +18,11 @@ public class RockClimbingTypeType : ObjectGraphType<RockClimbingTypes>, IDisposa
         Field(d => d.ShortHand, nullable: false).Description("Code for country");
         Field(d => d.EnglishFullName, nullable: false).Description("Country's english name");
 
-        var rockClimbingWallsScope = CreateScope(serviceProvider);
+        var rockClimbingRouteScope = CreateScope(serviceProvider);
         Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>>("rockClimbingWalls")
             .ResolveAsync(async context =>
             {
-                var rockClimbingRouteService = rockClimbingWallsScope.ServiceProvider.GetService<IRockClimbingRouteService>()!;
+                var rockClimbingRouteService = rockClimbingRouteScope.ServiceProvider.GetService<IRockClimbingRouteService>()!;
                 var loader = accessor.Context!.GetOrAddCollectionBatchLoader<byte, RockClimbingRoutes>("GetAreasByIds", rockClimbingRouteService.GetRockClimbingRoutesByTypes);
                 return loader.LoadAsync(context.Source.Id);
             })

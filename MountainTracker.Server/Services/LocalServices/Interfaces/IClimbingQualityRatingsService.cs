@@ -10,5 +10,5 @@ public interface IClimbingQualityRatingsService
 
     public Task<ClimbingQualityRatings?> GetClimbingQualityRatingById(byte id);
 
-    public Task<IDictionary<byte, ClimbingQualityRatings>> GetClimbingQualityRatingsByIds(IEnumerable<byte> ids);
+    public Task<IDictionary<byte, ClimbingQualityRatings>> GetClimbingQualityRatingByIds(IEnumerable<byte> ids);
 }

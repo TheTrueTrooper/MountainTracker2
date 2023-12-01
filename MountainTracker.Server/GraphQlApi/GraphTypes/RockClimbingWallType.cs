@@ -53,6 +53,104 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field(d => d.NovSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in November");
         Field(d => d.DecSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in December");
 
+        var climbingQualityRatingScope = CreateScope(serviceProvider);
+        Field<ClimbingQualityRatingType, ClimbingQualityRatings>("janSeasonalClimbingQualityRating")
+            .ResolveAsync(async context =>
+            {
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
+                return loader.LoadAsync(context.Source.JanSeasonalClimbingQualityRatingId);
+            })
+            .Description("Wall's seasonal quality climbing conditions rating in January");
+        Field<ClimbingQualityRatingType, ClimbingQualityRatings>("febSeasonalClimbingQualityRating")
+            .ResolveAsync(async context =>
+            {
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
+                return loader.LoadAsync(context.Source.FebSeasonalClimbingQualityRatingId);
+            })
+            .Description("Wall's seasonal quality climbing conditions rating in Febuary");
+        Field<ClimbingQualityRatingType, ClimbingQualityRatings>("marSeasonalClimbingQualityRating")
+            .ResolveAsync(async context =>
+            {
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
+                return loader.LoadAsync(context.Source.MarSeasonalClimbingQualityRatingId);
+            })
+            .Description("Wall's seasonal quality climbing conditions rating in March");
+        Field<ClimbingQualityRatingType, ClimbingQualityRatings>("aprSeasonalClimbingQualityRating")
+            .ResolveAsync(async context =>
+            {
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
+                return loader.LoadAsync(context.Source.AprSeasonalClimbingQualityRatingId);
+            })
+            .Description("Wall's seasonal quality climbing conditions rating in April");
+        Field<ClimbingQualityRatingType, ClimbingQualityRatings>("maySeasonalClimbingQualityRating")
+            .ResolveAsync(async context =>
+            {
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
+                return loader.LoadAsync(context.Source.MaySeasonalClimbingQualityRatingId);
+            })
+            .Description("Wall's seasonal quality climbing conditions rating in May");
+        Field<ClimbingQualityRatingType, ClimbingQualityRatings>("junSeasonalClimbingQualityRating")
+            .ResolveAsync(async context =>
+            {
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
+                return loader.LoadAsync(context.Source.JunSeasonalClimbingQualityRatingId);
+            })
+            .Description("Wall's seasonal quality climbing conditions rating in June");
+        Field<ClimbingQualityRatingType, ClimbingQualityRatings>("julSeasonalClimbingQualityRating")
+            .ResolveAsync(async context =>
+            {
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
+                return loader.LoadAsync(context.Source.JulSeasonalClimbingQualityRatingId);
+            })
+            .Description("Wall's seasonal quality climbing conditions rating in July");
+        Field<ClimbingQualityRatingType, ClimbingQualityRatings>("augSeasonalClimbingQualityRating")
+            .ResolveAsync(async context =>
+            {
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
+                return loader.LoadAsync(context.Source.AugSeasonalClimbingQualityRatingId);
+            })
+            .Description("Wall's seasonal quality climbing conditions rating in August");
+        Field<ClimbingQualityRatingType, ClimbingQualityRatings>("sepSeasonalClimbingQualityRating")
+            .ResolveAsync(async context =>
+            {
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
+                return loader.LoadAsync(context.Source.SepSeasonalClimbingQualityRatingId);
+            })
+            .Description("Wall's seasonal quality climbing conditions rating in September");
+        Field<ClimbingQualityRatingType, ClimbingQualityRatings>("octSeasonalClimbingQualityRating")
+            .ResolveAsync(async context =>
+            {
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
+                return loader.LoadAsync(context.Source.OctSeasonalClimbingQualityRatingId);
+            })
+            .Description("Wall's seasonal quality climbing conditions rating in October");
+        Field<ClimbingQualityRatingType, ClimbingQualityRatings>("novSeasonalClimbingQualityRating")
+            .ResolveAsync(async context =>
+            {
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
+                return loader.LoadAsync(context.Source.NovSeasonalClimbingQualityRatingId);
+            })
+            .Description("Wall's seasonal quality climbing conditions rating in November");
+        Field<ClimbingQualityRatingType, ClimbingQualityRatings>("decSeasonalClimbingQualityRating")
+            .ResolveAsync(async context =>
+            {
+                var climbingQualityRatingService = climbingQualityRatingScope.ServiceProvider.GetService<IClimbingQualityRatingsService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, ClimbingQualityRatings>("GetClimbingQualityRatingByIds", climbingQualityRatingService.GetClimbingQualityRatingByIds);
+                return loader.LoadAsync(context.Source.DecSeasonalClimbingQualityRatingId);
+            })
+            .Description("Wall's seasonal quality climbing conditions rating in December");
+
         var busyRatingsScope = CreateScope(serviceProvider);
         Field<BusyRatingType, BusyRatings>("janSeasonalBusyRating")
             .ResolveAsync(async context =>

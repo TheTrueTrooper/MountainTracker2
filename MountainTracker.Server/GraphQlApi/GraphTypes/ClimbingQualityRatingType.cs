@@ -5,14 +5,14 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
-public class BusyRatingType : ObjectGraphType<BusyRatings>, IDisposable
+public class ClimbingQualityRatingType : ObjectGraphType<ClimbingQualityRatings>, IDisposable
 {
     private List<IServiceScope> scopes = new List<IServiceScope>(1);
 
-    public BusyRatingType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
+    public ClimbingQualityRatingType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
-        Name = "BusyRatingType";
-        Description = "Busy Rating Type";
+        Name = "ClimbingQualityRatingType";
+        Description = "Climbing Quality Rating Type";
 
         Field(d => d.Id, nullable: false).Description("Database Id");
         Field(d => d.EnglishName, nullable: false).Description("Ratings name in English");

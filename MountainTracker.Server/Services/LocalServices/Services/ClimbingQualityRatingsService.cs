@@ -26,7 +26,7 @@ public class ClimbingQualityRatingsService : IClimbingQualityRatingsService
         return await ClimbingQualityRatings.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task<IDictionary<byte, ClimbingQualityRatings>> GetClimbingQualityRatingsByIds(IEnumerable<byte> ids)
+    public async Task<IDictionary<byte, ClimbingQualityRatings>> GetClimbingQualityRatingByIds(IEnumerable<byte> ids)
     {
         return await ClimbingQualityRatings.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
     }

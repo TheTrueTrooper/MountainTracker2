@@ -1,22 +1,23 @@
 # MountainTracker2
- Upgrade of mountain tracker to .NET Core and Angular 13+
-Features:
--Client:
-->Newest Angular 17 frame work in typescript
-->Leaflet for Openstreetmaps (cycle map) interactive map (native js lib with a definitely typed import)
-->Pannellum for panoramic views (Fully native JS (no type def in 'definitely typed' or other available) import to typescript with componet)
-->GraphQL as 
-->Testing will be as Jest
--Server:
-->ASP.NET Core with Angular 17 intergration
-->API GraphQL as GraphGL.NET
-->Maybe additional API as classic REST
-->SQL intergration as Entity Framework (EF) Core
-->Testing will be as XUnit
--Database:
-->Tables
-->Stored Procedures
-->Triggers
-->Classic selects
-->Pred deployment and post deployment rebuild scripts
-->Versioning will be done additional though update scrips
+ Upgrade of mountain tracker to .NET Core and Angular 13+&#10;&#13;
+Features:&#10;&#13;
+-Client:&#10;&#13;
+->Newest Angular 17 frame work in typescript&#10;&#13;
+->Leaflet for Openstreetmaps (cycle map) interactive map (native js lib with a definitely typed import)&#10;&#13;
+->Pannellum for panoramic views (Fully native JS (no type def in 'definitely typed' or other available) import to typescript with componet)&#10;&#13;
+->GraphQL as Apollo&#10;&#13;
+->NgRx Store (with Entity Addapter & async Effects) for reactive state control and data management&#10;&#13;
+->Testing will be as Jest&#10;&#13;
+-Server:&#10;&#13;
+->ASP.NET Core with Angular 17 intergration&#10;&#13;
+->API GraphQL as GraphGL.NET&#10;&#13;
+->Maybe additional API as classic REST&#10;&#13;
+->SQL intergration as Entity Framework (EF) Core&#10;&#13;
+->Testing will be as XUnit&#10;&#13;
+-Database:&#10;&#13;
+->Tables&#10;&#13;
+->Stored Procedures&#10;&#13;
+->Triggers&#10;&#13;
+->Classic selects&#10;&#13;
+->Pred deployment and post deployment rebuild scripts&#10;&#13;
+->Versioning will be done additional though update scrips&#10;&#13;

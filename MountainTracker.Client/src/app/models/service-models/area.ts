@@ -1,7 +1,7 @@
 import { QlField } from "../../graphql-helpers";
 import { AreaGeoFenceNode } from "./area-geo-fence-node";
 import { RockClimbingWall } from "./rock-climbing-wall";
-import { Zone } from "./zones";
+import { Zone } from "./zone";
 
 
 export class Area {

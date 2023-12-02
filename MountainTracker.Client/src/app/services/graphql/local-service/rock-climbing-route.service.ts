@@ -3,7 +3,7 @@ import { BaseQlService } from './base-ql.service';
 import { Apollo } from 'apollo-angular';
 import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
 import { Observable, map } from 'rxjs';
-import { RockClimbingRoute } from '../../../models/service-models/rock-climbing-route';
+import { RockClimbingRoute } from '../../../models';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class RockClimbingRouteService extends BaseQlService {
   //#region queries
   protected override queryObj: string = "rockClimbingRouteQuery"
 
-  public getAllRegions(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingRoute>): Observable<RockClimbingRoute[]>
+  public getAllRockClimbingRoutes(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingRoute>): Observable<RockClimbingRoute[]>
   {
     const query = 'allRockClimbingRoutes'
       return this.moutainTrackerApi.query<RockClimbingRoute[]>({
@@ -24,7 +24,7 @@ export class RockClimbingRouteService extends BaseQlService {
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
 
-  public getRegionById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingRoute>): Observable<RockClimbingRoute>
+  public getRockClimbingRouteById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingRoute>): Observable<RockClimbingRoute>
   {
     const queryVar = '($id: Int!)'
     const query = 'rockClimbingRouteById'
@@ -37,7 +37,7 @@ export class RockClimbingRouteService extends BaseQlService {
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
 
-  public provinceOrStateByCode(routeCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingRoute>): Observable<RockClimbingRoute>
+  public getRockClimbingRouteByCode(routeCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingRoute>): Observable<RockClimbingRoute>
   {
     const queryVar = '($routeCode: String!)'
     const query = 'rockClimbingRouteByCode'

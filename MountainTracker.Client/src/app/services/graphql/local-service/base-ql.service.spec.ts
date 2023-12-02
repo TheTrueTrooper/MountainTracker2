@@ -4,6 +4,17 @@ import { ApolloTestingController, ApolloTestingModule } from 'apollo-angular/tes
 import { Apollo, gql } from 'apollo-angular';
 import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
 import { Country } from '../../../models';
+import { ClientConfig } from '../../../configuration';
+
+const clientConfigMockFactory = ()=>({
+  LandingPage: {
+    AutoRotateDelay: 2500,
+    AutoRotate: true,
+    AutoLoad: true
+  },
+  BaseEndpoint: "",
+  GraphQlApiEndpoint: "https://localhost:44300/api/graphql",
+} as ClientConfig)
 
 class BaseQlServiceTest extends BaseQlService {
     constructor(protected override apolloProvider: Apollo) {
@@ -36,7 +47,9 @@ describe('BaseQlService', () => {
   let controller: ApolloTestingController;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({imports: [ApolloTestingModule]});
+    TestBed.configureTestingModule({
+      providers: [{provide: ClientConfig, useFactory:clientConfigMockFactory}],
+      imports: [ApolloTestingModule]});
     service = TestBed.inject(BaseQlServiceTest);
   });
 

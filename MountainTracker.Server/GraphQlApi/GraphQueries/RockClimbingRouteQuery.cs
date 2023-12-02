@@ -13,7 +13,7 @@ public class RockClimbingRouteQuery : ObjectGraphType
         Name = "RockClimbingRouteQuery";
         Description = "Queries for rock climbing route type";
 
-        Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>> ("allRockClimbingRoute")
+        Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>> ("allRockClimbingRoutes")
             .ResolveAsync(async context => await rockClimbingRouteService.GetAllRockClimbingRoutes())
             .Description("Gets a list of all of the rock climbing routes");
 

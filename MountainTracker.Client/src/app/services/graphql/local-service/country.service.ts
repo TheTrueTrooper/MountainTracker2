@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { ClientConfig } from '../../../configuration';
 import { BaseQlService } from './base-ql.service';
 import { Observable, map } from 'rxjs';
 import { Country } from '../../../models';
@@ -14,7 +13,7 @@ export class CountryService extends BaseQlService {
   constructor(protected override apolloProvider: Apollo) {
     super(apolloProvider)
    }
-
+  //#region queries
    protected override queryObj: string = "countryQuery"
 
    public getAllCountries(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<Country[]>
@@ -50,4 +49,5 @@ export class CountryService extends BaseQlService {
       }                                                                                                                                                                                                                                
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
+  //#endregion
 }

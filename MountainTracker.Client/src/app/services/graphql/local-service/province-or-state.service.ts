@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { ClientConfig } from '../../../configuration';
 import { BaseQlService } from './base-ql.service';
 import { Observable, map } from 'rxjs';
 import { ProvinceOrState } from '../../../models';
@@ -14,7 +13,7 @@ export class ProvinceOrStateService extends BaseQlService {
   constructor(protected override apolloProvider: Apollo) {
   super(apolloProvider)
   }
-
+  //#region queries
   protected override queryObj: string = "provinceOrStateQuery"
 
   public getAllprovincesOrStates(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ProvinceOrState>): Observable<ProvinceOrState[]>
@@ -25,7 +24,7 @@ export class ProvinceOrStateService extends BaseQlService {
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
 
-  public getProvinceOrStateServiceById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ProvinceOrState>): Observable<ProvinceOrState>
+  public getProvinceOrStateById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ProvinceOrState>): Observable<ProvinceOrState>
   {
     const queryVar = '($id: Short!)'
     const query = 'provinceOrStateById'
@@ -38,7 +37,7 @@ export class ProvinceOrStateService extends BaseQlService {
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
 
-  public provinceOrStateByCode(regionCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ProvinceOrState>): Observable<ProvinceOrState>
+  public getProvinceOrStateByCode(regionCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ProvinceOrState>): Observable<ProvinceOrState>
   {
     const queryVar = '($regionCode: String!)'
     const query = 'provinceOrStateByCode'
@@ -50,4 +49,5 @@ export class ProvinceOrStateService extends BaseQlService {
       }                                                                                                                                                                                                                                
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
+  //#endregion
 }

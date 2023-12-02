@@ -1,0 +1,8 @@
+{
+    "explorer.incrementalNaming": "smart",
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "*.ts": "${capture}.js,${capture}.spec.ts"
+    },
+    "explorer.sortOrder": "type"
+}

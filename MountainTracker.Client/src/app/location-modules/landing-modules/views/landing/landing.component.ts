@@ -33,7 +33,7 @@ export class LandingComponent {
       autoLoad: this.config.AutoLoad,
     } as PannellumEquirectangularConfig;
 
-    this.countries$ = service.provinceOrStateByCode("CA-BC") //this.store.select(selectAllCountries);
+    this.countries$ = service.getProvinceOrStateByCode("CA-BC") //this.store.select(selectAllCountries);
 
     this.store.dispatch(actions.loadCountries());
   }

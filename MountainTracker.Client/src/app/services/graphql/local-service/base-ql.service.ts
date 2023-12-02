@@ -1,5 +1,4 @@
 import { Apollo, ApolloBase, gql } from "apollo-angular";
-import { ClientConfig } from "../../../configuration";
 import { QlSelectionSet, QlSelectionSetTyped } from "../../../graphql-helpers";
 import * as graphqlHelpers from '../../../graphql-helpers/graphql-helper';
 

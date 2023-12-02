@@ -15,8 +15,7 @@ export abstract class BaseQlService {
    }
    >(classToGet: T, query:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, any>, queryVar: string = "", queryParam: string = "")
    {
-    console.log(`
-    query${queryVar}
+    const qlQuery = `query${queryVar}
     {
       ${this.queryObj}
       {
@@ -25,18 +24,7 @@ export abstract class BaseQlService {
           ${graphqlHelpers.selectToQlFields(selection) ?? graphqlHelpers.ensureQlFields(classToGet.prototype.constructor)}
         }
       }
-    }`);
-    return gql`
-    query${queryVar}
-    {
-      ${this.queryObj}
-      {
-        ${query}${queryParam}
-        {
-          ${graphqlHelpers.selectToQlFields(selection) ?? graphqlHelpers.ensureQlFields(classToGet.prototype.constructor)}
-        }
-      }
-    }
-    `
+    }`
+    return gql`${qlQuery}`
    }
   }

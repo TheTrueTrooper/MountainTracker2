@@ -1,5 +1,7 @@
 import { QlField } from "../../graphql-helpers";
 import { Area } from "./area";
+import { BusyRating } from "./busy-rating";
+import { ClimbingQualityRating } from "./climbing-quality-rating";
 import { RockClimbingRoute } from "./rock-climbing-route";
 import { RockClimbingWallGeoFenceNode } from "./rock-climbing-wall-geo-fence-node";
 
@@ -76,7 +78,33 @@ export class RockClimbingWall {
     @QlField()
     public decSeasonalBusyRatingId?: number;
 
+    public janSeasonalClimbingQualityRating?: ClimbingQualityRating;
+    public febSeasonalClimbingQualityRating?: ClimbingQualityRating;
+    public marSeasonalClimbingQualityRating?: ClimbingQualityRating;
+    public aprSeasonalClimbingQualityRating?: ClimbingQualityRating;
+    public maySeasonalClimbingQualityRating?: ClimbingQualityRating;
+    public junSeasonalClimbingQualityRating?: ClimbingQualityRating;
+    public julSeasonalClimbingQualityRating?: ClimbingQualityRating;
+    public augSeasonalClimbingQualityRating?: ClimbingQualityRating;
+    public sepSeasonalClimbingQualityRating?: ClimbingQualityRating;
+    public octSeasonalClimbingQualityRating?: ClimbingQualityRating;
+    public novSeasonalClimbingQualityRating?: ClimbingQualityRating;
+    public decSeasonalClimbingQualityRating?: ClimbingQualityRating;
+    
+    public janSeasonalBusyRating?: BusyRating;
+    public febSeasonalBusyRating?: BusyRating;
+    public marSeasonalBusyRating?: BusyRating;
+    public aprSeasonalBusyRating?: BusyRating;
+    public maySeasonalBusyRating?: BusyRating;
+    public junSeasonalBusyRating?: BusyRating;
+    public julSeasonalBusyRating?: BusyRating;
+    public augSeasonalBusyRating?: BusyRating;
+    public sepSeasonalBusyRating?: BusyRating;
+    public octSeasonalBusyRating?: BusyRating;
+    public novSeasonalBusyRating?: BusyRating;
+    public decSeasonalBusyRating?: BusyRating;
+
     public area?: Area;
-    public routes?: RockClimbingRoute;
+    public routes?: RockClimbingRoute[];
     public geoFenceNodes?: RockClimbingWallGeoFenceNode[];
 }

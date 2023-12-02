@@ -82,6 +82,6 @@ export class RockClimbingRoute {
         @QlField()
         public difficultyId?: number;
         
-        climbingWall?: RockClimbingWall
-        climbingType?: RockClimbingType
+        public climbingWall?: RockClimbingWall;
+        public climbingType?: RockClimbingType;
     }

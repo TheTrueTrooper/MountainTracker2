@@ -10,6 +10,5 @@ export class RockClimbingType {
     @QlField()
     public englishFullName?: string;
       
-    public rockClimbingWalls?: RockClimbingRoute;
-   
+    public rockClimbingWalls?: RockClimbingRoute[];
 }

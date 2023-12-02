@@ -11,7 +11,7 @@ public class BusyRatingType : ObjectGraphType<BusyRatings>, IDisposable
 
     public BusyRatingType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
-        Name = "BusyRatingType";
+        Name = "BusyRating";
         Description = "Busy Rating Type";
 
         Field(d => d.Id, nullable: false).Description("Database Id");

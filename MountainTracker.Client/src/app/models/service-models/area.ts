@@ -23,6 +23,6 @@ export class Area {
     public thumbPictureBytes?: number[] | null;
 
     public zone?: Zone;
-    public rockClimbingWalls?: RockClimbingWall;
+    public rockClimbingWalls?: RockClimbingWall[];
     public geoFenceNodes?: AreaGeoFenceNode[];
 }

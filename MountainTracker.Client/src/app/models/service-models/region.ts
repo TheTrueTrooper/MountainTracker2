@@ -1,6 +1,7 @@
 import { QlField } from "../../graphql-helpers";
 import { District } from "./district";
 import { ProvinceOrState } from "./province-or-state";
+import { RegionGeoFenceNode } from "./region-geo-fence-node";
 
 export class Region
 {
@@ -23,5 +24,5 @@ export class Region
 
     public provinceOrState?: ProvinceOrState;
     public districts?: District[];
-    //geoFenceNodes: RegionGeoFenceNode[];
+    public geoFenceNodes?: RegionGeoFenceNode[];
 }

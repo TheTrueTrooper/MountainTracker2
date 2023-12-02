@@ -23,6 +23,6 @@ export class Zone {
     public thumbPictureBytes?: number[] | null;
 
     public district?: District;
-    public areas?: Area;
+    public areas?: Area[];
     public geoFenceNodes?: ZoneGeoFenceNode[];
 }

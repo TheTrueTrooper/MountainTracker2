@@ -11,7 +11,7 @@ public class ClimbingQualityRatingType : ObjectGraphType<ClimbingQualityRatings>
 
     public ClimbingQualityRatingType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
-        Name = "ClimbingQualityRatingType";
+        Name = "ClimbingQualityRating";
         Description = "Climbing Quality Rating Type";
 
         Field(d => d.Id, nullable: false).Description("Database Id");

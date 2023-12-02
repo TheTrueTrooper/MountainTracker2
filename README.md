@@ -1,8 +1,8 @@
 # MountainTracker2
 <h1>Upgrade of mountain tracker to .NET Core and Angular 13+</h1>
 <p>Features:</p>
--Client:<br/>
-->Newest Angular 17 frame work in typescript<br/>
+-Web Client:<br/>
+->Newest Angular 17 frame work in typescript (compiled to Javascript)<br/>
 ->Leaflet for Openstreetmaps (cycle map) interactive map (native js lib with a definitely typed import)<br/>
 ->Pannellum for panoramic views (Fully native JS (no type def in 'definitely typed' or other available) import to typescript with componet)<br/>
 ->GraphQL as Apollo<br/>
@@ -19,5 +19,8 @@
 ->Stored Procedures<br/>
 ->Triggers<br/>
 ->Classic selects<br/>
-->Pred deployment and post deployment rebuild scripts<br/>
+->Pre deployment and post deployment rebuild scripts<br/>
 ->Versioning will be done additional though update scrips</p>
+-Phone Client:<br/>
+->Will be cross platform MAUI<br/>
+->Testing will be as XUnit</p>

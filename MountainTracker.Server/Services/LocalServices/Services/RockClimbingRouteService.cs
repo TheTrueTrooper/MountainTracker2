@@ -23,7 +23,12 @@ public class RockClimbingRouteService : IRockClimbingRouteService
 
     public async Task<RockClimbingRoutes?> GetRockClimbingRouteByCode(string routeCode)
     {
-        return await RockClimbingRoutes.AsNoTracking().FirstOrDefaultAsync(c => c.RouteCode == routeCode);
+        string[] codes = routeCode.Split('-');
+        if (codes.Length < 8)
+        {
+            return null;
+        }
+        return await RockClimbingRoutes.AsNoTracking().FirstOrDefaultAsync(c => c.RouteCode == codes[7] && c.ClimbingWall.WallCode == codes[6] && c.ClimbingWall.Area.AreaCode == codes[5] && c.ClimbingWall.Area.Zone.ZoneCode == codes[4] && c.ClimbingWall.Area.Zone.District.DistrictCode == codes[3] && c.ClimbingWall.Area.Zone.District.Region.RegionCode == codes[2] && c.ClimbingWall.Area.Zone.District.Region.ProvinceOrState.RegionCode == codes[1] && c.ClimbingWall.Area.Zone.District.Region.ProvinceOrState.Country.CountryCode == codes[0]);
     }
 
     public async Task<RockClimbingRoutes?> GetRockClimbingRouteById(int id)

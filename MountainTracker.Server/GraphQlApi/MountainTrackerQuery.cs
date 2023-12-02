@@ -1,36 +1,51 @@
 ﻿using GraphQL.Types;
 using MountainTracker.Server.GraphQlApi.QlQuery;
+using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi;
 
 public class MountainTrackerQuery : ObjectGraphType
 {
-    public MountainTrackerQuery(CountryQuery countryQuery, ProvinceOrStateQuery provinceOrStateQuery, DistrictQuery districtQuery, ZoneQuery zoneQuery, 
-        AreaQuery areaQuery, RockClimbingWallQuery rockClimbingWallQuery)
+    public MountainTrackerQuery(CountryQuery countryQuery, ProvinceOrStateQuery provinceOrStateQuery, RegionQuery regionQuery, 
+        DistrictQuery districtQuery, ZoneQuery zoneQuery, AreaQuery areaQuery, RockClimbingWallQuery rockClimbingWallQuery, 
+        RockClimbingRouteQuery rockClimbingRouteQuery, RockClimbingTypeQuery rockClimbingTypeQuery, BusyRatingQuery busyRatingQuery,
+        ClimbingQualityRatingQuery climbingQualityRatingQuery)
     {
         Name = "Query";
         Description = "A place to collect all queries";
 
-        Field<CountryQuery>("countryQuery")
+        Field<RockClimbingTypeQuery, RockClimbingTypeQuery>("rockClimbingTypeQuery")
+            .Resolve(context => rockClimbingTypeQuery)
+            .Description("The rock rock climbing type related queries");
+        Field<ClimbingQualityRatingQuery, ClimbingQualityRatingQuery>("climbingQualityRatingQuery")
+            .Resolve(context => climbingQualityRatingQuery)
+            .Description("The climbing quality rating related queries");
+        Field<BusyRatingQuery, BusyRatingQuery>("busyRatingQuery")
+            .Resolve(context => busyRatingQuery)
+            .Description("The rock busy rating related queries");
+        Field<CountryQuery, CountryQuery>("countryQuery")
             .Resolve(context => countryQuery)
             .Description("The country related queries");
-        Field<ProvinceOrStateQuery>("provinceOrStateQuery")
+        Field<ProvinceOrStateQuery, ProvinceOrStateQuery>("provinceOrStateQuery")
             .Resolve(context => provinceOrStateQuery)
             .Description("The province or state related queries");
-        Field<RegionQuery>("regionQuery")
-            .Resolve(context => provinceOrStateQuery)
-            .Description("The province or state related queries");
-        Field<DistrictQuery>("districtQuery")
+        Field<RegionQuery, RegionQuery>("regionQuery")
+            .Resolve(context => regionQuery)
+            .Description("The region related queries");
+        Field<DistrictQuery, DistrictQuery>("districtQuery")
             .Resolve(context => districtQuery)
-            .Description("The province or state related queries");
-        Field<ZoneQuery>("zoneQuery")
+            .Description("The district related queries");
+        Field<ZoneQuery, ZoneQuery>("zoneQuery")
             .Resolve(context => zoneQuery)
-            .Description("The province or state related queries");
-        Field<AreaQuery>("areaQuery")
+            .Description("The zone related queries");
+        Field<AreaQuery, AreaQuery>("areaQuery")
             .Resolve(context => areaQuery)
-            .Description("The province or state related queries");
-        Field<RockClimbingWallQuery>("rockClimbingWallQuery")
+            .Description("The area related queries");
+        Field<RockClimbingWallQuery, RockClimbingWallQuery>("rockClimbingWallQuery")
             .Resolve(context => rockClimbingWallQuery)
-            .Description("The province or state related queries");
+            .Description("The rock climbing wall related queries");
+        Field<RockClimbingRouteQuery, RockClimbingRouteQuery>("rockClimbingRouteQuery")
+            .Resolve(context => rockClimbingRouteQuery)
+            .Description("The rock climbing route related queries");
     }
 }

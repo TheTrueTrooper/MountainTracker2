@@ -1,0 +1,9 @@
+﻿Since could likely be repeated think of this like a general comments page shared for use among types
+-There was problems with the scoping and context. 
+The issue was that the graph objects did not start a new scope for all the functions that were called but also started threads. 
+This is an issue when the context for the db is called twice in a non thread safe mannor. The solution was to manage the scope some.
+This meant that a scope will be opened prior to the function and passed into the function for use. 
+I attempted a transt approch at first but it broke the dataloader and made the loader not effective for its work.
+I did note that sometimes it was fine to allow it to be shared if the object was the same. 
+It was good in these cases as it waited to combine anyway making it more effectice to use one per the grouping.
+I did want to contain the function in an abstract class but I got access violations so it looks like it needs to remain inline.

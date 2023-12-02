@@ -853,12 +853,12 @@ INSERT INTO [RockClimbingWalls]
 	JanSeasonalBusyRatingID, FebSeasonalBusyRatingID, MarSeasonalBusyRatingID, AprSeasonalBusyRatingID, MaySeasonalBusyRatingID, JunSeasonalBusyRatingID, 
 	JulSeasonalBusyRatingID, AugSeasonalBusyRatingID, SepSeasonalBusyRatingID, OctSeasonalBusyRatingID, NovSeasonalBusyRatingID, DecSeasonalBusyRatingID)
 VALUES 
-	(1,		'Woodpecker Acidophilus Arete Wall',	'W1',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
-	(1,		'Woodpecker Crag Left',					'W2',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
-	(1,		'Woodpecker Crag Right',				'W3',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
-	(1,		'Osprey Wall',							'W4',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
-	(1,		'Canadian Corner Wall',					'W5',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
-	(1,		'Cracker Crag Wall',					'W6',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
+	(1,		'Woodpecker Acidophilus Arete Wall',	'W1',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
+	(1,		'Woodpecker Crag Left',					'W2',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
+	(1,		'Woodpecker Crag Right',				'W3',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	1,	2,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
+	(1,		'Osprey Wall',							'W4',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
+	(1,		'Canadian Corner Wall',					'W5',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
+	(1,		'Cracker Crag Wall',					'W6',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	4,	3,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
 	(1,		'Rose Garden Wall',						'W7',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
 	(1,		'The Lifebait Wall',					'W8',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
 	(1,		'Orange Wall',							'W9',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
@@ -920,10 +920,10 @@ VALUES
 	(13,	'The Post Office Middle Left',			'W6',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
 	(13,	'The Post Office Middle Right',			'W7',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
 	(13,	'The Post Office Right',				'W8',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
-	(13,	'Hillbilly Haven Left',					'W9',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
-	(13,	'Hillbilly Haven Right',				'W10',  	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
-	(13,	'Broke Back Alley',						'W11',  	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
-	(13,	'Steep And Shady',						'W12',  	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0)
+	(13,	'Hillbilly Haven Left',					'W9',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	4,	0,	0,	0),
+	(13,	'Hillbilly Haven Right',				'W10',  	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	3,	0,	0),
+	(13,	'Broke Back Alley',						'W11',  	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	2,	0),
+	(13,	'Steep And Shady',						'W12',  	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1)
 
 	--Populate RockClimbingRoutes
 INSERT INTO [RockClimbingRoutes] 

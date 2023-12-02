@@ -15,7 +15,8 @@ public class RegionQuery : ObjectGraphType
 
         Field<ListGraphType<RegionType>, IEnumerable<Regions>>("allRegions")
             .ResolveAsync(async context => await regionService.GetAllRegions())
-            .Description("Gets a list of all of the countries");
+            .Description("Gets a list of all of the regions");
+
         Field<RegionType, Regions>("regionById")
             .Argument<int>("id")
             .ResolveAsync(async context =>
@@ -23,15 +24,15 @@ public class RegionQuery : ObjectGraphType
                 int id = context.GetArgument<int>("id");
                 return await regionService.GetRegionById(id);
             })
-            .Description("Gets a country by its db id");
-        //to do sort the code system out
-        //Field<RegionType>("countryByCode")
-        //    .Argument<StringGraphType>("countryCode")
-        //    .ResolveAsync(async context =>
-        //    {
-        //        string countryCode = context.GetArgument<string>("countryCode");
-        //        return await countryService.GetCountryByCode(countryCode);
-        //    })
-        //    .Description("Gets a country by its iso country code");
+            .Description("Gets a region by its db id");
+
+        Field<RegionType, Regions>("regionByCode")
+            .Argument<StringGraphType>("regionCode")
+            .ResolveAsync(async context =>
+            {
+                string regionCode = context.GetArgument<string>("regionCode");
+                return await regionService.GetRegionByCode(regionCode);
+            })
+            .Description("Gets a region by its region code");
     }
 }

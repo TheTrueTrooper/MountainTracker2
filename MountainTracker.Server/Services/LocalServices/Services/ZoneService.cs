@@ -23,7 +23,12 @@ public class ZoneService : IZoneService
 
     public async Task<Zones?> GetZoneByCode(string zoneCode)
     {
-        return await Zones.AsNoTracking().FirstOrDefaultAsync(c => c.ZoneCode == zoneCode);
+        string[] codes = zoneCode.Split('-');
+        if (codes.Length < 5)
+        {
+            return null;
+        }
+        return await Zones.AsNoTracking().FirstOrDefaultAsync(c => c.ZoneCode == codes[4] && c.District.DistrictCode == codes[3] && c.District.Region.RegionCode == codes[2] && c.District.Region.ProvinceOrState.RegionCode == codes[1] && c.District.Region.ProvinceOrState.Country.CountryCode == codes[0]);
     }
 
     public async Task<Zones?> GetZoneById(int id)

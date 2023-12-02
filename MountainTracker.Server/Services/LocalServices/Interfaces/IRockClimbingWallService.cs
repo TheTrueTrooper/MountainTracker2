@@ -14,5 +14,7 @@ public interface IRockClimbingWallService
 
     public Task<ILookup<int, RockClimbingWalls>> GetRockClimbingWallsByAreas(IEnumerable<int> areaIds);
 
-    public Task<IDictionary<int, RockClimbingWalls>> GetRockClimbingWallsByIds(IEnumerable<int> ids);
+    public Task<IDictionary<int, RockClimbingWalls>> GetRockClimbingWallByIds(IEnumerable<int> ids);
+
+    public Task<ILookup<int, RockClimbingWalls>> GetRockClimbingWallsByIds(IEnumerable<int> ids);
 }

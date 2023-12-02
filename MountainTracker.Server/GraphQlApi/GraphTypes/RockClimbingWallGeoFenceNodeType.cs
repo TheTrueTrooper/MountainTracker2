@@ -1,9 +1,7 @@
 ﻿using GraphQL.DataLoader;
 using GraphQL.Types;
-using Microsoft.Extensions.DependencyInjection;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
@@ -26,7 +24,7 @@ public class RockClimbingWallGeoFenceNodeType : ObjectGraphType<RockClimbingWall
         .ResolveAsync(async context =>
         {
             var rockClimbingWallService = climbingWallScope.ServiceProvider.GetService<IRockClimbingWallService>()!;
-            var loader = accessor.Context!.GetOrAddBatchLoader<int, RockClimbingWalls>("GetRockClimbingWallsByIds", rockClimbingWallService.GetRockClimbingWallsByIds);
+            var loader = accessor.Context!.GetOrAddBatchLoader<int, RockClimbingWalls>("GetRockClimbingWallByIds", rockClimbingWallService.GetRockClimbingWallByIds);
             return loader.LoadAsync(context.Source.ClimbingWallId);
         })
         .Description("Rock climbingWall geo fence node's associated wall");

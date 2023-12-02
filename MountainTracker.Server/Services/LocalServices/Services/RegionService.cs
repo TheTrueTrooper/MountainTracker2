@@ -24,7 +24,12 @@ public class RegionService : IRegionService
 
     public async Task<Regions?> GetRegionByCode(string regionCode)
     {
-        return await Regions.AsNoTracking().FirstOrDefaultAsync(c => c.RegionCode == regionCode);
+        string[] codes = regionCode.Split('-');
+        if (codes.Length < 3)
+        {
+            return null;
+        }
+        return await Regions.AsNoTracking().FirstOrDefaultAsync(c => c.RegionCode == codes[2] && c.ProvinceOrState.RegionCode == codes[1] && c.ProvinceOrState.Country.CountryCode == codes[0]);
     }
 
     public async Task<Regions?> GetRegionById(int id)

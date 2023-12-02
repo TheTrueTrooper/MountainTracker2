@@ -16,6 +16,7 @@ public class CountryQuery : ObjectGraphType
         Field<ListGraphType<CountryType>, IEnumerable<Countries>>("allCountries")
             .ResolveAsync(async context => await countryService.GetAllCountries())
             .Description("Gets a list of all of the countries");
+
         Field<CountryType, Countries>("countryById")
             .Argument<ByteGraphType>("id")
             .ResolveAsync(async context =>
@@ -24,6 +25,7 @@ public class CountryQuery : ObjectGraphType
                 return await countryService.GetCountryById(id);
             })
             .Description("Gets a country by its db id");
+
         Field<CountryType, Countries>("countryByCode")
             .Argument<StringGraphType>("countryCode")
             .ResolveAsync(async context =>

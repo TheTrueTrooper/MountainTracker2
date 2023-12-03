@@ -20,4 +20,11 @@ export const utilityReducer = createReducer(
          lasterror: error
         }
     }),
+    on(utilityActions.onError, (state, { apiName, error }) => {
+      console.error(`${utilityActions.onError.name}:${errorMessageStart}${apiName}:\n${error}`)
+      return {
+       ...state, 
+       lasterror: error
+      }
+  }),
   );

@@ -21,7 +21,7 @@ export class LandingComponent {
 
   protected readonly config: LandingConfig;
 
-  protected countries$: Observable<RockClimbingType>;
+  protected countries$: Observable<Country[]>;
 
   constructor(protected readonly clientConfig: ClientConfig, private store: Store, private service: RockClimbingTypeService)
   {
@@ -33,8 +33,7 @@ export class LandingComponent {
       autoLoad: this.config.AutoLoad,
     } as PannellumEquirectangularConfig;
 
-    //this.countries$ = service.getAllRockClimbingTypes(); //this.store.select(selectAllCountries);
-    this.countries$ = service.getRockClimbingTypeById(1);
+    this.countries$ = this.store.select(selectAllCountries);
 
     this.store.dispatch(actions.loadCountries());
   }

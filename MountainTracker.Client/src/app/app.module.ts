@@ -14,7 +14,7 @@ import { ClientConfig, ConfigurationFactory } from './configuration';
 import { InMemoryCache } from '@apollo/client/core';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
-import { effects, reducers } from './services/entity-state-services';
+import { effects, entityReducer, reducers } from './services/entity-state-services';
 import { EffectsModule } from '@ngrx/effects';
 import { routerReducer } from '@ngrx/router-store';
 
@@ -33,7 +33,11 @@ import { routerReducer } from '@ngrx/router-store';
     PannellumPanoramaModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    StoreModule.forRoot({router: routerReducer, utility: reducers.utlity.utilityReducer, countries: reducers.country.countryReducer}),
+    StoreModule.forRoot({
+      router: routerReducer, 
+      utility: reducers.utility.utilityReducer, 
+      entities: entityReducer,
+    }),
     EffectsModule.forRoot(effects.CountryEffects)
   ],
   providers: [

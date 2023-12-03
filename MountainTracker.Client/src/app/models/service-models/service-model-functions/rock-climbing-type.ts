@@ -1,8 +1,4 @@
 import { RockClimbingType } from '../rock-climbing-type';
-
-export function selectRockClimbingTypeId(a: RockClimbingType): number {
-    return a.id!;
-}
    
 export function sortByName(a: RockClimbingType, b: RockClimbingType): number {
     try

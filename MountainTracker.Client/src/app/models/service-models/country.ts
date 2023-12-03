@@ -1,8 +1,9 @@
-import { QlField } from "../../graphql-helpers/graphql-decorators"
+import { QlField, QlIdField } from "../../graphql-helpers/graphql-decorators"
 import { ProvinceOrState } from "./province-or-state"
 
 export class Country
 {
+    @QlIdField()
     @QlField()
     public id?:number
     @QlField()

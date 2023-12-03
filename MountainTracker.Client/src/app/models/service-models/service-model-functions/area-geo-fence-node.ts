@@ -1,8 +1,4 @@
 import { AreaGeoFenceNode } from '../area-geo-fence-node';
-
-export function selectAreaGeoFenceNodeId(a: AreaGeoFenceNode): number {
-    return a.id!;
-}
    
 export function sortByAreaId(a: AreaGeoFenceNode, b: AreaGeoFenceNode): number {
     try

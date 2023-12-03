@@ -1,4 +1,4 @@
-import { QlField } from "../../graphql-helpers";
+import { QlField, QlIdField } from "../../graphql-helpers";
 import { Area } from "./area";
 import { BusyRating } from "./busy-rating";
 import { ClimbingQualityRating } from "./climbing-quality-rating";
@@ -9,6 +9,7 @@ import { RockClimbingWallGeoFenceNode } from "./rock-climbing-wall-geo-fence-nod
 export class RockClimbingWall {
     @QlField()
     public areaId?: number;
+    @QlIdField()
     @QlField()
     public id?: number;
     @QlField()

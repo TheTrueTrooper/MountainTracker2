@@ -1,8 +1,4 @@
 import { Region } from '../region';
-
-export function selectRegionId(a: Region): number {
-    return a.id!;
-}
    
 export function sortByName(a: Region, b: Region): number {
     try

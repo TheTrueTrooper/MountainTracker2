@@ -1,8 +1,4 @@
 import { Country } from '../country';
-
-export function selectCountryId(a: Country): number {
-    return a.id!;
-}
    
 export function sortByName(a: Country, b: Country): number {
     try

@@ -1,8 +1,9 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from "@ngrx/entity";
 import { Area } from "../../../models";
-import { genericSort, selectAreaId } from "../../../models/service-models/service-model-functions/area";
+import { genericSort } from "../../../models/service-models/service-model-functions/area";
 import { createReducer, on } from "@ngrx/store";
 import * as AreaActions from '../actions/area.actions';
+import { selectQlIdFieldValue } from "../../../graphql-helpers";
 
 export interface AreaState extends EntityState<Area> {
     error: string | null;
@@ -10,7 +11,7 @@ export interface AreaState extends EntityState<Area> {
 }
 
 const areaAdapter: EntityAdapter<Area> = createEntityAdapter<Area>({
-    selectId: selectAreaId,
+    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
     sortComparer: genericSort,
   });
 

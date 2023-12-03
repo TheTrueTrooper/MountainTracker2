@@ -1,8 +1,4 @@
 import { ProvinceOrState } from '../province-or-state';
-
-export function selectProvinceOrStateId(a: ProvinceOrState): number {
-    return a.id!;
-}
    
 export function sortByName(a: ProvinceOrState, b: ProvinceOrState): number {
     try

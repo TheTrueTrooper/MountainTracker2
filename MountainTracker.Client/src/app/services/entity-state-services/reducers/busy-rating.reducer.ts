@@ -1,8 +1,9 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from "@ngrx/entity";
 import { BusyRating } from "../../../models";
-import { genericSort, selectBusyRatingId } from "../../../models/service-models/service-model-functions/busy-rating";
+import { genericSort } from "../../../models/service-models/service-model-functions/busy-rating";
 import { createReducer, on } from "@ngrx/store";
 import * as BusyRatingActions from '../actions/busy-rating.actions';
+import { selectQlIdFieldValue } from "../../../graphql-helpers";
 
 export interface BusyRatingState extends EntityState<BusyRating> {
     error: string | null;
@@ -10,7 +11,7 @@ export interface BusyRatingState extends EntityState<BusyRating> {
 }
 
 const busyRatingAdapter: EntityAdapter<BusyRating> = createEntityAdapter<BusyRating>({
-    selectId: selectBusyRatingId,
+    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
     sortComparer: genericSort,
   });
 

@@ -1,8 +1,9 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from "@ngrx/entity";
 import { Region } from "../../../models";
-import { genericSort, selectRegionId } from "../../../models/service-models/service-model-functions/region";
+import { genericSort } from "../../../models/service-models/service-model-functions/region";
 import { createReducer, on } from "@ngrx/store";
 import * as RegionActions from '../actions/region.actions';
+import { selectQlIdFieldValue } from "../../../graphql-helpers";
 
 export interface RegionState extends EntityState<Region> {
     error: string | null;
@@ -10,7 +11,7 @@ export interface RegionState extends EntityState<Region> {
 }
 
 const regionAdapter: EntityAdapter<Region> = createEntityAdapter<Region>({
-    selectId: selectRegionId,
+    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
     sortComparer: genericSort,
   });
 

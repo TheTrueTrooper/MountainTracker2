@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { graphqlPropertyMetadataKey } from './graphql-decorators';
+import { graphqlPropertyMetadataKey, graphqlIdPropertyMetadataKey } from './graphql-decorators';
 import { QlSelectionSet, QlSelectionSetTyped } from './ql-selection-set';
 
 export const ensureQlFields = function<
@@ -9,6 +9,31 @@ T extends {
 >(classToCreate: T, fieldsOverride?: string[]): string
 {
     return fieldsOverride?.join('\n') ?? Reflect.getMetadata(graphqlPropertyMetadataKey, new classToCreate()).join('\n');
+}
+
+export const selectQlIdField = function<
+T extends {
+  new (): any;
+}
+>(classToCreate: T): string
+{
+  const classId =  Reflect.getMetadata(graphqlIdPropertyMetadataKey, new classToCreate());
+  return classId
+}
+
+export const selectQlIdFieldValue = function(ObjectOrObjects: object | object[]): string | string[] | number | number[]
+{
+  if(Array.isArray(ObjectOrObjects))
+  {
+    if(ObjectOrObjects.length < 1)
+    {
+      return []
+    }
+    const classId = Reflect.getMetadata(graphqlIdPropertyMetadataKey, ObjectOrObjects[0]);
+    return ObjectOrObjects.map(obj=>obj[classId]);
+  }
+  const classId = Reflect.getMetadata(graphqlIdPropertyMetadataKey, ObjectOrObjects);
+  return (ObjectOrObjects as any)[classId]
 }
 
 export const selectToQlFields = function(selectionSet?: QlSelectionSet | QlSelectionSetTyped<any, any>): string | null

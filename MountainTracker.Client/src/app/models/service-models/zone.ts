@@ -1,10 +1,11 @@
-import { QlField } from "../../graphql-helpers";
+import { QlField, QlIdField } from "../../graphql-helpers";
 import { Area } from "./area";
 import { District } from "./district";
 import { ZoneGeoFenceNode } from "./zone-geo-fence-node";
 
 
 export class Zone {
+    @QlIdField()
     @QlField()
     public districtId?: number;
     @QlField()

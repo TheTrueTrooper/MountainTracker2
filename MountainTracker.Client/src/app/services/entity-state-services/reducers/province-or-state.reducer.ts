@@ -1,8 +1,9 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from "@ngrx/entity";
 import { ProvinceOrState } from "../../../models";
-import { genericSort, selectProvinceOrStateId } from "../../../models/service-models/service-model-functions/province-or-state";
+import { genericSort } from "../../../models/service-models/service-model-functions/province-or-state";
 import { createReducer, on } from "@ngrx/store";
 import * as ProvinceOrStateActions from '../actions/province-or-state.actions';
+import { selectQlIdFieldValue } from "../../../graphql-helpers";
 
 export interface ProvinceOrStateState extends EntityState<ProvinceOrState> {
     error: string | null;
@@ -10,7 +11,7 @@ export interface ProvinceOrStateState extends EntityState<ProvinceOrState> {
 }
 
 const provinceOrStateAdapter: EntityAdapter<ProvinceOrState> = createEntityAdapter<ProvinceOrState>({
-    selectId: selectProvinceOrStateId,
+    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
     sortComparer: genericSort,
   });
 

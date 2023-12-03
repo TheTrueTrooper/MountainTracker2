@@ -1,8 +1,9 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from "@ngrx/entity";
 import { Country } from "../../../models";
-import { genericSort, selectCountryId } from "../../../models/service-models/service-model-functions/country";
+import { genericSort } from "../../../models/service-models/service-model-functions/country";
 import { createReducer, on } from "@ngrx/store";
 import * as CountryActions from '../actions/country.actions';
+import { selectQlIdFieldValue } from "../../../graphql-helpers";
 
 export interface CountryState extends EntityState<Country> {
     error: string | null;
@@ -10,7 +11,7 @@ export interface CountryState extends EntityState<Country> {
 }
 
 const countryAdapter: EntityAdapter<Country> = createEntityAdapter<Country>({
-    selectId: selectCountryId,
+    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
     sortComparer: genericSort,
   });
 

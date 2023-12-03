@@ -1,7 +1,8 @@
-import { QlField } from "../../graphql-helpers";
+import { QlField, QlIdField } from "../../graphql-helpers";
 import { RockClimbingWall } from "./rock-climbing-wall";
 
 export class ClimbingQualityRating {
+    @QlIdField()
     @QlField()
     public id?: number;
     @QlField()

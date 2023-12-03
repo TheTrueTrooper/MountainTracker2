@@ -1,8 +1,9 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from "@ngrx/entity";
 import { AreaGeoFenceNode } from "../../../models";
-import { genericSort, selectAreaGeoFenceNodeId } from "../../../models/service-models/service-model-functions/area-geo-fence-node";
+import { genericSort } from "../../../models/service-models/service-model-functions/area-geo-fence-node";
 import { createReducer, on } from "@ngrx/store";
 import * as AreaGeoFenceNodeActions from '../actions/area-geo-fence-node.actions';
+import { selectQlIdFieldValue } from "../../../graphql-helpers";
 
 export interface AreaGeoFenceNodeState extends EntityState<AreaGeoFenceNode> {
     error: string | null;
@@ -10,7 +11,7 @@ export interface AreaGeoFenceNodeState extends EntityState<AreaGeoFenceNode> {
 }
 
 const areaGeoFenceNodeAdapter: EntityAdapter<AreaGeoFenceNode> = createEntityAdapter<AreaGeoFenceNode>({
-    selectId: selectAreaGeoFenceNodeId,
+    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
     sortComparer: genericSort,
   });
 

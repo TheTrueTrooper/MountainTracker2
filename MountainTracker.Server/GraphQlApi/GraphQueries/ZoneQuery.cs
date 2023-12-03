@@ -30,7 +30,7 @@ public class ZoneQuery : ObjectGraphType
             .Argument<StringGraphType>("zoneCode")
             .ResolveAsync(async context =>
             {
-                string zoneCode = context.GetArgument<string>("countryCode");
+                string zoneCode = context.GetArgument<string>("zoneCode");
                 return await zoneService.GetZoneByCode(zoneCode);
             })
             .Description("Gets a zone by its zone code");

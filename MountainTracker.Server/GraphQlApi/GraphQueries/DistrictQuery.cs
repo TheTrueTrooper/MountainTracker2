@@ -17,7 +17,7 @@ public class DistrictQuery : ObjectGraphType
             .ResolveAsync(async context => await districtService.GetAllDistricts())
             .Description("Gets a list of all of the districts");
 
-        Field<DistrictType, Districts>("districById")
+        Field<DistrictType, Districts>("districtById")
             .Argument<int>("id")
             .ResolveAsync(async context =>
             {

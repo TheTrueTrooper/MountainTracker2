@@ -2,9 +2,9 @@ import { createAction, props } from '@ngrx/store';
 import { Country } from '../../../models';
 import { EntityMap, EntityMapOne, Predicate, Update } from '@ngrx/entity';
 
-export const loadCountries = createAction('[Country/API] Load Country');
-export const loadCountriesSuccess = createAction('[Country/API] Load Country Success', props<{ countries: Country[] }>());
-export const loadCountriesFailure = createAction('[Country/API] Load Country Failure', props<{ clearOnfail:boolean, error: string }>());
+export const loadCountries = createAction('[Country/API] Load Countries');
+export const loadCountriesSuccess = createAction('[Country/API] Load Countries Success', props<{ countries: Country[] }>());
+export const loadCountriesFailure = createAction('[Country/API] Load Countries Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const setCountry = createAction('[Country/API] Set Country', props<{ country: Country }>());
 export const setCountrySuccess = createAction('[Country/API] Set Country Success', props<{ country: Country }>());
@@ -43,7 +43,7 @@ export const mapCountrySuccess = createAction('[Country/API] Map Country Success
 export const mapCountryFailure = createAction('[Country/API] Map Country Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const mapCountries = createAction('[Country/API] Map Countries', props<{ entityMap: EntityMap<Country> }>());
-export const mapCountriesSuccess = createAction('[Country/API] Map Countries', props<{ entityMap: EntityMap<Country> }>());
+export const mapCountriesSuccess = createAction('[Country/API] Map Countries Success', props<{ entityMap: EntityMap<Country> }>());
 export const mapCountriesFailure = createAction('[Country/API] Map Countries Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const deleteCountry = createAction('[Country/API] Delete Country', props<{ id: string }>());
@@ -58,4 +58,4 @@ export const deleteCountryByPredicate = createAction('[Country/API] Delete Count
 export const deleteCountryByPredicateSuccess = createAction('[Country/API] Delete Country By Predicate Success', props<{ predicate: Predicate<Country> }>());
 export const deleteCountryByPredicateFailure = createAction('[Country/API] Delete Country By Predicate Failure', props<{ clearOnfail:boolean, error: string }>());
 
-export const clearCountries = createAction('[Country/API] Clear Country');
+export const clearCountries = createAction('[Country/API] Clear Countries');

@@ -37,7 +37,7 @@ export class RegionService extends BaseQlService {
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
 
-  public provinceOrStateByCode(regionCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Region>): Observable<Region>
+  public getRegionByCode(regionCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Region>): Observable<Region>
   {
     const queryVar = '($regionCode: String!)'
     const query = 'regionByCode'

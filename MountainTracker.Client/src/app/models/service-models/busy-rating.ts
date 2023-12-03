@@ -5,7 +5,7 @@ export class BusyRating{
     @QlField()
     public id?: number;
     @QlField()
-    public englishName?: String;
+    public englishName?: string;
 
     public rockClimbingWallsInApr?: RockClimbingWall[];
     public rockClimbingWallsInAug?: RockClimbingWall[];

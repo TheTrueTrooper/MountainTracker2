@@ -3,7 +3,7 @@ import { BaseQlService } from './base-ql.service';
 import { Apollo } from 'apollo-angular';
 import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
 import { Observable, map } from 'rxjs';
-import { RockClimbingWall } from '../../../models/service-models/rock-climbing-wall';
+import { RockClimbingWall } from '../../../models';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class RockClimbingWallService extends BaseQlService {
   //#region queries
   protected override queryObj: string = "rockClimbingWallQuery"
 
-  public getAllRegions(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall[]>
+  public getAllRockClimbingWall(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall[]>
   {
     const query = 'allRockClimbingWall'
       return this.moutainTrackerApi.query<RockClimbingWall[]>({
@@ -25,7 +25,7 @@ export class RockClimbingWallService extends BaseQlService {
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
 
-  public getRegionById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall>
+  public getRockClimbingWallById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall>
   {
     const queryVar = '($id: Int!)'
     const query = 'rockClimbingWallById'
@@ -38,7 +38,7 @@ export class RockClimbingWallService extends BaseQlService {
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
 
-  public provinceOrStateByCode(wallCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall>
+  public getRockClimbingWallByCode(wallCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall>
   {
     const queryVar = '($wallCode: String!)'
     const query = 'rockClimbingWallByCode'

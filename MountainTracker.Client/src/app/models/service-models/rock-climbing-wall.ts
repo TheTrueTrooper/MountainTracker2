@@ -8,13 +8,13 @@ import { RockClimbingWallGeoFenceNode } from "./rock-climbing-wall-geo-fence-nod
 
 export class RockClimbingWall {
     @QlField()
-    public zoneId?: number;
+    public areaId?: number;
     @QlField()
     public id?: number;
     @QlField()
     public englishFullName?: string;
     @QlField()
-    public areaCode?: string;
+    public wallCode?: string;
     @QlField()
     public info?: String | null;
     @QlField()

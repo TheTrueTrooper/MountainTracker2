@@ -3,7 +3,7 @@ import { BaseQlService } from './base-ql.service';
 import { Apollo } from 'apollo-angular';
 import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
 import { Observable, map } from 'rxjs';
-import { Zone } from '../../../models/service-models/zones';
+import { Zone } from '../../../models';
 
 @Injectable({
   providedIn: 'root'
@@ -15,17 +15,17 @@ export class ZoneService extends BaseQlService {
   }
 
   //#region queries
-  protected override queryObj: string = "allZones"
+  protected override queryObj: string = "zoneQuery"
 
-  public getAllRegions(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Zone>): Observable<Zone[]>
+  public getAllZones(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Zone>): Observable<Zone[]>
   {
-    const query = 'allRockClimbingWall'
+    const query = 'allZones'
       return this.moutainTrackerApi.query<Zone[]>({
       query: this.generateQuery(Zone, query, selection),                                                                                                                                                                                                                                
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
 
-  public getRegionById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Zone>): Observable<Zone>
+  public getZoneById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Zone>): Observable<Zone>
   {
     const queryVar = '($id: Int!)'
     const query = 'zoneById'
@@ -38,11 +38,11 @@ export class ZoneService extends BaseQlService {
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
 
-  public provinceOrStateByCode(zoneCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Zone>): Observable<Zone>
+  public getZoneByCode(zoneCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Zone>): Observable<Zone>
   {
     const queryVar = '($zoneCode: String!)'
     const query = 'zoneByCode'
-    const queryParam = '(zoneCode: $wallCode)'
+    const queryParam = '(zoneCode: $zoneCode)'
     return this.moutainTrackerApi.query<Zone>({
       query: this.generateQuery(Zone, query, selection, queryVar, queryParam),
       variables:{

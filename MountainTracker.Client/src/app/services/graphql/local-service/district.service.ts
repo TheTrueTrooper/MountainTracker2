@@ -26,8 +26,8 @@ export class DistrictService extends BaseQlService {
 
   public getDistrictById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, District>): Observable<District>
   {
-    const queryVar = '($id: Byte!)'
-    const query = 'districById'
+    const queryVar = '($id: Int!)'
+    const query = 'districtById'
     const queryParam = '(id: $id)'
     return this.moutainTrackerApi.query<District>({
       query: this.generateQuery(District, query, selection, queryVar, queryParam),
@@ -39,8 +39,8 @@ export class DistrictService extends BaseQlService {
 
   public getDistrictByCode(districtCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, District>): Observable<District>
   {
-    const queryVar = '($districtCode: Int!)'
-    const query = 'districtCode'
+    const queryVar = '($districtCode: String!)'
+    const query = 'districtByCode'
     const queryParam = '(districtCode: $districtCode)'
     return this.moutainTrackerApi.query<District>({
       query: this.generateQuery(District, query, selection, queryVar, queryParam),

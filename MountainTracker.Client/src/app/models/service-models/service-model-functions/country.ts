@@ -1,4 +1,4 @@
-import { Country } from "../country";
+import { Country } from '../country';
 
 export function selectCountryId(a: Country): number {
     return a.id!;
@@ -18,7 +18,7 @@ export function sortByName(a: Country, b: Country): number {
 export function sortByCode(a: Country, b: Country): number {
     try
     {
-        return a.englishFullName!.localeCompare(b.englishFullName!);
+        return a.countryCode!.localeCompare(b.countryCode!);
     }
     catch
     {
@@ -29,7 +29,7 @@ export function sortByCode(a: Country, b: Country): number {
 export function sortByid(a: Country, b: Country): number {
     try
     {
-        return a.englishFullName!.localeCompare(b.englishFullName!);
+        return a.id! - b.id!;
     }
     catch
     {
@@ -38,5 +38,5 @@ export function sortByid(a: Country, b: Country): number {
 }
 
 export function genericSort(a: Country, b: Country): number {
-    return sortByName(a, b) ?? sortByCode(a,b) ?? sortByid(a,b);
+    return sortByid(a,b) ?? sortByName(a, b) ?? sortByCode(a,b);
 }

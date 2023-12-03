@@ -1,5 +1,5 @@
 import { QlField } from "../../graphql-helpers"
-import { Zone } from "./zones";
+import { Zone } from "./zone";
 
 export class ZoneGeoFenceNode {
 

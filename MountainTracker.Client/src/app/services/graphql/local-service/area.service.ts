@@ -3,7 +3,7 @@ import { BaseQlService } from './base-ql.service';
 import { Apollo } from 'apollo-angular';
 import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
 import { Observable, map } from 'rxjs';
-import { Area } from '../../../models/service-models/area';
+import { Area } from '../../../models';
 
 @Injectable({
   providedIn: 'root'

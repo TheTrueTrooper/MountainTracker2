@@ -1,7 +1,7 @@
 import { QlField } from "../../graphql-helpers";
 import { DistrictGeoFenceNode } from "./district-geo-fence-node";
 import { Region } from "./region";
-import { Zone } from "./zones";
+import { Zone } from "./zone";
 
 
 export class District {

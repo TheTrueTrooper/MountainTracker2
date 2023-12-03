@@ -43,7 +43,7 @@ export const mapRegionSuccess = createAction('[Region/API] Map Region Success', 
 export const mapRegionFailure = createAction('[Region/API] Map Region Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const mapRegions = createAction('[Region/API] Map Regions', props<{ entityMap: EntityMap<Region> }>());
-export const mapRegionsSuccess = createAction('[Region/API] Map Regions', props<{ entityMap: EntityMap<Region> }>());
+export const mapRegionsSuccess = createAction('[Region/API] Map Regions Success', props<{ entityMap: EntityMap<Region> }>());
 export const mapRegionsFailure = createAction('[Region/API] Map Regions Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const deleteRegion = createAction('[Region/API] Delete Region', props<{ id: string }>());

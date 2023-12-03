@@ -17,6 +17,7 @@ import { StoreModule } from '@ngrx/store';
 import { effects, entityReducer, reducers } from './services/entity-state-services';
 import { EffectsModule } from '@ngrx/effects';
 import { routerReducer } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
 
@@ -37,8 +38,27 @@ import { routerReducer } from '@ngrx/router-store';
       router: routerReducer, 
       utility: reducers.utility.utilityReducer, 
       entities: entityReducer,
+    }, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: true,
+        strictActionSerializability: true,
+        strictActionWithinNgZone: true,
+        strictActionTypeUniqueness: true,
+      },
     }),
-    EffectsModule.forRoot(effects.CountryEffects)
+    EffectsModule.forRoot(effects.CountryEffects),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: false,
+      autoPause: true,
+      features: {
+        pause: false,
+        lock: true,
+        persist: true
+      }
+    })
   ],
   providers: [
     {provide: ClientConfig, useFactory:ConfigurationFactory.ClientConfigFactory},

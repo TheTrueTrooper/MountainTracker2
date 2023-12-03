@@ -43,7 +43,7 @@ export const mapDistrictSuccess = createAction('[District/API] Map District Succ
 export const mapDistrictFailure = createAction('[District/API] Map District Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const mapDistricts = createAction('[District/API] Map Districts', props<{ entityMap: EntityMap<District> }>());
-export const mapDistrictsSuccess = createAction('[District/API] Map Districts', props<{ entityMap: EntityMap<District> }>());
+export const mapDistrictsSuccess = createAction('[District/API] Map Districts Success', props<{ entityMap: EntityMap<District> }>());
 export const mapDistrictsFailure = createAction('[District/API] Map Districts Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const deleteDistrict = createAction('[District/API] Delete District', props<{ id: string }>());

@@ -43,7 +43,7 @@ export const mapCountrySuccess = createAction('[Country/API] Map Country Success
 export const mapCountryFailure = createAction('[Country/API] Map Country Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const mapCountries = createAction('[Country/API] Map Countries', props<{ entityMap: EntityMap<Country> }>());
-export const mapCountriesSuccess = createAction('[Country/API] Map Countries', props<{ entityMap: EntityMap<Country> }>());
+export const mapCountriesSuccess = createAction('[Country/API] Map Countries Success', props<{ entityMap: EntityMap<Country> }>());
 export const mapCountriesFailure = createAction('[Country/API] Map Countries Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const deleteCountry = createAction('[Country/API] Delete Country', props<{ id: string }>());

@@ -43,7 +43,7 @@ export const mapZoneSuccess = createAction('[Zone/API] Map Zone Success', props<
 export const mapZoneFailure = createAction('[Zone/API] Map Zone Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const mapZones = createAction('[Zone/API] Map Zones', props<{ entityMap: EntityMap<Zone> }>());
-export const mapZonesSuccess = createAction('[Zone/API] Map Zones', props<{ entityMap: EntityMap<Zone> }>());
+export const mapZonesSuccess = createAction('[Zone/API] Map Zones Success', props<{ entityMap: EntityMap<Zone> }>());
 export const mapZonesFailure = createAction('[Zone/API] Map Zones Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const deleteZone = createAction('[Zone/API] Delete Zone', props<{ id: string }>());

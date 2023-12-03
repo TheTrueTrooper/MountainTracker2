@@ -43,7 +43,7 @@ export const mapRockClimbingTypeSuccess = createAction('[RockClimbingType/API] M
 export const mapRockClimbingTypeFailure = createAction('[RockClimbingType/API] Map RockClimbingType Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const mapRockClimbingTypes = createAction('[RockClimbingType/API] Map RockClimbingTypes', props<{ entityMap: EntityMap<RockClimbingType> }>());
-export const mapRockClimbingTypesSuccess = createAction('[RockClimbingType/API] Map RockClimbingTypes', props<{ entityMap: EntityMap<RockClimbingType> }>());
+export const mapRockClimbingTypesSuccess = createAction('[RockClimbingType/API] Map RockClimbingTypes Success', props<{ entityMap: EntityMap<RockClimbingType> }>());
 export const mapRockClimbingTypesFailure = createAction('[RockClimbingType/API] Map RockClimbingTypes Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const deleteRockClimbingType = createAction('[RockClimbingType/API] Delete RockClimbingType', props<{ id: string }>());

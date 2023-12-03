@@ -43,7 +43,7 @@ export const mapZoneGeoFenceNodeSuccess = createAction('[ZoneGeoFenceNode/API] M
 export const mapZoneGeoFenceNodeFailure = createAction('[ZoneGeoFenceNode/API] Map ZoneGeoFenceNode Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const mapZoneGeoFenceNodes = createAction('[ZoneGeoFenceNode/API] Map ZoneGeoFenceNodes', props<{ entityMap: EntityMap<ZoneGeoFenceNode> }>());
-export const mapZoneGeoFenceNodesSuccess = createAction('[ZoneGeoFenceNode/API] Map ZoneGeoFenceNodes', props<{ entityMap: EntityMap<ZoneGeoFenceNode> }>());
+export const mapZoneGeoFenceNodesSuccess = createAction('[ZoneGeoFenceNode/API] Map ZoneGeoFenceNodes Success', props<{ entityMap: EntityMap<ZoneGeoFenceNode> }>());
 export const mapZoneGeoFenceNodesFailure = createAction('[ZoneGeoFenceNode/API] Map ZoneGeoFenceNodes Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const deleteZoneGeoFenceNode = createAction('[ZoneGeoFenceNode/API] Delete ZoneGeoFenceNode', props<{ id: string }>());

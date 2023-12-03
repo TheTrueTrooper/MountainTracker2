@@ -43,7 +43,7 @@ export const mapBusyRatingSuccess = createAction('[BusyRating/API] Map BusyRatin
 export const mapBusyRatingFailure = createAction('[BusyRating/API] Map BusyRating Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const mapBusyRatings = createAction('[BusyRating/API] Map BusyRatings', props<{ entityMap: EntityMap<BusyRating> }>());
-export const mapBusyRatingsSuccess = createAction('[BusyRating/API] Map BusyRatings', props<{ entityMap: EntityMap<BusyRating> }>());
+export const mapBusyRatingsSuccess = createAction('[BusyRating/API] Map BusyRatings Success', props<{ entityMap: EntityMap<BusyRating> }>());
 export const mapBusyRatingsFailure = createAction('[BusyRating/API] Map BusyRatings Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const deleteBusyRating = createAction('[BusyRating/API] Delete BusyRating', props<{ id: string }>());

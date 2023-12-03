@@ -43,7 +43,7 @@ export const mapProvinceOrStateSuccess = createAction('[ProvinceOrState/API] Map
 export const mapProvinceOrStateFailure = createAction('[ProvinceOrState/API] Map ProvinceOrState Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const mapProvincesOrStates = createAction('[ProvinceOrState/API] Map ProvincesOrStates', props<{ entityMap: EntityMap<ProvinceOrState> }>());
-export const mapProvincesOrStatesSuccess = createAction('[ProvinceOrState/API] Map ProvincesOrStates', props<{ entityMap: EntityMap<ProvinceOrState> }>());
+export const mapProvincesOrStatesSuccess = createAction('[ProvinceOrState/API] Map ProvincesOrStates Success', props<{ entityMap: EntityMap<ProvinceOrState> }>());
 export const mapProvincesOrStatesFailure = createAction('[ProvinceOrState/API] Map ProvincesOrStates Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const deleteProvinceOrState = createAction('[ProvinceOrState/API] Delete ProvinceOrState', props<{ id: string }>());

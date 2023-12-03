@@ -43,7 +43,7 @@ export const mapAreaSuccess = createAction('[Area/API] Map Area Success', props<
 export const mapAreaFailure = createAction('[Area/API] Map Area Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const mapAreas = createAction('[Area/API] Map Areas', props<{ entityMap: EntityMap<Area> }>());
-export const mapAreasSuccess = createAction('[Area/API] Map Areas', props<{ entityMap: EntityMap<Area> }>());
+export const mapAreasSuccess = createAction('[Area/API] Map Areas Success', props<{ entityMap: EntityMap<Area> }>());
 export const mapAreasFailure = createAction('[Area/API] Map Areas Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const deleteArea = createAction('[Area/API] Delete Area', props<{ id: string }>());

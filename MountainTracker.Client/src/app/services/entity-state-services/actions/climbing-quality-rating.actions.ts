@@ -43,7 +43,7 @@ export const mapClimbingQualityRatingSuccess = createAction('[ClimbingQualityRat
 export const mapClimbingQualityRatingFailure = createAction('[ClimbingQualityRating/API] Map ClimbingQualityRating Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const mapClimbingQualityRatings = createAction('[ClimbingQualityRating/API] Map ClimbingQualityRatings', props<{ entityMap: EntityMap<ClimbingQualityRating> }>());
-export const mapClimbingQualityRatingsSuccess = createAction('[ClimbingQualityRating/API] Map ClimbingQualityRatings', props<{ entityMap: EntityMap<ClimbingQualityRating> }>());
+export const mapClimbingQualityRatingsSuccess = createAction('[ClimbingQualityRating/API] Map ClimbingQualityRatings Success', props<{ entityMap: EntityMap<ClimbingQualityRating> }>());
 export const mapClimbingQualityRatingsFailure = createAction('[ClimbingQualityRating/API] Map ClimbingQualityRatings Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const deleteClimbingQualityRating = createAction('[ClimbingQualityRating/API] Delete ClimbingQualityRating', props<{ id: string }>());

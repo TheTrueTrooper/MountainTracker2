@@ -43,7 +43,7 @@ export const mapRockClimbingWallGeoFenceNodeSuccess = createAction('[RockClimbin
 export const mapRockClimbingWallGeoFenceNodeFailure = createAction('[RockClimbingWallGeoFenceNode/API] Map RockClimbingWallGeoFenceNode Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const mapRockClimbingWallGeoFenceNodes = createAction('[RockClimbingWallGeoFenceNode/API] Map RockClimbingWallGeoFenceNodes', props<{ entityMap: EntityMap<RockClimbingWallGeoFenceNode> }>());
-export const mapRockClimbingWallGeoFenceNodesSuccess = createAction('[RockClimbingWallGeoFenceNode/API] Map RockClimbingWallGeoFenceNodes', props<{ entityMap: EntityMap<RockClimbingWallGeoFenceNode> }>());
+export const mapRockClimbingWallGeoFenceNodesSuccess = createAction('[RockClimbingWallGeoFenceNode/API] Map RockClimbingWallGeoFenceNodes Success', props<{ entityMap: EntityMap<RockClimbingWallGeoFenceNode> }>());
 export const mapRockClimbingWallGeoFenceNodesFailure = createAction('[RockClimbingWallGeoFenceNode/API] Map RockClimbingWallGeoFenceNodes Failure', props<{ clearOnfail:boolean, error: string }>());
 
 export const deleteRockClimbingWallGeoFenceNode = createAction('[RockClimbingWallGeoFenceNode/API] Delete RockClimbingWallGeoFenceNode', props<{ id: string }>());

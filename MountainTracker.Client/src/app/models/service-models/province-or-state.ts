@@ -4,9 +4,9 @@ import { Region } from "./region";
 
 export class ProvinceOrState
 {
-    @QlIdField()
     @QlField()
     public countryId?: number;
+    @QlIdField()
     @QlField()
     public id?: number;
     @QlField()

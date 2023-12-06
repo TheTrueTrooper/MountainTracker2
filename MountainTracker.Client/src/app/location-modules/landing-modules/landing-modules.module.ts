@@ -14,7 +14,7 @@ import { LandingComponent } from './views';
   imports: [
     CommonModule,
     OpenStreetMapModule,
-    PannellumPanoramaModule
+    PannellumPanoramaModule,
   ]
 })
 export class LandingModulesModule { }

@@ -5,9 +5,9 @@ import { ZoneGeoFenceNode } from "./zone-geo-fence-node";
 
 
 export class Zone {
-    @QlIdField()
     @QlField()
     public districtId?: number;
+    @QlIdField()
     @QlField()
     public id?: number;
     @QlField()

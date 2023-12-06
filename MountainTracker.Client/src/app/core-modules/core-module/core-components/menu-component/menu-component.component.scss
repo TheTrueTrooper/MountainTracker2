@@ -1,5 +1,6 @@
+@use "sass:map";
 @import '../../../../../theme-colours.scss';
 
 .menu {
-    color: $DarkOliveLighter;
+    color: $turtle-chalk-light !important;
   }

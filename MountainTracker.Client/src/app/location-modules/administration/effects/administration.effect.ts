@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, exhaustMap } from 'rxjs/operators';
+import { map, exhaustMap, switchMap } from 'rxjs/operators';
 import { localApi } from '../../../services/graphql';
 import { actions } from '../../../services/entity-state-services';
 import { QlSelectionSetTyped, getQlFields } from '../../../graphql-helpers';
@@ -31,10 +31,10 @@ export class AdministrationEffects {
         return  value;
       }))
       .pipe(
-        map(normalizedResult => {
-          let entities: { 'country': {[key: string]: Country}, 'provincesOrStates': ProvinceOrState[]} = normalizedResult.entities as { 'country': {[key: string]: Country}, 'provincesOrStates': ProvinceOrState[]};
-          return actions.loadCountriesSuccess({countries: Object.keys(entities.country).map(key=>entities.country[key])})
-          //actions.addProvincesOrStates({provincesOrStates: entities.provincesOrStates})
+        switchMap(normalizedResult => {
+          let entities: { 'country': {[key: string]: Country}, 'provincesOrStates':{[key: string]: ProvinceOrState}} = normalizedResult.entities as { 'country': {[key: string]: Country}, 'provincesOrStates': {[key: string]: ProvinceOrState}};
+          return [actions.loadCountriesSuccess({countries: Object.keys(entities.country).map(key=>entities.country[key])}),
+          actions.loadProvincesOrStatesSuccess({provincesOrStates: Object.keys(entities.provincesOrStates).map(key=>entities.country[key])})]
         })
       )
       )

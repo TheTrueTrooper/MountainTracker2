@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TargetOSMSourceFactory } from '../../../../core-modules/open-street-map-module';
 import { PannellumEquirectangularConfig } from '../../../../core-modules/pannellum-module';
 import { ClientConfig, LandingConfig } from '../../../../configuration';
+import { faGear } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-landing',
@@ -14,6 +15,8 @@ export class LandingComponent {
   protected readonly PannellumEquirectangularConfig: PannellumEquirectangularConfig;
 
   protected readonly config: LandingConfig;
+
+  protected faGear = faGear;
 
   constructor(protected readonly clientConfig: ClientConfig)
   {

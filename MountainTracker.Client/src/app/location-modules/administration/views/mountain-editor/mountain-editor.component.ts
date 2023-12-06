@@ -11,10 +11,12 @@ import { Country } from '../../../../models';
 })
 export class MountainEditorComponent {
   protected countries$: Observable<Country[]>;
+  protected ProvincesOrStates$: Observable<Country[]>;
 
   constructor(private store: Store)
   {
     this.countries$ = this.store.select(selectors.selectAllCountries)
+    this.ProvincesOrStates$ = this.store.select(selectors.selectAllProvincesOrStates)
 
     this.store.dispatch(actions.loadCountries());
   }

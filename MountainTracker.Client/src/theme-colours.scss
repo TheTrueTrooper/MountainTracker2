@@ -1,61 +1,130 @@
-$colourChange: 10%;
+$colour-change: 10%;
 
-$LiqouriceRoot: #222601;
+$liqourice-root: #222601;
 
-$LiqouriceRootLightest: lighten($LiqouriceRoot,$colourChange);
-$LiqouriceRootLighter: lighten($LiqouriceRoot,$colourChange);
-$LiqouriceRootLight: lighten($LiqouriceRoot,$colourChange);
+$liqourice-root-lightest: lighten($liqourice-root,$colour-change * 3);
+$liqourice-root-lighter: lighten($liqourice-root,$colour-change * 2);
+$liqourice-root-light: lighten($liqourice-root,$colour-change);
 
-$LiqouriceRootDark: darken($LiqouriceRoot,$colourChange);
-$LiqouriceRootDarker: darken($LiqouriceRoot,$colourChange);
-$LiqouriceRootDarkest: darken($LiqouriceRoot,$colourChange);
+$liqourice-root-dark: darken($liqourice-root,$colour-change);
+$liqourice-root-darker: darken($liqourice-root,$colour-change * 2);
+$liqourice-root-darkest: darken($liqourice-root,$colour-change * 3);
 
-$DarkOlive: #384001;
+$dark-olive: #384001;
 
-$DarkOliveLightest: lighten($DarkOlive,$colourChange);
-$DarkOliveLighter: lighten($DarkOlive,$colourChange);
-$DarkOliveLight: lighten($DarkOlive,$colourChange);
+$dark-olive-lightest: lighten($dark-olive,$colour-change * 3);
+$dark-olive-lighter: lighten($dark-olive,$colour-change * 2);
+$dark-olive-light: lighten($dark-olive,$colour-change);
 
-$DarkOliveDark: darken($DarkOlive,$colourChange);
-$DarkOliveDarker: darken($DarkOlive,$colourChange);
-$DarkOliveDarkest: darken($DarkOlive,$colourChange);
+$dark-olive-dark: darken($dark-olive,$colour-change);
+$dark-olive-darker: darken($dark-olive,$colour-change * 2);
+$dark-olive-darkest: darken($dark-olive,$colour-change * 3);
 
-$TurtleChalk: #CDD9C1;
+$turtle-chalk: #CDD9C1;
 
-$TurtleChalkLightest: lighten($TurtleChalk,$colourChange);
-$TurtleChalkLighter: lighten($TurtleChalk,$colourChange);
-$TurtleChalkLight: lighten($TurtleChalk,$colourChange);
+$turtle-chalk-lightest: lighten($turtle-chalk,$colour-change * 3);
+$turtle-chalk-lighter: lighten($turtle-chalk,$colour-change * 2);
+$turtle-chalk-light: lighten($turtle-chalk,$colour-change);
 
-$TurtleChalkDark: darken($TurtleChalk,$colourChange);
-$TurtleChalkDarker: darken($TurtleChalk,$colourChange);
-$TurtleChalkDarkest: darken($TurtleChalk,$colourChange);
+$turtle-chalk-dark: darken($turtle-chalk,$colour-change);
+$turtle-chalk-darker: darken($turtle-chalk,$colour-change * 2);
+$turtle-chalk-darkest: darken($turtle-chalk,$colour-change * 3);
 
-$MeadowBlossomBlue: #77B3D9;
+$meadow-blossom-blue: #77B3D9;
 
-$MeadowBlossomBlueLightest: lighten($MeadowBlossomBlue,$colourChange);
-$MeadowBlossomBlueLighter: lighten($MeadowBlossomBlue,$colourChange);
-$MeadowBlossomBlueLight: lighten($MeadowBlossomBlue,$colourChange);
+$meadow-blossom-blue-lightest: lighten($meadow-blossom-blue,$colour-change * 3);
+$meadow-blossom-blue-lighter: lighten($meadow-blossom-blue,$colour-change * 2);
+$meadow-blossom-blue-light: lighten($meadow-blossom-blue,$colour-change);
 
-$MeadowBlossomBlueDark: darken($MeadowBlossomBlue,$colourChange);
-$MeadowBlossomBlueDarker: darken($MeadowBlossomBlue,$colourChange);
-$MeadowBlossomBlueDarkest: darken($MeadowBlossomBlue,$colourChange);
+$meadow-blossom-blue-dark: darken($meadow-blossom-blue,$colour-change);
+$meadow-blossom-blue-darker: darken($meadow-blossom-blue,$colour-change * 2);
+$meadow-blossom-blue-darkest: darken($meadow-blossom-blue,$colour-change * 3);
 
-$KuretakeBlackManga: #011826;
+$kuretake-black-manga: #011826;
 
-$KuretakeBlackMangaLightest: lighten($KuretakeBlackManga,$colourChange);
-$KuretakeBlackMangaLighter: lighten($KuretakeBlackManga,$colourChange);
-$KuretakeBlackMangaLight: lighten($KuretakeBlackManga,$colourChange);
+$kuretake-black-manga-lightest: lighten($kuretake-black-manga,$colour-change * 3);
+$kuretake-black-manga-lighter: lighten($kuretake-black-manga,$colour-change * 2);
+$kuretake-black-mangacrimson: lighten($kuretake-black-manga,$colour-change);
 
-$KuretakeBlackMangaDark: darken($KuretakeBlackManga,$colourChange);
-$KuretakeBlackMangaDarker: darken($KuretakeBlackManga,$colourChange);
-$KuretakeBlackMangaDarkest: darken($KuretakeBlackManga,$colourChange);
+$kuretake-black-manga-dark: darken($kuretake-black-manga,$colour-change);
+$kuretake-black-manga-darker: darken($kuretake-black-manga,$colour-change * 2);
+$kuretake-black-manga-darkest: darken($kuretake-black-manga,$colour-change * 3);
 
-$Crimson: #DC143C;
+$crimson: #DC143C;
 
-$CrimsonLightest: lighten($KuretakeBlackManga,$colourChange);
-$CrimsonLighter: lighten($KuretakeBlackManga,$colourChange);
-$CrimsonLight: lighten($KuretakeBlackManga,$colourChange);
+$crimson-lightest: lighten($crimson,$colour-change * 3);
+$crimson-lighter: lighten($crimson,$colour-change * 2);
+$crimson-light: lighten($crimson,$colour-change);
 
-$CrimsonDark: darken($KuretakeBlackManga,$colourChange);
-$CrimsonDarker: darken($KuretakeBlackManga,$colourChange);
-$CrimsonDarkest: darken($KuretakeBlackManga,$colourChange);
+$crimson-dark: darken($crimson,$colour-change);
+$crimson-darker: darken($crimson,$colour-change * 2);
+$crimson-darkest: darken($crimson,$colour-change * 3);
+
+$dark-primary-text: $kuretake-black-manga-dark;
+$light-primary-text: white;
+
+$turtle-chalk-palette: (
+  50: #f3f8ee,
+  100: #e1edd3,
+  200: #cfe1b8,
+  300: #bdd69e,
+  400: #afcc89,
+  500: #a2c477,
+  600: #93b36d,
+  700: #819f62,
+  800: #819f62,
+  900: #6f8b59,
+  A100: #e1edd3,
+  A200: #cfe1b8,
+  A400: #afcc89,
+  A700: #819f62,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $dark-primary-text,
+    600: $dark-primary-text,
+    700: $dark-primary-text,
+    800: $dark-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $dark-primary-text,
+    A700: $dark-primary-text,
+  )
+);
+
+$kuretake-black-manga-palette: (
+  50: #e0ebf8,
+  100: #bacddc,
+  200: #95aabd,
+  300: #6f899f,
+  400: #55728a,
+  500: #395b75,
+  600: #2d4e66,
+  700: #1f3c51,
+  800: #122b3c,
+  900: #011826,
+  A100: #bacddc,
+  A200: #95aabd,
+  A400: #55728a,
+  A700: #011826,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);

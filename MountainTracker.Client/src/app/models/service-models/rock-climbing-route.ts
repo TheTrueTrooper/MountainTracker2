@@ -1,8 +1,9 @@
-import { QlField } from "../../graphql-helpers";
+import { QlField, QlIdField } from "../../graphql-helpers";
 import { RockClimbingType } from "./rock-climbing-type";
 import { RockClimbingWall } from "./rock-climbing-wall";
 
 export class RockClimbingRoute {
+        @QlIdField()
         @QlField()
         public id?: number;
         @QlField()

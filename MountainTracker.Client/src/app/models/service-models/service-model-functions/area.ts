@@ -1,8 +1,4 @@
 import { Area } from '../area';
-
-export function selectAreaId(a: Area): number {
-    return a.id!;
-}
    
 export function sortByName(a: Area, b: Area): number {
     try

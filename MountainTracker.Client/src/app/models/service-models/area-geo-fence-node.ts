@@ -1,8 +1,9 @@
-import { QlField } from "../../graphql-helpers"
+import { QlComplexField, QlField, QlIdField } from "../../graphql-helpers"
 import { Area } from "./area";
 
 export class AreaGeoFenceNode {
 
+    @QlIdField()
     @QlField()
     public id?: number;
     @QlField()
@@ -11,6 +12,7 @@ export class AreaGeoFenceNode {
     public latitude?: number;
     @QlField()
     public longitude?: number;
-      
+    
+    @QlComplexField('areaId')
     public area?: Area;
 }

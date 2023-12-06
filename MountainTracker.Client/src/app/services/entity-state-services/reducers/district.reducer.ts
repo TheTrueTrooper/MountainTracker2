@@ -1,8 +1,9 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from "@ngrx/entity";
 import { District } from "../../../models";
-import { genericSort, selectDistrictId } from "../../../models/service-models/service-model-functions/district";
+import { genericSort } from "../../../models/service-models/service-model-functions/district";
 import { createReducer, on } from "@ngrx/store";
 import * as DistrictActions from '../actions/district.actions';
+import { selectQlIdFieldValue } from "../../../graphql-helpers";
 
 export interface DistrictState extends EntityState<District> {
     error: string | null;
@@ -10,7 +11,7 @@ export interface DistrictState extends EntityState<District> {
 }
 
 const districtAdapter: EntityAdapter<District> = createEntityAdapter<District>({
-    selectId: selectDistrictId,
+    selectId: (obj)=>selectQlIdFieldValue(District, obj) as number,
     sortComparer: genericSort,
   });
 

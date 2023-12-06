@@ -1,8 +1,4 @@
 import { ClimbingQualityRating } from '../climbing-quality-rating';
-
-export function selectClimbingQualityRatingId(a: ClimbingQualityRating): number {
-    return a.id!;
-}
    
 export function sortByName(a: ClimbingQualityRating, b: ClimbingQualityRating): number {
     try

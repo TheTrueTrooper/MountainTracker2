@@ -1,8 +1,9 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from "@ngrx/entity";
 import { ZoneGeoFenceNode } from "../../../models";
-import { genericSort, selectZoneGeoFenceNodeId } from "../../../models/service-models/service-model-functions/zone-geo-fence-node";
+import { genericSort } from "../../../models/service-models/service-model-functions/zone-geo-fence-node";
 import { createReducer, on } from "@ngrx/store";
 import * as ZoneGeoFenceNodeActions from '../actions/zone-geo-fence-node.actions';
+import { selectQlIdFieldValue } from "../../../graphql-helpers";
 
 export interface ZoneGeoFenceNodeState extends EntityState<ZoneGeoFenceNode> {
     error: string | null;
@@ -10,7 +11,7 @@ export interface ZoneGeoFenceNodeState extends EntityState<ZoneGeoFenceNode> {
 }
 
 const zoneGeoFenceNodeAdapter: EntityAdapter<ZoneGeoFenceNode> = createEntityAdapter<ZoneGeoFenceNode>({
-    selectId: selectZoneGeoFenceNodeId,
+    selectId: (obj)=>selectQlIdFieldValue(ZoneGeoFenceNode, obj) as number,
     sortComparer: genericSort,
   });
 

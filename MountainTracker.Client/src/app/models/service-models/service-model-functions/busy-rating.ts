@@ -1,8 +1,4 @@
 import { BusyRating } from '../busy-rating';
-
-export function selectBusyRatingId(a: BusyRating): number {
-    return a.id!;
-}
    
 export function sortByName(a: BusyRating, b: BusyRating): number {
     try

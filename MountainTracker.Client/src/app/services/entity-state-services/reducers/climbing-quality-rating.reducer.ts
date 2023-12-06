@@ -1,8 +1,9 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from "@ngrx/entity";
 import { ClimbingQualityRating } from "../../../models";
-import { genericSort, selectClimbingQualityRatingId } from "../../../models/service-models/service-model-functions/climbing-quality-rating";
+import { genericSort } from "../../../models/service-models/service-model-functions/climbing-quality-rating";
 import { createReducer, on } from "@ngrx/store";
 import * as ClimbingQualityRatingActions from '../actions/climbing-quality-rating.actions';
+import { selectQlIdFieldValue } from "../../../graphql-helpers";
 
 export interface ClimbingQualityRatingState extends EntityState<ClimbingQualityRating> {
     error: string | null;
@@ -10,7 +11,7 @@ export interface ClimbingQualityRatingState extends EntityState<ClimbingQualityR
 }
 
 const climbingQualityRatingAdapter: EntityAdapter<ClimbingQualityRating> = createEntityAdapter<ClimbingQualityRating>({
-    selectId: selectClimbingQualityRatingId,
+    selectId: (obj)=>selectQlIdFieldValue(ClimbingQualityRating, obj) as number,
     sortComparer: genericSort,
   });
 

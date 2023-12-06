@@ -1,8 +1,4 @@
 import { District } from '../district';
-
-export function selectDistrictId(a: District): number {
-    return a.id!;
-}
    
 export function sortByName(a: District, b: District): number {
     try

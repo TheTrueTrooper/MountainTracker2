@@ -1,8 +1,9 @@
 import { EntityAdapter, EntityState, createEntityAdapter } from "@ngrx/entity";
 import { RockClimbingWallGeoFenceNode } from "../../../models";
-import { genericSort, selectRockClimbingWallGeoFenceNodeId } from "../../../models/service-models/service-model-functions/rock-climbing-wall-geo-fence-node";
+import { genericSort } from "../../../models/service-models/service-model-functions/rock-climbing-wall-geo-fence-node";
 import { createReducer, on } from "@ngrx/store";
 import * as RockClimbingWallGeoFenceNodeActions from '../actions/rock-climbing-wall-geo-fence-node.actions';
+import { selectQlIdFieldValue } from "../../../graphql-helpers";
 
 export interface RockClimbingWallGeoFenceNodeState extends EntityState<RockClimbingWallGeoFenceNode> {
     error: string | null;
@@ -10,7 +11,7 @@ export interface RockClimbingWallGeoFenceNodeState extends EntityState<RockClimb
 }
 
 const rockClimbingWallGeoFenceNodeAdapter: EntityAdapter<RockClimbingWallGeoFenceNode> = createEntityAdapter<RockClimbingWallGeoFenceNode>({
-    selectId: selectRockClimbingWallGeoFenceNodeId,
+    selectId: (obj)=>selectQlIdFieldValue(RockClimbingWallGeoFenceNode, obj) as number,
     sortComparer: genericSort,
   });
 

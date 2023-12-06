@@ -13,6 +13,8 @@ export const selectDistrictState = createSelector(selectEntitiesState, state=>st
 export const selectProvinceOrStateState = createSelector(selectEntitiesState, state=>state.provinceOrState);
 export const selectRegionGeoFenceNodeState = createSelector(selectEntitiesState, state=>state.regionGeoFenceNode);
 export const selectRegionState = createSelector(selectEntitiesState, state=>state.region);
+export const selectRockClimbingRouteState = createSelector(selectEntitiesState, state=>state.rockClimbingRoute);
+export const selectRockClimbingTypeState = createSelector(selectEntitiesState, state=>state.rockClimbingType);
 export const selectRockClimbingWallGeoFenceNodeState = createSelector(selectEntitiesState, state=>state.regionGeoFenceNode);
 export const selectRockClimbingWallState = createSelector(selectEntitiesState, state=>state.rockClimbingWall);
 export const selectZoneGeoFenceNodeState = createSelector(selectEntitiesState, state=>state.zoneGeoFenceNode);

@@ -1,8 +1,4 @@
 import { Zone } from '../zone';
-
-export function selectZoneId(a: Zone): number {
-    return a.id!;
-}
    
 export function sortByName(a: Zone, b: Zone): number {
     try

@@ -1,8 +1,4 @@
 import { RockClimbingWallGeoFenceNode } from '../rock-climbing-wall-geo-fence-node';
-
-export function selectRockClimbingWallGeoFenceNodeId(a: RockClimbingWallGeoFenceNode): number {
-    return a.id!;
-}
    
 export function sortByAreaId(a: RockClimbingWallGeoFenceNode, b: RockClimbingWallGeoFenceNode): number {
     try

@@ -1,8 +1,8 @@
-import { QlField } from "../../graphql-helpers"
+import { QlField, QlIdField } from "../../graphql-helpers"
 import { Zone } from "./zone";
 
 export class ZoneGeoFenceNode {
-
+    @QlIdField()
     @QlField()
     public id?: number;
     @QlField()

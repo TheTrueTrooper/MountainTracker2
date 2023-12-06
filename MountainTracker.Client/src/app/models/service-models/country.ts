@@ -1,4 +1,4 @@
-import { QlField, QlIdField } from "../../graphql-helpers/graphql-decorators"
+import { QlComplexListField, QlField, QlIdField } from "../../graphql-helpers/graphql-decorators"
 import { ProvinceOrState } from "./province-or-state"
 
 export class Country
@@ -11,5 +11,6 @@ export class Country
     @QlField()
     public countryCode?:string
 
+    @QlComplexListField()
     public provincesOrStates?: ProvinceOrState[]
 }

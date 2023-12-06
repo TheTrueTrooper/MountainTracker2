@@ -8,15 +8,22 @@
             MountainTracker&#8482;
           </button>
         </div>
-        <div class="bg-dark p-0 pr-2 d-flex">
+        <div class="bg-dark p-0 d-flex">
+            <button mat-menu-item ngClass="menu" [routerLink]="''" aria-label="Example icon-button with a menu">
+              <fa-icon [icon]="faBell"></fa-icon>
+            </button>
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
               <fa-icon class="menu-icon" [icon]="faGear"></fa-icon>
             </button>
             <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-              <fa-icon class="menu-icon" [icon]="faBell"></fa-icon>
-              <span>Toggle alerts</span>
-            </button>
+              <button ngClass="menu" mat-menu-item [routerLink]="'administration'" aria-label="administrator editor">
+                <fa-icon class="menu-icon menu" [icon]="faMountain"></fa-icon>
+                <span>Administration</span>
+              </button>
+              <button ngClass="menu" mat-menu-item>
+                <fa-icon class="menu-icon menu" [icon]="faBell"></fa-icon>
+                <span>Toggle alerts</span>
+              </button>
           </mat-menu>
         </div>
       </div>

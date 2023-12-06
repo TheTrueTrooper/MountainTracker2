@@ -14,7 +14,7 @@ import { ClientConfig, ConfigurationFactory } from './configuration';
 import { InMemoryCache } from '@apollo/client/core';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
-import { effects, entityReducer, reducers } from './services/entity-state-services';
+import { entityReducer, reducers } from './services/entity-state-services';
 import { EffectsModule } from '@ngrx/effects';
 import { routerReducer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -48,7 +48,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
         strictActionTypeUniqueness: true,
       },
     }),
-    EffectsModule.forRoot(effects.CountryEffects),
+    EffectsModule.forRoot(),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: false,

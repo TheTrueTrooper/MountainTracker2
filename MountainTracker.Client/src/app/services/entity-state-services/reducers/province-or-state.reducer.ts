@@ -11,7 +11,7 @@ export interface ProvinceOrStateState extends EntityState<ProvinceOrState> {
 }
 
 const provinceOrStateAdapter: EntityAdapter<ProvinceOrState> = createEntityAdapter<ProvinceOrState>({
-    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
+    selectId: (obj)=>selectQlIdFieldValue(ProvinceOrState, obj) as number,
     sortComparer: genericSort,
   });
 

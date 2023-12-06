@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faGear, faMountainSun, faBell } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faMountainSun, faBell, faMountain } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-menu',
@@ -10,4 +10,5 @@ export class MenuComponent {
   protected faBell = faBell;
   protected faMountainSun = faMountainSun;
   protected faGear = faGear;
+  protected faMountain = faMountain;
 }

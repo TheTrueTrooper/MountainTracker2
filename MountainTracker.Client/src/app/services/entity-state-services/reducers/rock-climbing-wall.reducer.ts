@@ -11,7 +11,7 @@ export interface RockClimbingWallState extends EntityState<RockClimbingWall> {
 }
 
 const rockClimbingWallAdapter: EntityAdapter<RockClimbingWall> = createEntityAdapter<RockClimbingWall>({
-    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
+    selectId: (obj)=>selectQlIdFieldValue(RockClimbingWall, obj) as number,
     sortComparer: genericSort,
   });
 

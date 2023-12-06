@@ -11,7 +11,7 @@ export interface BusyRatingState extends EntityState<BusyRating> {
 }
 
 const busyRatingAdapter: EntityAdapter<BusyRating> = createEntityAdapter<BusyRating>({
-    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
+    selectId: (obj)=>selectQlIdFieldValue(BusyRating, obj) as number,
     sortComparer: genericSort,
   });
 

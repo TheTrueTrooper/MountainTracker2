@@ -4,19 +4,19 @@ import {
 import * as fromClimbingQualityRating from '../reducers/climbing-quality-rating.reducer';
 import { selectClimbingQualityRatingState } from '../entity.selector';
  
-export const selectCountryIds = createSelector(
+export const selectClimbingQualityRatingIds = createSelector(
   selectClimbingQualityRatingState,
   fromClimbingQualityRating.selectClimbingQualityRatingIds
 );
-export const selectCountryEntities = createSelector(
+export const selectClimbingQualityRatingEntities = createSelector(
   selectClimbingQualityRatingState,
   fromClimbingQualityRating.selectClimbingQualityRatingEntities
 );
-export const selectAllCountries = createSelector(
+export const selectAllClimbingQualityRatings = createSelector(
   selectClimbingQualityRatingState,
   fromClimbingQualityRating.selectAllClimbingQualityRatings
 );
-export const selectCountryTotal = createSelector(
+export const selectClimbingQualityRatingTotal = createSelector(
   selectClimbingQualityRatingState,
   fromClimbingQualityRating.selectClimbingQualityRatingTotal
 );

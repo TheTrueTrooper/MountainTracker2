@@ -24,7 +24,7 @@ export const QlField = (qlName?: string, ensureCamelCase: boolean = true): Prope
 
 export const QlComplexListField = (qlName?: string, ensureCamelCase: boolean = true): PropertyDecorator => {
   return (target, property) => {
-    const metadata: {field: string, type: string}[] = Reflect.getMetadata(graphqlComplexListPropertyMetadataKey, target) || [];
+    const metadata: {field: string, type: any}[] = Reflect.getMetadata(graphqlComplexListPropertyMetadataKey, target) || [];
     if(ensureCamelCase)
     {
       property = camelCase(property as string);

@@ -1,0 +1,61 @@
+$colourChange: 10%;
+
+$LiqouriceRoot: #222601;
+
+$LiqouriceRootLightest: lighten($LiqouriceRoot,$colourChange);
+$LiqouriceRootLighter: lighten($LiqouriceRoot,$colourChange);
+$LiqouriceRootLight: lighten($LiqouriceRoot,$colourChange);
+
+$LiqouriceRootDark: darken($LiqouriceRoot,$colourChange);
+$LiqouriceRootDarker: darken($LiqouriceRoot,$colourChange);
+$LiqouriceRootDarkest: darken($LiqouriceRoot,$colourChange);
+
+$DarkOlive: #384001;
+
+$DarkOliveLightest: lighten($DarkOlive,$colourChange);
+$DarkOliveLighter: lighten($DarkOlive,$colourChange);
+$DarkOliveLight: lighten($DarkOlive,$colourChange);
+
+$DarkOliveDark: darken($DarkOlive,$colourChange);
+$DarkOliveDarker: darken($DarkOlive,$colourChange);
+$DarkOliveDarkest: darken($DarkOlive,$colourChange);
+
+$TurtleChalk: #CDD9C1;
+
+$TurtleChalkLightest: lighten($TurtleChalk,$colourChange);
+$TurtleChalkLighter: lighten($TurtleChalk,$colourChange);
+$TurtleChalkLight: lighten($TurtleChalk,$colourChange);
+
+$TurtleChalkDark: darken($TurtleChalk,$colourChange);
+$TurtleChalkDarker: darken($TurtleChalk,$colourChange);
+$TurtleChalkDarkest: darken($TurtleChalk,$colourChange);
+
+$MeadowBlossomBlue: #77B3D9;
+
+$MeadowBlossomBlueLightest: lighten($MeadowBlossomBlue,$colourChange);
+$MeadowBlossomBlueLighter: lighten($MeadowBlossomBlue,$colourChange);
+$MeadowBlossomBlueLight: lighten($MeadowBlossomBlue,$colourChange);
+
+$MeadowBlossomBlueDark: darken($MeadowBlossomBlue,$colourChange);
+$MeadowBlossomBlueDarker: darken($MeadowBlossomBlue,$colourChange);
+$MeadowBlossomBlueDarkest: darken($MeadowBlossomBlue,$colourChange);
+
+$KuretakeBlackManga: #011826;
+
+$KuretakeBlackMangaLightest: lighten($KuretakeBlackManga,$colourChange);
+$KuretakeBlackMangaLighter: lighten($KuretakeBlackManga,$colourChange);
+$KuretakeBlackMangaLight: lighten($KuretakeBlackManga,$colourChange);
+
+$KuretakeBlackMangaDark: darken($KuretakeBlackManga,$colourChange);
+$KuretakeBlackMangaDarker: darken($KuretakeBlackManga,$colourChange);
+$KuretakeBlackMangaDarkest: darken($KuretakeBlackManga,$colourChange);
+
+$Crimson: #DC143C;
+
+$CrimsonLightest: lighten($KuretakeBlackManga,$colourChange);
+$CrimsonLighter: lighten($KuretakeBlackManga,$colourChange);
+$CrimsonLight: lighten($KuretakeBlackManga,$colourChange);
+
+$CrimsonDark: darken($KuretakeBlackManga,$colourChange);
+$CrimsonDarker: darken($KuretakeBlackManga,$colourChange);
+$CrimsonDarkest: darken($KuretakeBlackManga,$colourChange);

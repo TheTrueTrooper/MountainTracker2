@@ -11,7 +11,7 @@ export interface RegionState extends EntityState<Region> {
 }
 
 const regionAdapter: EntityAdapter<Region> = createEntityAdapter<Region>({
-    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
+    selectId: (obj)=>selectQlIdFieldValue(Region, obj) as number,
     sortComparer: genericSort,
   });
 

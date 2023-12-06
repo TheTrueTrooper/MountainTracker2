@@ -11,7 +11,7 @@ export interface ZoneGeoFenceNodeState extends EntityState<ZoneGeoFenceNode> {
 }
 
 const zoneGeoFenceNodeAdapter: EntityAdapter<ZoneGeoFenceNode> = createEntityAdapter<ZoneGeoFenceNode>({
-    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
+    selectId: (obj)=>selectQlIdFieldValue(ZoneGeoFenceNode, obj) as number,
     sortComparer: genericSort,
   });
 

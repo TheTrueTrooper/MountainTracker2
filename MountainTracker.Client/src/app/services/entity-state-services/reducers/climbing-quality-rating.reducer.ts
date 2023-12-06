@@ -11,7 +11,7 @@ export interface ClimbingQualityRatingState extends EntityState<ClimbingQualityR
 }
 
 const climbingQualityRatingAdapter: EntityAdapter<ClimbingQualityRating> = createEntityAdapter<ClimbingQualityRating>({
-    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
+    selectId: (obj)=>selectQlIdFieldValue(ClimbingQualityRating, obj) as number,
     sortComparer: genericSort,
   });
 

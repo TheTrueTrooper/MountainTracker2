@@ -1,22 +1,22 @@
 import {
     createSelector,
 } from '@ngrx/store';
-import * as fromDistrict from '../reducers/district.reducer';
-import { selectDistrictState } from '../entity.selector';
+import * as fromRockClimbingType from '../reducers/rock-climbing-type.reducer';
+import { selectRockClimbingTypeState } from '../entity.selector';
  
-export const selectDistrictIds = createSelector(
-  selectDistrictState,
-  fromDistrict.selectDistrictIds
+export const selectRockClimbingTypeIds = createSelector(
+  selectRockClimbingTypeState,
+  fromRockClimbingType.selectRockClimbingTypeIds
 );
-export const selectDistrictEntities = createSelector(
-  selectDistrictState,
-  fromDistrict.selectDistrictEntities
+export const selectRockClimbingTypeEntities = createSelector(
+  selectRockClimbingTypeState,
+  fromRockClimbingType.selectRockClimbingTypeEntities
 );
-export const selectAllDistricts = createSelector(
-  selectDistrictState,
-  fromDistrict.selectAllDistricts
+export const selectAllRockClimbingTypes = createSelector(
+  selectRockClimbingTypeState,
+  fromRockClimbingType.selectAllRockClimbingTypes
 );
-export const selectDistrictTotal = createSelector(
-  selectDistrictState,
-  fromDistrict.selectDistrictTotal
+export const selectRockClimbingTypeTotal = createSelector(
+  selectRockClimbingTypeState,
+  fromRockClimbingType.selectRockClimbingTypeTotal
 );

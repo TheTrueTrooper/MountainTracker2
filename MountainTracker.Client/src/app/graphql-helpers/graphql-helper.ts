@@ -1,5 +1,6 @@
 import 'reflect-metadata';
-import { graphqlPropertyMetadataKey, graphqlIdPropertyMetadataKey } from './graphql-decorators';
+import { schema } from 'normalizr';
+import { graphqlPropertyMetadataKey, graphqlIdPropertyMetadataKey, graphqlComplexPropertyMetadataKey, graphqlComplexListPropertyMetadataKey } from './graphql-decorators';
 import { QlSelectionSet, QlSelectionSetTyped } from './ql-selection-set';
 
 export const ensureQlFields = function<
@@ -11,17 +12,20 @@ T extends {
     return fieldsOverride?.join('\n') ?? Reflect.getMetadata(graphqlPropertyMetadataKey, new classToCreate()).join('\n');
 }
 
-export const selectQlIdField = function<
+export const getQlFields = function<
 T extends {
   new (): any;
 }
->(classToCreate: T): string
+>(classToCreate: T): string[]
 {
-  const classId =  Reflect.getMetadata(graphqlIdPropertyMetadataKey, new classToCreate());
-  return classId
+    return Reflect.getMetadata(graphqlPropertyMetadataKey, new classToCreate());
 }
 
-export const selectQlIdFieldValue = function(ObjectOrObjects: object | object[]): string | string[] | number | number[]
+export const selectQlIdFieldValue = function<
+T extends {
+  new (): any;
+}
+>(classToCreate: T, ObjectOrObjects: object | object[]): string | string[] | number | number[]
 {
   if(Array.isArray(ObjectOrObjects))
   {
@@ -29,11 +33,12 @@ export const selectQlIdFieldValue = function(ObjectOrObjects: object | object[])
     {
       return []
     }
-    const classId = Reflect.getMetadata(graphqlIdPropertyMetadataKey, ObjectOrObjects[0]);
+    const classId = Reflect.getMetadata(graphqlIdPropertyMetadataKey, new classToCreate());
     return ObjectOrObjects.map(obj=>obj[classId]);
   }
-  const classId = Reflect.getMetadata(graphqlIdPropertyMetadataKey, ObjectOrObjects);
-  return (ObjectOrObjects as any)[classId]
+  const classId = Reflect.getMetadata(graphqlIdPropertyMetadataKey, new classToCreate());
+  const id = (ObjectOrObjects as any)[classId]
+  return id
 }
 
 export const selectToQlFields = function(selectionSet?: QlSelectionSet | QlSelectionSetTyped<any, any>): string | null

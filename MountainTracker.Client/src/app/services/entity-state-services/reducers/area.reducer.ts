@@ -11,7 +11,7 @@ export interface AreaState extends EntityState<Area> {
 }
 
 const areaAdapter: EntityAdapter<Area> = createEntityAdapter<Area>({
-    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
+    selectId: (obj)=>selectQlIdFieldValue(Area, obj) as number,
     sortComparer: genericSort,
   });
 

@@ -11,7 +11,7 @@ export interface ZoneState extends EntityState<Zone> {
 }
 
 const zoneAdapter: EntityAdapter<Zone> = createEntityAdapter<Zone>({
-    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
+    selectId: (obj)=>selectQlIdFieldValue(Zone, obj) as number,
     sortComparer: genericSort,
   });
 

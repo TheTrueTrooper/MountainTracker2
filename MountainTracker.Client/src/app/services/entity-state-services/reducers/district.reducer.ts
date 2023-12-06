@@ -11,7 +11,7 @@ export interface DistrictState extends EntityState<District> {
 }
 
 const districtAdapter: EntityAdapter<District> = createEntityAdapter<District>({
-    selectId: (obj)=>selectQlIdFieldValue(obj) as number,
+    selectId: (obj)=>selectQlIdFieldValue(District, obj) as number,
     sortComparer: genericSort,
   });
 

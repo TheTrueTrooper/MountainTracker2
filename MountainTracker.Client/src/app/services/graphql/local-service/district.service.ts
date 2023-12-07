@@ -53,7 +53,7 @@ export class DistrictService extends BaseQlService {
   public getDistrictsByRegion(regionId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, District>): Observable<District[]>
   {
     const queryVar = '($regionId: Int!)'
-    const query = 'districtsByRegion'
+    const query = 'zonesByRegion'
     const queryParam = '(regionId: $regionId)'
     return this.moutainTrackerApi.query<District[]>({
       query: this.generateQuery(District, query, selection, queryVar, queryParam),

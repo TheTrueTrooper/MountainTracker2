@@ -49,5 +49,18 @@ export class AreaService extends BaseQlService {
       }                                                                                                                                                                                                                                
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
+
+  public getAreaByZone(zoneId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Area>): Observable<Area[]>
+  {
+    const queryVar = '($zoneId: Int!)'
+    const query = 'areaByZone'
+    const queryParam = '(zoneId: $zoneId)'
+    return this.moutainTrackerApi.query<Area[]>({
+      query: this.generateQuery(Area, query, selection, queryVar, queryParam),
+      variables:{
+        zoneId: zoneId
+      }                                                                                                                                                                                                                                
+    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+  }
   //#endregion
 }

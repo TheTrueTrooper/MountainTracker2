@@ -17,7 +17,7 @@ export class ProvinceOrStateEditComponent {
   }
   protected _selectProvinceOrStateOptions: AdminProvinceOrState[] = [];
   @Input()
-  public set selectedProvinceOrStateOptions(value: AdminProvinceOrState[] | null)
+  public set selectedProvinceOrStateOptions(value: AdminProvinceOrState[] | null | undefined)
   {
     this._selectedProvinceOrStateOptions = value ?? [];
   }

@@ -37,6 +37,6 @@ export class MountainEditorComponent {
 
   provinceOrStateSelected(id: number | null)
   {
-    this.store.dispatch(featureActions.selectCountry({id: id}));
+    this.store.dispatch(featureActions.selectProvinceOrState({id: id}));
   }
 }

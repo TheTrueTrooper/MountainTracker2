@@ -1,5 +1,8 @@
 import { createSelector } from '@ngrx/store';
-import { selectSelectedCountryId as selectSelectedCountryIdOrg } from '../reducers';
+import { 
+    selectSelectedCountryId as selectSelectedCountryIdOrg,
+    selectSelectedProvinceOrStateId as selectSelectedProvinceOrStateIdOrg
+} from '../reducers';
 import { selectors } from '../../../services/entity-state-services';
 import { AdminCountry, AdminProvinceOrState, Country } from '../../../models';
 import { genericSort as countrySort } from '../../../models/service-models/service-model-functions/country';
@@ -32,15 +35,17 @@ const allProvinceOrStateToAdminProvinceOrState = (provinceOrState: AdminProvince
 }
 
 export const selectSelectedCountryId = selectSelectedCountryIdOrg;
+export const selectSelectedProvinceOrStateId = selectSelectedProvinceOrStateIdOrg;
 
 
 export const selectSelection = createSelector(
     selectSelectedCountryId,
+    selectSelectedProvinceOrStateId,
     selectors.selectAllCountries,
     selectors.selectCountryEntities,
     selectors.selectAllProvincesOrStates,
-    (selectedCountryId, allCountries, countries, provinceOrState)=>{
-        if(!selectedCountryId)
+    (selectedCountryId, selectedProvinceOrStateId, allCountries, countries, provinceOrState)=>{
+        if(selectedCountryId === null)
         {
             return allCountriesToAdminCountries(allCountries);
         }
@@ -50,7 +55,8 @@ export const selectSelection = createSelector(
                 ...countries[selectedCountryId],
                 selectLabel: `${countries[selectedCountryId]?.countryCode}-${countries[selectedCountryId]?.englishFullName}`
             };
-            country!.provincesOrStates = provinceOrState.filter(x=>x.countryId === selectedCountryId) ?? null
+            country!.provincesOrStates = provinceOrState.filter(provinceOrState=>provinceOrState.countryId === selectedCountryId && 
+                (selectedProvinceOrStateId ? provinceOrState.id  === selectedProvinceOrStateId : true)) ?? null
             country!.provincesOrStatesAsAdmin = country!.provincesOrStates ? allProvinceOrStateToAdminProvinceOrState(country!.provincesOrStates) : null;
             return [country as AdminCountry];
         }

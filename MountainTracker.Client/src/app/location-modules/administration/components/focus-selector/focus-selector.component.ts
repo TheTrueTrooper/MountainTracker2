@@ -22,6 +22,11 @@ export class RegionalSelectorComponent {
 
   onitemSelected($event: number)
   {
-    this.itemSelected.emit($event)
+    if($event as unknown === "null")
+    {
+      this.itemSelected.emit(null);
+      return;
+    }
+    this.itemSelected.emit($event);
   }
 }

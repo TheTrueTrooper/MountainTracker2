@@ -23,7 +23,9 @@ export const administrationFeatureReducer = createReducer(
     on(actions.loadCountries, (state, {}) => {
         return {
             ...state,
-            selectedCountryId: null
+            selectedCountryId: null,
+            selectedProvinceOrStateId: null, 
+            ProvinceOrState: null, 
         };
     }),
     on(featureActions.selectCountry, (state, { id }) => {
@@ -32,23 +34,50 @@ export const administrationFeatureReducer = createReducer(
           selectedCountryId: id
       };
     }),
-    on(featureActions.selectCountryFailure, (state) => {
-      return {
-          ...state,
-          selectedCountryId: null
-      };
+    on(featureActions.selectProvinceOrState, (state, { id }) => {
+        return {
+            ...state,
+            selectedProvinceOrStateId: id
+        };
+      }),
+    on(
+      featureActions.selectProvinceOrStateFailure,
+      (state, { clearOnfail, error }) => {
+      if(clearOnfail)
+      {
+          return {
+             ...state, 
+            ProvinceOrState: null, 
+            error: error, 
+            lastError: error };
+      }
+      return { 
+        ...state, 
+        error: error, 
+        lastError: error 
+    };
     }),
     on(
       featureActions.selectCountryFailure,
       (state, { clearOnfail, error }) => {
       if(clearOnfail)
       {
-          return { ...state, selectedCountryId: null , ProvinceOrState: null, error: error, lastError: error };
+          return {
+             ...state, 
+            selectedCountryId: null, 
+            ProvinceOrState: null, 
+            error: error, 
+            lastError: error };
       }
-      return { ...state, error: error, lastError: error };
+      return { 
+        ...state, 
+        error: error, 
+        lastError: error 
+    };
   }));
 
 const selectAdministration = createFeatureSelector<AdministrationState>(AdministrationFeature);
 
 export const selectSelectedCountryId = createSelector(selectAdministration, state=>state.selectedCountryId);
+export const selectSelectedProvinceOrStateId = createSelector(selectAdministration, state=>state.selectedProvinceOrStateId);
   

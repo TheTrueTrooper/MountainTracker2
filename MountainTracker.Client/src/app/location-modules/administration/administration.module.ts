@@ -13,6 +13,8 @@ import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatCardModule } from '@angular/material/card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RegionEditComponent } from './components/region-edit/region-edit.component';
+import { RegionEditTableComponent } from './components/region-edit-table/region-edit-table.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CountryEditTableComponent,
     MountainEditorComponent,
     ProvinceOrStateEditComponent, 
-    ProvinceOrStateEditTableComponent,
+    ProvinceOrStateEditTableComponent, RegionEditComponent, RegionEditTableComponent,
   ],
   imports: [
     CommonModule,

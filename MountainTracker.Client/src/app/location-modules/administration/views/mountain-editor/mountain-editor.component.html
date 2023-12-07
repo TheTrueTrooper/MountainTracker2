@@ -2,6 +2,6 @@
     <div class="container-fluid">
         <country-edit [cardIcon]="faEarth" [selectedCountryOptions]="(selection$| async)" [selectCountryOptions]="(countries$ | async)" (countrySelected)="selectCountrySelected($event)"></country-edit>
         <div *ngIf="(selection$| async) as selection">
-            <province-or-state-edit [cardIcon]="faFlag" [selectedProvinceOrStateOptions]="selection![0]!.provincesOrStatesAsAdmin!" [selectProvinceOrStateOptions]="(ProvincesOrStates$ | async)" (provinceOrStateSelected)="provinceOrStateSelected($event)" [selectedCountryId]="(selectedCountryId$ | async)"></province-or-state-edit>
+            <province-or-state-edit [cardIcon]="faFlag" [selectedProvinceOrStateOptions]="selection[0]?.provincesOrStatesAsAdmin" [selectProvinceOrStateOptions]="(ProvincesOrStates$ | async)" (provinceOrStateSelected)="provinceOrStateSelected($event)" [selectedCountryId]="(selectedCountryId$ | async)"></province-or-state-edit>
         </div>
     </div>

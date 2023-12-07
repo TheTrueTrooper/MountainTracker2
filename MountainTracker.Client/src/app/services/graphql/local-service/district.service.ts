@@ -49,5 +49,18 @@ export class DistrictService extends BaseQlService {
       }                                                                                                                                                                                                                                
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
+
+  public getDistrictsByRegion(regionId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, District>): Observable<District[]>
+  {
+    const queryVar = '($regionId: Int!)'
+    const query = 'districtsByRegion'
+    const queryParam = '(regionId: $regionId)'
+    return this.moutainTrackerApi.query<District[]>({
+      query: this.generateQuery(District, query, selection, queryVar, queryParam),
+      variables:{
+        regionId: regionId
+      }                                                                                                                                                                                                                                
+    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+  }
   //#endregion
 }

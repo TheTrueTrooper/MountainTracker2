@@ -34,5 +34,14 @@ public class DistrictQuery : ObjectGraphType
                 return await districtService.GetDistrictByCode(districtCode);
             })
             .Description("Gets a district by its district code");
+
+        Field<ListGraphType<DistrictType>, IEnumerable<Districts>>("districtsByRegion")
+            .Argument<IntGraphType>("regionId")
+            .ResolveAsync(async context =>
+            {
+                int regionId = context.GetArgument<int>("regionId");
+                return await districtService.GetDistrictsByRegion(regionId);
+            })
+            .Description("Gets a district or state by its region id");
     }
 }

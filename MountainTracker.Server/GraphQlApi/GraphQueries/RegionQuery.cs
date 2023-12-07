@@ -43,6 +43,6 @@ public class RegionQuery : ObjectGraphType
                 short provinceOrStateId = context.GetArgument<short>("provinceOrStateId");
                 return await regionService.GetRegionsByProvinceOrState(provinceOrStateId);
             })
-            .Description("Gets a province or state by its iso country id");
+            .Description("Gets a region or state by its iso province or state id");
     }
 }

@@ -50,7 +50,7 @@ export class RegionService extends BaseQlService {
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
 
-  public getProvincesOrStatesByCountry(provinceOrStateId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Region>): Observable<Region[]>
+  public getRegionsByProvinceOrState(provinceOrStateId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Region>): Observable<Region[]>
   {
     const queryVar = '($provinceOrStateId: Short!)'
     const query = 'regionsByProvinceOrState'

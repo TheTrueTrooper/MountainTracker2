@@ -2,6 +2,7 @@
 using GraphQL.Types;
 using MountainTracker.Server.GraphQlApi.GraphTypes;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
+using MountainTracker.Server.Services.LocalServices.Services;
 using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.QlQuery;
@@ -34,5 +35,14 @@ public class RegionQuery : ObjectGraphType
                 return await regionService.GetRegionByCode(regionCode);
             })
             .Description("Gets a region by its region code");
+
+        Field<ListGraphType<RegionType>, IEnumerable<Regions>>("regionsByProvinceOrState")
+            .Argument<ShortGraphType>("provinceOrStateId")
+            .ResolveAsync(async context =>
+            {
+                short provinceOrStateId = context.GetArgument<short>("provinceOrStateId");
+                return await regionService.GetRegionsByProvinceOrState(provinceOrStateId);
+            })
+            .Description("Gets a province or state by its iso country id");
     }
 }

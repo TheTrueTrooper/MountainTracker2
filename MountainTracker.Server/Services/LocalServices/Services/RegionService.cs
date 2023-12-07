@@ -42,7 +42,7 @@ public class RegionService : IRegionService
         return await Regions.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
     }
 
-    public async Task<IEnumerable<Regions>?> GetRegionsByProvinceOrState(int provinceOrStateId)
+    public async Task<IEnumerable<Regions>?> GetRegionsByProvinceOrState(short provinceOrStateId)
     {
         return await Regions.AsNoTracking().Where(c => c.ProvinceOrStateId == provinceOrStateId).ToListAsync();
     }

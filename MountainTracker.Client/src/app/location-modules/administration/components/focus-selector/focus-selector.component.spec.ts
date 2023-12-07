@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegionalSelectorComponent } from './regional-selector.component';
+import { RegionalSelectorComponent } from './focus-selector.component';
 
 describe('RegionalSelectorComponent', () => {
   let component: RegionalSelectorComponent;

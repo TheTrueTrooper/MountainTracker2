@@ -34,5 +34,14 @@ public class ProvinceOrStateQuery : ObjectGraphType
                 return await provinceOrStateService.GetProvinceOrStateByCode(regionCode);
             })
             .Description("Gets a province or state by its iso province or state code");
+
+        Field<ListGraphType<ProvinceOrStateType>, IEnumerable<ProvincesOrStates>>("provincesOrStatesByCountry")
+            .Argument<ByteGraphType>("countryId")
+            .ResolveAsync(async context =>
+            {
+                byte countryId = context.GetArgument<byte>("countryId");
+                return await provinceOrStateService.GetProvincesOrStatesByCountry(countryId);
+            })
+            .Description("Gets a province or state by its iso country id");
     }
 }

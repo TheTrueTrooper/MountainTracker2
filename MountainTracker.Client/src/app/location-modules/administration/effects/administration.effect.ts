@@ -3,46 +3,32 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, exhaustMap, switchMap } from 'rxjs/operators';
 import { localApi } from '../../../services/graphql';
 import { actions } from '../../../services/entity-state-services';
-import { QlSelectionSetTyped, getQlFields } from '../../../graphql-helpers';
-import { Country, ProvinceOrState } from '../../../models';
-import { normalize, schema } from 'normalizr';
+import * as featureActions from '../actions';
  
 @Injectable()
 export class AdministrationEffects {
  
+  constructor(
+    protected readonly actions$: Actions,
+    protected readonly countryService: localApi.CountryService,
+    protected readonly provinceOrStateService: localApi.ProvinceOrStateService,
+  ) {}
+
   loadCoutry$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.loadCountries),
-      exhaustMap(() => this.countryService.getAllCountries({
-        fields: getQlFields(Country),
-        subSet:[
-          {
-            name: 'provincesOrStates',
-            fields: ['id', 'englishFullName', 'regionCode', 'countryId']
-          } as QlSelectionSetTyped<Country, ProvinceOrState>
-        ]
-      }).pipe(map(x=>{
-        const provinceSchema = new schema.Entity("provincesOrStates")
-        const countrySchema = new schema.Entity("country", 
-        {
-          provincesOrStates: [provinceSchema]
-        })
-        const value = normalize(x, [countrySchema])
-        return  value;
-      }))
-      .pipe(
-        switchMap(normalizedResult => {
-          let entities: { 'country': {[key: string]: Country}, 'provincesOrStates':{[key: string]: ProvinceOrState}} = normalizedResult.entities as { 'country': {[key: string]: Country}, 'provincesOrStates': {[key: string]: ProvinceOrState}};
-          return [actions.loadCountriesSuccess({countries: Object.keys(entities.country).map(key=>entities.country[key])}),
-          actions.loadProvincesOrStatesSuccess({provincesOrStates: Object.keys(entities.provincesOrStates).map(key=>entities.provincesOrStates[key])})]
-        })
-      )
-      )
-    )
-  );
- 
-  constructor(
-    protected readonly actions$: Actions,
-    protected readonly countryService: localApi.CountryService
-  ) {}
+      exhaustMap(() => this.countryService.getAllCountries().pipe(map(result=>{
+        return actions.loadCountriesSuccess({countries: result})
+      })))));
+
+  countrySelected$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(featureActions.selectCountry),
+        exhaustMap(() => this.provinceOrStateService.getProvincesOrStatesByCountry(39).pipe(switchMap(result=>{
+          return [
+            featureActions.selectCountrySuccess(), 
+            actions.loadProvincesOrStatesSuccess({provincesOrStates: result}), 
+          ]
+        })))));
+  
 }

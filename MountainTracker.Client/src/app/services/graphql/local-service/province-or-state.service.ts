@@ -49,5 +49,18 @@ export class ProvinceOrStateService extends BaseQlService {
       }                                                                                                                                                                                                                                
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
+
+  public getProvincesOrStatesByCountry(countryId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ProvinceOrState>): Observable<ProvinceOrState[]>
+  {
+    const queryVar = '($countryId: Byte!)'
+    const query = 'provincesOrStatesByCountry'
+    const queryParam = '(countryId: $countryId)'
+    return this.moutainTrackerApi.query<ProvinceOrState[]>({
+      query: this.generateQuery(ProvinceOrState, query, selection, queryVar, queryParam),
+      variables:{
+        countryId: countryId
+      }                                                                                                                                                                                                                                
+    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+  }
   //#endregion
 }

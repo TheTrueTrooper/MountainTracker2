@@ -1,14 +1,7 @@
-<p>mountain-editor works!</p>
-<div *ngIf="countries$ | async as countries; else loadingCountries">
-    <div *ngIf="countries$ | async as countries; else noCountries">
-        <p>{{(countries$ | async) | json}}</p>
-        <p>{{(ProvincesOrStates$ | async) | json}}</p>
-        <region-editor [selectSelectOptions]="countries" ></region-editor>
-    </div>
-    <ng-template #noCountries>No countries found</ng-template>
-</div>
-<div>
-    <ng-template #loadingCountries>loading countries</ng-template>
-</div>
 
-<p>{{(selection$ | async) | json}}</p>
+    <div class="container-fluid">
+        <country-edit [cardIcon]="faEarth" [selectedCountryOptions]="(selection$| async)" [selectCountryOptions]="(countries$ | async)" (countrySelected)="selectCountrySelected($event)"></country-edit>
+        <div *ngIf="(selection$| async) as selection">
+            <province-or-state-edit [cardIcon]="faFlag" [selectedProvinceOrStateOptions]="selection![0]!.provincesOrStatesAsAdmin!" [selectProvinceOrStateOptions]="(ProvincesOrStates$ | async)" (provinceOrStateSelected)="provinceOrStateSelected($event)" [selectedCountryId]="(selectedCountryId$ | async)"></province-or-state-edit>
+        </div>
+    </div>

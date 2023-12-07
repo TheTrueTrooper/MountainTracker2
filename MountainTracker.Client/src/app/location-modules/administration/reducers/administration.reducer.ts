@@ -6,12 +6,14 @@ export const AdministrationFeature = "administration"
 
 export interface AdministrationState {
     selectedCountryId: number | null;
+    selectedProvinceOrStateId: number | null;
     error: string | null;
     lastError: string | null;
 }
 
 const initialState: AdministrationState = {
     selectedCountryId: null,
+    selectedProvinceOrStateId: null,
     error: null,
     lastError: null
   };
@@ -24,10 +26,16 @@ export const administrationFeatureReducer = createReducer(
             selectedCountryId: null
         };
     }),
-    on(featureActions.selectCountrySuccess, (state, { id }) => {
+    on(featureActions.selectCountry, (state, { id }) => {
       return {
           ...state,
           selectedCountryId: id
+      };
+    }),
+    on(featureActions.selectCountryFailure, (state) => {
+      return {
+          ...state,
+          selectedCountryId: null
       };
     }),
     on(
@@ -35,11 +43,10 @@ export const administrationFeatureReducer = createReducer(
       (state, { clearOnfail, error }) => {
       if(clearOnfail)
       {
-          return { ...state, selectedCountryId: null, error: error, lastError: error };
+          return { ...state, selectedCountryId: null , ProvinceOrState: null, error: error, lastError: error };
       }
       return { ...state, error: error, lastError: error };
-  })
-  );
+  }));
 
 const selectAdministration = createFeatureSelector<AdministrationState>(AdministrationFeature);
 

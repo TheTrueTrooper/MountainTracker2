@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AdminCountry } from '../../../../models';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'country-edit',
@@ -8,19 +9,28 @@ import { AdminCountry } from '../../../../models';
 })
 export class CountryEditComponent {
   @Input()
-  selectCountryOptions: AdminCountry[] = [];
+  public set selectCountryOptions(value: AdminCountry[] | null)
+  {
+    this._selectCountryOptions = value ?? [];
+  }
+  protected _selectCountryOptions: AdminCountry[] = [];
   @Input()
-  label: string = 'Select a Country';
+  public set selectedCountryOptions(value: AdminCountry[] | null)
+  {
+    this._selectedCountryOptions = value ?? [];
+  }
+  protected _selectedCountryOptions: AdminCountry[] = [];
   @Input()
-  noSelectLabel: string = 'Select an Option';
+  displayedColumns: ('rowNo' | 'id'| 'countryCode' | 'englishFullName')[]  = ['rowNo', 'id', 'countryCode', 'englishFullName'];
+  @Input()
+  selectCountryLabel: string = 'Select a Country';
+  @Input()
+  noSelectCountryLabel: string = 'Select a Country';
   @Input()
   selected: string | null = null;
+  @Input()
+  cardIcon!: IconDefinition;
 
   @Output()
-  countrySelected: EventEmitter<number> = new EventEmitter<number>()
-
-  onCountrySelected(id:number)
-  {
-    this.countrySelected.emit(id);
-  }
+  countrySelected: EventEmitter<number | null> = new EventEmitter<number | null>()
 }

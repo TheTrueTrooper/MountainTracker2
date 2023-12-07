@@ -1,3 +1,5 @@
 import { createAction, props } from "@ngrx/store";
 
-export const onError = createAction('[Utility] Handle Error', props<{ apiName: string, error: string }>());
+const service = 'Utility'
+
+export const onError = createAction(`[${service}] Handle Error`, props<{ apiName: string, error: string }>());

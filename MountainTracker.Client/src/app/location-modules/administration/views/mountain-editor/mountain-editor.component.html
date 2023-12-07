@@ -1,3 +1,14 @@
 <p>mountain-editor works!</p>
-<p>{{(countries$ | async) | json}}</p>
-<p>{{(ProvincesOrStates$ | async) | json}}</p>
+<div *ngIf="countries$ | async as countries; else loadingCountries">
+    <div *ngIf="countries$ | async as countries; else noCountries">
+        <p>{{(countries$ | async) | json}}</p>
+        <p>{{(ProvincesOrStates$ | async) | json}}</p>
+        <region-editor [selectSelectOptions]="countries" ></region-editor>
+    </div>
+    <ng-template #noCountries>No countries found</ng-template>
+</div>
+<div>
+    <ng-template #loadingCountries>loading countries</ng-template>
+</div>
+
+<p>{{(selection$ | async) | json}}</p>

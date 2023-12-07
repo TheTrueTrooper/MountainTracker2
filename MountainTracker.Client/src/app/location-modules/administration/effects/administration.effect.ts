@@ -18,7 +18,7 @@ export class AdministrationEffects {
         subSet:[
           {
             name: 'provincesOrStates',
-            fields: ['id', 'englishFullName', 'regionCode']
+            fields: ['id', 'englishFullName', 'regionCode', 'countryId']
           } as QlSelectionSetTyped<Country, ProvinceOrState>
         ]
       }).pipe(map(x=>{
@@ -34,7 +34,7 @@ export class AdministrationEffects {
         switchMap(normalizedResult => {
           let entities: { 'country': {[key: string]: Country}, 'provincesOrStates':{[key: string]: ProvinceOrState}} = normalizedResult.entities as { 'country': {[key: string]: Country}, 'provincesOrStates': {[key: string]: ProvinceOrState}};
           return [actions.loadCountriesSuccess({countries: Object.keys(entities.country).map(key=>entities.country[key])}),
-          actions.loadProvincesOrStatesSuccess({provincesOrStates: Object.keys(entities.provincesOrStates).map(key=>entities.country[key])})]
+          actions.loadProvincesOrStatesSuccess({provincesOrStates: Object.keys(entities.provincesOrStates).map(key=>entities.provincesOrStates[key])})]
         })
       )
       )

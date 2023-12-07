@@ -42,6 +42,6 @@ public class ZoneQuery : ObjectGraphType
                 int districtsId = context.GetArgument<int>("districtId");
                 return await zoneService.GetZonesByDistrict(districtsId);
             })
-            .Description("Gets a zone by its district id");
+            .Description("Gets a zones by its district id");
     }
 }

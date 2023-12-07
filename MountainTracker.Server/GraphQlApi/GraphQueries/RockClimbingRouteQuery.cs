@@ -34,5 +34,14 @@ public class RockClimbingRouteQuery : ObjectGraphType
                 return await rockClimbingRouteService.GetRockClimbingRouteByCode(routeCode);
             })
             .Description("Gets a rock climbing route by its rock climbing route code");
+
+        Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>>("rockClimbingRoutesByRockClimbingWall")
+            .Argument<IntGraphType>("climbingWallId")
+            .ResolveAsync(async context =>
+            {
+                int climbingWallId = context.GetArgument<int>("climbingWallId");
+                return await rockClimbingRouteService.GetRockClimbingRoutesByRockClimbingWall(climbingWallId);
+            })
+            .Description("Gets a rock climbing routes by its rock climbing wall id");
     }
 }

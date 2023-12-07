@@ -42,6 +42,6 @@ public class DistrictQuery : ObjectGraphType
                 int regionId = context.GetArgument<int>("regionId");
                 return await districtService.GetDistrictsByRegion(regionId);
             })
-            .Description("Gets a district by its region id");
+            .Description("Gets a districts by its region id");
     }
 }

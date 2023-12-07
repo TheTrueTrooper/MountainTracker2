@@ -42,6 +42,6 @@ public class RockClimbingWallQuery : ObjectGraphType
                 int areaId = context.GetArgument<int>("areaId");
                 return await rockClimbingWallService.GetRockClimbingWallsByArea(areaId);
             })
-            .Description("Gets a rock climbing wall by its area id");
+            .Description("Gets a rock climbing walls by its area id");
     }
 }

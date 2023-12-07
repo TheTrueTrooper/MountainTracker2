@@ -42,6 +42,6 @@ public class ProvinceOrStateQuery : ObjectGraphType
                 byte countryId = context.GetArgument<byte>("countryId");
                 return await provinceOrStateService.GetProvincesOrStatesByCountry(countryId);
             })
-            .Description("Gets a province or state by its iso country id");
+            .Description("Gets a provinces or states by its iso country id");
     }
 }

@@ -42,6 +42,6 @@ public class AreaQuery : ObjectGraphType
                 int zoneId = context.GetArgument<int>("zoneId");
                 return await areaService.GetAreaByZone(zoneId);
             })
-            .Description("Gets a area by its zone id");
+            .Description("Gets a areas by its zone id");
     }
 }

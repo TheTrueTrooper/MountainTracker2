@@ -34,5 +34,14 @@ public class ZoneQuery : ObjectGraphType
                 return await zoneService.GetZoneByCode(zoneCode);
             })
             .Description("Gets a zone by its zone code");
+
+        Field<ListGraphType<ZoneType>, IEnumerable<Zones>>("zonesByDistrict")
+            .Argument<IntGraphType>("districtId")
+            .ResolveAsync(async context =>
+            {
+                int districtsId = context.GetArgument<int>("districtId");
+                return await zoneService.GetZonesByDistrict(districtsId);
+            })
+            .Description("Gets a zone by its district id");
     }
 }

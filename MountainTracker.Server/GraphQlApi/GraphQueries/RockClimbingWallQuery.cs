@@ -34,5 +34,14 @@ public class RockClimbingWallQuery : ObjectGraphType
                 return await rockClimbingWallService.GetRockClimbingWallByCode(wallCode);
             })
             .Description("Gets a rock climbing wall by its rock climbing wall code");
+
+        Field<ListGraphType<RockClimbingWallType>, IEnumerable<RockClimbingWalls>>("rockClimbingWallsByArea")
+            .Argument<IntGraphType>("areaId")
+            .ResolveAsync(async context =>
+            {
+                int areaId = context.GetArgument<int>("areaId");
+                return await rockClimbingWallService.GetRockClimbingWallsByArea(areaId);
+            })
+            .Description("Gets a rock climbing wall by its area id");
     }
 }

@@ -17,7 +17,7 @@ export class CountryEditTableComponent {
   {
     this.dataSource.data = value ?? [];
   }
-  dataSource: MatTableDataSource<AdminCountry> = new MatTableDataSource();
+  dataSource: MatTableDataSource<AdminCountry> = new MatTableDataSource<AdminCountry>();
 
   applyFilter(filterValue: Event) {
     let filter = (filterValue.target! as HTMLInputElement)!.value!.trim().toLowerCase();

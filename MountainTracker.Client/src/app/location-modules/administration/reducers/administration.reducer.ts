@@ -7,6 +7,7 @@ export const AdministrationFeature = "administration"
 export interface AdministrationState {
     selectedCountryId: number | null;
     selectedProvinceOrStateId: number | null;
+    selectedRegionId: number | null;
     error: string | null;
     lastError: string | null;
 }
@@ -14,6 +15,7 @@ export interface AdministrationState {
 const initialState: AdministrationState = {
     selectedCountryId: null,
     selectedProvinceOrStateId: null,
+    selectedRegionId: null,
     error: null,
     lastError: null
   };
@@ -39,15 +41,39 @@ export const administrationFeatureReducer = createReducer(
             ...state,
             selectedProvinceOrStateId: id
         };
-      }),
+    }),
+    on(featureActions.selectRegion, (state, { id }) => {
+        return {
+            ...state,
+            selectedRegionId: id
+        };
+    }),
+    on(
+        featureActions.selectRegionFailure,
+        (state, { clearOnfail, error }) => {
+        if(clearOnfail)
+        {
+            return {
+              ...state, 
+              selectedRegionId: null,
+              error: error, 
+              lastError: error };
+        }
+        return { 
+          ...state, 
+          error: error, 
+          lastError: error 
+      };
+    }),
     on(
       featureActions.selectProvinceOrStateFailure,
       (state, { clearOnfail, error }) => {
       if(clearOnfail)
       {
           return {
-             ...state, 
-            ProvinceOrState: null, 
+            ...state, 
+            selectedRegionId: null,
+            selectedProvinceOrStateId: null, 
             error: error, 
             lastError: error };
       }
@@ -55,7 +81,7 @@ export const administrationFeatureReducer = createReducer(
         ...state, 
         error: error, 
         lastError: error 
-    };
+      };
     }),
     on(
       featureActions.selectCountryFailure,
@@ -64,8 +90,9 @@ export const administrationFeatureReducer = createReducer(
       {
           return {
              ...state, 
+            selectedRegionId: null,
             selectedCountryId: null, 
-            ProvinceOrState: null, 
+            selectedProvinceOrStateId: null, 
             error: error, 
             lastError: error };
       }
@@ -80,4 +107,5 @@ const selectAdministration = createFeatureSelector<AdministrationState>(Administ
 
 export const selectSelectedCountryId = createSelector(selectAdministration, state=>state.selectedCountryId);
 export const selectSelectedProvinceOrStateId = createSelector(selectAdministration, state=>state.selectedProvinceOrStateId);
+export const selectSelectedRegionId = createSelector(selectAdministration, state=>state.selectedRegionId);
   

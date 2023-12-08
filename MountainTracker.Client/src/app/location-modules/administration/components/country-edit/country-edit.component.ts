@@ -5,7 +5,8 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'country-edit',
   templateUrl: './country-edit.component.html',
-  styleUrl: './country-edit.component.scss'
+  styleUrl: './country-edit.component.scss',
+  host:{'class':'container-fluid'}
 })
 export class CountryEditComponent {
   @Input()

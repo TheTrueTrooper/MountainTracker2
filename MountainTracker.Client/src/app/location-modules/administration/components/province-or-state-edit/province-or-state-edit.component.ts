@@ -11,7 +11,7 @@ import { AdminCountry } from '../../../../models';
 })
 export class ProvinceOrStateEditComponent {
   @Input()
-  public set selectProvinceOrStateOptions(value: AdminProvinceOrState[] | null)
+  public set selectProvinceOrStateOptions(value: AdminProvinceOrState[] | null | undefined)
   {
     this._selectProvinceOrStateOptions = value ?? [];
   }

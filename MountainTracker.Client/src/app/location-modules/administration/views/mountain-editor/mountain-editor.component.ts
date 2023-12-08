@@ -5,7 +5,7 @@ import * as featureActions from '../../actions';
 import * as featureSelectors from '../../selectors';
 import { Observable } from 'rxjs';
 import { AdminCountry, AdminProvinceOrState } from '../../../../models';
-import { faFlag, faEarth } from '@fortawesome/free-solid-svg-icons';
+import { faFlag, faEarth, faMap } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'mountain-editor',
@@ -13,20 +13,29 @@ import { faFlag, faEarth } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './mountain-editor.component.scss'
 })
 export class MountainEditorComponent {
-  protected selection$: Observable<AdminCountry[]>;
+  protected selectionCountry$: Observable<AdminCountry[]>;
+  protected selectionProvinceOrState$: Observable<AdminCountry[]>;
+  protected selectionRegion$: Observable<AdminCountry[]>;
+
   protected selectedCountryId$: Observable<number | null>;
   protected countries$: Observable<AdminCountry[]>;
-  protected ProvincesOrStates$: Observable<AdminProvinceOrState[]>;
+  protected provincesOrStates$: Observable<AdminProvinceOrState[]>;
+  protected regions$: Observable<AdminProvinceOrState[]>;
 
   protected faFlag = faFlag;
   protected faEarth = faEarth;
+  protected faMap = faMap;
 
   constructor(private store: Store)
   {
-    this.selectedCountryId$ = this.store.select(featureSelectors.selectSelectedCountryId)
-    this.countries$ = this.store.select(featureSelectors.selectCountries)
-    this.ProvincesOrStates$ = this.store.select(featureSelectors.selectProvincesOrStates)
-    this.selection$ = this.store.select(featureSelectors.selectSelection)
+    this.selectedCountryId$ = this.store.select(featureSelectors.selectSelectedCountryId);
+    this.countries$ = this.store.select(featureSelectors.selectCountries);
+    this.provincesOrStates$ = this.store.select(featureSelectors.selectProvincesOrStates);
+    this.regions$ = this.store.select(featureSelectors.selectRegions);
+
+    this.selectionCountry$ = this.store.select(featureSelectors.selectCountrySelection);
+    this.selectionProvinceOrState$ = this.store.select(featureSelectors.selectProvinceOrStateSelection);
+    this.selectionRegion$ = this.store.select(featureSelectors.selectRegionSelection);
 
     this.store.dispatch(actions.loadCountries());
   }
@@ -38,5 +47,10 @@ export class MountainEditorComponent {
   provinceOrStateSelected(id: number | null)
   {
     this.store.dispatch(featureActions.selectProvinceOrState({id: id}));
+  }
+
+  regionSelected(id: number | null)
+  {
+    this.store.dispatch(featureActions.selectRegion({id: id}));
   }
 }

@@ -1,12 +1,15 @@
 import { createSelector } from '@ngrx/store';
 import { 
     selectSelectedCountryId as selectSelectedCountryIdOrg,
-    selectSelectedProvinceOrStateId as selectSelectedProvinceOrStateIdOrg
+    selectSelectedProvinceOrStateId as selectSelectedProvinceOrStateIdOrg,
+    selectSelectedProvinceOrStateId as selectSelectedRegionIdOrg
 } from '../reducers';
 import { selectors } from '../../../services/entity-state-services';
-import { AdminCountry, AdminProvinceOrState, Country } from '../../../models';
+import { AdminCountry, AdminProvinceOrState, AdminRegion, Country } from '../../../models';
 import { genericSort as countrySort } from '../../../models/service-models/service-model-functions/country';
 import { genericSort as provinceOrStateSort } from '../../../models/service-models/service-model-functions/province-or-state';
+import { genericSort as regionSort } from '../../../models/service-models/service-model-functions/region';
+import { selectProvinceOrStateIds } from '../../../services/entity-state-services/selectors';
 
 const allCountriesToAdminCountries = (countries: Country[])=>{
     return countries.map(country=>{
@@ -18,47 +21,80 @@ const allCountriesToAdminCountries = (countries: Country[])=>{
     })
     .sort((a,b)=>{
         return a.countryCode === 'CA' ? -1 : a.countryCode === 'US' ? -1 : countrySort(a,b);
-    })
+    });
 }
 
-const allProvinceOrStateToAdminProvinceOrState = (provinceOrState: AdminProvinceOrState[])=>{
-    return provinceOrState.map(provinceOrState=>{
+const allProvinceOrStateToAdminProvinceOrState = (provincesOrStates: AdminProvinceOrState[])=>{
+    return provincesOrStates.map(provinceOrState=>{
         const adminProvinceOrState: AdminProvinceOrState = {
             ...provinceOrState,
             selectLabel: `${provinceOrState.regionCode}-${provinceOrState.englishFullName}`
         };
         return adminProvinceOrState as AdminProvinceOrState;
     })
-    .sort((a,b)=>{
-        return provinceOrStateSort(a,b);
+    .sort((a,b)=>provinceOrStateSort(a,b));
+}
+
+const allRegionToAdminRegion = (regions: AdminRegion[])=>{
+    return regions.map(region=>{
+        const adminProvinceOrState: AdminRegion = {
+            ...region,
+            selectLabel: `${region.regionCode}-${region.englishFullName}`
+        };
+        return adminProvinceOrState as AdminRegion;
     })
+    .sort((a,b)=>regionSort(a,b));
 }
 
 export const selectSelectedCountryId = selectSelectedCountryIdOrg;
 export const selectSelectedProvinceOrStateId = selectSelectedProvinceOrStateIdOrg;
+export const selectSelectedRegionId = selectSelectedRegionIdOrg;
 
 
-export const selectSelection = createSelector(
+export const selectCountrySelection = createSelector(
     selectSelectedCountryId,
-    selectSelectedProvinceOrStateId,
-    selectors.selectAllCountries,
     selectors.selectCountryEntities,
-    selectors.selectAllProvincesOrStates,
-    (selectedCountryId, selectedProvinceOrStateId, allCountries, countries, provinceOrState)=>{
+    selectors.selectAllCountries,
+    (selectedCountryId, countries, allCountries)=>{
         if(selectedCountryId === null)
         {
             return allCountriesToAdminCountries(allCountries);
         }
         else
         {
-            const country: AdminCountry = {
-                ...countries[selectedCountryId],
-                selectLabel: `${countries[selectedCountryId]?.countryCode}-${countries[selectedCountryId]?.englishFullName}`
-            };
-            country!.provincesOrStates = provinceOrState.filter(provinceOrState=>provinceOrState.countryId === selectedCountryId && 
-                (selectedProvinceOrStateId ? provinceOrState.id  === selectedProvinceOrStateId : true)) ?? null
-            country!.provincesOrStatesAsAdmin = country!.provincesOrStates ? allProvinceOrStateToAdminProvinceOrState(country!.provincesOrStates) : null;
-            return [country as AdminCountry];
+            return allCountriesToAdminCountries(countries[selectedCountryId] ? [countries[selectedCountryId]!] : [])
+        }
+    }
+)
+
+export const selectProvinceOrStateSelection = createSelector(
+    selectSelectedProvinceOrStateId,
+    selectors.selectProvinceOrStateEntities,
+    selectors.selectAllProvincesOrStates,
+    (selectedCountryId, ProvincesOrStates, allProvincesOrStates)=>{
+        if(selectedCountryId === null)
+        {
+            return allProvinceOrStateToAdminProvinceOrState(allProvincesOrStates);
+        }
+        else
+        {
+            return allProvinceOrStateToAdminProvinceOrState(ProvincesOrStates[selectedCountryId] ? [ProvincesOrStates[selectedCountryId]!] : [])
+        }
+    }
+)
+
+export const selectRegionSelection = createSelector(
+    selectSelectedRegionId,
+    selectors.selectRegionEntities,
+    selectors.selectAllRegions,
+    (selectedCountryId, ProvincesOrStates, allProvincesOrStates)=>{
+        if(selectedCountryId === null)
+        {
+            return allRegionToAdminRegion(allProvincesOrStates);
+        }
+        else
+        {
+            return allRegionToAdminRegion(ProvincesOrStates[selectedCountryId] ? [ProvincesOrStates[selectedCountryId]!] : [])
         }
     }
 )
@@ -72,4 +108,10 @@ export const selectProvincesOrStates = createSelector(
     selectSelectedCountryId,
     selectors.selectAllProvincesOrStates,
     (selectedCountryId, provincesOrStates)=>allProvinceOrStateToAdminProvinceOrState(provincesOrStates.filter(provinceOrState=>provinceOrState.countryId === selectedCountryId))
+)
+
+export const selectRegions = createSelector(
+    selectSelectedProvinceOrStateId,
+    selectors.selectAllRegions,
+    (selectedProvinceOrStateId, regions)=>allRegionToAdminRegion(regions.filter(region=>region.provinceOrStateId === selectedProvinceOrStateId))
 )

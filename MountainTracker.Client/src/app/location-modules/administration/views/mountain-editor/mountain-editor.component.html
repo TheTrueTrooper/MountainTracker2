@@ -1,7 +1,6 @@
 
     <div class="container-fluid">
-        <country-edit [cardIcon]="faEarth" [selectedCountryOptions]="(selection$| async)" [selectCountryOptions]="(countries$ | async)" (countrySelected)="selectCountrySelected($event)"></country-edit>
-        <div *ngIf="(selection$| async) as selection">
-            <province-or-state-edit [cardIcon]="faFlag" [selectedProvinceOrStateOptions]="selection[0]?.provincesOrStatesAsAdmin" [selectProvinceOrStateOptions]="(ProvincesOrStates$ | async)" (provinceOrStateSelected)="provinceOrStateSelected($event)" [selectedCountryId]="(selectedCountryId$ | async)"></province-or-state-edit>
-        </div>
+        <country-edit [cardIcon]="faEarth" [selectedCountryOptions]="(selectionCountry$ | async)" [selectCountryOptions]="(countries$ | async)" (countrySelected)="selectCountrySelected($event)"></country-edit>
+        <province-or-state-edit [cardIcon]="faFlag" [selectedProvinceOrStateOptions]="(selectionProvinceOrState$ | async)" [selectProvinceOrStateOptions]="(provincesOrStates$ | async)" (provinceOrStateSelected)="provinceOrStateSelected($event)" [selectedCountryId]="(selectedCountryId$ | async)"></province-or-state-edit>
+        <region-edit [cardIcon]="faMap" [selectedRegionOptions]="(selectionRegion$ | async)" [selectRegionOptions]="(regions$ | async)" (regionSelected)="regionSelected($event)" [selectedProvinceOrStateId]="(selectedCountryId$ | async)"></region-edit>
     </div>

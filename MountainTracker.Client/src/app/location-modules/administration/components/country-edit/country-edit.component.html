@@ -11,7 +11,7 @@
                 <focus-selector [noSelectLabel]="noSelectCountryLabel" [selectLabel]="selectCountryLabel" [selectOptions]="_selectCountryOptions" (itemSelected)="this.countrySelected.emit($event)"></focus-selector>
             </div>
             <div class="col-9">
-                <country-edit-table [countrySource]="_selectedCountryOptions" [displayedColumns]="displayedColumns" ></country-edit-table>
+                <edit-table [codeTitle]="'Country Code'" [source]="_selectedCountryOptions" [displayedColumns]="displayedColumns" ></edit-table>
             </div>
         </div>
     </mat-card-content>

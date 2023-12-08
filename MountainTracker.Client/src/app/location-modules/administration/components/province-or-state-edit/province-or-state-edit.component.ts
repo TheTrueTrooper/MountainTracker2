@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AdminProvinceOrState } from '../../../../models/view-models/administration/admin-province-or-state';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { AdminCountry } from '../../../../models';
 
 @Component({
   selector: 'province-or-state-edit',
@@ -23,7 +22,7 @@ export class ProvinceOrStateEditComponent {
   }
   protected _selectedProvinceOrStateOptions: AdminProvinceOrState[] = [];
   @Input()
-  displayedColumns: ('rowNo' | 'id'| 'regionCode' | 'englishFullName' | 'countryId')[] = ['rowNo', 'id', 'regionCode', 'englishFullName', 'countryId'];
+  displayedColumns: ('rowNo' | 'id'| 'regionCode' | 'englishFullName' | 'parentId')[] = ['rowNo', 'id', 'regionCode', 'englishFullName', 'parentId'];
   @Input()
   selectProvinceOrStateLabel: string = 'Select a Province or State';
   @Input()

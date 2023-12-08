@@ -18,7 +18,7 @@ export class GeoFenceEditTableComponent {
   {
     this.dataSource.data = value ?? [];
   }
-  dataSource: MatTableDataSource<RegionGeoFenceNode> = new MatTableDataSource<RegionGeoFenceNode>();
+  dataSource: MatTableDataSource<RegionGeoFenceNode | DistrictGeoFenceNode | ZoneGeoFenceNode | AreaGeoFenceNode | RockClimbingWallGeoFenceNode> = new MatTableDataSource<RegionGeoFenceNode | DistrictGeoFenceNode | ZoneGeoFenceNode | AreaGeoFenceNode | RockClimbingWallGeoFenceNode>();
 
   applyFilter(filterValue: Event) {
     let filter = (filterValue.target! as HTMLInputElement)!.value!.trim().toLowerCase();

@@ -11,7 +11,7 @@
                 <focus-selector [noSelectLabel]="noSelectProvinceOrStateLabel" [selectLabel]="selectProvinceOrStateLabel" [selectOptions]="_selectProvinceOrStateOptions" (itemSelected)="this.provinceOrStateSelected.emit($event)"></focus-selector>
             </div>
             <div class="col-9">
-                <province-or-state-edit-table [provinceOrStateSource]="_selectedProvinceOrStateOptions" [displayedColumns]="displayedColumns"  ></province-or-state-edit-table>
+                <edit-table [codeTitle]="'Prov or State Code'" [parentTitle]="'Country Id'" [source]="_selectedProvinceOrStateOptions" [displayedColumns]="displayedColumns"  ></edit-table>
             </div>
         </div>
     </mat-card-content>

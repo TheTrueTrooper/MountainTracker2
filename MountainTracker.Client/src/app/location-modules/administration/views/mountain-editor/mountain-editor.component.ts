@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { actions, selectors } from '../../../../services/entity-state-services';
+import { actions } from '../../../../services/entity-state-services';
 import * as featureActions from '../../actions';
 import * as featureSelectors from '../../selectors';
 import { Observable } from 'rxjs';
@@ -10,7 +10,8 @@ import { faFlag, faEarth, faMap } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'mountain-editor',
   templateUrl: './mountain-editor.component.html',
-  styleUrl: './mountain-editor.component.scss'
+  styleUrl: './mountain-editor.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class MountainEditorComponent {
   protected selectionCountry$: Observable<AdminCountry[]>;

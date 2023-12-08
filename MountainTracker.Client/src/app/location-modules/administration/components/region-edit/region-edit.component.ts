@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { AdminRegion, RegionGeoFenceNode } from '../../../../models';
 
@@ -28,8 +28,8 @@ export class RegionEditComponent {
   }
   protected _selectedRegionGeoFenceNodeOptions: RegionGeoFenceNode[] = [];
   @Input()
-  regionDisplayedColumns: ('rowNo' | 'id'| 'regionCode' | 'englishFullName' |'provinceOrStateId' | 'latitudeStartOrCenter' | 'longitudeStartOrCenter' | 'thumbPictureBytes' | 'info')[]  
-    = ['rowNo', 'id', 'regionCode', 'englishFullName', 'provinceOrStateId', 'latitudeStartOrCenter', 'longitudeStartOrCenter'];
+  regionDisplayedColumns: ('rowNo' | 'id'| 'regionCode' | 'englishFullName' |'parentId' | 'latitudeStartOrCenter' | 'longitudeStartOrCenter' | 'thumbPictureBytes' | 'info')[]  
+    = ['rowNo', 'id', 'regionCode', 'englishFullName', 'parentId', 'latitudeStartOrCenter', 'longitudeStartOrCenter'];
   @Input()
   geoFenceDisplayedColumns: ('rowNo' | 'id'| 'regionId' | 'latitude' |'longitude')[]  
     = ['rowNo', 'id', 'regionId', 'latitude', 'longitude'];

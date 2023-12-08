@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AdminCountry, labeled } from '../../../../models';
+import { labeled } from '../../../../models';
 
 @Component({
   selector: 'focus-selector',

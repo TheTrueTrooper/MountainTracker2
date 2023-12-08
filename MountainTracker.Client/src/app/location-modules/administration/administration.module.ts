@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MountainEditorComponent } from './views';
-import { RegionalSelectorComponent, CountryEditComponent, CountryEditTableComponent, ProvinceOrStateEditComponent, ProvinceOrStateEditTableComponent, RegionEditComponent, RegionEditTableComponent, GeoFenceEditTableComponent } from './components';
+import { EditTableComponent, GeoFenceEditTableComponent, RegionalSelectorComponent, CountryEditComponent, ProvinceOrStateEditComponent, RegionEditComponent } from './components';
 import { StoreModule } from '@ngrx/store';
 import { AdministrationFeature, administrationFeatureReducer } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
@@ -17,14 +17,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     RegionalSelectorComponent,
+    EditTableComponent, 
+    GeoFenceEditTableComponent,
     CountryEditComponent,
-    CountryEditTableComponent,
     MountainEditorComponent,
     ProvinceOrStateEditComponent, 
-    ProvinceOrStateEditTableComponent, 
-    RegionEditComponent, 
-    RegionEditTableComponent, 
-    GeoFenceEditTableComponent,
+    RegionEditComponent,
   ],
   imports: [
     CommonModule,

@@ -17,8 +17,8 @@
         </ng-container>
 
         <ng-container matColumnDef="regionCode">
-            <mat-header-cell *matHeaderCellDef> Code </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.regionCode}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef> {{codeTitle}} </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.countryCode ?? element.regionCode ?? element.regionCode ?? element?.districtCode ?? element.zoneCode ?? element.areaCode}} </mat-cell>
         </ng-container>
   
         <ng-container matColumnDef="englishFullName">
@@ -26,9 +26,9 @@
             <mat-cell *matCellDef="let element"> {{element.englishFullName}} </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="provinceOrStateId">
-            <mat-header-cell *matHeaderCellDef> Province Or State </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.provinceOrStateId}} </mat-cell>
+        <ng-container matColumnDef="parentId">
+            <mat-header-cell *matHeaderCellDef> {{parentTitle}} </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.countryId ?? element.provinceOrStateId ?? element.regionId ?? element.districtId ?? element.zoneId}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="latitudeStartOrCenter">

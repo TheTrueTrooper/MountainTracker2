@@ -22,7 +22,7 @@ export class CountryEditComponent {
   }
   protected _selectedCountryOptions: AdminCountry[] = [];
   @Input()
-  displayedColumns: ('rowNo' | 'id'| 'countryCode' | 'englishFullName')[]  = ['rowNo', 'id', 'countryCode', 'englishFullName'];
+  displayedColumns: ('rowNo' | 'id'| 'regionCode' | 'englishFullName')[]  = ['rowNo', 'id', 'regionCode', 'englishFullName'];
   @Input()
   selectCountryLabel: string = 'Select a Country';
   @Input()

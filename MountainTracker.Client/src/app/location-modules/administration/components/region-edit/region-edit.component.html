@@ -11,7 +11,7 @@
                 <focus-selector [noSelectLabel]="noSelectRegionLabel" [selectLabel]="selectRegionLabel" [selectOptions]="_selectRegionOptions" (itemSelected)="this.regionSelected.emit($event)"></focus-selector>
             </div>
             <div class="col-9">
-                <region-edit-table [regionSource]="_selectedRegionOptions" [displayedColumns]="regionDisplayedColumns"  ></region-edit-table>
+                <edit-table [codeTitle]="'Region Code'" [parentTitle]="'Prov or State Id'" [source]="_selectedRegionOptions" [displayedColumns]="regionDisplayedColumns"  ></edit-table>
             </div>
             <div class="col-2">
                 <img class="thumb-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg"/>

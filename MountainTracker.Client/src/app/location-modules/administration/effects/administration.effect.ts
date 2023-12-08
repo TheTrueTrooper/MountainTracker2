@@ -7,7 +7,7 @@ import * as featureActions from '../actions';
 import * as featureSelectors from '../selectors';
 import { Store } from '@ngrx/store';
 import { ensureQlFields } from '../../../graphql-helpers';
-import { Area, AreaGeoFenceNode, District, DistrictGeoFenceNode, Region, RegionGeoFenceNode, Zone, ZoneGeoFenceNode } from '../../../models';
+import { Area, AreaGeoFenceNode, BusyRating, ClimbingQualityRating, District, DistrictGeoFenceNode, Region, RegionGeoFenceNode, RockClimbingWall, RockClimbingWallGeoFenceNode, Zone, ZoneGeoFenceNode } from '../../../models';
 import { normalize, schema } from 'normalizr';
  
 @Injectable()
@@ -200,6 +200,46 @@ export class AdministrationEffects {
           featureActions.selectZoneSuccess(), 
           actions.loadAreasSuccess({areas: areas}), 
           actions.loadAreaGeoFenceNodesSuccess({areaGeoFenceNodes: areaGeoFenceNodes}), 
+        ]
+    }));
+  })));
+
+  areaSelected$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(featureActions.selectArea),
+    exhaustMap(({id}) => {
+      if(id === null)
+      {
+        return [
+          featureActions.selectAreaSuccess(), 
+          actions.loadRockClimbingWallsSuccess({rockClimbingWalls: []}), 
+          actions.loadRockClimbingWallGeoFenceNodesSuccess({rockClimbingWallGeoFenceNodes: []})
+        ]
+      }
+      return this.rockClimbingWallService.getRockClimbingWallsByArea(id, {
+        fields: [ensureQlFields(RockClimbingWall)],
+        subSet: [
+          {
+            name: 'geoFenceNodes',
+            fields: [ensureQlFields(RockClimbingWallGeoFenceNode)],
+          }
+          //do not load busyRatings or climbQualityRatings as we can load this on load. Then reconnect with redux to save resources! and it simplifies the normalization now to save front end resources!
+          //by the design pattern of the redux normaized it will lose nothing to do it this way and have selectors reconnect the data!
+        ]
+      }).pipe(switchMap(result=>{
+        const rockClimbingWallGeoFenceNodeSchema = new schema.Entity('geoFenceNodes')
+        const rockClimbingWallSchema = new schema.Entity('rockClimbingWall', {
+          geoFenceNodes: [rockClimbingWallGeoFenceNodeSchema]
+        })
+        const entities = normalize(result, [rockClimbingWallSchema])
+        let rockClimbingWalls: RockClimbingWall[] = entities.entities['rockClimbingWall'] as any;
+        let rockClimbingWallGeoFenceNodes: DistrictGeoFenceNode[] = entities.entities['geoFenceNodes'] as any;
+        rockClimbingWalls = rockClimbingWalls ? Object.keys(rockClimbingWalls).map(id=>(rockClimbingWalls as any)[id]) : [];
+        rockClimbingWallGeoFenceNodes = rockClimbingWallGeoFenceNodes ? Object.keys(rockClimbingWallGeoFenceNodes).map(id=>(rockClimbingWallGeoFenceNodes as any)[id]) : [];
+        return [
+          featureActions.selectAreaSuccess(), 
+          actions.loadRockClimbingWallsSuccess({rockClimbingWalls: rockClimbingWalls}), 
+          actions.loadRockClimbingWallGeoFenceNodesSuccess({rockClimbingWallGeoFenceNodes: rockClimbingWallGeoFenceNodes}), 
         ]
     }));
   })));

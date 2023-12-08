@@ -1,7 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MountainEditorComponent } from './views';
-import { EditTableComponent, GeoFenceEditTableComponent, RegionalSelectorComponent, CountryEditComponent, ProvinceOrStateEditComponent, RegionEditComponent } from './components';
+import { 
+  EditTableComponent, 
+  GeoFenceEditTableComponent, 
+  RegionalSelectorComponent, 
+  CountryEditComponent, 
+  ProvinceOrStateEditComponent, 
+  RegionEditComponent,
+  ZoneEditComponent,
+  AreaEditComponent
+ } from './components';
 import { StoreModule } from '@ngrx/store';
 import { AdministrationFeature, administrationFeatureReducer } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
@@ -14,7 +23,6 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { MatCardModule } from '@angular/material/card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DistrictEditComponent } from './components/district-edit/district-edit.component';
-import { ZoneEditComponent } from './components/zone-edit/zone-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +33,7 @@ import { ZoneEditComponent } from './components/zone-edit/zone-edit.component';
     MountainEditorComponent,
     ProvinceOrStateEditComponent, 
     RegionEditComponent, 
-    DistrictEditComponent, ZoneEditComponent,
+    DistrictEditComponent, ZoneEditComponent, AreaEditComponent,
   ],
   imports: [
     CommonModule,

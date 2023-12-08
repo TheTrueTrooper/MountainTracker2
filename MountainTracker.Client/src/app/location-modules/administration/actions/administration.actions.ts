@@ -22,3 +22,7 @@ export const selectDistrictFailure = createAction(`[${services}/${service}] Sele
 export const selectZone = createAction(`[${services}/${service}] Select Zone`, props<{ id: number | null }>());
 export const selectZoneSuccess = createAction(`[${services}/${service}] Select Zone Success`);
 export const selectZoneFailure = createAction(`[${services}/${service}] Select Zone Failure`, props<{ clearOnfail:boolean, error: string }>());
+
+export const selectArea = createAction(`[${services}/${service}] Select Area`, props<{ id: number | null }>());
+export const selectAreaSuccess = createAction(`[${services}/${service}] Select Area Success`);
+export const selectAreaFailure = createAction(`[${services}/${service}] Select Area Failure`, props<{ clearOnfail:boolean, error: string }>());

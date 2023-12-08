@@ -5,7 +5,7 @@ import * as featureActions from '../../actions';
 import * as featureSelectors from '../../selectors';
 import { Observable } from 'rxjs';
 import { AdminCountry, AdminProvinceOrState, AdminRegion, RegionGeoFenceNode } from '../../../../models';
-import { faFlag, faEarth, faMap, faMountainCity, faObjectGroup } from '@fortawesome/free-solid-svg-icons';
+import { faFlag, faEarth, faMap, faMountainCity, faObjectGroup, faVectorSquare } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'mountain-editor',
@@ -19,28 +19,33 @@ export class MountainEditorComponent {
   protected selectionRegion$: Observable<AdminCountry[]>;
   protected selectionDistrict$: Observable<AdminCountry[]>;
   protected selectionZone$: Observable<AdminCountry[]>;
+  protected selectionArea$: Observable<AdminCountry[]>;
 
   protected selectedCountryId$: Observable<number | null>;
   protected selectedProvinceOrStateId$: Observable<number | null>;
   protected selectedRegionId$: Observable<number | null>;
   protected selectedDistrictId$: Observable<number | null>;
   protected selectedZoneId$: Observable<number | null>;
+  protected selectedAreaId$: Observable<number | null>;
 
   protected countries$: Observable<AdminCountry[]>;
   protected provincesOrStates$: Observable<AdminProvinceOrState[]>;
   protected regions$: Observable<AdminRegion[]>;
   protected districts$: Observable<AdminRegion[]>;
   protected zones$: Observable<AdminRegion[]>;
+  protected areas$: Observable<AdminRegion[]>;
 
   protected regionGeoFenceNodes$: Observable<RegionGeoFenceNode[]>;
   protected districtGeoFenceNodes$: Observable<RegionGeoFenceNode[]>;
   protected zoneGeoFenceNodes$: Observable<RegionGeoFenceNode[]>;
+  protected areaGeoFenceNodes$: Observable<RegionGeoFenceNode[]>;
 
   protected faFlag = faFlag;
   protected faEarth = faEarth;
   protected faMap = faMap;
   protected faMountainCity = faMountainCity;
   protected faObjectGroup = faObjectGroup;
+  protected faVectorSquare = faVectorSquare;
 
   constructor(private store: Store)
   {
@@ -49,6 +54,7 @@ export class MountainEditorComponent {
     this.selectedRegionId$ = this.store.select(featureSelectors.selectSelectedRegionId);
     this.selectedDistrictId$ = this.store.select(featureSelectors.selectSelectedDistrictId);
     this.selectedZoneId$ = this.store.select(featureSelectors.selectSelectedZoneId);
+    this.selectedAreaId$ = this.store.select(featureSelectors.selectSelectedAreaId);
 
 
     this.countries$ = this.store.select(featureSelectors.selectCountries);
@@ -56,16 +62,19 @@ export class MountainEditorComponent {
     this.regions$ = this.store.select(featureSelectors.selectRegions);
     this.districts$ = this.store.select(featureSelectors.selectDistricts);
     this.zones$ = this.store.select(featureSelectors.selectZones);
+    this.areas$ = this.store.select(featureSelectors.selectAreas);
 
     this.selectionCountry$ = this.store.select(featureSelectors.selectCountrySelection);
     this.selectionProvinceOrState$ = this.store.select(featureSelectors.selectProvinceOrStateSelection);
     this.selectionRegion$ = this.store.select(featureSelectors.selectRegionSelection);
     this.selectionDistrict$ = this.store.select(featureSelectors.selectDistrictSelection);
     this.selectionZone$ = this.store.select(featureSelectors.selectZoneSelection);
+    this.selectionArea$ = this.store.select(featureSelectors.selectAreaSelection);
 
     this.regionGeoFenceNodes$ = this.store.select(featureSelectors.selectRegionGeoFenceNodes);
     this.districtGeoFenceNodes$ = this.store.select(featureSelectors.selectDistrictGeoFenceNodes);
     this.zoneGeoFenceNodes$ = this.store.select(featureSelectors.selectZoneGeoFenceNodes);
+    this.areaGeoFenceNodes$ = this.store.select(featureSelectors.selectAreaGeoFenceNodes);
 
     this.store.dispatch(actions.loadCountries());
   }
@@ -92,5 +101,10 @@ export class MountainEditorComponent {
   zoneSelected(id: number | null)
   {
     this.store.dispatch(featureActions.selectZone({id: id}));
+  }
+
+  areaSelected(id: number | null)
+  {
+    this.store.dispatch(featureActions.selectArea({id: id}));
   }
 }

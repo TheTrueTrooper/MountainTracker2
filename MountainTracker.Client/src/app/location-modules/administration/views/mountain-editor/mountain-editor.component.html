@@ -35,9 +35,18 @@
             [cardIcon]="faObjectGroup" 
             [selectedZoneOptions]="(selectionZone$ | async)" 
             [selectZoneOptions]="(zones$ | async)" 
-            [selectedZoneGeoFenceNodeOptions]="(districtGeoFenceNodes$ | async)"
+            [selectedZoneGeoFenceNodeOptions]="(zoneGeoFenceNodes$ | async)"
             (zoneSelected)="zoneSelected($event)" 
             [selectedDistrictId]="(selectedDistrictId$ | async)"
             [selectedZoneId]="(selectedZoneId$ | async)"
         ></zone-edit>
+        <area-edit
+            [cardIcon]="faVectorSquare" 
+            [selectedAreaOptions]="(selectionArea$ | async)" 
+            [selectAreaOptions]="(areas$ | async)" 
+            [selectedAreaGeoFenceNodeOptions]="(areaGeoFenceNodes$ | async)"
+            (areaSelected)="areaSelected($event)" 
+            [selectedZoneId]="(selectedZoneId$ | async)"
+            [selectedAreaId]="(selectedAreaId$ | async)"
+        ></area-edit>
     </div>

@@ -4,6 +4,9 @@
           <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
         </mat-form-field>
     </div>
+    <div class="filter-header">
+        Geo Fence Nodes
+    </div>
     <mat-table #table [dataSource]="dataSource">
         
         <ng-container matColumnDef="rowNo">

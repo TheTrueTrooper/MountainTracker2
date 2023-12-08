@@ -6,8 +6,8 @@ import { actions } from '../../../services/entity-state-services';
 import * as featureActions from '../actions';
 import * as featureSelectors from '../selectors';
 import { Store } from '@ngrx/store';
-import { QlSelectionSetTyped, ensureQlFields } from '../../../graphql-helpers';
-import { District, DistrictGeoFenceNode, Region, RegionGeoFenceNode } from '../../../models';
+import { ensureQlFields } from '../../../graphql-helpers';
+import { District, DistrictGeoFenceNode, Region, RegionGeoFenceNode, Zone, ZoneGeoFenceNode } from '../../../models';
 import { normalize, schema } from 'normalizr';
  
 @Injectable()
@@ -20,6 +20,10 @@ export class AdministrationEffects {
     protected readonly provinceOrStateService: localApi.ProvinceOrStateService,
     protected readonly regionService: localApi.RegionService,
     protected readonly districtService: localApi.DistrictService,
+    protected readonly zoneService: localApi.ZoneService,
+    protected readonly areaService: localApi.AreaService,
+    protected readonly rockClimbingWallService: localApi.RockClimbingWallService,
+    protected readonly rockClimbingRouteService: localApi.RockClimbingRouteService,
   ) {}
 
   loadCoutry$ = createEffect(() =>
@@ -117,11 +121,48 @@ export class AdministrationEffects {
         districts = districts ? Object.keys(districts).map(id=>(districts as any)[id]) : [];
         districtGeoFenceNodes = districtGeoFenceNodes ? Object.keys(districtGeoFenceNodes).map(id=>(districtGeoFenceNodes as any)[id]) : [];
         return [
-          featureActions.selectProvinceOrStateSuccess(), 
+          featureActions.selectRegionSuccess(), 
           actions.loadDistrictsSuccess({districts: districts}), 
           actions.loadDistrictGeoFenceNodesSuccess({districtGeoFenceNodes: districtGeoFenceNodes}), 
         ]
     }));
   })));
   
+  districtSelected$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(featureActions.selectDistrict),
+    exhaustMap(({id}) => {
+      if(id === null)
+      {
+        return [
+          featureActions.selectDistrictSuccess(), 
+          actions.loadZonesSuccess({zones: []}), 
+          actions.loadZoneGeoFenceNodesSuccess({zoneGeoFenceNodes: []})
+        ]
+      }
+      return this.zoneService.getZonesByDistrict(id, {
+        fields: [ensureQlFields(Zone)],
+        subSet: [
+          {
+            name: 'geoFenceNodes',
+            fields: [ensureQlFields(ZoneGeoFenceNode)],
+          }
+        ]
+      }).pipe(switchMap(result=>{
+        const districtGeoFenceNodeSchema = new schema.Entity('geoFenceNodes')
+        const districtSchema = new schema.Entity('zone', {
+          geoFenceNodes: [districtGeoFenceNodeSchema]
+        })
+        const entities = normalize(result, [districtSchema])
+        let zones: District[] = entities.entities['zone'] as any;
+        let zoneGeoFenceNodes: DistrictGeoFenceNode[] = entities.entities['geoFenceNodes'] as any;
+        zones = zones ? Object.keys(zones).map(id=>(zones as any)[id]) : [];
+        zoneGeoFenceNodes = zoneGeoFenceNodes ? Object.keys(zoneGeoFenceNodes).map(id=>(zoneGeoFenceNodes as any)[id]) : [];
+        return [
+          featureActions.selectDistrictSuccess(), 
+          actions.loadZonesSuccess({zones: zones}), 
+          actions.loadZoneGeoFenceNodesSuccess({zoneGeoFenceNodes: zoneGeoFenceNodes}), 
+        ]
+    }));
+  })));
 }

@@ -22,4 +22,13 @@
             [selectedProvinceOrStateId]="(selectedProvinceOrStateId$ | async)"
             [selectedRegionId]="(selectedRegionId$ | async)"
         ></region-edit>
+        <district-edit
+            [cardIcon]="faMountainCity" 
+            [selectedDistrictOptions]="(selectionDistrict$ | async)" 
+            [selectDistrictOptions]="(districts$ | async)" 
+            [selectedDistrictGeoFenceNodeOptions]="(districtGeoFenceNodes$ | async)"
+            (districtSelected)="districtSelected($event)" 
+            [selectedRegionId]="(selectedRegionId$ | async)"
+            [selectedDistrictId]="(selectedDistrictId$ | async)"
+        ></district-edit>
     </div>

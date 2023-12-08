@@ -31,8 +31,8 @@ export class RegionEditComponent {
   regionDisplayedColumns: ('rowNo' | 'id'| 'regionCode' | 'englishFullName' |'parentId' | 'latitudeStartOrCenter' | 'longitudeStartOrCenter' | 'thumbPictureBytes' | 'info')[]  
     = ['rowNo', 'id', 'regionCode', 'englishFullName', 'parentId', 'latitudeStartOrCenter', 'longitudeStartOrCenter'];
   @Input()
-  geoFenceDisplayedColumns: ('rowNo' | 'id'| 'regionId' | 'latitude' |'longitude')[]  
-    = ['rowNo', 'id', 'regionId', 'latitude', 'longitude'];
+  geoFenceDisplayedColumns: ('rowNo' | 'id'| 'parentId' | 'latitude' |'longitude')[]  
+    = ['rowNo', 'id', 'parentId', 'latitude', 'longitude'];
   @Input()
   selectRegionLabel: string = 'Select a Region';
   @Input()

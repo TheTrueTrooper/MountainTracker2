@@ -14,3 +14,7 @@ export const selectProvinceOrStateFailure = createAction(`[${services}/${service
 export const selectRegion = createAction(`[${services}/${service}] Select Region`, props<{ id: number | null }>());
 export const selectRegionSuccess = createAction(`[${services}/${service}] Select Region Success`);
 export const selectRegionFailure = createAction(`[${services}/${service}] Select Region Failure`, props<{ clearOnfail:boolean, error: string }>());
+
+export const selectDistrict = createAction(`[${services}/${service}] Select District`, props<{ id: number | null }>());
+export const selectDistrictSuccess = createAction(`[${services}/${service}] Select District Success`);
+export const selectDistrictFailure = createAction(`[${services}/${service}] Select District Failure`, props<{ clearOnfail:boolean, error: string }>());

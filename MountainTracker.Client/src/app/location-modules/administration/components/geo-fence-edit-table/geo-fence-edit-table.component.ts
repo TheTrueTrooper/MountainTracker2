@@ -10,8 +10,11 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class GeoFenceEditTableComponent {
   @Input()
-  displayedColumns: ('rowNo' | 'id'| 'regionId' | 'latitude' |'longitude')[]  
-    = ['rowNo', 'id', 'regionId', 'latitude', 'longitude'];
+  displayedColumns: ('rowNo' | 'id'| 'parentId' | 'latitude' |'longitude')[]  
+    = ['rowNo', 'id', 'parentId', 'latitude', 'longitude'];
+
+  @Input()
+  parentIdTitle: string = "Parent Id";
 
   @Input()
   public set geoFenceNodeSource(value: RegionGeoFenceNode[] | DistrictGeoFenceNode[] | ZoneGeoFenceNode[] | AreaGeoFenceNode[] | RockClimbingWallGeoFenceNode[])

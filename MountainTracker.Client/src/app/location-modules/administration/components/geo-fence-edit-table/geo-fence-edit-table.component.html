@@ -16,8 +16,8 @@
             <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="regionId">
-            <mat-header-cell *matHeaderCellDef> Region </mat-header-cell>
+        <ng-container matColumnDef="parentId">
+            <mat-header-cell *matHeaderCellDef> {{ parentIdTitle }} </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{ element.regionId ?? element?.districtId ?? element.zoneId ?? element.areaId ?? element.climbingWallId }} </mat-cell>
         </ng-container>
 

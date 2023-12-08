@@ -9,6 +9,7 @@ export interface AdministrationState {
     selectedProvinceOrStateId: number | null;
     selectedRegionId: number | null;
     selectedDistrictId: number | null;
+    selectedZoneId: number | null;
     error: string | null;
     lastError: string | null;
 }
@@ -18,6 +19,7 @@ const initialState: AdministrationState = {
     selectedProvinceOrStateId: null,
     selectedRegionId: null,
     selectedDistrictId: null,
+    selectedZoneId: null,
     error: null,
     lastError: null
   };
@@ -31,6 +33,7 @@ export const administrationFeatureReducer = createReducer(
             selectedProvinceOrStateId: null, 
             selectedRegionId: null, 
             selectedDistrictId: null,
+            selectedZoneId: null,
         };
     }),
     on(featureActions.selectCountry, (state, { id }) => {
@@ -40,6 +43,7 @@ export const administrationFeatureReducer = createReducer(
           selectedProvinceOrStateId: null, 
           selectedRegionId: null, 
           selectedDistrictId: null,
+          selectedZoneId: null,
       };
     }),
     on(featureActions.selectProvinceOrState, (state, { id }) => {
@@ -48,6 +52,7 @@ export const administrationFeatureReducer = createReducer(
             selectedProvinceOrStateId: id, 
             selectedRegionId: null, 
             selectedDistrictId: null,
+            selectedZoneId: null,
         };
     }),
     on(featureActions.selectRegion, (state, { id }) => {
@@ -55,13 +60,38 @@ export const administrationFeatureReducer = createReducer(
             ...state,
             selectedRegionId: id, 
             selectedDistrictId: null,
+            selectedZoneId: null,
         };
     }),
     on(featureActions.selectDistrict, (state, { id }) => {
         return {
             ...state,
-            selectedDistrictId: id
+            selectedDistrictId: id,
+            selectedZoneId: null,
         };
+    }),
+    on(featureActions.selectZone, (state, { id }) => {
+        return {
+            ...state,
+            selectedZoneId: id,
+        };
+    }),
+    on(
+      featureActions.selectDistrictFailure,
+      (state, { clearOnfail, error }) => {
+      if(clearOnfail)
+      {
+          return {
+            ...state, 
+            selectedZoneId: null,
+            error: error, 
+            lastError: error };
+      }
+      return { 
+        ...state, 
+        error: error, 
+        lastError: error 
+    };
     }),
     on(
         featureActions.selectDistrictFailure,
@@ -71,6 +101,7 @@ export const administrationFeatureReducer = createReducer(
             return {
               ...state, 
               selectedDistrictId: null,
+              selectedZoneId: null,
               error: error, 
               lastError: error };
         }
@@ -89,6 +120,7 @@ export const administrationFeatureReducer = createReducer(
               ...state, 
               selectedDistrictId: null,
               selectedRegionId: null,
+              selectedZoneId: null,
               error: error, 
               lastError: error };
         }
@@ -108,6 +140,7 @@ export const administrationFeatureReducer = createReducer(
             selectedDistrictId: null,
             selectedRegionId: null,
             selectedProvinceOrStateId: null, 
+            selectedZoneId: null,
             error: error, 
             lastError: error };
       }
@@ -128,6 +161,7 @@ export const administrationFeatureReducer = createReducer(
             selectedRegionId: null,
             selectedCountryId: null, 
             selectedProvinceOrStateId: null, 
+            selectedZoneId: null,
             error: error, 
             lastError: error };
       }
@@ -144,4 +178,4 @@ export const selectSelectedCountryId = createSelector(selectAdministration, stat
 export const selectSelectedProvinceOrStateId = createSelector(selectAdministration, state=>state.selectedProvinceOrStateId);
 export const selectSelectedRegionId = createSelector(selectAdministration, state=>state.selectedRegionId);
 export const selectSelectedDistrictId = createSelector(selectAdministration, state=>state.selectedDistrictId);
-  
+export const selectSelectedZoneId = createSelector(selectAdministration, state=>state.selectedZoneId);

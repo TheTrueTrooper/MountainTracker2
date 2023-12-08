@@ -7,7 +7,7 @@ import * as featureActions from '../actions';
 import * as featureSelectors from '../selectors';
 import { Store } from '@ngrx/store';
 import { ensureQlFields } from '../../../graphql-helpers';
-import { District, DistrictGeoFenceNode, Region, RegionGeoFenceNode, Zone, ZoneGeoFenceNode } from '../../../models';
+import { Area, AreaGeoFenceNode, District, DistrictGeoFenceNode, Region, RegionGeoFenceNode, Zone, ZoneGeoFenceNode } from '../../../models';
 import { normalize, schema } from 'normalizr';
  
 @Injectable()
@@ -149,11 +149,11 @@ export class AdministrationEffects {
           }
         ]
       }).pipe(switchMap(result=>{
-        const districtGeoFenceNodeSchema = new schema.Entity('geoFenceNodes')
-        const districtSchema = new schema.Entity('zone', {
-          geoFenceNodes: [districtGeoFenceNodeSchema]
+        const zoneGeoFenceNodeSchema = new schema.Entity('geoFenceNodes')
+        const zoneSchema = new schema.Entity('zone', {
+          geoFenceNodes: [zoneGeoFenceNodeSchema]
         })
-        const entities = normalize(result, [districtSchema])
+        const entities = normalize(result, [zoneSchema])
         let zones: District[] = entities.entities['zone'] as any;
         let zoneGeoFenceNodes: DistrictGeoFenceNode[] = entities.entities['geoFenceNodes'] as any;
         zones = zones ? Object.keys(zones).map(id=>(zones as any)[id]) : [];
@@ -162,6 +162,44 @@ export class AdministrationEffects {
           featureActions.selectDistrictSuccess(), 
           actions.loadZonesSuccess({zones: zones}), 
           actions.loadZoneGeoFenceNodesSuccess({zoneGeoFenceNodes: zoneGeoFenceNodes}), 
+        ]
+    }));
+  })));
+
+  zoneSelected$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(featureActions.selectZone),
+    exhaustMap(({id}) => {
+      if(id === null)
+      {
+        return [
+          featureActions.selectZoneSuccess(), 
+          actions.loadAreasSuccess({areas: []}), 
+          actions.loadAreaGeoFenceNodesSuccess({areaGeoFenceNodes: []})
+        ]
+      }
+      return this.areaService.getAreaByZone(id, {
+        fields: [ensureQlFields(Area)],
+        subSet: [
+          {
+            name: 'geoFenceNodes',
+            fields: [ensureQlFields(AreaGeoFenceNode)],
+          }
+        ]
+      }).pipe(switchMap(result=>{
+        const areaGeoFenceNodeSchema = new schema.Entity('geoFenceNodes')
+        const areaSchema = new schema.Entity('area', {
+          geoFenceNodes: [areaGeoFenceNodeSchema]
+        })
+        const entities = normalize(result, [areaSchema])
+        let areas: District[] = entities.entities['area'] as any;
+        let areaGeoFenceNodes: DistrictGeoFenceNode[] = entities.entities['geoFenceNodes'] as any;
+        areas = areas ? Object.keys(areas).map(id=>(areas as any)[id]) : [];
+        areaGeoFenceNodes = areaGeoFenceNodes ? Object.keys(areaGeoFenceNodes).map(id=>(areaGeoFenceNodes as any)[id]) : [];
+        return [
+          featureActions.selectZoneSuccess(), 
+          actions.loadAreasSuccess({areas: areas}), 
+          actions.loadAreaGeoFenceNodesSuccess({areaGeoFenceNodes: areaGeoFenceNodes}), 
         ]
     }));
   })));

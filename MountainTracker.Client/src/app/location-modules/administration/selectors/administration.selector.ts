@@ -3,10 +3,11 @@ import {
     selectSelectedCountryId as selectSelectedCountryIdOrg,
     selectSelectedProvinceOrStateId as selectSelectedProvinceOrStateIdOrg,
     selectSelectedRegionId as selectSelectedRegionIdOrg,
-    selectSelectedDistrictId as selectSelectedDistrictIdOrg
+    selectSelectedDistrictId as selectSelectedDistrictIdOrg,
+    selectSelectedZoneId as selectSelectedZoneIdOrg,
 } from '../reducers';
 import { selectors } from '../../../services/entity-state-services';
-import { AdminCountry, AdminDistrict, AdminProvinceOrState, AdminRegion, Country, District, ProvinceOrState, Region } from '../../../models';
+import { AdminCountry, AdminDistrict, AdminProvinceOrState, AdminRegion, AdminZone, Country, District, ProvinceOrState, Region, Zone } from '../../../models';
 import { genericSort as countrySort } from '../../../models/service-models/service-model-functions/country';
 import { genericSort as provinceOrStateSort } from '../../../models/service-models/service-model-functions/province-or-state';
 import { genericSort as regionSort } from '../../../models/service-models/service-model-functions/region';
@@ -28,7 +29,7 @@ const allProvinceOrStateToAdminProvinceOrState = (provincesOrStates: ProvinceOrS
     return provincesOrStates.map(provinceOrState=>{
         const adminProvinceOrState: AdminProvinceOrState = {
             ...provinceOrState,
-            selectLabel: `${provinceOrState.regionCode}-${provinceOrState.englishFullName}`
+            selectLabel: `${provinceOrState.regionCode?.trimEnd()}-${provinceOrState.englishFullName?.trimStart()}`
         };
         return adminProvinceOrState as AdminProvinceOrState;
     })
@@ -39,9 +40,20 @@ const allRegionToAdminRegion = (regions: Region[])=>{
     return regions.map(region=>{
         const adminProvinceOrState: AdminRegion = {
             ...region,
-            selectLabel: `${region.regionCode}-${region.englishFullName}`
+            selectLabel: `${region.regionCode?.trimEnd()}-${region.englishFullName?.trimStart()}`
         };
         return adminProvinceOrState as AdminRegion;
+    })
+    .sort((a,b)=>regionSort(a,b));
+}
+
+const allZoneToAdminZone = (regions: Zone[])=>{
+    return regions.map(region=>{
+        const adminProvinceOrState: AdminZone = {
+            ...region,
+            selectLabel: `${region.zoneCode?.trimEnd()}-${region.englishFullName?.trimStart()}`
+        };
+        return adminProvinceOrState as AdminZone;
     })
     .sort((a,b)=>regionSort(a,b));
 }
@@ -50,7 +62,7 @@ const allDistrictToAdminDistrict = (districts: District[])=>{
     return districts.map(district=>{
         const adminProvinceOrState: AdminRegion = {
             ...district,
-            selectLabel: `${district.districtCode}-${district.englishFullName}`
+            selectLabel: `${district.districtCode?.trimEnd()}-${district.englishFullName?.trimStart()}`
         };
         return adminProvinceOrState as AdminRegion;
     })
@@ -61,6 +73,7 @@ export const selectSelectedCountryId = selectSelectedCountryIdOrg;
 export const selectSelectedProvinceOrStateId = selectSelectedProvinceOrStateIdOrg;
 export const selectSelectedRegionId = selectSelectedRegionIdOrg;
 export const selectSelectedDistrictId = selectSelectedDistrictIdOrg;
+export const selectSelectedZoneId = selectSelectedZoneIdOrg;
 
 export const selectCountrySelection = createSelector(
     selectSelectedCountryId,
@@ -126,6 +139,22 @@ export const selectDistrictSelection = createSelector(
     }
 )
 
+export const selectZoneSelection = createSelector(
+    selectSelectedZoneId,
+    selectors.selectZoneEntities,
+    selectors.selectAllZones,
+    (selectSelectedDistrictId, zones, allZones)=>{
+        if(selectSelectedDistrictId === null)
+        {
+            return allZoneToAdminZone(allZones);
+        }
+        else
+        {
+            return allZoneToAdminZone(zones[selectSelectedDistrictId] ? [zones[selectSelectedDistrictId]!] : [])
+        }
+    }
+)
+
 export const selectCountries = createSelector(
     selectors.selectAllCountries,
     countries=>allCountriesToAdminCountries(countries)
@@ -149,14 +178,26 @@ export const selectDistricts = createSelector(
     (selectSelectedRegionId, districts)=>allDistrictToAdminDistrict(districts.filter(district=>district.regionId === selectSelectedRegionId))
 )
 
+export const selectZones = createSelector(
+    selectSelectedDistrictId,
+    selectors.selectAllZones,
+    (selectSelectedDistrictId, zones)=>allZoneToAdminZone(zones.filter(zone=>zone.districtId === selectSelectedDistrictId))
+)
+
 export const selectRegionGeoFenceNodes = createSelector(
     selectSelectedRegionId,
     selectors.selectAllRegionGeoFenceNodes,
-    (selectSelectedRegionId, regions)=>regions.filter(region=>region.regionId === selectSelectedRegionId)
+    (selectSelectedRegionId, geoFences)=>geoFences.filter(geoFence=>geoFence.regionId === selectSelectedRegionId)
 )
 
 export const selectDistrictGeoFenceNodes = createSelector(
     selectSelectedDistrictId,
     selectors.selectAllDistrictGeoFenceNodes,
-    (selectSelectedDistrictId, regions)=>regions.filter(region=>region.districtId === selectSelectedDistrictId)
+    (selectSelectedDistrictId, geoFences)=>geoFences.filter(geoFence=>geoFence.districtId === selectSelectedDistrictId)
+)
+
+export const selectZoneGeoFenceNodes = createSelector(
+    selectSelectedZoneId,
+    selectors.selectAllZoneGeoFenceNodes,
+    (selectSelectedZoneId, geoFences)=>geoFences.filter(geoFence=>geoFence.zoneId === selectSelectedZoneId)
 )

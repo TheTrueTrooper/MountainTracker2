@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { AdminCountry, AdminProvinceOrState, AdminRegion } from '../../../../models';
+import { AdminCountry, AdminProvinceOrState, AdminRegion, AdminZone } from '../../../../models';
 
 @Component({
   selector: 'edit-table',
@@ -14,11 +14,11 @@ export class EditTableComponent {
     = ['rowNo', 'id', 'regionCode', 'englishFullName', 'parentId', 'latitudeStartOrCenter', 'longitudeStartOrCenter', 'thumbPictureBytes', 'info'];
   
   @Input()
-  public set source(value: AdminCountry[] | AdminProvinceOrState[] | AdminRegion[])
+  public set source(value: AdminCountry[] | AdminProvinceOrState[] | AdminRegion[] | AdminZone[])
   {
     this.dataSource.data = value ?? [];
   }
-  dataSource: MatTableDataSource<AdminCountry | AdminProvinceOrState | AdminRegion> = new MatTableDataSource<AdminCountry | AdminProvinceOrState | AdminRegion>();
+  dataSource: MatTableDataSource<AdminCountry | AdminProvinceOrState | AdminRegion | AdminZone> = new MatTableDataSource<AdminCountry | AdminProvinceOrState | AdminRegion | AdminZone>();
 
   @Input()
   codeTitle: string = "code";

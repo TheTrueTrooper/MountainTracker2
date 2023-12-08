@@ -5,7 +5,7 @@ import * as featureActions from '../../actions';
 import * as featureSelectors from '../../selectors';
 import { Observable } from 'rxjs';
 import { AdminCountry, AdminProvinceOrState, AdminRegion, RegionGeoFenceNode } from '../../../../models';
-import { faFlag, faEarth, faMap, faMountainCity } from '@fortawesome/free-solid-svg-icons';
+import { faFlag, faEarth, faMap, faMountainCity, faObjectGroup } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'mountain-editor',
@@ -18,24 +18,29 @@ export class MountainEditorComponent {
   protected selectionProvinceOrState$: Observable<AdminCountry[]>;
   protected selectionRegion$: Observable<AdminCountry[]>;
   protected selectionDistrict$: Observable<AdminCountry[]>;
+  protected selectionZone$: Observable<AdminCountry[]>;
 
   protected selectedCountryId$: Observable<number | null>;
   protected selectedProvinceOrStateId$: Observable<number | null>;
   protected selectedRegionId$: Observable<number | null>;
   protected selectedDistrictId$: Observable<number | null>;
+  protected selectedZoneId$: Observable<number | null>;
 
   protected countries$: Observable<AdminCountry[]>;
   protected provincesOrStates$: Observable<AdminProvinceOrState[]>;
   protected regions$: Observable<AdminRegion[]>;
   protected districts$: Observable<AdminRegion[]>;
+  protected zones$: Observable<AdminRegion[]>;
 
   protected regionGeoFenceNodes$: Observable<RegionGeoFenceNode[]>;
   protected districtGeoFenceNodes$: Observable<RegionGeoFenceNode[]>;
+  protected zoneGeoFenceNodes$: Observable<RegionGeoFenceNode[]>;
 
   protected faFlag = faFlag;
   protected faEarth = faEarth;
   protected faMap = faMap;
   protected faMountainCity = faMountainCity;
+  protected faObjectGroup = faObjectGroup;
 
   constructor(private store: Store)
   {
@@ -43,20 +48,24 @@ export class MountainEditorComponent {
     this.selectedProvinceOrStateId$ = this.store.select(featureSelectors.selectSelectedProvinceOrStateId);
     this.selectedRegionId$ = this.store.select(featureSelectors.selectSelectedRegionId);
     this.selectedDistrictId$ = this.store.select(featureSelectors.selectSelectedDistrictId);
+    this.selectedZoneId$ = this.store.select(featureSelectors.selectSelectedZoneId);
 
 
     this.countries$ = this.store.select(featureSelectors.selectCountries);
     this.provincesOrStates$ = this.store.select(featureSelectors.selectProvincesOrStates);
     this.regions$ = this.store.select(featureSelectors.selectRegions);
     this.districts$ = this.store.select(featureSelectors.selectDistricts);
+    this.zones$ = this.store.select(featureSelectors.selectZones);
 
     this.selectionCountry$ = this.store.select(featureSelectors.selectCountrySelection);
     this.selectionProvinceOrState$ = this.store.select(featureSelectors.selectProvinceOrStateSelection);
     this.selectionRegion$ = this.store.select(featureSelectors.selectRegionSelection);
     this.selectionDistrict$ = this.store.select(featureSelectors.selectDistrictSelection);
+    this.selectionZone$ = this.store.select(featureSelectors.selectZoneSelection);
 
     this.regionGeoFenceNodes$ = this.store.select(featureSelectors.selectRegionGeoFenceNodes);
     this.districtGeoFenceNodes$ = this.store.select(featureSelectors.selectDistrictGeoFenceNodes);
+    this.zoneGeoFenceNodes$ = this.store.select(featureSelectors.selectZoneGeoFenceNodes);
 
     this.store.dispatch(actions.loadCountries());
   }
@@ -78,5 +87,10 @@ export class MountainEditorComponent {
   districtSelected(id: number | null)
   {
     this.store.dispatch(featureActions.selectDistrict({id: id}));
+  }
+
+  zoneSelected(id: number | null)
+  {
+    this.store.dispatch(featureActions.selectZone({id: id}));
   }
 }

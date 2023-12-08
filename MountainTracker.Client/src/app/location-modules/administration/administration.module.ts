@@ -14,6 +14,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { MatCardModule } from '@angular/material/card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DistrictEditComponent } from './components/district-edit/district-edit.component';
+import { ZoneEditComponent } from './components/zone-edit/zone-edit.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { DistrictEditComponent } from './components/district-edit/district-edit.
     MountainEditorComponent,
     ProvinceOrStateEditComponent, 
     RegionEditComponent, 
-    DistrictEditComponent,
+    DistrictEditComponent, ZoneEditComponent,
   ],
   imports: [
     CommonModule,

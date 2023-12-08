@@ -31,4 +31,13 @@
             [selectedRegionId]="(selectedRegionId$ | async)"
             [selectedDistrictId]="(selectedDistrictId$ | async)"
         ></district-edit>
+        <zone-edit
+            [cardIcon]="faObjectGroup" 
+            [selectedZoneOptions]="(selectionZone$ | async)" 
+            [selectZoneOptions]="(zones$ | async)" 
+            [selectedZoneGeoFenceNodeOptions]="(districtGeoFenceNodes$ | async)"
+            (zoneSelected)="zoneSelected($event)" 
+            [selectedDistrictId]="(selectedDistrictId$ | async)"
+            [selectedZoneId]="(selectedZoneId$ | async)"
+        ></zone-edit>
     </div>

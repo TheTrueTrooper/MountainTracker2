@@ -7,8 +7,9 @@ import * as featureActions from '../actions';
 import * as featureSelectors from '../selectors';
 import { Store } from '@ngrx/store';
 import { ensureQlFields } from '../../../graphql-helpers';
-import { Area, AreaGeoFenceNode, BusyRating, ClimbingQualityRating, District, DistrictGeoFenceNode, Region, RegionGeoFenceNode, RockClimbingWall, RockClimbingWallGeoFenceNode, Zone, ZoneGeoFenceNode } from '../../../models';
+import { Area, AreaGeoFenceNode, District, DistrictGeoFenceNode, Region, RegionGeoFenceNode, RockClimbingWall, RockClimbingWallGeoFenceNode, Zone, ZoneGeoFenceNode } from '../../../models';
 import { normalize, schema } from 'normalizr';
+import { forkJoin } from 'rxjs';
  
 @Injectable()
 export class AdministrationEffects {
@@ -16,6 +17,9 @@ export class AdministrationEffects {
   constructor(
     protected readonly store: Store,
     protected readonly actions$: Actions,
+    protected readonly climbingQualityRatingService: localApi.ClimbingQualityRatingService,
+    protected readonly busyRatingService: localApi.BusyRatingService,
+    protected readonly rockClimbingTypeService: localApi.RockClimbingTypeService,
     protected readonly countryService: localApi.CountryService,
     protected readonly provinceOrStateService: localApi.ProvinceOrStateService,
     protected readonly regionService: localApi.RegionService,
@@ -26,12 +30,24 @@ export class AdministrationEffects {
     protected readonly rockClimbingRouteService: localApi.RockClimbingRouteService,
   ) {}
 
-  loadCoutry$ = createEffect(() =>
+  protected readonly intitCalls$ = forkJoin(
+    [
+      this.countryService.getAllCountries().pipe(map(result=>actions.loadCountriesSuccess({countries: result}))),
+      this.climbingQualityRatingService.getAllClimbingQualityRatings().pipe(map(result=>actions.loadClimbingQualityRatingsSuccess({climbingQualityRatings: result}))),
+      this.busyRatingService.getAllBusyRatings().pipe(map(result=>actions.loadBusyRatingsSuccess({busyRatings: result}))),
+      this.rockClimbingTypeService.getAllRockClimbingTypes().pipe(map(result=>actions.loadRockClimbingTypesSuccess({rockClimbingType: result}))),
+    ]
+  )
+
+  initLoad$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(actions.loadCountries),
-      exhaustMap(() => this.countryService.getAllCountries().pipe(map(result=>{
-        return actions.loadCountriesSuccess({countries: result})
-      })))));
+      ofType(featureActions.initLoad),
+      exhaustMap(()=>this.intitCalls$.pipe(switchMap(result=>
+        [
+          ...result, 
+          featureActions.initLoadSuccess()
+      ]))))
+  );
 
   countrySelected$ = createEffect(() =>
       this.actions$.pipe(

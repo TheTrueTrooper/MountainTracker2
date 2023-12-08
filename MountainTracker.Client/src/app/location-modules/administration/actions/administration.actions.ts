@@ -3,6 +3,10 @@ import { createAction, props } from "@ngrx/store";
 const services = 'AdminisrtationFeature'
 const service = 'Area'
 
+export const initLoad = createAction(`[${services}/${service}] Init Load`);
+export const initLoadSuccess = createAction(`[${services}/${service}] Init Load Success`);
+export const initLoadFailure = createAction(`[${services}/${service}] Init Load Failure`);
+
 export const selectCountry = createAction(`[${services}/${service}] Select Country`, props<{ id: number | null }>());
 export const selectCountrySuccess = createAction(`[${services}/${service}] Select Country Success`);
 export const selectCountryFailure = createAction(`[${services}/${service}] Select Country Failure`, props<{ clearOnfail:boolean, error: string }>());

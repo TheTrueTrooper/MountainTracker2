@@ -3,12 +3,12 @@ import { RegionGeoFenceNode } from '../../../../models';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: 'region-geo-fence-edit-table',
-  templateUrl: './region-geo-fence-edit-table.component.html',
-  styleUrl: './region-geo-fence-edit-table.component.scss',
+  selector: 'geo-fence-edit-table',
+  templateUrl: './geo-fence-edit-table.component.html',
+  styleUrl: './geo-fence-edit-table.component.scss',
   host:{'class':'container-fluid'}
 })
-export class RegionGeoFenceEditTableComponent {
+export class GeoFenceEditTableComponent {
   @Input()
   displayedColumns: ('rowNo' | 'id'| 'regionId' | 'latitude' |'longitude')[]  
     = ['rowNo', 'id', 'regionId', 'latitude', 'longitude'];

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegionGeoFenceEditTableComponent } from './region-geo-fence-edit-table.component';
+import { GeoFenceEditTableComponent } from './geo-fence-edit-table.component';
 
 describe('RegionGeoFenceEditTableComponent', () => {
-  let component: RegionGeoFenceEditTableComponent;
-  let fixture: ComponentFixture<RegionGeoFenceEditTableComponent>;
+  let component: GeoFenceEditTableComponent;
+  let fixture: ComponentFixture<GeoFenceEditTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RegionGeoFenceEditTableComponent]
+      declarations: [GeoFenceEditTableComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(RegionGeoFenceEditTableComponent);
+    fixture = TestBed.createComponent(GeoFenceEditTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -46,7 +46,7 @@ export class MountainEditorComponent {
     this.selectionProvinceOrState$ = this.store.select(featureSelectors.selectProvinceOrStateSelection);
     this.selectionRegion$ = this.store.select(featureSelectors.selectRegionSelection);
 
-    this.regionGeoFenceNodes$ = this.store.select(featureSelectors.selectRegionSelection);
+    this.regionGeoFenceNodes$ = this.store.select(featureSelectors.selectRegionGeoFenceNodes);
 
     this.store.dispatch(actions.loadCountries());
   }

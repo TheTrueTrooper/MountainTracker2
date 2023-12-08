@@ -1,6 +1,25 @@
 
     <div class="container-fluid">
-        <country-edit [cardIcon]="faEarth" [selectedCountryOptions]="(selectionCountry$ | async)" [selectCountryOptions]="(countries$ | async)" (countrySelected)="selectCountrySelected($event)"></country-edit>
-        <province-or-state-edit [cardIcon]="faFlag" [selectedProvinceOrStateOptions]="(selectionProvinceOrState$ | async)" [selectProvinceOrStateOptions]="(provincesOrStates$ | async)" (provinceOrStateSelected)="provinceOrStateSelected($event)" [selectedCountryId]="(selectedCountryId$ | async)"></province-or-state-edit>
-        <region-edit [cardIcon]="faMap" [selectedRegionOptions]="(selectionRegion$ | async)" [selectRegionOptions]="(regions$ | async)" (regionSelected)="regionSelected($event)" [selectedProvinceOrStateId]="(selectedCountryId$ | async)"></region-edit>
+        <country-edit 
+            [cardIcon]="faEarth" 
+            [selectedCountryOptions]="(selectionCountry$ | async)" 
+            [selectCountryOptions]="(countries$ | async)" 
+            (countrySelected)="selectCountrySelected($event)"
+        ></country-edit>
+        <province-or-state-edit 
+            [cardIcon]="faFlag" 
+            [selectedProvinceOrStateOptions]="(selectionProvinceOrState$ | async)" 
+            [selectProvinceOrStateOptions]="(provincesOrStates$ | async)" 
+            (provinceOrStateSelected)="provinceOrStateSelected($event)" 
+            [selectedCountryId]="(selectedCountryId$ | async)"
+        ></province-or-state-edit>
+        <region-edit
+            [cardIcon]="faMap" 
+            [selectedRegionOptions]="(selectionRegion$ | async)" 
+            [selectRegionOptions]="(regions$ | async)" 
+            [selectedRegionGeoFenceNodeOptions]="(regionGeoFenceNodes$ | async)"
+            (regionSelected)="regionSelected($event)" 
+            [selectedProvinceOrStateId]="(selectedProvinceOrStateId$ | async)"
+            [selectedRegionId]="(selectedRegionId$ | async)"
+        ></region-edit>
     </div>

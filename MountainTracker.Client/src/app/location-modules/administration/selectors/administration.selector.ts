@@ -2,14 +2,13 @@ import { createSelector } from '@ngrx/store';
 import { 
     selectSelectedCountryId as selectSelectedCountryIdOrg,
     selectSelectedProvinceOrStateId as selectSelectedProvinceOrStateIdOrg,
-    selectSelectedProvinceOrStateId as selectSelectedRegionIdOrg
+    selectSelectedRegionId as selectSelectedRegionIdOrg
 } from '../reducers';
 import { selectors } from '../../../services/entity-state-services';
 import { AdminCountry, AdminProvinceOrState, AdminRegion, Country } from '../../../models';
 import { genericSort as countrySort } from '../../../models/service-models/service-model-functions/country';
 import { genericSort as provinceOrStateSort } from '../../../models/service-models/service-model-functions/province-or-state';
 import { genericSort as regionSort } from '../../../models/service-models/service-model-functions/region';
-import { selectProvinceOrStateIds } from '../../../services/entity-state-services/selectors';
 
 const allCountriesToAdminCountries = (countries: Country[])=>{
     return countries.map(country=>{
@@ -114,4 +113,10 @@ export const selectRegions = createSelector(
     selectSelectedProvinceOrStateId,
     selectors.selectAllRegions,
     (selectedProvinceOrStateId, regions)=>allRegionToAdminRegion(regions.filter(region=>region.provinceOrStateId === selectedProvinceOrStateId))
+)
+
+export const selectRegionGeoFenceNodes = createSelector(
+    selectSelectedRegionId,
+    selectors.selectAllRegionGeoFenceNodes,
+    (selectSelectedRegionId, regions)=>regions.filter(region=>region.regionId === selectSelectedRegionId)
 )

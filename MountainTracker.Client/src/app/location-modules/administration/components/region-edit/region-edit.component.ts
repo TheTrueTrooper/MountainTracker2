@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { AdminRegion } from '../../../../models';
+import { AdminRegion, RegionGeoFenceNode } from '../../../../models';
 
 @Component({
   selector: 'region-edit',
@@ -22,14 +22,25 @@ export class RegionEditComponent {
   }
   protected _selectedRegionOptions: AdminRegion[] = [];
   @Input()
-  displayedColumns: ('rowNo' | 'id'| 'regionCode' | 'englishFullName' |'provinceOrStateId' | 'latitudeStartOrCenter' | 'longitudeStartOrCenter' | 'thumbPictureBytes')[]  
+  public set selectedRegionGeoFenceNodeOptions(value: RegionGeoFenceNode[] | null | undefined)
+  {
+    this._selectedRegionGeoFenceNodeOptions = value ?? [];
+  }
+  protected _selectedRegionGeoFenceNodeOptions: RegionGeoFenceNode[] = [];
+  @Input()
+  regionDisplayedColumns: ('rowNo' | 'id'| 'regionCode' | 'englishFullName' |'provinceOrStateId' | 'latitudeStartOrCenter' | 'longitudeStartOrCenter' | 'thumbPictureBytes' | 'info')[]  
     = ['rowNo', 'id', 'regionCode', 'englishFullName', 'provinceOrStateId', 'latitudeStartOrCenter', 'longitudeStartOrCenter', 'thumbPictureBytes'];
   @Input()
-  selectRegionLabel: string = 'Select a Province or State';
+  geoFenceDisplayedColumns: ('rowNo' | 'id'| 'regionId' | 'latitude' |'longitude')[]  
+    = ['rowNo', 'id', 'regionId', 'latitude', 'longitude'];
   @Input()
-  noSelectRegionLabel: string = 'Select a Province or State';
+  selectRegionLabel: string = 'Select a Region';
+  @Input()
+  noSelectRegionLabel: string = 'Select a Region';
   @Input()
   selectedProvinceOrStateId: number | null = null;
+  @Input()
+  selectedRegionId: number | null = null;
   @Input()
   selected: string | null = null;
   @Input()

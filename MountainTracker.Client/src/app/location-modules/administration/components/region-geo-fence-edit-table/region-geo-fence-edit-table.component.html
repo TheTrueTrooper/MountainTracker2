@@ -1,0 +1,38 @@
+<div class="table-container mat-elevation-z6">
+    <div *ngIf="dataSource.data.length > 1" class="filter-header">
+        <mat-form-field style="width: 100%;">
+          <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+        </mat-form-field>
+    </div>
+    <mat-table #table [dataSource]="dataSource">
+        
+        <ng-container matColumnDef="rowNo">
+            <mat-header-cell *matHeaderCellDef> Row No. </mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index;"> {{i}} </mat-cell>
+        </ng-container>
+      
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="regionId">
+            <mat-header-cell *matHeaderCellDef> Region </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.regionId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="latitude">
+            <mat-header-cell *matHeaderCellDef> Latitude </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.latitude}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="longitude">
+            <mat-header-cell *matHeaderCellDef> Longitude </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.longitude}} </mat-cell>
+        </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>
+

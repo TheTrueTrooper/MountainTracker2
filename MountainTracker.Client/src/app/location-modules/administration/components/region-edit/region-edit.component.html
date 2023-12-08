@@ -11,7 +11,16 @@
                 <focus-selector [noSelectLabel]="noSelectRegionLabel" [selectLabel]="selectRegionLabel" [selectOptions]="_selectRegionOptions" (itemSelected)="this.regionSelected.emit($event)"></focus-selector>
             </div>
             <div class="col-9">
-                <region-edit-table [regionSource]="_selectedRegionOptions" [displayedColumns]="displayedColumns"  ></region-edit-table>
+                <region-edit-table [regionSource]="_selectedRegionOptions" [displayedColumns]="regionDisplayedColumns"  ></region-edit-table>
+            </div>
+            <div *ngIf="selectedRegionId" class="col-6">
+                <region-geo-fence-edit-table [regionGeoFenceNodeSource]="_selectedRegionGeoFenceNodeOptions" [displayedColumns]="geoFenceDisplayedColumns"  ></region-geo-fence-edit-table>
+            </div>
+            <div *ngIf="selectedRegionId" class="col-6">
+                <mat-form-field class="info-editor" style="width: 100%;padding-top: 25px;">
+                    <mat-label>Info Editor</mat-label>
+                    <textarea matInput placeholder="Leave a comment"></textarea>
+                </mat-form-field>
             </div>
         </div>
     </mat-card-content>

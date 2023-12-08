@@ -1,61 +1,64 @@
 import { createAction, props } from '@ngrx/store';
 import { ProvinceOrState } from '../../../models';
 import { EntityMap, EntityMapOne, Predicate, Update } from '@ngrx/entity';
+import { services } from './shared-action-constants';
 
-export const loadProvincesOrStates = createAction('[ProvinceOrState/API] Load ProvinceOrState');
-export const loadProvincesOrStatesSuccess = createAction('[ProvinceOrState/API] Load ProvinceOrState Success', props<{ provincesOrStates: ProvinceOrState[] }>());
-export const loadProvincesOrStatesFailure = createAction('[ProvinceOrState/API] Load ProvinceOrState Failure', props<{ clearOnfail:boolean, error: string }>());
+const service = 'ProvinceOrState'
 
-export const setProvinceOrState = createAction('[ProvinceOrState/API] Set ProvinceOrState', props<{ provinceOrState: ProvinceOrState }>());
-export const setProvinceOrStateSuccess = createAction('[ProvinceOrState/API] Set ProvinceOrState Success', props<{ provinceOrState: ProvinceOrState }>());
-export const setProvinceOrStateFailure = createAction('[ProvinceOrState/API] Set ProvinceOrState Failure', props<{ error: string }>());
+export const loadProvincesOrStates = createAction(`[${services}/${service}] Load ProvinceOrState`);
+export const loadProvincesOrStatesSuccess = createAction(`[${services}/${service}] Load ProvinceOrState Success`, props<{ provincesOrStates: ProvinceOrState[] }>());
+export const loadProvincesOrStatesFailure = createAction(`[${services}/${service}] Load ProvinceOrState Failure`, props<{ clearOnfail:boolean, error: string }>());
 
-export const setProvincesOrStates = createAction('[ProvinceOrState/API] Set ProvincesOrStates', props<{ provincesOrStates: ProvinceOrState[] }>());
-export const setProvincesOrStatesSuccess = createAction('[ProvinceOrState/API] Set ProvincesOrStates Success', props<{ provincesOrStates: ProvinceOrState[] }>());
-export const setProvincesOrStatesFailure = createAction('[ProvinceOrState/API] Set ProvincesOrStates Failure', props<{ clearOnfail:boolean, error: string }>());
+export const setProvinceOrState = createAction(`[${services}/${service}] Set ProvinceOrState`, props<{ provinceOrState: ProvinceOrState }>());
+export const setProvinceOrStateSuccess = createAction(`[${services}/${service}] Set ProvinceOrState Success`, props<{ provinceOrState: ProvinceOrState }>());
+export const setProvinceOrStateFailure = createAction(`[${services}/${service}] Set ProvinceOrState Failure`, props<{ error: string }>());
 
-export const addProvinceOrState = createAction('[ProvinceOrState/API] Add ProvinceOrState', props<{ provinceOrState: ProvinceOrState }>());
-export const addProvinceOrStateSuccess = createAction('[ProvinceOrState/API] Add ProvinceOrState Success', props<{ provinceOrState: ProvinceOrState }>());
-export const addProvinceOrStateFailure = createAction('[ProvinceOrState/API] Add ProvinceOrState Failure', props<{ clearOnfail:boolean, error: string }>());
+export const setProvincesOrStates = createAction(`[${services}/${service}] Set ProvincesOrStates`, props<{ provincesOrStates: ProvinceOrState[] }>());
+export const setProvincesOrStatesSuccess = createAction(`[${services}/${service}] Set ProvincesOrStates Success`, props<{ provincesOrStates: ProvinceOrState[] }>());
+export const setProvincesOrStatesFailure = createAction(`[${services}/${service}] Set ProvincesOrStates Failure`, props<{ clearOnfail:boolean, error: string }>());
 
-export const upsertProvinceOrState = createAction('[ProvinceOrState/API] Upsert ProvinceOrState', props<{ provinceOrState: ProvinceOrState }>());
-export const upsertProvinceOrStateSuccess = createAction('[ProvinceOrState/API] Upsert ProvinceOrState Success', props<{ provinceOrState: ProvinceOrState }>());
-export const upsertProvinceOrStateFailure = createAction('[ProvinceOrState/API] Upsert ProvinceOrState Failure', props<{ clearOnfail:boolean, error: string }>());
+export const addProvinceOrState = createAction(`[${services}/${service}] Add ProvinceOrState`, props<{ provinceOrState: ProvinceOrState }>());
+export const addProvinceOrStateSuccess = createAction(`[${services}/${service}] Add ProvinceOrState Success`, props<{ provinceOrState: ProvinceOrState }>());
+export const addProvinceOrStateFailure = createAction(`[${services}/${service}] Add ProvinceOrState Failure`, props<{ clearOnfail:boolean, error: string }>());
 
-export const addProvincesOrStates = createAction('[ProvinceOrState/API] Add ProvincesOrStates', props<{ provincesOrStates: ProvinceOrState[] }>());
-export const addProvincesOrStatesSuccess = createAction('[ProvinceOrState/API] Add ProvincesOrStates Success', props<{ provincesOrStates: ProvinceOrState[] }>());
-export const addProvincesOrStatesFailure = createAction('[ProvinceOrState/API] Add ProvincesOrStates Failure', props<{ clearOnfail:boolean, error: string }>());
+export const upsertProvinceOrState = createAction(`[${services}/${service}] Upsert ProvinceOrState`, props<{ provinceOrState: ProvinceOrState }>());
+export const upsertProvinceOrStateSuccess = createAction(`[${services}/${service}] Upsert ProvinceOrState Success`, props<{ provinceOrState: ProvinceOrState }>());
+export const upsertProvinceOrStateFailure = createAction(`[${services}/${service}] Upsert ProvinceOrState Failure`, props<{ clearOnfail:boolean, error: string }>());
 
-export const upsertProvincesOrStates = createAction('[ProvinceOrState/API] Upsert ProvincesOrStates', props<{ provincesOrStates: ProvinceOrState[] }>());
-export const upsertProvincesOrStatesSuccess = createAction('[ProvinceOrState/API] Upsert ProvincesOrStates Success', props<{ provincesOrStates: ProvinceOrState[] }>());
-export const upsertProvincesOrStatesFailure = createAction('[ProvinceOrState/API] Upsert ProvincesOrStates Failure', props<{ clearOnfail:boolean, error: string }>());
+export const addProvincesOrStates = createAction(`[${services}/${service}] Add ProvincesOrStates`, props<{ provincesOrStates: ProvinceOrState[] }>());
+export const addProvincesOrStatesSuccess = createAction(`[${services}/${service}] Add ProvincesOrStates Success`, props<{ provincesOrStates: ProvinceOrState[] }>());
+export const addProvincesOrStatesFailure = createAction(`[${services}/${service}] Add ProvincesOrStates Failure`, props<{ clearOnfail:boolean, error: string }>());
 
-export const updateProvinceOrState = createAction('[ProvinceOrState/API] Update ProvinceOrState', props<{ update: Update<ProvinceOrState> }>());
-export const updateProvinceOrStateSuccess = createAction('[ProvinceOrState/API] Update ProvinceOrState Success', props<{ update: Update<ProvinceOrState> }>());
-export const updateProvinceOrStateFailure = createAction('[ProvinceOrState/API] Update ProvinceOrState Failure', props<{ clearOnfail:boolean, error: string }>());
+export const upsertProvincesOrStates = createAction(`[${services}/${service}] Upsert ProvincesOrStates`, props<{ provincesOrStates: ProvinceOrState[] }>());
+export const upsertProvincesOrStatesSuccess = createAction(`[${services}/${service}] Upsert ProvincesOrStates Success`, props<{ provincesOrStates: ProvinceOrState[] }>());
+export const upsertProvincesOrStatesFailure = createAction(`[${services}/${service}] Upsert ProvincesOrStates Failure`, props<{ clearOnfail:boolean, error: string }>());
 
-export const updateProvincesOrStates = createAction('[ProvinceOrState/API] Update ProvincesOrStates', props<{ updates: Update<ProvinceOrState>[] }>());
-export const updateProvincesOrStatesSuccess = createAction('[ProvinceOrState/API] Update ProvincesOrStates Success', props<{ updates: Update<ProvinceOrState>[] }>());
-export const updateProvincesOrStatesFailure = createAction('[ProvinceOrState/API] Update ProvincesOrStates Failure', props<{ clearOnfail:boolean, error: string }>());
+export const updateProvinceOrState = createAction(`[${services}/${service}] Update ProvinceOrState`, props<{ update: Update<ProvinceOrState> }>());
+export const updateProvinceOrStateSuccess = createAction(`[${services}/${service}] Update ProvinceOrState Success`, props<{ update: Update<ProvinceOrState> }>());
+export const updateProvinceOrStateFailure = createAction(`[${services}/${service}] Update ProvinceOrState Failure`, props<{ clearOnfail:boolean, error: string }>());
 
-export const mapProvinceOrState = createAction('[ProvinceOrState/API] Map ProvinceOrState', props<{ entityMap: EntityMapOne<ProvinceOrState> }>());
-export const mapProvinceOrStateSuccess = createAction('[ProvinceOrState/API] Map ProvinceOrState Success', props<{ entityMap: EntityMapOne<ProvinceOrState> }>());
-export const mapProvinceOrStateFailure = createAction('[ProvinceOrState/API] Map ProvinceOrState Failure', props<{ clearOnfail:boolean, error: string }>());
+export const updateProvincesOrStates = createAction(`[${services}/${service}] Update ProvincesOrStates`, props<{ updates: Update<ProvinceOrState>[] }>());
+export const updateProvincesOrStatesSuccess = createAction(`[${services}/${service}] Update ProvincesOrStates Success`, props<{ updates: Update<ProvinceOrState>[] }>());
+export const updateProvincesOrStatesFailure = createAction(`[${services}/${service}] Update ProvincesOrStates Failure`, props<{ clearOnfail:boolean, error: string }>());
 
-export const mapProvincesOrStates = createAction('[ProvinceOrState/API] Map ProvincesOrStates', props<{ entityMap: EntityMap<ProvinceOrState> }>());
-export const mapProvincesOrStatesSuccess = createAction('[ProvinceOrState/API] Map ProvincesOrStates Success', props<{ entityMap: EntityMap<ProvinceOrState> }>());
-export const mapProvincesOrStatesFailure = createAction('[ProvinceOrState/API] Map ProvincesOrStates Failure', props<{ clearOnfail:boolean, error: string }>());
+export const mapProvinceOrState = createAction(`[${services}/${service}] Map ProvinceOrState`, props<{ entityMap: EntityMapOne<ProvinceOrState> }>());
+export const mapProvinceOrStateSuccess = createAction(`[${services}/${service}] Map ProvinceOrState Success`, props<{ entityMap: EntityMapOne<ProvinceOrState> }>());
+export const mapProvinceOrStateFailure = createAction(`[${services}/${service}] Map ProvinceOrState Failure`, props<{ clearOnfail:boolean, error: string }>());
 
-export const deleteProvinceOrState = createAction('[ProvinceOrState/API] Delete ProvinceOrState', props<{ id: string }>());
-export const deleteProvinceOrStateSuccess = createAction('[ProvinceOrState/API] Delete ProvinceOrState Success', props<{ id: string }>());
-export const deleteProvinceOrStateFailure = createAction('[ProvinceOrState/API] Delete ProvinceOrState Failure', props<{ clearOnfail:boolean, error: string }>());
+export const mapProvincesOrStates = createAction(`[${services}/${service}] Map ProvincesOrStates`, props<{ entityMap: EntityMap<ProvinceOrState> }>());
+export const mapProvincesOrStatesSuccess = createAction(`[${services}/${service}] Map ProvincesOrStates Success`, props<{ entityMap: EntityMap<ProvinceOrState> }>());
+export const mapProvincesOrStatesFailure = createAction(`[${services}/${service}] Map ProvincesOrStates Failure`, props<{ clearOnfail:boolean, error: string }>());
 
-export const deleteProvincesOrStates = createAction('[ProvinceOrState/API] Delete ProvincesOrStates', props<{ ids: string[] }>());
-export const deleteProvincesOrStatesSuccess = createAction('[ProvinceOrState/API] Delete ProvincesOrStates Success', props<{ ids: string[] }>());
-export const deleteProvincesOrStatesFailure = createAction('[ProvinceOrState/API] Delete ProvincesOrStates Failure', props<{ clearOnfail:boolean, error: string }>());
+export const deleteProvinceOrState = createAction(`[${services}/${service}] Delete ProvinceOrState`, props<{ id: string }>());
+export const deleteProvinceOrStateSuccess = createAction(`[${services}/${service}] Delete ProvinceOrState Success`, props<{ id: string }>());
+export const deleteProvinceOrStateFailure = createAction(`[${services}/${service}] Delete ProvinceOrState Failure`, props<{ clearOnfail:boolean, error: string }>());
 
-export const deleteProvinceOrStateByPredicate = createAction('[ProvinceOrState/API] Delete ProvinceOrState By Predicate', props<{ predicate: Predicate<ProvinceOrState> }>());
-export const deleteProvinceOrStateByPredicateSuccess = createAction('[ProvinceOrState/API] Delete ProvinceOrState By Predicate Success', props<{ predicate: Predicate<ProvinceOrState> }>());
-export const deleteProvinceOrStateByPredicateFailure = createAction('[ProvinceOrState/API] Delete ProvinceOrState By Predicate Failure', props<{ clearOnfail:boolean, error: string }>());
+export const deleteProvincesOrStates = createAction(`[${services}/${service}] Delete ProvincesOrStates`, props<{ ids: string[] }>());
+export const deleteProvincesOrStatesSuccess = createAction(`[${services}/${service}] Delete ProvincesOrStates Success`, props<{ ids: string[] }>());
+export const deleteProvincesOrStatesFailure = createAction(`[${services}/${service}] Delete ProvincesOrStates Failure`, props<{ clearOnfail:boolean, error: string }>());
 
-export const clearProvincesOrStates = createAction('[ProvinceOrState/API] Clear ProvinceOrState');
+export const deleteProvinceOrStateByPredicate = createAction(`[${services}/${service}] Delete ProvinceOrState By Predicate`, props<{ predicate: Predicate<ProvinceOrState> }>());
+export const deleteProvinceOrStateByPredicateSuccess = createAction(`[${services}/${service}] Delete ProvinceOrState By Predicate Success`, props<{ predicate: Predicate<ProvinceOrState> }>());
+export const deleteProvinceOrStateByPredicateFailure = createAction(`[${services}/${service}] Delete ProvinceOrState By Predicate Failure`, props<{ clearOnfail:boolean, error: string }>());
+
+export const clearProvincesOrStates = createAction(`[${services}/${service}] Clear ProvinceOrState`);

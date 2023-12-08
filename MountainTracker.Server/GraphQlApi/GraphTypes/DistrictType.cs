@@ -39,7 +39,7 @@ public class DistrictType : ObjectGraphType<Districts>, IDisposable
             .ResolveAsync(context =>
             {
                 var zoneService = zonesScope.ServiceProvider.GetService<IZoneService>()!;
-                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Zones>("GetZonesByRegions", zoneService.GetZonesByRegions);
+                var loader = accessor.Context!.GetOrAddCollectionBatchLoader<int, Zones>("GetZonesByDistricts", zoneService.GetZonesByDistricts);
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("District's associated zones");

@@ -49,5 +49,18 @@ export class RockClimbingRouteService extends BaseQlService {
       }                                                                                                                                                                                                                                
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
+
+  public getRockClimbingRoutesByRockClimbingWall(climbingWallId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingRoute>): Observable<RockClimbingRoute[]>
+  {
+    const queryVar = '($climbingWallId: Int!)'
+    const query = 'rockClimbingRoutesByRockClimbingWall'
+    const queryParam = '(climbingWallId: $climbingWallId)'
+    return this.moutainTrackerApi.query<RockClimbingRoute[]>({
+      query: this.generateQuery(RockClimbingRoute, query, selection, queryVar, queryParam),
+      variables:{
+        climbingWallId: climbingWallId
+      }                                                                                                                                                                                                                                
+    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+  }
   //#endregion
 }

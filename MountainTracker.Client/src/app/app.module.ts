@@ -18,7 +18,8 @@ import { entityReducer, reducers } from './services/entity-state-services';
 import { EffectsModule } from '@ngrx/effects';
 import { routerReducer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     OpenStreetMapModule, 
     PannellumPanoramaModule,
     HttpClientModule,
+    ScrollingModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot({
       router: routerReducer, 
@@ -77,6 +79,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
       },
       deps: [HttpLink, ClientConfig],
     },
+    MAT_SELECT_SCROLL_STRATEGY_PROVIDER,
   ],
   exports: [RouterModule],
   bootstrap:[AppComponent]

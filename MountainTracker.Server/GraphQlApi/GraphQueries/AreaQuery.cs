@@ -34,5 +34,14 @@ public class AreaQuery : ObjectGraphType
                 return await areaService.GetAreaByCode(areaCode);
             })
             .Description("Gets a area by its area code");
+
+        Field<ListGraphType<AreaType>, IEnumerable<Areas>>("areaByZone")
+            .Argument<IntGraphType>("zoneId")
+            .ResolveAsync(async context =>
+            {
+                int zoneId = context.GetArgument<int>("zoneId");
+                return await areaService.GetAreaByZone(zoneId);
+            })
+            .Description("Gets a areas by its zone id");
     }
 }

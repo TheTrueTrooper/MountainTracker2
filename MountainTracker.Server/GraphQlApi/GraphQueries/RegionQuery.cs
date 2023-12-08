@@ -34,5 +34,14 @@ public class RegionQuery : ObjectGraphType
                 return await regionService.GetRegionByCode(regionCode);
             })
             .Description("Gets a region by its region code");
+
+        Field<ListGraphType<RegionType>, IEnumerable<Regions>>("regionsByProvinceOrState")
+            .Argument<ShortGraphType>("provinceOrStateId")
+            .ResolveAsync(async context =>
+            {
+                short provinceOrStateId = context.GetArgument<short>("provinceOrStateId");
+                return await regionService.GetRegionsByProvinceOrState(provinceOrStateId);
+            })
+            .Description("Gets a regions by its iso province or state id");
     }
 }

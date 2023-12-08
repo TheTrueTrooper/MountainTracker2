@@ -1,3 +1,34 @@
-<p>mountain-editor works!</p>
-<p>{{(countries$ | async) | json}}</p>
-<p>{{(ProvincesOrStates$ | async) | json}}</p>
+
+    <div class="container-fluid">
+        <country-edit 
+            [cardIcon]="faEarth" 
+            [selectedCountryOptions]="(selectionCountry$ | async)" 
+            [selectCountryOptions]="(countries$ | async)" 
+            (countrySelected)="selectCountrySelected($event)"
+        ></country-edit>
+        <province-or-state-edit 
+            [cardIcon]="faFlag" 
+            [selectedProvinceOrStateOptions]="(selectionProvinceOrState$ | async)" 
+            [selectProvinceOrStateOptions]="(provincesOrStates$ | async)" 
+            (provinceOrStateSelected)="provinceOrStateSelected($event)" 
+            [selectedCountryId]="(selectedCountryId$ | async)"
+        ></province-or-state-edit>
+        <region-edit
+            [cardIcon]="faMap" 
+            [selectedRegionOptions]="(selectionRegion$ | async)" 
+            [selectRegionOptions]="(regions$ | async)" 
+            [selectedRegionGeoFenceNodeOptions]="(regionGeoFenceNodes$ | async)"
+            (regionSelected)="regionSelected($event)" 
+            [selectedProvinceOrStateId]="(selectedProvinceOrStateId$ | async)"
+            [selectedRegionId]="(selectedRegionId$ | async)"
+        ></region-edit>
+        <district-edit
+            [cardIcon]="faMountainCity" 
+            [selectedDistrictOptions]="(selectionDistrict$ | async)" 
+            [selectDistrictOptions]="(districts$ | async)" 
+            [selectedDistrictGeoFenceNodeOptions]="(districtGeoFenceNodes$ | async)"
+            (districtSelected)="districtSelected($event)" 
+            [selectedRegionId]="(selectedRegionId$ | async)"
+            [selectedDistrictId]="(selectedDistrictId$ | async)"
+        ></district-edit>
+    </div>

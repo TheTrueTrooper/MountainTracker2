@@ -50,5 +50,18 @@ export class RockClimbingWallService extends BaseQlService {
       }                                                                                                                                                                                                                                
     }).pipe(map((result: any) => result.data[this.queryObj][query]))
   }
+
+  public getRockClimbingWallsByArea(areaId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall[]>
+  {
+    const queryVar = '($areaId: Int!)'
+    const query = 'rockClimbingWallsByArea'
+    const queryParam = '(areaId: $areaId)'
+    return this.moutainTrackerApi.query<RockClimbingWall[]>({
+      query: this.generateQuery(RockClimbingWall, query, selection, queryVar, queryParam),
+      variables:{
+        areaId: areaId
+      }                                                                                                                                                                                                                                
+    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+  }
   //#endregion
 }

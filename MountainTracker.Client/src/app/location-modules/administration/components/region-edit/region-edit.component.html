@@ -1,0 +1,30 @@
+<mat-card *ngIf="selectedProvinceOrStateId"  class="editor-card">
+    <mat-card-header>
+        <mat-card-title>
+            <fa-icon [icon]="cardIcon"></fa-icon>
+            Region
+        </mat-card-title>
+    </mat-card-header>    
+    <mat-card-content>
+        <div class="row container-fluid">
+            <div class="col-3 pt-4">
+                <focus-selector [noSelectLabel]="noSelectRegionLabel" [selectLabel]="selectRegionLabel" [selectOptions]="_selectRegionOptions" (itemSelected)="this.regionSelected.emit($event)"></focus-selector>
+            </div>
+            <div class="col-9">
+                <edit-table [codeTitle]="'Region Code'" [parentTitle]="'Prov or State Id'" [source]="_selectedRegionOptions" [displayedColumns]="regionDisplayedColumns"  ></edit-table>
+            </div>
+            <div *ngIf="selectedRegionId" class="col-2">
+                <img class="thumb-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg"/>
+            </div>
+            <div *ngIf="selectedRegionId" class="col-5">
+                <geo-fence-edit-table [parentIdTitle]="'Region Id'" [geoFenceNodeSource]="_selectedRegionGeoFenceNodeOptions" [displayedColumns]="geoFenceDisplayedColumns"  ></geo-fence-edit-table>
+            </div>
+            <div *ngIf="selectedRegionId" class="col-5">
+                <mat-form-field class="info-editor" style="width: 100%;padding-top: 25px;">
+                    <mat-label>Info Editor</mat-label>
+                    <textarea matInput placeholder="Leave a comment"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

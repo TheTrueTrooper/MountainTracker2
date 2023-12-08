@@ -41,12 +41,12 @@ public class ZoneService : IZoneService
         return await Zones.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
     }
 
-    public async Task<IEnumerable<Zones>?> GetZonesByRegion(int districtId)
+    public async Task<IEnumerable<Zones>?> GetZonesByDistrict(int districtId)
     {
         return await Zones.AsNoTracking().Where(c => c.DistrictId == districtId).ToListAsync();
     }
 
-    public async Task<ILookup<int, Zones>> GetZonesByRegions(IEnumerable<int> districtsIds)
+    public async Task<ILookup<int, Zones>> GetZonesByDistricts(IEnumerable<int> districtsIds)
     {
         var list = await Zones.AsNoTracking().Where(c => districtsIds.Contains(c.DistrictId)).ToListAsync();
         return list.ToLookup(list => list.DistrictId);

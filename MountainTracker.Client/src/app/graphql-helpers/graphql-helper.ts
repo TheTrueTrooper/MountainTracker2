@@ -7,9 +7,9 @@ export const ensureQlFields = function<
 T extends {
   new (): any;
 }
->(classToCreate: T, fieldsOverride?: string[]): string
+>(classToCreate: T, fieldJoinChar: string = '\n'): string
 {
-    return fieldsOverride?.join('\n') ?? Reflect.getMetadata(graphqlPropertyMetadataKey, new classToCreate()).join('\n');
+    return Reflect.getMetadata(graphqlPropertyMetadataKey, new classToCreate()).join(fieldJoinChar);
 }
 
 export const getQlFields = function<

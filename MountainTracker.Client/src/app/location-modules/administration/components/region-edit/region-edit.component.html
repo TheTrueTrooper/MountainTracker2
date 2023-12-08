@@ -14,7 +14,7 @@
                 <region-edit-table [regionSource]="_selectedRegionOptions" [displayedColumns]="regionDisplayedColumns"  ></region-edit-table>
             </div>
             <div *ngIf="selectedRegionId" class="col-6">
-                <geo-fence-edit-table [regionGeoFenceNodeSource]="_selectedRegionGeoFenceNodeOptions" [displayedColumns]="geoFenceDisplayedColumns"  ></geo-fence-edit-table>
+                <geo-fence-edit-table [geoFenceNodeSource]="_selectedRegionGeoFenceNodeOptions" [displayedColumns]="geoFenceDisplayedColumns"  ></geo-fence-edit-table>
             </div>
             <div *ngIf="selectedRegionId" class="col-6">
                 <mat-form-field class="info-editor" style="width: 100%;padding-top: 25px;">

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { RegionGeoFenceNode } from '../../../../models';
+import { AreaGeoFenceNode, DistrictGeoFenceNode, RegionGeoFenceNode, RockClimbingWallGeoFenceNode, ZoneGeoFenceNode } from '../../../../models';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -14,7 +14,7 @@ export class GeoFenceEditTableComponent {
     = ['rowNo', 'id', 'regionId', 'latitude', 'longitude'];
 
   @Input()
-  public set regionGeoFenceNodeSource(value: RegionGeoFenceNode[])
+  public set geoFenceNodeSource(value: RegionGeoFenceNode[] | DistrictGeoFenceNode[] | ZoneGeoFenceNode[] | AreaGeoFenceNode[] | RockClimbingWallGeoFenceNode[])
   {
     this.dataSource.data = value ?? [];
   }

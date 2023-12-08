@@ -18,7 +18,7 @@
 
         <ng-container matColumnDef="regionId">
             <mat-header-cell *matHeaderCellDef> Region </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.regionId}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element?.regionId ?? element?.districtId ?? element?.zoneId ?? element?.areaId ?? element.climbingWallId}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="latitude">

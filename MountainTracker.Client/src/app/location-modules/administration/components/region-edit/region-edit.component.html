@@ -13,10 +13,13 @@
             <div class="col-9">
                 <region-edit-table [regionSource]="_selectedRegionOptions" [displayedColumns]="regionDisplayedColumns"  ></region-edit-table>
             </div>
-            <div *ngIf="selectedRegionId" class="col-6">
+            <div class="col-2">
+                <img class="thumb-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg"/>
+            </div>
+            <div *ngIf="selectedRegionId" class="col-5">
                 <geo-fence-edit-table [geoFenceNodeSource]="_selectedRegionGeoFenceNodeOptions" [displayedColumns]="geoFenceDisplayedColumns"  ></geo-fence-edit-table>
             </div>
-            <div *ngIf="selectedRegionId" class="col-6">
+            <div *ngIf="selectedRegionId" class="col-5">
                 <mat-form-field class="info-editor" style="width: 100%;padding-top: 25px;">
                     <mat-label>Info Editor</mat-label>
                     <textarea matInput placeholder="Leave a comment"></textarea>

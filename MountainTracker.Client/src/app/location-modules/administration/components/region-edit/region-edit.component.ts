@@ -29,7 +29,7 @@ export class RegionEditComponent {
   protected _selectedRegionGeoFenceNodeOptions: RegionGeoFenceNode[] = [];
   @Input()
   regionDisplayedColumns: ('rowNo' | 'id'| 'regionCode' | 'englishFullName' |'provinceOrStateId' | 'latitudeStartOrCenter' | 'longitudeStartOrCenter' | 'thumbPictureBytes' | 'info')[]  
-    = ['rowNo', 'id', 'regionCode', 'englishFullName', 'provinceOrStateId', 'latitudeStartOrCenter', 'longitudeStartOrCenter', 'thumbPictureBytes'];
+    = ['rowNo', 'id', 'regionCode', 'englishFullName', 'provinceOrStateId', 'latitudeStartOrCenter', 'longitudeStartOrCenter'];
   @Input()
   geoFenceDisplayedColumns: ('rowNo' | 'id'| 'regionId' | 'latitude' |'longitude')[]  
     = ['rowNo', 'id', 'regionId', 'latitude', 'longitude'];

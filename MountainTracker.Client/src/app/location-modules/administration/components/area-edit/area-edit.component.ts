@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { AdminArea } from '../../../../models';
+import { DisplayColumns as GeoDisplayColumns } from '../geo-fence-edit-table/geo-fence-edit-table.component';
 
 @Component({
   selector: 'area-edit',
@@ -31,8 +32,7 @@ export class AreaEditComponent {
   areaDisplayedColumns: ('rowNo' | 'id'| 'regionCode' | 'englishFullName' |'parentId' | 'latitudeStartOrCenter' | 'longitudeStartOrCenter' | 'thumbPictureBytes' | 'info')[]  
     = ['rowNo', 'id', 'regionCode', 'englishFullName', 'parentId', 'latitudeStartOrCenter', 'longitudeStartOrCenter'];
   @Input()
-  geoFenceDisplayedColumns: ('rowNo' | 'id'| 'parentId' | 'latitude' |'longitude')[]  
-    = ['rowNo', 'id', 'parentId', 'latitude', 'longitude'];
+  geoFenceDisplayedColumns: GeoDisplayColumns = ['rowNo', 'id', 'parentId', 'latitude', 'longitude'];
   @Input()
   selectAreaLabel: string = 'Select a Area';
   @Input()

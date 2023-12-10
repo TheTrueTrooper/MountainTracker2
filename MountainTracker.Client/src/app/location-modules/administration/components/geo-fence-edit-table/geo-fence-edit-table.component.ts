@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { AreaGeoFenceNode, DistrictGeoFenceNode, RegionGeoFenceNode, RockClimbingWallGeoFenceNode, ZoneGeoFenceNode } from '../../../../models';
 import { MatTableDataSource } from '@angular/material/table';
 
+export type DisplayColumns = ('rowNo' | 'id'| 'parentId' | 'latitude' |'longitude')[]
+
 @Component({
   selector: 'geo-fence-edit-table',
   templateUrl: './geo-fence-edit-table.component.html',
@@ -10,8 +12,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class GeoFenceEditTableComponent {
   @Input()
-  displayedColumns: ('rowNo' | 'id'| 'parentId' | 'latitude' |'longitude')[]  
-    = ['rowNo', 'id', 'parentId', 'latitude', 'longitude'];
+  displayedColumns: DisplayColumns = ['rowNo', 'id', 'parentId', 'latitude', 'longitude'];
 
   @Input()
   parentIdTitle: string = "Parent Id";

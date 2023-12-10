@@ -9,7 +9,8 @@ import {
   ProvinceOrStateEditComponent, 
   RegionEditComponent,
   ZoneEditComponent,
-  AreaEditComponent
+  AreaEditComponent,
+  RockClimbingWallEditComponent
  } from './components';
 import { StoreModule } from '@ngrx/store';
 import { AdministrationFeature, administrationFeatureReducer } from './reducers';
@@ -23,6 +24,8 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { MatCardModule } from '@angular/material/card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DistrictEditComponent } from './components/district-edit/district-edit.component';
+import { RockClimbingWallEditTableComponent } from './components/rock-climbing-wall-edit-table/rock-climbing-wall-edit-table.component';
+import { RockClimbingWallSeasonalEditTableComponent } from './components/rock-climbing-wall-seasonal-edit-table/rock-climbing-wall-seasonal-edit-table.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { DistrictEditComponent } from './components/district-edit/district-edit.
     MountainEditorComponent,
     ProvinceOrStateEditComponent, 
     RegionEditComponent, 
-    DistrictEditComponent, ZoneEditComponent, AreaEditComponent,
+    DistrictEditComponent, 
+    ZoneEditComponent, 
+    AreaEditComponent, 
+    RockClimbingWallEditComponent, RockClimbingWallEditTableComponent, RockClimbingWallSeasonalEditTableComponent,
   ],
   imports: [
     CommonModule,

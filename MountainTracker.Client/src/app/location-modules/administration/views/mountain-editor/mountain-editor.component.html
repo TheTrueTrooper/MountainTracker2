@@ -49,4 +49,13 @@
             [selectedZoneId]="(selectedZoneId$ | async)"
             [selectedAreaId]="(selectedAreaId$ | async)"
         ></area-edit>
+        <rock-climbing-wall-edit
+            [cardIcon]="faMountainSun" 
+            [selectedRockClimbingWallOptions]="(selectionRockClimbingWall$ | async)" 
+            [selectRockClimbingWallOptions]="(rockClimbingWalls$ | async)" 
+            [selectedRockClimbingWallGeoFenceNodeOptions]="(rockClimbingWallGeoFenceNodes$ | async)"
+            (rockClimbingWallSelected)="rockClimbingWallSelected($event)" 
+            [selectedAreaId]="(selectedAreaId$ | async)"
+            [selectedRockClimbingWallId]="(selectedRockClimbingWallId$ | async)"
+        ></rock-climbing-wall-edit>
     </div>

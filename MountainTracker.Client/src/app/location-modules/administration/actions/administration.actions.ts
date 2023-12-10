@@ -30,3 +30,7 @@ export const selectZoneFailure = createAction(`[${services}/${service}] Select Z
 export const selectArea = createAction(`[${services}/${service}] Select Area`, props<{ id: number | null }>());
 export const selectAreaSuccess = createAction(`[${services}/${service}] Select Area Success`);
 export const selectAreaFailure = createAction(`[${services}/${service}] Select Area Failure`, props<{ clearOnfail:boolean, error: string }>());
+
+export const selectRockClimbingWall = createAction(`[${services}/${service}] Select RockClimbingWall`, props<{ id: number | null }>());
+export const selectRockClimbingWallSuccess = createAction(`[${services}/${service}] Select RockClimbingWall Success`);
+export const selectRockClimbingWallFailure = createAction(`[${services}/${service}] Select RockClimbingWall Failure`, props<{ clearOnfail:boolean, error: string }>());

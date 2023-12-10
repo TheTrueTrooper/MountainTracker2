@@ -7,7 +7,7 @@ import * as featureActions from '../actions';
 import * as featureSelectors from '../selectors';
 import { Store } from '@ngrx/store';
 import { ensureQlFields } from '../../../graphql-helpers';
-import { Area, AreaGeoFenceNode, District, DistrictGeoFenceNode, Region, RegionGeoFenceNode, RockClimbingWall, RockClimbingWallGeoFenceNode, Zone, ZoneGeoFenceNode } from '../../../models';
+import { Area, AreaGeoFenceNode, District, DistrictGeoFenceNode, Region, RegionGeoFenceNode, RockClimbingRoute, RockClimbingWall, RockClimbingWallGeoFenceNode, Zone, ZoneGeoFenceNode } from '../../../models';
 import { normalize, schema } from 'normalizr';
 import { forkJoin } from 'rxjs';
  
@@ -258,5 +258,24 @@ export class AdministrationEffects {
           actions.loadRockClimbingWallGeoFenceNodesSuccess({rockClimbingWallGeoFenceNodes: rockClimbingWallGeoFenceNodes}), 
         ]
     }));
+  })));
+
+  rockClimbingWallSelected$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(featureActions.selectRockClimbingWall),
+    exhaustMap(({id}) => {
+      if(id === null)
+      {
+        return [
+          featureActions.selectRockClimbingWallSuccess(), 
+          actions.loadRockClimbingRoutesSuccess({rockClimbingRoutes: []}), 
+        ]
+      }
+      return this.rockClimbingRouteService.getRockClimbingRoutesByRockClimbingWall(id).pipe(switchMap(result=>
+        [
+          featureActions.selectRockClimbingWallSuccess(), 
+          actions.loadRockClimbingRoutesSuccess({rockClimbingRoutes: result}), 
+        ]
+    ));
   })));
 }

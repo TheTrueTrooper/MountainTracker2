@@ -1,0 +1,42 @@
+<div class="table-container mat-elevation-z6">
+    <div *ngIf="dataSource.data.length > 1" class="filter-header">
+        <mat-form-field style="width: 100%;">
+          <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+        </mat-form-field>
+    </div>
+    <mat-table #table [dataSource]="dataSource">
+        
+        <ng-container matColumnDef="rowNo">
+            <mat-header-cell *matHeaderCellDef> Row No. </mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index;"> {{i}} </mat-cell>
+        </ng-container>
+      
+        <ng-container matColumnDef="months">
+            <mat-header-cell *matHeaderCellDef> Month </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.month}} </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="seasonalBusyRatingIds">
+            <mat-header-cell *matHeaderCellDef> Busy Rating Id </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.seasonalBusyRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="seasonalBusyRatings">
+            <mat-header-cell *matHeaderCellDef> Busy Rating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.seasonalBusyRating}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="seasonalClimbingQualityRatingIds">
+            <mat-header-cell *matHeaderCellDef> Climbing Quality Rating Id </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.seasonalClimbingQualityRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="seasonalClimbingQualityRatings">
+            <mat-header-cell *matHeaderCellDef> Climbing Quality Rating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.seasonalClimbingQualityRating}} </mat-cell>
+        </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>

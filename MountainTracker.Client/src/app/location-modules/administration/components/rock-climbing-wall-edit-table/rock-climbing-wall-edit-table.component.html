@@ -1,0 +1,307 @@
+<div class="table-container mat-elevation-z6">
+    <div *ngIf="dataSource.data.length > 1" class="filter-header">
+        <mat-form-field style="width: 100%;">
+          <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+        </mat-form-field>
+    </div>
+    <mat-table #table [dataSource]="dataSource">
+        
+        <ng-container matColumnDef="rowNo">
+            <mat-header-cell *matHeaderCellDef> Row No. </mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index;"> {{i}} </mat-cell>
+        </ng-container>
+      
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="wallCode">
+            <mat-header-cell *matHeaderCellDef> Wall Code </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.wallCode}} </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="englishFullName">
+            <mat-header-cell *matHeaderCellDef> English Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.englishFullName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="areaId">
+            <mat-header-cell *matHeaderCellDef> Area Id </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.areaId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="latitudeStartOrCenter">
+            <mat-header-cell *matHeaderCellDef> Latitude</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.latitudeStartOrCenter}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="longitudeStartOrCenter">
+            <mat-header-cell *matHeaderCellDef> Longitude </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.longitudeStartOrCenter}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="latitudeParking">
+            <mat-header-cell *matHeaderCellDef> Parking Latitude</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.latitudeParking}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="longitudeParking">
+            <mat-header-cell *matHeaderCellDef> Parking Longitude </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.longitudeStartOrCenter}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="thumbPictureBytes">
+            <mat-header-cell *matHeaderCellDef> Thumb Picture </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.thumbPictureBytes}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="info">
+            <mat-header-cell *matHeaderCellDef> Info </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.info}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="janSeasonalClimbingQualityRatingId">
+            <mat-header-cell *matHeaderCellDef> janSeasonalClimbingQualityRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.janSeasonalClimbingQualityRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="febSeasonalClimbingQualityRatingId">
+            <mat-header-cell *matHeaderCellDef> febSeasonalClimbingQualityRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.febSeasonalClimbingQualityRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="marSeasonalClimbingQualityRatingId">
+            <mat-header-cell *matHeaderCellDef> marSeasonalClimbingQualityRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.marSeasonalClimbingQualityRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="aprSeasonalClimbingQualityRatingId">
+            <mat-header-cell *matHeaderCellDef> aprSeasonalClimbingQualityRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.febSeasonalClimbingQualityRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="maySeasonalClimbingQualityRatingId">
+            <mat-header-cell *matHeaderCellDef> maySeasonalClimbingQualityRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.febSeasonalClimbingQualityRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="junSeasonalClimbingQualityRatingId">
+            <mat-header-cell *matHeaderCellDef> junSeasonalClimbingQualityRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.junSeasonalClimbingQualityRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="julSeasonalClimbingQualityRatingId">
+            <mat-header-cell *matHeaderCellDef> julSeasonalClimbingQualityRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.junSeasonalClimbingQualityRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="augSeasonalClimbingQualityRatingId">
+            <mat-header-cell *matHeaderCellDef> augSeasonalClimbingQualityRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.augSeasonalClimbingQualityRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="sepSeasonalClimbingQualityRatingId">
+            <mat-header-cell *matHeaderCellDef> sepSeasonalClimbingQualityRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.sepSeasonalClimbingQualityRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="octSeasonalClimbingQualityRatingId">
+            <mat-header-cell *matHeaderCellDef> octSeasonalClimbingQualityRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.octSeasonalClimbingQualityRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="novSeasonalClimbingQualityRatingId">
+            <mat-header-cell *matHeaderCellDef> novSeasonalClimbingQualityRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.novSeasonalClimbingQualityRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="decSeasonalClimbingQualityRatingId">
+            <mat-header-cell *matHeaderCellDef> decSeasonalClimbingQualityRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.novSeasonalClimbingQualityRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="janSeasonalClimbingQualityRating">
+            <mat-header-cell *matHeaderCellDef> janSeasonalClimbingQualityRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.janSeasonalClimbingQualityRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="febSeasonalClimbingQualityRating">
+            <mat-header-cell *matHeaderCellDef> febSeasonalClimbingQualityRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.febSeasonalClimbingQualityRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="marSeasonalClimbingQualityRating">
+            <mat-header-cell *matHeaderCellDef> marSeasonalClimbingQualityRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.marSeasonalClimbingQualityRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="aprSeasonalClimbingQualityRating">
+            <mat-header-cell *matHeaderCellDef> aprSeasonalClimbingQualityRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.febSeasonalClimbingQualityRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="maySeasonalClimbingQualityRating">
+            <mat-header-cell *matHeaderCellDef> maySeasonalClimbingQualityRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.febSeasonalClimbingQualityRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="junSeasonalClimbingQualityRating">
+            <mat-header-cell *matHeaderCellDef> junSeasonalClimbingQualityRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.junSeasonalClimbingQualityRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="julSeasonalClimbingQualityRating">
+            <mat-header-cell *matHeaderCellDef> julSeasonalClimbingQualityRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.junSeasonalClimbingQualityRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="augSeasonalClimbingQualityRating">
+            <mat-header-cell *matHeaderCellDef> augSeasonalClimbingQualityRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.augSeasonalClimbingQualityRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="sepSeasonalClimbingQualityRating">
+            <mat-header-cell *matHeaderCellDef> sepSeasonalClimbingQualityRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.sepSeasonalClimbingQualityRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="octSeasonalClimbingQualityRating">
+            <mat-header-cell *matHeaderCellDef> octSeasonalClimbingQualityRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.octSeasonalClimbingQualityRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="novSeasonalClimbingQualityRating">
+            <mat-header-cell *matHeaderCellDef> novSeasonalClimbingQualityRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.novSeasonalClimbingQualityRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="decSeasonalClimbingQualityRating">
+            <mat-header-cell *matHeaderCellDef> decSeasonalClimbingQualityRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.novSeasonalClimbingQualityRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="janSeasonalBusyRatingId">
+            <mat-header-cell *matHeaderCellDef> janSeasonalBusyRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.janSeasonalBusyRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="febSeasonalBusyRatingId">
+            <mat-header-cell *matHeaderCellDef> febSeasonalBusyRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.febSeasonalBusyRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="marSeasonalBusyRatingId">
+            <mat-header-cell *matHeaderCellDef> marSeasonalBusyRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.marSeasonalBusyRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="aprSeasonalBusyRatingId">
+            <mat-header-cell *matHeaderCellDef> aprSeasonalBusyRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.febSeasonalBusyRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="maySeasonalBusyRatingId">
+            <mat-header-cell *matHeaderCellDef> maySeasonalBusyRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.febSeasonalBusyRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="junSeasonalBusyRatingId">
+            <mat-header-cell *matHeaderCellDef> junSeasonalBusyRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.junSeasonalBusyRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="julSeasonalBusyRatingId">
+            <mat-header-cell *matHeaderCellDef> julSeasonalBusyRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.junSeasonalBusyRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="augSeasonalBusyRatingId">
+            <mat-header-cell *matHeaderCellDef> augSeasonalBusyRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.augSeasonalBusyRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="sepSeasonalBusyRatingId">
+            <mat-header-cell *matHeaderCellDef> sepSeasonalBusyRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.sepSeasonalBusyRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="octSeasonalBusyRatingId">
+            <mat-header-cell *matHeaderCellDef> octSeasonalBusyRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.octSeasonalBusyRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="novSeasonalBusyRatingId">
+            <mat-header-cell *matHeaderCellDef> novSeasonalBusyRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.novSeasonalBusyRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="decSeasonalBusyRatingId">
+            <mat-header-cell *matHeaderCellDef> decSeasonalBusyRatingId </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.novSeasonalBusyRatingId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="janSeasonalBusyRating">
+            <mat-header-cell *matHeaderCellDef> janSeasonalBusyRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.janSeasonalBusyRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="febSeasonalBusyRating">
+            <mat-header-cell *matHeaderCellDef> febSeasonalBusyRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.febSeasonalBusyRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="marSeasonalBusyRating">
+            <mat-header-cell *matHeaderCellDef> marSeasonalBusyRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.marSeasonalBusyRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="aprSeasonalBusyRating">
+            <mat-header-cell *matHeaderCellDef> aprSeasonalBusyRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.febSeasonalBusyRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="maySeasonalBusyRating">
+            <mat-header-cell *matHeaderCellDef> maySeasonalBusyRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.febSeasonalBusyRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="junSeasonalBusyRating">
+            <mat-header-cell *matHeaderCellDef> junSeasonalBusyRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.junSeasonalBusyRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="julSeasonalBusyRating">
+            <mat-header-cell *matHeaderCellDef> julSeasonalBusyRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.junSeasonalBusyRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="augSeasonalBusyRating">
+            <mat-header-cell *matHeaderCellDef> augSeasonalBusyRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.augSeasonalBusyRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="sepSeasonalBusyRating">
+            <mat-header-cell *matHeaderCellDef> sepSeasonalBusyRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.sepSeasonalBusyRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="octSeasonalBusyRating">
+            <mat-header-cell *matHeaderCellDef> octSeasonalBusyRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.octSeasonalBusyRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="novSeasonalBusyRating">
+            <mat-header-cell *matHeaderCellDef> novSeasonalBusyRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.novSeasonalBusyRating.englishName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="decSeasonalBusyRating">
+            <mat-header-cell *matHeaderCellDef> decSeasonalBusyRating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.novSeasonalBusyRating.englishName}} </mat-cell>
+        </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>

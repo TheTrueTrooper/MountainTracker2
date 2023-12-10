@@ -11,6 +11,7 @@ export interface AdministrationState {
     selectedDistrictId: number | null;
     selectedZoneId: number | null;
     selectedAreaId: number | null;
+    selectedRockClimbingWallId: number | null;
     error: string | null;
     lastError: string | null;
 }
@@ -22,6 +23,7 @@ const initialState: AdministrationState = {
     selectedDistrictId: null,
     selectedZoneId: null,
     selectedAreaId: null,
+    selectedRockClimbingWallId: null,
     error: null,
     lastError: null
   };
@@ -37,6 +39,7 @@ export const administrationFeatureReducer = createReducer(
             selectedDistrictId: null,
             selectedZoneId: null,
             selectedAreaId: null,
+            selectedRockClimbingWallId : null,
         };
     }),
     on(featureActions.selectCountry, (state, { id }) => {
@@ -48,6 +51,7 @@ export const administrationFeatureReducer = createReducer(
           selectedDistrictId: null,
           selectedZoneId: null,
           selectedAreaId: null,
+          selectedRockClimbingWallId : null,
       };
     }),
     on(featureActions.selectProvinceOrState, (state, { id }) => {
@@ -67,6 +71,7 @@ export const administrationFeatureReducer = createReducer(
             selectedDistrictId: null,
             selectedZoneId: null,
             selectedAreaId: null,
+            selectedRockClimbingWallId : null,
         };
     }),
     on(featureActions.selectDistrict, (state, { id }) => {
@@ -75,6 +80,7 @@ export const administrationFeatureReducer = createReducer(
             selectedDistrictId: id,
             selectedZoneId: null,
             selectedAreaId: null,
+            selectedRockClimbingWallId : null,
         };
     }),
     on(featureActions.selectZone, (state, { id }) => {
@@ -82,13 +88,38 @@ export const administrationFeatureReducer = createReducer(
             ...state,
             selectedZoneId: id,
             selectedAreaId: null,
+            selectedRockClimbingWallId : null,
         };
     }),
     on(featureActions.selectArea, (state, { id }) => {
         return {
             ...state,
             selectedAreaId: id,
+            selectedRockClimbingWallId : null,
         };
+    }),
+    on(featureActions.selectRockClimbingWall, (state, { id }) => {
+      return {
+          ...state,
+          selectedRockClimbingWallId : id,
+      };
+    }),
+    on(
+      featureActions.selectRockClimbingWallFailure,
+      (state, { clearOnfail, error }) => {
+      if(clearOnfail)
+      {
+          return {
+            ...state, 
+            selectedRockClimbingWallId : null,
+            error: error, 
+            lastError: error };
+      }
+      return { 
+        ...state, 
+        error: error, 
+        lastError: error 
+    };
     }),
     on(
       featureActions.selectAreaFailure,
@@ -98,6 +129,7 @@ export const administrationFeatureReducer = createReducer(
           return {
             ...state, 
             selectedAreaId: null,
+            selectedRockClimbingWallId : null,
             error: error, 
             lastError: error };
       }
@@ -116,6 +148,7 @@ export const administrationFeatureReducer = createReducer(
             ...state, 
             selectedZoneId: null,
             selectedAreaId: null,
+            selectedRockClimbingWallId : null,
             error: error, 
             lastError: error };
       }
@@ -135,6 +168,7 @@ export const administrationFeatureReducer = createReducer(
               selectedDistrictId: null,
               selectedZoneId: null,
               selectedAreaId: null,
+              selectedRockClimbingWallId : null,
               error: error, 
               lastError: error };
         }
@@ -155,6 +189,7 @@ export const administrationFeatureReducer = createReducer(
               selectedRegionId: null,
               selectedZoneId: null,
               selectedAreaId: null,
+              selectedRockClimbingWallId : null,
               error: error, 
               lastError: error };
         }
@@ -176,6 +211,7 @@ export const administrationFeatureReducer = createReducer(
             selectedProvinceOrStateId: null, 
             selectedZoneId: null,
             selectedAreaId: null,
+            selectedRockClimbingWallId : null,
             error: error, 
             lastError: error };
       }
@@ -198,6 +234,7 @@ export const administrationFeatureReducer = createReducer(
             selectedProvinceOrStateId: null, 
             selectedZoneId: null,
             selectedAreaId: null,
+            selectedRockClimbingWallId : null,
             error: error, 
             lastError: error };
       }
@@ -216,3 +253,4 @@ export const selectSelectedRegionId = createSelector(selectAdministration, state
 export const selectSelectedDistrictId = createSelector(selectAdministration, state=>state.selectedDistrictId);
 export const selectSelectedZoneId = createSelector(selectAdministration, state=>state.selectedZoneId);
 export const selectSelectedAreaId = createSelector(selectAdministration, state=>state.selectedAreaId);
+export const selectSelectedRockClimbingWallId = createSelector(selectAdministration, state=>state.selectedRockClimbingWallId);

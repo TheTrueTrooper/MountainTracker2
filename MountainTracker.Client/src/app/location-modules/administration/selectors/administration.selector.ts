@@ -6,12 +6,14 @@ import {
     selectSelectedDistrictId as selectSelectedDistrictIdOrg,
     selectSelectedZoneId as selectSelectedZoneIdOrg,
     selectSelectedAreaId as selectSelectedAreaIdOrg,
+    selectSelectedRockClimbingWallId as selectSelectedRockClimbingWallIdOrg,
 } from '../reducers';
 import { selectors } from '../../../services/entity-state-services';
-import { AdminArea, AdminCountry, AdminDistrict, AdminProvinceOrState, AdminRegion, AdminZone, Area, Country, District, ProvinceOrState, Region, Zone } from '../../../models';
+import { AdminArea, AdminCountry, AdminDistrict, AdminProvinceOrState, AdminRegion, AdminRockClimbingWall, AdminZone, Area, BusyRating, ClimbingQualityRating, Country, District, ProvinceOrState, Region, RockClimbingWall, Zone } from '../../../models';
 import { genericSort as countrySort } from '../../../models/service-models/service-model-functions/country';
 import { genericSort as provinceOrStateSort } from '../../../models/service-models/service-model-functions/province-or-state';
 import { genericSort as regionSort } from '../../../models/service-models/service-model-functions/region';
+import { Dictionary } from '@ngrx/entity';
 
 const allCountriesToAdminCountries = (countries: Country[])=>{
     return countries.map(country=>{
@@ -59,27 +61,63 @@ const allDistrictToAdminDistrict = (districts: District[])=>{
     .sort((a,b)=>regionSort(a,b));
 }
 
-const allZoneToAdminZone = (regions: Zone[])=>{
-    return regions.map(region=>{
+const allZoneToAdminZone = (zones: Zone[])=>{
+    return zones.map(zone=>{
         const adminProvinceOrState: AdminZone = {
-            ...region,
-            selectLabel: `${region.zoneCode?.trimEnd()}-${region.englishFullName?.trimStart()}`
+            ...zone,
+            selectLabel: `${zone.zoneCode?.trimEnd()}-${zone.englishFullName?.trimStart()}`
         };
         return adminProvinceOrState as AdminZone;
     })
     .sort((a,b)=>regionSort(a,b));
 }
 
-const allAreaToAdminArea = (regions: Area[])=>{
-    return regions.map(region=>{
+const allAreaToAdminArea = (Areas: Area[])=>{
+    return Areas.map(Area=>{
         const adminProvinceOrState: AdminArea = {
-            ...region,
-            selectLabel: `${region.areaCode?.trimEnd()}-${region.englishFullName?.trimStart()}`
+            ...Area,
+            selectLabel: `${Area.areaCode?.trimEnd()}-${Area.englishFullName?.trimStart()}`
         };
         return adminProvinceOrState as AdminArea;
     })
     .sort((a,b)=>regionSort(a,b));
 }
+
+const allRockClimbingWallToAdminRockClimbingWall = (rockClimbingWalls: RockClimbingWall[], climbingQualityRatingEntities: Dictionary<ClimbingQualityRating>, busyRatingsEntities: Dictionary<BusyRating>)=>{
+    return rockClimbingWalls.map(rockClimbingWall=>{
+        const adminProvinceOrState: AdminRockClimbingWall = {
+            ...rockClimbingWall,
+            selectLabel: `${rockClimbingWall.wallCode?.trimEnd()}-${rockClimbingWall.englishFullName?.trimStart()}`,
+            janSeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.janSeasonalClimbingQualityRatingId!],
+            febSeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.febSeasonalClimbingQualityRatingId!],
+            marSeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.marSeasonalClimbingQualityRatingId!],
+            aprSeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.aprSeasonalClimbingQualityRatingId!],
+            maySeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.maySeasonalClimbingQualityRatingId!],
+            junSeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.junSeasonalClimbingQualityRatingId!],
+            julSeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.julSeasonalClimbingQualityRatingId!],
+            augSeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.augSeasonalClimbingQualityRatingId!],
+            sepSeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.sepSeasonalClimbingQualityRatingId!],
+            octSeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.octSeasonalClimbingQualityRatingId!],
+            novSeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.novSeasonalClimbingQualityRatingId!],
+            decSeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.decSeasonalClimbingQualityRatingId!],
+            janSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.janSeasonalBusyRatingId!],
+            febSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.febSeasonalBusyRatingId!],
+            marSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.marSeasonalBusyRatingId!],
+            aprSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.aprSeasonalBusyRatingId!],
+            maySeasonalBusyRating: busyRatingsEntities[rockClimbingWall.maySeasonalBusyRatingId!],
+            junSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.junSeasonalBusyRatingId!],
+            julSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.julSeasonalBusyRatingId!],
+            augSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.augSeasonalBusyRatingId!],
+            sepSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.sepSeasonalBusyRatingId!],
+            octSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.octSeasonalBusyRatingId!],
+            novSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.novSeasonalBusyRatingId!],
+            decSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.decSeasonalBusyRatingId!]
+        };
+        return adminProvinceOrState as AdminRockClimbingWall;
+    })
+    .sort((a,b)=>regionSort(a,b));
+}
+
 
 export const selectSelectedCountryId = selectSelectedCountryIdOrg;
 export const selectSelectedProvinceOrStateId = selectSelectedProvinceOrStateIdOrg;
@@ -87,6 +125,7 @@ export const selectSelectedRegionId = selectSelectedRegionIdOrg;
 export const selectSelectedDistrictId = selectSelectedDistrictIdOrg;
 export const selectSelectedZoneId = selectSelectedZoneIdOrg;
 export const selectSelectedAreaId = selectSelectedAreaIdOrg;
+export const selectSelectedRockClimbingWallId = selectSelectedRockClimbingWallIdOrg;
 
 export const selectCountrySelection = createSelector(
     selectSelectedCountryId,
@@ -170,16 +209,34 @@ export const selectZoneSelection = createSelector(
 
 export const selectAreaSelection = createSelector(
     selectSelectedAreaId,
-    selectors.selectZoneEntities,
+    selectors.selectAreaEntities,
     selectors.selectAllAreas,
-    (selectSelectedAreaId, Areas, allAreas)=>{
+    (selectSelectedAreaId, areas, allAreas)=>{
         if(selectSelectedAreaId === null)
         {
             return allAreaToAdminArea(allAreas);
         }
         else
         {
-            return allAreaToAdminArea(Areas[selectSelectedAreaId] ? [Areas[selectSelectedAreaId]!] : [])
+            return allAreaToAdminArea(areas[selectSelectedAreaId] ? [areas[selectSelectedAreaId]!] : [])
+        }
+    }
+)
+
+export const selectRockClimbingWallSelection = createSelector(
+    selectSelectedAreaId,
+    selectors.selectRockClimbingWallEntities,
+    selectors.selectClimbingQualityRatingEntities,
+    selectors.selectBusyRatingEntities,
+    selectors.selectAllRockClimbingWalls,
+    (selectSelectedAreaId, rockClimbingWalls, climbingQualityRatingEntities, busyRatingsEntities, allRockClimbingWalls)=>{
+        if(selectSelectedAreaId === null)
+        {
+            return allRockClimbingWallToAdminRockClimbingWall(allRockClimbingWalls, climbingQualityRatingEntities, busyRatingsEntities);
+        }
+        else
+        {
+            return allRockClimbingWallToAdminRockClimbingWall(rockClimbingWalls[selectSelectedAreaId] ? [rockClimbingWalls[selectSelectedAreaId]!] : [], climbingQualityRatingEntities, busyRatingsEntities)
         }
     }
 )
@@ -192,7 +249,8 @@ export const selectCountries = createSelector(
 export const selectProvincesOrStates = createSelector(
     selectSelectedCountryId,
     selectors.selectAllProvincesOrStates,
-    (selectedCountryId, provincesOrStates)=>allProvinceOrStateToAdminProvinceOrState(provincesOrStates.filter(provinceOrState=>provinceOrState.countryId === selectedCountryId))
+    (selectedCountryId, provincesOrStates)=>
+    allProvinceOrStateToAdminProvinceOrState(provincesOrStates.filter(provinceOrState=>provinceOrState.countryId === selectedCountryId))
 )
 
 export const selectRegions = createSelector(
@@ -219,6 +277,15 @@ export const selectAreas = createSelector(
     (selectSelectedZoneId, areas)=>allAreaToAdminArea(areas.filter(area=>area.zoneId === selectSelectedZoneId))
 )
 
+export const selectRockClimbingWalls = createSelector(
+    selectSelectedAreaId,
+    selectors.selectClimbingQualityRatingEntities,
+    selectors.selectBusyRatingEntities,
+    selectors.selectAllRockClimbingWalls,
+    (selectSelectedAreaId, climbingQualityRatingEntities, busyRatingsEntities, rockClimbingWalls)=>
+        allRockClimbingWallToAdminRockClimbingWall(rockClimbingWalls.filter(rockClimbingWall=>rockClimbingWall.areaId === selectSelectedAreaId), climbingQualityRatingEntities, busyRatingsEntities)
+)
+
 export const selectRegionGeoFenceNodes = createSelector(
     selectSelectedRegionId,
     selectors.selectAllRegionGeoFenceNodes,
@@ -241,4 +308,10 @@ export const selectAreaGeoFenceNodes = createSelector(
     selectSelectedAreaId,
     selectors.selectAllAreaGeoFenceNodes,
     (selectSelectedAreaId, geoFences)=>geoFences.filter(geoFence=>geoFence.areaId === selectSelectedAreaId)
+)
+
+export const selectRockClimbingWallGeoFenceNodes = createSelector(
+    selectSelectedRockClimbingWallId,
+    selectors.selectAllRockClimbingWallGeoFenceNodes,
+    (selectSelectedRockClimbingWallId, geoFences)=>geoFences.filter(geoFence=>geoFence.climbingWallId === selectSelectedRockClimbingWallId)
 )

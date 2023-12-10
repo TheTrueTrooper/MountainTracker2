@@ -1,0 +1,34 @@
+<mat-card *ngIf="selectedAreaId"  class="editor-card">
+    <mat-card-header>
+        <mat-card-title>
+            <fa-icon [icon]="cardIcon"></fa-icon>
+            RockClimbingWall
+        </mat-card-title>
+    </mat-card-header>    
+    <mat-card-content>
+        <div class="row container-fluid">
+            <div class="col-3 pt-4">
+                <focus-selector [noSelectLabel]="noSelectRockClimbingWallLabel" [selectLabel]="selectRockClimbingWallLabel" [selectOptions]="_selectRockClimbingWallOptions" (itemSelected)="this.rockClimbingWallSelected.emit($event)"></focus-selector>
+            </div>
+            <div class="col-12">
+                <rock-climbing-wall-edit-table [source]="_selectedRockClimbingWallOptions" [displayedColumns]="rockClimbingWallDisplayedColumns"  ></rock-climbing-wall-edit-table>
+            </div>
+            <div class="col-2" *ngIf="selectedRockClimbingWallId">
+                <img class="thumb-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg"/>
+            </div>
+            <div *ngIf="selectedRockClimbingWallId" class="col-5">
+                <geo-fence-edit-table [parentIdTitle]="'Wall Id'" [geoFenceNodeSource]="_selectedRockClimbingWallGeoFenceNodeOptions" [displayedColumns]="geoFenceDisplayedColumns"  ></geo-fence-edit-table>
+            </div>
+            <div *ngIf="selectedRockClimbingWallId" class="col-5">
+                <rock-climbing-wall-seasonal-edit-table [seasonalRatingsSource]="_selectedRockClimbingWallOptions[0]" [displayedColumns]="seasonalDisplayedColumns"  ></rock-climbing-wall-seasonal-edit-table>
+            </div>
+            <div *ngIf="selectedRockClimbingWallId" class="col-12">
+                <mat-form-field class="info-editor" style="width: 100%;padding-top: 25px;">
+                    <mat-label>Info Editor</mat-label>
+                    <textarea matInput placeholder="Add Info"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+

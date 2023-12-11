@@ -20,7 +20,7 @@
                 <geo-fence-edit-table [parentIdTitle]="'Region Id'" [geoFenceNodeSource]="_selectedRegionGeoFenceNodeOptions" [displayedColumns]="geoFenceDisplayedColumns"  ></geo-fence-edit-table>
             </div>
             <div *ngIf="selectedRegionId" class="col-5">
-                <mat-form-field class="info-editor" style="width: 100%;padding-top: 25px;">
+                <mat-form-field class="info-editor">
                     <mat-label>Info Editor</mat-label>
                     <textarea matInput placeholder="Add Info"></textarea>
                 </mat-form-field>

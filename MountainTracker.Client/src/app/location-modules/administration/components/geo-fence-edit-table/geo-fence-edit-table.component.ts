@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { AreaGeoFenceNode, DistrictGeoFenceNode, RegionGeoFenceNode, RockClimbingWallGeoFenceNode, ZoneGeoFenceNode } from '../../../../models';
 import { MatTableDataSource } from '@angular/material/table';
 
-export type DisplayColumns = ('rowNo' | 'id'| 'parentId' | 'latitude' |'longitude')[]
+export type GeoDisplayColumns = ('rowNo' | 'id'| 'parentId' | 'latitude' |'longitude')[]
 
 @Component({
   selector: 'geo-fence-edit-table',
@@ -12,7 +12,7 @@ export type DisplayColumns = ('rowNo' | 'id'| 'parentId' | 'latitude' |'longitud
 })
 export class GeoFenceEditTableComponent {
   @Input()
-  displayedColumns: DisplayColumns = ['rowNo', 'id', 'parentId', 'latitude', 'longitude'];
+  displayedColumns: GeoDisplayColumns = ['rowNo', 'id', 'parentId', 'latitude', 'longitude'];
 
   @Input()
   parentIdTitle: string = "Parent Id";

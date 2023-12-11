@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminRockClimbingWall, AdminRockClimbingWallSeasonalRating } from '../../../../models';
 
-export type DisplayColumns = (
+export type RockClimbingWallSeasonalDisplayColumns = (
   "months"|
   "seasonalClimbingQualityRatingIds"|
   "seasonalClimbingQualityRatings"|
@@ -18,7 +18,7 @@ export type DisplayColumns = (
 })
 export class RockClimbingWallSeasonalEditTableComponent  {
   @Input()
-  displayedColumns: DisplayColumns 
+  displayedColumns: RockClimbingWallSeasonalDisplayColumns 
     = [
       'months',
       'seasonalBusyRatingIds',

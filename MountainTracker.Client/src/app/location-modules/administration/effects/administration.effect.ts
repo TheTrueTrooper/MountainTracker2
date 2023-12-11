@@ -35,7 +35,7 @@ export class AdministrationEffects {
       this.countryService.getAllCountries().pipe(map(result=>actions.loadCountriesSuccess({countries: result}))),
       this.climbingQualityRatingService.getAllClimbingQualityRatings().pipe(map(result=>actions.loadClimbingQualityRatingsSuccess({climbingQualityRatings: result}))),
       this.busyRatingService.getAllBusyRatings().pipe(map(result=>actions.loadBusyRatingsSuccess({busyRatings: result}))),
-      this.rockClimbingTypeService.getAllRockClimbingTypes().pipe(map(result=>actions.loadRockClimbingTypesSuccess({rockClimbingType: result}))),
+      this.rockClimbingTypeService.getAllRockClimbingTypes().pipe(map(result=>actions.loadRockClimbingTypesSuccess({rockClimbingTypes: result}))),
     ]
   )
 

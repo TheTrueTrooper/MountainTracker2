@@ -1,0 +1,217 @@
+<div class="table-container mat-elevation-z6">
+    <div *ngIf="dataSource.data.length > 1" class="filter-header">
+        <mat-form-field style="width: 100%;">
+          <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+        </mat-form-field>
+    </div>
+    <mat-table #table [dataSource]="dataSource">
+        
+        <ng-container matColumnDef="rowNo">
+            <mat-header-cell *matHeaderCellDef> Row No. </mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index;"> {{i}} </mat-cell>
+        </ng-container>
+      
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="routeCode">
+            <mat-header-cell *matHeaderCellDef> Route Code </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.routeCode}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="englishFullName">
+            <mat-header-cell *matHeaderCellDef> English Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.englishFullName}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="climbingWallId">
+            <mat-header-cell *matHeaderCellDef> Climbing Wall Id </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.climbingWallId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="rating">
+            <mat-header-cell *matHeaderCellDef> Rating </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.rating}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="heightInMeters">
+            <mat-header-cell *matHeaderCellDef> Height(Meters) </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.heightInMeters}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="heightInFeet">
+            <mat-header-cell *matHeaderCellDef> Height(Feet) </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.heightInFeet}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="numberOfPitchs">
+            <mat-header-cell *matHeaderCellDef> # Pitchs </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.numberOfPitchs}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="firstAscent">
+            <mat-header-cell *matHeaderCellDef> First Ascent </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.firstAscent}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="firstFreeAscent">
+            <mat-header-cell *matHeaderCellDef> First Free Ascent </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.firstFreeAscent}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="firstFreeAscent">
+            <mat-header-cell *matHeaderCellDef> First Free Ascent </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.firstFreeAscent}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="sunAm">
+            <mat-header-cell *matHeaderCellDef> Sun Am </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.sunAm}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="sunPm">
+            <mat-header-cell *matHeaderCellDef> Sun Pm </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.sunPm}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="filteredSun">
+            <mat-header-cell *matHeaderCellDef> Filtered Sun </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.filteredSun}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="sunny">
+            <mat-header-cell *matHeaderCellDef> Sunny </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.sunny}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="shady">
+            <mat-header-cell *matHeaderCellDef> Shady </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.shady}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="driesFast">
+            <mat-header-cell *matHeaderCellDef> Dries Fast </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.driesFast}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="dryInRain">
+            <mat-header-cell *matHeaderCellDef> Dry In Rain </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.dryInRain}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="windy">
+            <mat-header-cell *matHeaderCellDef> Windy </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.windy}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="climbAnglesHaveSlabs">
+            <mat-header-cell *matHeaderCellDef> Slabs </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.climbAnglesHaveSlabs}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="climbAnglesHaveVerticals">
+            <mat-header-cell *matHeaderCellDef> Verticals </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.climbAnglesHaveVerticals}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="climbAnglesHaveOverHangs">
+            <mat-header-cell *matHeaderCellDef> Over Hangs </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.climbAnglesHaveOverHangs}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="climbAnglesHaveRoofs">
+            <mat-header-cell *matHeaderCellDef> Roofs </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.climbAnglesHaveRoofs}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="rockFalls">
+            <mat-header-cell *matHeaderCellDef> Rockfalls </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.rockFalls}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="seepage">
+            <mat-header-cell *matHeaderCellDef> Seepage </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.seepage}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="reachy">
+            <mat-header-cell *matHeaderCellDef> Reachy </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.reachy}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="dyno">
+            <mat-header-cell *matHeaderCellDef> Dyno </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.dyno}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="pumpy">
+            <mat-header-cell *matHeaderCellDef> Pumpy </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.pumpy}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="techy">
+            <mat-header-cell *matHeaderCellDef> Techy </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.techy}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="power">
+            <mat-header-cell *matHeaderCellDef> Power </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.power}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="crimpy">
+            <mat-header-cell *matHeaderCellDef> Crimpy </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.crimpy}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="slopey">
+            <mat-header-cell *matHeaderCellDef> Slopey </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.slopey}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="pockSlashHole">
+            <mat-header-cell *matHeaderCellDef> Pock Slash Hole </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.pockSlashHole}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="seatStart">
+            <mat-header-cell *matHeaderCellDef> Seat Start </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.seatStart}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="runout">
+            <mat-header-cell *matHeaderCellDef> Runout </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.runout}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="stickClip">
+            <mat-header-cell *matHeaderCellDef> Stick Clip </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.stickClip}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="typeId">
+            <mat-header-cell *matHeaderCellDef> Type Id </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.typeId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="difficultyId">
+            <mat-header-cell *matHeaderCellDef> Difficulty Id </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.difficultyId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="thumbPictureBytes">
+            <mat-header-cell *matHeaderCellDef> Thumb Picture Bytes </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.thumbPictureBytes}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="info">
+            <mat-header-cell *matHeaderCellDef> Info </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.info}} </mat-cell>
+        </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>

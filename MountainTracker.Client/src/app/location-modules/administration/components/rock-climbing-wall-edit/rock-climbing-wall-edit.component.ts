@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { AdminRockClimbingWall, RockClimbingWallGeoFenceNode } from '../../../../models';
-import { DisplayColumns as GeoDisplayColumns } from '../geo-fence-edit-table/geo-fence-edit-table.component';
-import { DisplayColumns as SeasonalDisplayColumns } from '../rock-climbing-wall-seasonal-edit-table/rock-climbing-wall-seasonal-edit-table.component';
+import { GeoDisplayColumns } from '../geo-fence-edit-table/geo-fence-edit-table.component';
+import { RockClimbingWallSeasonalDisplayColumns } from '../rock-climbing-wall-seasonal-edit-table/rock-climbing-wall-seasonal-edit-table.component';
 
 @Component({
   selector: 'rock-climbing-wall-edit',
@@ -57,7 +57,7 @@ export class RockClimbingWallEditComponent {
   geoFenceDisplayedColumns: GeoDisplayColumns  
     = ['rowNo', 'id', 'parentId', 'latitude', 'longitude'];
   @Input()
-  seasonalDisplayedColumns: SeasonalDisplayColumns  
+  seasonalDisplayedColumns: RockClimbingWallSeasonalDisplayColumns  
     = ['months', 'seasonalBusyRatingIds', 'seasonalBusyRatings', 'seasonalClimbingQualityRatingIds', 'seasonalClimbingQualityRatings'];
   @Input()
   selectRockClimbingWallLabel: string = 'Select a Rock Climbing Wall';

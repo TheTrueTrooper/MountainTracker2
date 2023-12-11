@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { AdminRockClimbingWall } from '../../../../models';
 import { MatTableDataSource } from '@angular/material/table';
 
-export type DisplayColumns = (
+export type RockClimbingWallDisplayColumns = (
   "rowNo"|
   "areaId"|
   "id"|
@@ -61,7 +61,7 @@ export type DisplayColumns = (
   "sepSeasonalBusyRating"|
   "octSeasonalBusyRating"|
   "novSeasonalBusyRating"|
-  "decSeasonalBusyRating")[]
+  "decSeasonalBusyRating")[];
 
 @Component({
   selector: 'rock-climbing-wall-edit-table',
@@ -71,7 +71,7 @@ export type DisplayColumns = (
 })
 export class RockClimbingWallEditTableComponent {
   @Input()
-  displayedColumns: DisplayColumns 
+  displayedColumns: RockClimbingWallDisplayColumns 
     = [
       "rowNo",
       "areaId",

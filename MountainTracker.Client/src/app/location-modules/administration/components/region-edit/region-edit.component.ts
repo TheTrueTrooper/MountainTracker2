@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { AdminRegion, RegionGeoFenceNode } from '../../../../models';
-import { DisplayColumns as GeoDisplayColumns } from '../geo-fence-edit-table/geo-fence-edit-table.component';
+import { GeoDisplayColumns } from '../geo-fence-edit-table/geo-fence-edit-table.component';
 
 @Component({
   selector: 'region-edit',

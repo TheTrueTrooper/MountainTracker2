@@ -9,11 +9,14 @@ public class MountainTrackerQuery : ObjectGraphType
     public MountainTrackerQuery(CountryQuery countryQuery, ProvinceOrStateQuery provinceOrStateQuery, RegionQuery regionQuery, 
         DistrictQuery districtQuery, ZoneQuery zoneQuery, AreaQuery areaQuery, RockClimbingWallQuery rockClimbingWallQuery, 
         RockClimbingRouteQuery rockClimbingRouteQuery, RockClimbingTypeQuery rockClimbingTypeQuery, BusyRatingQuery busyRatingQuery,
-        ClimbingQualityRatingQuery climbingQualityRatingQuery)
+        ClimbingQualityRatingQuery climbingQualityRatingQuery, RockClimbingDifficultyQuery rockClimbingDifficultyQuery)
     {
         Name = "Query";
         Description = "A place to collect all queries";
 
+        Field<RockClimbingDifficultyQuery, RockClimbingDifficultyQuery>("rockClimbingDifficultyQuery")
+            .Resolve(context => rockClimbingDifficultyQuery)
+            .Description("The rock climbing difficulty related queries");
         Field<RockClimbingTypeQuery, RockClimbingTypeQuery>("rockClimbingTypeQuery")
             .Resolve(context => rockClimbingTypeQuery)
             .Description("The rock rock climbing type related queries");

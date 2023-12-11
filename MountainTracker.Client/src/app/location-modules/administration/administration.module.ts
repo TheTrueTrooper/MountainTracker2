@@ -26,6 +26,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DistrictEditComponent } from './components/district-edit/district-edit.component';
 import { RockClimbingWallEditTableComponent } from './components/rock-climbing-wall-edit-table/rock-climbing-wall-edit-table.component';
 import { RockClimbingWallSeasonalEditTableComponent } from './components/rock-climbing-wall-seasonal-edit-table/rock-climbing-wall-seasonal-edit-table.component';
+import { RockClimbingRouteEditComponent } from './components/rock-climbing-route-edit/rock-climbing-route-edit.component';
+import { RockClimbingRouteEditTableComponent } from './components/rock-climbing-route-edit-table/rock-climbing-route-edit-table.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,7 @@ import { RockClimbingWallSeasonalEditTableComponent } from './components/rock-cl
     DistrictEditComponent, 
     ZoneEditComponent, 
     AreaEditComponent, 
-    RockClimbingWallEditComponent, RockClimbingWallEditTableComponent, RockClimbingWallSeasonalEditTableComponent,
+    RockClimbingWallEditComponent, RockClimbingWallEditTableComponent, RockClimbingWallSeasonalEditTableComponent, RockClimbingRouteEditComponent, RockClimbingRouteEditTableComponent,
   ],
   imports: [
     CommonModule,

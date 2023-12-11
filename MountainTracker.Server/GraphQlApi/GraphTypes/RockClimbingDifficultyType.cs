@@ -5,18 +5,17 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
-public class RockClimbingTypeType : ObjectGraphType<RockClimbingTypes>, IDisposable
+public class RockClimbingDifficultyType : ObjectGraphType<RockClimbingDifficulties>, IDisposable
 {
     private List<IServiceScope> scopes = new List<IServiceScope>(1);
 
-    public RockClimbingTypeType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
+    public RockClimbingDifficultyType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
-        Name = "RockClimbingType";
-        Description = "Rock Climbing Type Type";
+        Name = "RockClimbingDifficulty";
+        Description = "Rock Climbing Difficulty Type";
 
         Field(d => d.Id, nullable: false).Description("Database Id");
-        Field(d => d.ShortHand, nullable: false).Description("Short hand for the type");
-        Field(d => d.EnglishFullName, nullable: false).Description("Types's english name");
+        Field(d => d.EnglishCode, nullable: false).Description("Code for the difficulty");
 
         var rockClimbingRouteScope = CreateScope(serviceProvider);
         Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>>("rockClimbingRoutes")

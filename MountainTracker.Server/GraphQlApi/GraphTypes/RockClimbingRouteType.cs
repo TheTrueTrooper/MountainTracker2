@@ -7,7 +7,7 @@ namespace MountainTracker.Server.GraphQlApi.GraphTypes;
 
 public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>, IDisposable
 {
-    private List<IServiceScope> scopes = new List<IServiceScope>(2);
+    private List<IServiceScope> scopes = new List<IServiceScope>(3);
 
     public RockClimbingRouteType(IDataLoaderContextAccessor accessor, IServiceProvider serviceProvider)
     {
@@ -79,6 +79,16 @@ public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>, IDispo
                 return loader.LoadAsync(context.Source.TypeId);
             })
             .Description("Route's associated type");
+
+        var difficultyScope = CreateScope(serviceProvider);
+        Field<RockClimbingDifficultyType, RockClimbingDifficulties>("difficulty")
+            .ResolveAsync(async context =>
+            {
+                var rockClimbingDifficultyService = difficultyScope.ServiceProvider.GetService<IRockClimbingDifficultyService>()!;
+                var loader = accessor.Context!.GetOrAddBatchLoader<byte, RockClimbingDifficulties>("GetRockClimbingDifficultyByIds", rockClimbingDifficultyService.GetRockClimbingDifficultyByIds);
+                return loader.LoadAsync(context.Source.DifficultyId);
+            })
+            .Description("Route's associated difficulty");
     }
 
     private IServiceScope CreateScope(IServiceProvider serviceProvider)

@@ -85,6 +85,8 @@ public partial class RockClimbingRoutes
 
     public virtual RockClimbingWalls ClimbingWall { get; set; } = null!;
 
+    public virtual RockClimbingDifficulties Difficulty { get; set; } = null!;
+
     public virtual ICollection<RockClimbingRoutesToGearLinks> RockClimbingRoutesToGearLinks { get; set; } = new List<RockClimbingRoutesToGearLinks>();
 
     public virtual RockClimbingTypes Type { get; set; } = null!;

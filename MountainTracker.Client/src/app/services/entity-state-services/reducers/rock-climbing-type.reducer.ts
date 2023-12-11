@@ -31,11 +31,11 @@ export const rockClimbingTypeReducer = createReducer(
     on(RockClimbingTypeActions.upsertRockClimbingTypeSuccess, (state, { rockClimbingType }) => {
         return rockClimbingTypeAdapter.upsertOne(rockClimbingType, { ...state, error: null });
     }),
-    on(RockClimbingTypeActions.addRockClimbingTypesSuccess, (state, { rockClimbingType }) => {
-        return rockClimbingTypeAdapter.addMany(rockClimbingType, { ...state, error: null });
+    on(RockClimbingTypeActions.addRockClimbingTypesSuccess, (state, { rockClimbingTypes }) => {
+        return rockClimbingTypeAdapter.addMany(rockClimbingTypes, { ...state, error: null });
     }),
-    on(RockClimbingTypeActions.upsertRockClimbingTypesSuccess, (state, { rockClimbingType }) => {
-        return rockClimbingTypeAdapter.upsertMany(rockClimbingType, { ...state, error: null });
+    on(RockClimbingTypeActions.upsertRockClimbingTypesSuccess, (state, { rockClimbingTypes }) => {
+        return rockClimbingTypeAdapter.upsertMany(rockClimbingTypes, { ...state, error: null });
     }),
     on(RockClimbingTypeActions.updateRockClimbingTypeSuccess, (state, { update }) => {
         return rockClimbingTypeAdapter.updateOne(update, { ...state, error: null });
@@ -58,11 +58,11 @@ export const rockClimbingTypeReducer = createReducer(
     on(RockClimbingTypeActions.deleteRockClimbingTypeByPredicateSuccess, (state, { predicate }) => {
         return rockClimbingTypeAdapter.removeMany(predicate, { ...state, error: null });
     }),
-    on(RockClimbingTypeActions.loadRockClimbingTypesSuccess, (state, { rockClimbingType }) => {
-        return rockClimbingTypeAdapter.setAll(rockClimbingType, { ...state, error: null });
+    on(RockClimbingTypeActions.loadRockClimbingTypesSuccess, (state, { rockClimbingTypes }) => {
+        return rockClimbingTypeAdapter.setAll(rockClimbingTypes, { ...state, error: null });
     }),
-    on(RockClimbingTypeActions.setRockClimbingTypesSuccess, (state, { rockClimbingType }) => {
-        return rockClimbingTypeAdapter.setMany(rockClimbingType, { ...state, error: null });
+    on(RockClimbingTypeActions.setRockClimbingTypesSuccess, (state, { rockClimbingTypes }) => {
+        return rockClimbingTypeAdapter.setMany(rockClimbingTypes, { ...state, error: null });
     }),
     on(RockClimbingTypeActions.clearRockClimbingTypes, state => {
         return rockClimbingTypeAdapter.removeAll({ ...state, error: null });

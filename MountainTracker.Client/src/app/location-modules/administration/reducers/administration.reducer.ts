@@ -12,6 +12,7 @@ export interface AdministrationState {
     selectedZoneId: number | null;
     selectedAreaId: number | null;
     selectedRockClimbingWallId: number | null;
+    selectedRockClimbingRouteId: number | null;
     error: string | null;
     lastError: string | null;
 }
@@ -24,6 +25,7 @@ const initialState: AdministrationState = {
     selectedZoneId: null,
     selectedAreaId: null,
     selectedRockClimbingWallId: null,
+    selectedRockClimbingRouteId: null,
     error: null,
     lastError: null
   };
@@ -40,6 +42,7 @@ export const administrationFeatureReducer = createReducer(
             selectedZoneId: null,
             selectedAreaId: null,
             selectedRockClimbingWallId : null,
+            selectedRockClimbingRouteId: null,
         };
     }),
     on(featureActions.selectCountry, (state, { id }) => {
@@ -52,6 +55,7 @@ export const administrationFeatureReducer = createReducer(
           selectedZoneId: null,
           selectedAreaId: null,
           selectedRockClimbingWallId : null,
+          selectedRockClimbingRouteId: null,
       };
     }),
     on(featureActions.selectProvinceOrState, (state, { id }) => {
@@ -62,6 +66,8 @@ export const administrationFeatureReducer = createReducer(
             selectedDistrictId: null,
             selectedZoneId: null,
             selectedAreaId: null,
+            selectedRockClimbingWallId : null,
+            selectedRockClimbingRouteId: null,
         };
     }),
     on(featureActions.selectRegion, (state, { id }) => {
@@ -72,6 +78,7 @@ export const administrationFeatureReducer = createReducer(
             selectedZoneId: null,
             selectedAreaId: null,
             selectedRockClimbingWallId : null,
+            selectedRockClimbingRouteId: null,
         };
     }),
     on(featureActions.selectDistrict, (state, { id }) => {
@@ -81,6 +88,7 @@ export const administrationFeatureReducer = createReducer(
             selectedZoneId: null,
             selectedAreaId: null,
             selectedRockClimbingWallId : null,
+            selectedRockClimbingRouteId: null,
         };
     }),
     on(featureActions.selectZone, (state, { id }) => {
@@ -89,6 +97,7 @@ export const administrationFeatureReducer = createReducer(
             selectedZoneId: id,
             selectedAreaId: null,
             selectedRockClimbingWallId : null,
+            selectedRockClimbingRouteId: null,
         };
     }),
     on(featureActions.selectArea, (state, { id }) => {
@@ -96,13 +105,38 @@ export const administrationFeatureReducer = createReducer(
             ...state,
             selectedAreaId: id,
             selectedRockClimbingWallId : null,
+            selectedRockClimbingRouteId: null,
         };
     }),
     on(featureActions.selectRockClimbingWall, (state, { id }) => {
       return {
           ...state,
           selectedRockClimbingWallId : id,
+          selectedRockClimbingRouteId: null,
       };
+    }),
+    on(featureActions.selectRockClimbingRoute, (state, { id }) => {
+      return {
+          ...state,
+          selectedRockClimbingRouteId: id,
+      };
+    }),
+    on(
+      featureActions.selectRockClimbingRouteFailure,
+      (state, { clearOnfail, error }) => {
+      if(clearOnfail)
+      {
+          return {
+            ...state, 
+            selectedRockClimbingRouteId: null,
+            error: error, 
+            lastError: error };
+      }
+      return { 
+        ...state, 
+        error: error, 
+        lastError: error 
+    };
     }),
     on(
       featureActions.selectRockClimbingWallFailure,
@@ -112,6 +146,7 @@ export const administrationFeatureReducer = createReducer(
           return {
             ...state, 
             selectedRockClimbingWallId : null,
+            selectedRockClimbingRouteId: null,
             error: error, 
             lastError: error };
       }
@@ -130,6 +165,7 @@ export const administrationFeatureReducer = createReducer(
             ...state, 
             selectedAreaId: null,
             selectedRockClimbingWallId : null,
+            selectedRockClimbingRouteId: null,
             error: error, 
             lastError: error };
       }
@@ -149,6 +185,7 @@ export const administrationFeatureReducer = createReducer(
             selectedZoneId: null,
             selectedAreaId: null,
             selectedRockClimbingWallId : null,
+            selectedRockClimbingRouteId: null,
             error: error, 
             lastError: error };
       }
@@ -169,6 +206,7 @@ export const administrationFeatureReducer = createReducer(
               selectedZoneId: null,
               selectedAreaId: null,
               selectedRockClimbingWallId : null,
+              selectedRockClimbingRouteId: null,
               error: error, 
               lastError: error };
         }
@@ -190,6 +228,7 @@ export const administrationFeatureReducer = createReducer(
               selectedZoneId: null,
               selectedAreaId: null,
               selectedRockClimbingWallId : null,
+              selectedRockClimbingRouteId: null,
               error: error, 
               lastError: error };
         }
@@ -212,6 +251,7 @@ export const administrationFeatureReducer = createReducer(
             selectedZoneId: null,
             selectedAreaId: null,
             selectedRockClimbingWallId : null,
+            selectedRockClimbingRouteId: null,
             error: error, 
             lastError: error };
       }
@@ -235,6 +275,7 @@ export const administrationFeatureReducer = createReducer(
             selectedZoneId: null,
             selectedAreaId: null,
             selectedRockClimbingWallId : null,
+            selectedRockClimbingRouteId: null,
             error: error, 
             lastError: error };
       }
@@ -254,3 +295,4 @@ export const selectSelectedDistrictId = createSelector(selectAdministration, sta
 export const selectSelectedZoneId = createSelector(selectAdministration, state=>state.selectedZoneId);
 export const selectSelectedAreaId = createSelector(selectAdministration, state=>state.selectedAreaId);
 export const selectSelectedRockClimbingWallId = createSelector(selectAdministration, state=>state.selectedRockClimbingWallId);
+export const selectSelectedRockClimbingRouteId = createSelector(selectAdministration, state=>state.selectedRockClimbingRouteId);

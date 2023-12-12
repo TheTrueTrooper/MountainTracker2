@@ -19,6 +19,7 @@ export class AdministrationEffects {
     protected readonly actions$: Actions,
     protected readonly climbingQualityRatingService: localApi.ClimbingQualityRatingService,
     protected readonly busyRatingService: localApi.BusyRatingService,
+    protected readonly rockClimbingDifficultyService: localApi.RockClimbingDifficultyService,
     protected readonly rockClimbingTypeService: localApi.RockClimbingTypeService,
     protected readonly countryService: localApi.CountryService,
     protected readonly provinceOrStateService: localApi.ProvinceOrStateService,
@@ -36,6 +37,7 @@ export class AdministrationEffects {
       this.climbingQualityRatingService.getAllClimbingQualityRatings().pipe(map(result=>actions.loadClimbingQualityRatingsSuccess({climbingQualityRatings: result}))),
       this.busyRatingService.getAllBusyRatings().pipe(map(result=>actions.loadBusyRatingsSuccess({busyRatings: result}))),
       this.rockClimbingTypeService.getAllRockClimbingTypes().pipe(map(result=>actions.loadRockClimbingTypesSuccess({rockClimbingTypes: result}))),
+      this.rockClimbingDifficultyService.getAllRockClimbingDifficulties().pipe(map(result=>actions.loadRockClimbingDifficultiesSuccess({rockClimbingDifficulties: result}))),
     ]
   )
 
@@ -275,6 +277,23 @@ export class AdministrationEffects {
         [
           featureActions.selectRockClimbingWallSuccess(), 
           actions.loadRockClimbingRoutesSuccess({rockClimbingRoutes: result}), 
+        ]
+    ));
+  })));
+
+  rockClimbingRouteSelected$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(featureActions.selectRockClimbingRoute),
+    exhaustMap(({id}) => {
+      if(id === null)
+      {
+        return [
+          featureActions.selectRockClimbingRouteSuccess(), 
+        ]
+      }
+      return this.rockClimbingRouteService.getRockClimbingRoutesByRockClimbingWall(id).pipe(switchMap(result=>
+        [
+          featureActions.selectRockClimbingRouteSuccess(), 
         ]
     ));
   })));

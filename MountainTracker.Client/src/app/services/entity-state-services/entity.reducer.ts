@@ -9,6 +9,7 @@ import * as fromDistrict from './reducers/district.reducer';
 import * as fromProvinceOrState from './reducers/province-or-state.reducer';
 import * as fromRegionGeoFenceNode from './reducers/region-geo-fence-node.reducer';
 import * as fromRegion from './reducers/region.reducer';
+import * as fromRockClimbingDifficulty from './reducers/rock-climbing-difficulty.reducer';
 import * as fromRockClimbingRoute from './reducers/rock-climbing-route.reducer';
 import * as fromRockClimbingType from './reducers/rock-climbing-type.reducer';
 import * as fromRockClimbingWallGeoFenceNode from './reducers/rock-climbing-wall-geo-fence-node.reducer';
@@ -27,6 +28,7 @@ export interface EntityState {
     provinceOrState: fromProvinceOrState.ProvinceOrStateState,
     regionGeoFenceNode: fromRegionGeoFenceNode.RegionGeoFenceNodeState,
     region: fromRegion.RegionState,
+    rockClimbingDifficulty: fromRockClimbingDifficulty.RockClimbingDifficultyState,
     rockClimbingRoute: fromRockClimbingRoute.RockClimbingRouteState,
     rockClimbingType: fromRockClimbingType.RockClimbingTypeState,
     rockClimbingWallGeoFenceNode: fromRockClimbingWallGeoFenceNode.RockClimbingWallGeoFenceNodeState,
@@ -46,6 +48,7 @@ export const entityReducer = combineReducers({
     provinceOrState: fromProvinceOrState.provinceOrStateReducer,
     regionGeoFenceNode: fromRegionGeoFenceNode.regionGeoFenceNodeReducer,
     region: fromRegion.regionReducer,
+    rockClimbingDifficulty: fromRockClimbingDifficulty.rockClimbingDifficultyReducer,
     rockClimbingRoute: fromRockClimbingRoute.rockClimbingRouteReducer,
     rockClimbingType: fromRockClimbingType.rockClimbingTypeReducer,
     rockClimbingWallGeoFenceNode: fromRockClimbingWallGeoFenceNode.rockClimbingWallGeoFenceNodeReducer,

@@ -10,53 +10,112 @@ import { AdminRockClimbingRoute } from '../../../../models';
 })
 export class RockClimbingRouteEditComponent {
   @Input()
-  public set selectRockClimbingWallOptions(value: AdminRockClimbingRoute[] | null | undefined)
+  public set selectRockClimbingRouteOptions(value: AdminRockClimbingRoute[] | null | undefined)
   {
-    this._selectRockClimbingWallOptions = value ?? [];
+    this._selectRockClimbingRouteOptions = value ?? [];
   }
-  protected _selectRockClimbingWallOptions: AdminRockClimbingRoute[] = [];
+  protected _selectRockClimbingRouteOptions: AdminRockClimbingRoute[] = [];
   @Input()
-  public set selectedRockClimbingWallOptions(value: AdminRockClimbingRoute[] | null | undefined)
+  public set selectedRockClimbingRouteOptions(value: AdminRockClimbingRoute[] | null | undefined)
   {
-    this._selectedRockClimbingWallOptions = value ?? [];
+    this._selectedRockClimbingRouteOptions = value ?? [];
   }
-  protected _selectedRockClimbingWallOptions: AdminRockClimbingRoute[] = [];
-  @Input()
-  public set selectedRockClimbingWallGeoFenceNodeOptions(value: AdminRockClimbingRoute[] | null | undefined)
-  {
-    this._selectedRockClimbingWallGeoFenceNodeOptions = value ?? [];
-  }
-  protected _selectedRockClimbingWallGeoFenceNodeOptions: AdminRockClimbingRoute[] = [];
+  protected _selectedRockClimbingRouteOptions: AdminRockClimbingRoute[] = [];
   
   @Input()
-  rockClimbingWallDisplayedColumns: (
+  rockClimbingRouteDisplayedColumns: (
     "rowNo"|
-    "areaId"|
     "id"|
+    "routeCode"|
     "englishFullName"|
-    "wallCode"|
-    "latitudeStartOrCenter"|
-    "longitudeStartOrCenter"|
-    "latitudeParking"|
-    "longitudeParking"
-  )[]
+    "climbingWallId"|
+    "info"|
+    "thumbPictureBytes"|
+    "rating"|
+    "heightInMeters"|
+    "heightInFeet"|
+    "numberOfPitchs"|
+    "firstAscent"|
+    "firstFreeAscent"|
+    "sunAm"|
+    "sunPm"|
+    "filteredSun"|
+    "sunny"|
+    "shady"|
+    "driesFast"|
+    "dryInRain"|
+    "windy"|
+    "climbAnglesHaveSlabs"|
+    "climbAnglesHaveVerticals"|
+    "climbAnglesHaveOverHangs"|
+    "climbAnglesHaveRoofs"|
+    "rockFalls"|
+    "seepage"|
+    "reachy"|
+    "dyno"|
+    "pumpy"|
+    "techy"|
+    "power"|
+    "crimpy"|
+    "slopey"|
+    "pockSlashHole"|
+    "seatStart"|
+    "runout"|
+    "stickClip"|
+    "typeId"|
+    "type"|
+    "difficultyId"|
+    "difficulty")[]
     = [
       "rowNo",
-      "areaId",
       "id",
+      "routeCode",
       "englishFullName",
-      "wallCode",
-      "latitudeStartOrCenter",
-      "longitudeStartOrCenter",
-      "latitudeParking",
-      "longitudeParking",
+      "climbingWallId",
+      "info",
+      "thumbPictureBytes",
+      "rating",
+      "heightInMeters",
+      "heightInFeet",
+      "numberOfPitchs",
+      "firstAscent",
+      "firstFreeAscent",
+      "sunAm",
+      "sunPm",
+      "filteredSun",
+      "sunny",
+      "shady",
+      "driesFast",
+      "dryInRain",
+      "windy",
+      "climbAnglesHaveSlabs",
+      "climbAnglesHaveVerticals",
+      "climbAnglesHaveOverHangs",
+      "climbAnglesHaveRoofs",
+      "rockFalls",
+      "seepage",
+      "reachy",
+      "dyno",
+      "pumpy",
+      "techy",
+      "power",
+      "crimpy",
+      "slopey",
+      "pockSlashHole",
+      "seatStart",
+      "runout",
+      "stickClip",
+      "typeId",
+      "type",
+      "difficultyId",
+      "difficulty",
     ];
   @Input()
-  selectRockClimbingWallLabel: string = 'Select a Rock Climbing Wall';
+  selectRockClimbingRouteLabel: string = 'Select a Rock Climbing Route';
   @Input()
-  noSelectRockClimbingWallLabel: string = 'Select a Rock Climbing Wall';
+  noSelectRockClimbingRouteLabel: string = 'Select a Rock Climbing Route';
   @Input()
-  selectedAreaId: number | null = null;
+  selectedRockClimbingRouteId: number | null = null;
   @Input()
   selectedRockClimbingWallId: number | null = null;
   @Input()
@@ -65,5 +124,5 @@ export class RockClimbingRouteEditComponent {
   cardIcon!: IconDefinition;
 
   @Output()
-  rockClimbingWallSelected: EventEmitter<number | null> = new EventEmitter<number | null>()
+  rockClimbingRouteSelected: EventEmitter<number | null> = new EventEmitter<number | null>()
 }

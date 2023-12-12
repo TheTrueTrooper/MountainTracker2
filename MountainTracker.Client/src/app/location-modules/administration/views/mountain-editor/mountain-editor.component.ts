@@ -4,7 +4,7 @@ import { actions } from '../../../../services/entity-state-services';
 import * as featureActions from '../../actions';
 import * as featureSelectors from '../../selectors';
 import { Observable } from 'rxjs';
-import { AdminCountry, AdminProvinceOrState, AdminRegion, AdminRockClimbingWall, RegionGeoFenceNode, RockClimbingWallGeoFenceNode } from '../../../../models';
+import { AdminArea, AdminCountry, AdminDistrict, AdminProvinceOrState, AdminRegion, AdminRockClimbingRoute, AdminRockClimbingWall, AdminZone, RegionGeoFenceNode, RockClimbingWallGeoFenceNode } from '../../../../models';
 import { faFlag, faEarth, faMap, faMountainCity, faObjectGroup, faVectorSquare, faMountainSun, faRoute } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -15,12 +15,13 @@ import { faFlag, faEarth, faMap, faMountainCity, faObjectGroup, faVectorSquare, 
 })
 export class MountainEditorComponent {
   protected selectionCountry$: Observable<AdminCountry[]>;
-  protected selectionProvinceOrState$: Observable<AdminCountry[]>;
-  protected selectionRegion$: Observable<AdminCountry[]>;
-  protected selectionDistrict$: Observable<AdminCountry[]>;
-  protected selectionZone$: Observable<AdminCountry[]>;
-  protected selectionArea$: Observable<AdminCountry[]>;
-  protected selectionRockClimbingWall$: Observable<AdminCountry[]>;
+  protected selectionProvinceOrState$: Observable<AdminProvinceOrState[]>;
+  protected selectionRegion$: Observable<AdminDistrict[]>;
+  protected selectionDistrict$: Observable<AdminDistrict[]>;
+  protected selectionZone$: Observable<AdminZone[]>;
+  protected selectionArea$: Observable<AdminArea[]>;
+  protected selectionRockClimbingWall$: Observable<AdminRockClimbingWall[]>;
+  protected selectionRockClimbingRoute$: Observable<AdminRockClimbingRoute[]>;
 
   protected selectedCountryId$: Observable<number | null>;
   protected selectedProvinceOrStateId$: Observable<number | null>;
@@ -29,14 +30,16 @@ export class MountainEditorComponent {
   protected selectedZoneId$: Observable<number | null>;
   protected selectedAreaId$: Observable<number | null>;
   protected selectedRockClimbingWallId$: Observable<number | null>;
+  protected selectedRockClimbingRouteId$: Observable<number | null>;
 
   protected countries$: Observable<AdminCountry[]>;
   protected provincesOrStates$: Observable<AdminProvinceOrState[]>;
   protected regions$: Observable<AdminRegion[]>;
-  protected districts$: Observable<AdminRegion[]>;
-  protected zones$: Observable<AdminRegion[]>;
-  protected areas$: Observable<AdminRegion[]>;
+  protected districts$: Observable<AdminDistrict[]>;
+  protected zones$: Observable<AdminZone[]>;
+  protected areas$: Observable<AdminArea[]>;
   protected rockClimbingWalls$: Observable<AdminRockClimbingWall[]>;
+  protected rockClimbingRoutes$: Observable<AdminRockClimbingRoute[]>;
 
   protected regionGeoFenceNodes$: Observable<RegionGeoFenceNode[]>;
   protected districtGeoFenceNodes$: Observable<RegionGeoFenceNode[]>;
@@ -62,6 +65,7 @@ export class MountainEditorComponent {
     this.selectedZoneId$ = this.store.select(featureSelectors.selectSelectedZoneId);
     this.selectedAreaId$ = this.store.select(featureSelectors.selectSelectedAreaId);
     this.selectedRockClimbingWallId$ = this.store.select(featureSelectors.selectSelectedRockClimbingWallId);
+    this.selectedRockClimbingRouteId$ = this.store.select(featureSelectors.selectSelectedRockClimbingRouteId);
 
 
     this.countries$ = this.store.select(featureSelectors.selectCountries);
@@ -71,6 +75,7 @@ export class MountainEditorComponent {
     this.zones$ = this.store.select(featureSelectors.selectZones);
     this.areas$ = this.store.select(featureSelectors.selectAreas);
     this.rockClimbingWalls$ = this.store.select(featureSelectors.selectRockClimbingWalls);
+    this.rockClimbingRoutes$ = this.store.select(featureSelectors.selectRockClimbingRoutes);
 
     this.selectionCountry$ = this.store.select(featureSelectors.selectCountrySelection);
     this.selectionProvinceOrState$ = this.store.select(featureSelectors.selectProvinceOrStateSelection);
@@ -79,6 +84,7 @@ export class MountainEditorComponent {
     this.selectionZone$ = this.store.select(featureSelectors.selectZoneSelection);
     this.selectionArea$ = this.store.select(featureSelectors.selectAreaSelection);
     this.selectionRockClimbingWall$ = this.store.select(featureSelectors.selectRockClimbingWallSelection);
+    this.selectionRockClimbingRoute$ = this.store.select(featureSelectors.selectRockClimbingRouteSelection);
 
     this.regionGeoFenceNodes$ = this.store.select(featureSelectors.selectRegionGeoFenceNodes);
     this.districtGeoFenceNodes$ = this.store.select(featureSelectors.selectDistrictGeoFenceNodes);
@@ -119,6 +125,11 @@ export class MountainEditorComponent {
   }
 
   rockClimbingWallSelected(id: number | null)
+  {
+    this.store.dispatch(featureActions.selectRockClimbingWall({id: id}));
+  }
+
+  rockClimbingRouteSelected(id: number | null)
   {
     this.store.dispatch(featureActions.selectRockClimbingWall({id: id}));
   }

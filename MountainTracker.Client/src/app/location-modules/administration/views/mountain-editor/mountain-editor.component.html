@@ -58,4 +58,12 @@
             [selectedAreaId]="(selectedAreaId$ | async)"
             [selectedRockClimbingWallId]="(selectedRockClimbingWallId$ | async)"
         ></rock-climbing-wall-edit>
+        <rock-climbing-route-edit
+            [cardIcon]="faMountainSun" 
+            [selectedRockClimbingRouteOptions]="(selectionRockClimbingRoute$ | async)" 
+            [selectRockClimbingRouteOptions]="(rockClimbingRoutes$ | async)" 
+            (rockClimbingRouteSelected)="rockClimbingRouteSelected($event)" 
+            [selectedRockClimbingRouteId]="(selectedRockClimbingRouteId$ | async)"
+            [selectedRockClimbingWallId]="(selectedRockClimbingWallId$ | async)"
+        ></rock-climbing-route-edit>
     </div>

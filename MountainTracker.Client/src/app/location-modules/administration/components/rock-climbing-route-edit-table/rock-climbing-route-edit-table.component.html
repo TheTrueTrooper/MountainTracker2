@@ -61,11 +61,6 @@
             <mat-cell *matCellDef="let element"> {{element.firstFreeAscent}} </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="firstFreeAscent">
-            <mat-header-cell *matHeaderCellDef> First Free Ascent </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.firstFreeAscent}} </mat-cell>
-        </ng-container>
-
         <ng-container matColumnDef="sunAm">
             <mat-header-cell *matHeaderCellDef> Sun Am </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.sunAm}} </mat-cell>
@@ -196,9 +191,19 @@
             <mat-cell *matCellDef="let element"> {{element.typeId}} </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.climbingType.englishFullName}} </mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="difficultyId">
             <mat-header-cell *matHeaderCellDef> Difficulty Id </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.difficultyId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="difficulty">
+            <mat-header-cell *matHeaderCellDef> Difficulty </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.difficulty.englishCode}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="thumbPictureBytes">

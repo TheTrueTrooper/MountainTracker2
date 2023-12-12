@@ -7,12 +7,11 @@ import {
     selectSelectedZoneId as selectSelectedZoneIdOrg,
     selectSelectedAreaId as selectSelectedAreaIdOrg,
     selectSelectedRockClimbingWallId as selectSelectedRockClimbingWallIdOrg,
+    selectSelectedRockClimbingRouteId as selectSelectedRockClimbingRouteIdOrg,
 } from '../reducers';
 import { selectors } from '../../../services/entity-state-services';
-import { AdminArea, AdminCountry, AdminDistrict, AdminProvinceOrState, AdminRegion, AdminRockClimbingWall, AdminZone, Area, BusyRating, ClimbingQualityRating, Country, District, ProvinceOrState, Region, RockClimbingWall, Zone } from '../../../models';
-import { genericSort as countrySort } from '../../../models/service-models/service-model-functions/country';
-import { genericSort as provinceOrStateSort } from '../../../models/service-models/service-model-functions/province-or-state';
-import { genericSort as regionSort } from '../../../models/service-models/service-model-functions/region';
+import { AdminArea, AdminCountry, AdminDistrict, AdminProvinceOrState, AdminRegion, AdminRockClimbingRoute, AdminRockClimbingWall, AdminZone, Area, BusyRating, ClimbingQualityRating, Country, District, ProvinceOrState, Region, RockClimbingDifficulty, RockClimbingRoute, RockClimbingType, RockClimbingWall, Zone } from '../../../models';
+import { countryHelpers, provinceOrStateHelpers, regionHelpers, districtHelpers, zoneHelpers, areaHelpers, rockClimbingWallHelpers, rockClimbingRouteHelpers } from '../../../models/service-models/service-model-functions';
 import { Dictionary } from '@ngrx/entity';
 
 const allCountriesToAdminCountries = (countries: Country[])=>{
@@ -24,7 +23,7 @@ const allCountriesToAdminCountries = (countries: Country[])=>{
         return adminCountry as AdminCountry;
     })
     .sort((a,b)=>{
-        return a.countryCode === 'CA' ? -1 : a.countryCode === 'US' ? -1 : countrySort(a,b);
+        return a.countryCode === 'CA' ? -1 : a.countryCode === 'US' ? -1 : countryHelpers.genericSort(a,b);
     });
 }
 
@@ -36,7 +35,7 @@ const allProvinceOrStateToAdminProvinceOrState = (provincesOrStates: ProvinceOrS
         };
         return adminProvinceOrState as AdminProvinceOrState;
     })
-    .sort((a,b)=>provinceOrStateSort(a,b));
+    .sort((a,b)=>provinceOrStateHelpers.genericSort(a,b));
 }
 
 const allRegionToAdminRegion = (regions: Region[])=>{
@@ -47,7 +46,7 @@ const allRegionToAdminRegion = (regions: Region[])=>{
         };
         return adminProvinceOrState as AdminRegion;
     })
-    .sort((a,b)=>regionSort(a,b));
+    .sort((a,b)=>regionHelpers.genericSort(a,b));
 }
 
 const allDistrictToAdminDistrict = (districts: District[])=>{
@@ -58,7 +57,7 @@ const allDistrictToAdminDistrict = (districts: District[])=>{
         };
         return adminProvinceOrState as AdminDistrict;
     })
-    .sort((a,b)=>regionSort(a,b));
+    .sort((a,b)=>districtHelpers.genericSort(a,b));
 }
 
 const allZoneToAdminZone = (zones: Zone[])=>{
@@ -69,7 +68,7 @@ const allZoneToAdminZone = (zones: Zone[])=>{
         };
         return adminProvinceOrState as AdminZone;
     })
-    .sort((a,b)=>regionSort(a,b));
+    .sort((a,b)=>zoneHelpers.genericSort(a,b));
 }
 
 const allAreaToAdminArea = (Areas: Area[])=>{
@@ -80,10 +79,10 @@ const allAreaToAdminArea = (Areas: Area[])=>{
         };
         return adminProvinceOrState as AdminArea;
     })
-    .sort((a,b)=>regionSort(a,b));
+    .sort((a,b)=>areaHelpers.genericSort(a,b));
 }
 
-const allRockClimbingWallToAdminRockClimbingWall = (rockClimbingWalls: RockClimbingWall[], climbingQualityRatingEntities: Dictionary<ClimbingQualityRating>, busyRatingsEntities: Dictionary<BusyRating>)=>{
+const allRockClimbingWallToAdminRockClimbingWall = (rockClimbingWalls: RockClimbingWall[], climbingQualityRatingEntities: Dictionary<ClimbingQualityRating>, busyRatingEntities: Dictionary<BusyRating>)=>{
     return rockClimbingWalls.map(rockClimbingWall=>{
         const adminProvinceOrState: AdminRockClimbingWall = {
             ...rockClimbingWall,
@@ -100,24 +99,36 @@ const allRockClimbingWallToAdminRockClimbingWall = (rockClimbingWalls: RockClimb
             octSeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.octSeasonalClimbingQualityRatingId!],
             novSeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.novSeasonalClimbingQualityRatingId!],
             decSeasonalClimbingQualityRating: climbingQualityRatingEntities[rockClimbingWall.decSeasonalClimbingQualityRatingId!],
-            janSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.janSeasonalBusyRatingId!],
-            febSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.febSeasonalBusyRatingId!],
-            marSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.marSeasonalBusyRatingId!],
-            aprSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.aprSeasonalBusyRatingId!],
-            maySeasonalBusyRating: busyRatingsEntities[rockClimbingWall.maySeasonalBusyRatingId!],
-            junSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.junSeasonalBusyRatingId!],
-            julSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.julSeasonalBusyRatingId!],
-            augSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.augSeasonalBusyRatingId!],
-            sepSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.sepSeasonalBusyRatingId!],
-            octSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.octSeasonalBusyRatingId!],
-            novSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.novSeasonalBusyRatingId!],
-            decSeasonalBusyRating: busyRatingsEntities[rockClimbingWall.decSeasonalBusyRatingId!]
+            janSeasonalBusyRating: busyRatingEntities[rockClimbingWall.janSeasonalBusyRatingId!],
+            febSeasonalBusyRating: busyRatingEntities[rockClimbingWall.febSeasonalBusyRatingId!],
+            marSeasonalBusyRating: busyRatingEntities[rockClimbingWall.marSeasonalBusyRatingId!],
+            aprSeasonalBusyRating: busyRatingEntities[rockClimbingWall.aprSeasonalBusyRatingId!],
+            maySeasonalBusyRating: busyRatingEntities[rockClimbingWall.maySeasonalBusyRatingId!],
+            junSeasonalBusyRating: busyRatingEntities[rockClimbingWall.junSeasonalBusyRatingId!],
+            julSeasonalBusyRating: busyRatingEntities[rockClimbingWall.julSeasonalBusyRatingId!],
+            augSeasonalBusyRating: busyRatingEntities[rockClimbingWall.augSeasonalBusyRatingId!],
+            sepSeasonalBusyRating: busyRatingEntities[rockClimbingWall.sepSeasonalBusyRatingId!],
+            octSeasonalBusyRating: busyRatingEntities[rockClimbingWall.octSeasonalBusyRatingId!],
+            novSeasonalBusyRating: busyRatingEntities[rockClimbingWall.novSeasonalBusyRatingId!],
+            decSeasonalBusyRating: busyRatingEntities[rockClimbingWall.decSeasonalBusyRatingId!]
         };
         return adminProvinceOrState as AdminRockClimbingWall;
     })
-    .sort((a,b)=>regionSort(a,b));
+    .sort((a,b)=>rockClimbingWallHelpers.genericSort(a,b));
 }
 
+const allrockClimbingRouteToAdminrockClimbingRoute = (rockClimbingRoutes: RockClimbingRoute[], rockClimbingDifficultyEntities: Dictionary<RockClimbingDifficulty>, rockClimbingTypeEntities: Dictionary<RockClimbingType>)=>{
+    return rockClimbingRoutes.map(rockClimbingRoute=>{
+        const adminProvinceOrState: AdminRockClimbingRoute = {
+            ...rockClimbingRoute,
+            selectLabel: `${rockClimbingRoute.routeCode?.trimEnd()}-${rockClimbingRoute.englishFullName?.trimStart()}`,
+            difficulty: rockClimbingDifficultyEntities[rockClimbingRoute.difficultyId!],
+            climbingType: rockClimbingTypeEntities[rockClimbingRoute.typeId!],
+        };
+        return adminProvinceOrState as AdminRockClimbingRoute;
+    })
+    .sort((a,b)=>rockClimbingRouteHelpers.genericSort(a,b));
+}
 
 export const selectSelectedCountryId = selectSelectedCountryIdOrg;
 export const selectSelectedProvinceOrStateId = selectSelectedProvinceOrStateIdOrg;
@@ -126,6 +137,7 @@ export const selectSelectedDistrictId = selectSelectedDistrictIdOrg;
 export const selectSelectedZoneId = selectSelectedZoneIdOrg;
 export const selectSelectedAreaId = selectSelectedAreaIdOrg;
 export const selectSelectedRockClimbingWallId = selectSelectedRockClimbingWallIdOrg;
+export const selectSelectedRockClimbingRouteId = selectSelectedRockClimbingRouteIdOrg;
 
 export const selectCountrySelection = createSelector(
     selectSelectedCountryId,
@@ -241,6 +253,24 @@ export const selectRockClimbingWallSelection = createSelector(
     }
 )
 
+export const selectRockClimbingRouteSelection = createSelector(
+    selectSelectedRockClimbingRouteId,
+    selectors.selectRockClimbingRouteEntities,
+    selectors.selectRockClimbingDifficultyEntities,
+    selectors.selectRockClimbingTypeEntities,
+    selectors.selectAllRockClimbingRoutes,
+    (selectSelectedRockClimbingRouteId, selectRockClimbingRoutes, rockClimbingDifficultyEntities, rockClimbingTypeEntities, allRockClimbingRoutes)=>{
+        if(selectSelectedRockClimbingRouteId === null)
+        {
+            return allrockClimbingRouteToAdminrockClimbingRoute(allRockClimbingRoutes, rockClimbingDifficultyEntities, rockClimbingTypeEntities);
+        }
+        else
+        {
+            return allrockClimbingRouteToAdminrockClimbingRoute(selectRockClimbingRoutes[selectSelectedRockClimbingRouteId] ? [selectRockClimbingRoutes[selectSelectedRockClimbingRouteId]!] : [], rockClimbingDifficultyEntities, rockClimbingTypeEntities)
+        }
+    }
+)
+
 export const selectCountries = createSelector(
     selectors.selectAllCountries,
     countries=>allCountriesToAdminCountries(countries)
@@ -284,6 +314,15 @@ export const selectRockClimbingWalls = createSelector(
     selectors.selectAllRockClimbingWalls,
     (selectSelectedAreaId, climbingQualityRatingEntities, busyRatingsEntities, rockClimbingWalls)=>
         allRockClimbingWallToAdminRockClimbingWall(rockClimbingWalls.filter(rockClimbingWall=>rockClimbingWall.areaId === selectSelectedAreaId), climbingQualityRatingEntities, busyRatingsEntities)
+)
+
+export const selectRockClimbingRoutes = createSelector(
+    selectSelectedAreaId,
+    selectors.selectRockClimbingDifficultyEntities,
+    selectors.selectRockClimbingTypeEntities,
+    selectors.selectAllRockClimbingRoutes,
+    (selectSelectedRockClimbingWallId, rockClimbingDifficultyEntities, rockClimbingTypeEntities, rockClimbingRoutes)=>
+        allrockClimbingRouteToAdminrockClimbingRoute(rockClimbingRoutes.filter(rockClimbingRoute=>rockClimbingRoute.climbingWallId === selectSelectedRockClimbingWallId), rockClimbingDifficultyEntities, rockClimbingTypeEntities)
 )
 
 export const selectRegionGeoFenceNodes = createSelector(

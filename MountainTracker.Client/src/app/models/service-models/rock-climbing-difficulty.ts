@@ -9,4 +9,5 @@ export class RockClimbingDifficulty {
     public englishCode?: string; 
       
     public rockClimbingWalls?: RockClimbingRoute[];
+    
 }

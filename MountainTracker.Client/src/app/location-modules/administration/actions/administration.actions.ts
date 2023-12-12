@@ -34,3 +34,7 @@ export const selectAreaFailure = createAction(`[${services}/${service}] Select A
 export const selectRockClimbingWall = createAction(`[${services}/${service}] Select RockClimbingWall`, props<{ id: number | null }>());
 export const selectRockClimbingWallSuccess = createAction(`[${services}/${service}] Select RockClimbingWall Success`);
 export const selectRockClimbingWallFailure = createAction(`[${services}/${service}] Select RockClimbingWall Failure`, props<{ clearOnfail:boolean, error: string }>());
+
+export const selectRockClimbingRoute = createAction(`[${services}/${service}] Select RockClimbingRoute`, props<{ id: number | null }>());
+export const selectRockClimbingRouteSuccess = createAction(`[${services}/${service}] Select RockClimbingRoute Success`);
+export const selectRockClimbingRouteFailure = createAction(`[${services}/${service}] Select RockClimbingRoute Failure`, props<{ clearOnfail:boolean, error: string }>());

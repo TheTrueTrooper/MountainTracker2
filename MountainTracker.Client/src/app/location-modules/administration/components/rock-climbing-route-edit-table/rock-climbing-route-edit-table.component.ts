@@ -96,7 +96,8 @@ export class RockClimbingRouteEditTableComponent {
       "stickClip",
       "typeId",
       "type",
-      "difficultyId"
+      "difficultyId",
+      "difficulty"
     ];
   
   @Input()

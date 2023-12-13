@@ -193,7 +193,7 @@
 
         <ng-container matColumnDef="type">
             <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.climbingType.englishFullName}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.climbingType?.englishFullName}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="difficultyId">
@@ -203,7 +203,7 @@
 
         <ng-container matColumnDef="difficulty">
             <mat-header-cell *matHeaderCellDef> Difficulty </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.difficulty.englishCode}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.difficulty?.englishCode}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="thumbPictureBytes">

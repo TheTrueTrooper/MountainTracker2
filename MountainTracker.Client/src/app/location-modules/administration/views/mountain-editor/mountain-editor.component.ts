@@ -131,6 +131,6 @@ export class MountainEditorComponent {
 
   rockClimbingRouteSelected(id: number | null)
   {
-    this.store.dispatch(featureActions.selectRockClimbingWall({id: id}));
+    this.store.dispatch(featureActions.selectRockClimbingRoute({id: id}));
   }
 }

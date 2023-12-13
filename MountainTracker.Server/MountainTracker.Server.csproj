@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="GraphQlApi\GraphMutations\" />
     <Folder Include="GraphQlApi\GraphSubscription\" />
     <Folder Include="wwwroot" />
   </ItemGroup>

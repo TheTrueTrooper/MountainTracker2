@@ -1,19 +1,18 @@
-﻿//using GraphQL.Types;
-//using MountainTracker.Server.GraphQlApi.QlQuery;
+﻿using GraphQL.Types;
+using MountainTracker.Server.GraphQlApi.GraphMutations;
 
-//namespace MountainTracker.Server.GraphQlApi;
+namespace MountainTracker.Server.GraphQlApi;
 
-//public class MountainTrackerMutation : ObjectGraphType
-//{
-//    //placeholder input
-//    public MountainTrackerMutation(CountryQuery countryMutation)
-//    {
-//        Name = "Mutation";
+public class MountainTrackerMutation : ObjectGraphType
+{
+    public MountainTrackerMutation(RegionMutation regionMutation)
+    {
+        Name = "Mutation";
+        Description = "A place to collect all mutations";
 
-//        //placeholder
-//        Field<CountryQuery>("CountryMutation")
-//                .Resolve(context => countryMutation)
-//                .Description("The country related mutations");
+        Field<RegionMutation>("regionMutation")
+                .Resolve(context => regionMutation)
+                .Description("The region related mutations");
 
-//    }
-//}
+    }
+}

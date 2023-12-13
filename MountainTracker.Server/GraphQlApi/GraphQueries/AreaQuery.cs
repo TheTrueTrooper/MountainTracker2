@@ -4,7 +4,7 @@ using MountainTracker.Server.GraphQlApi.GraphTypes;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
 
-namespace MountainTracker.Server.GraphQlApi.QlQuery;
+namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
 public class AreaQuery : ObjectGraphType
 {

@@ -2,6 +2,8 @@
 using MountainTracker.Server.Contexts.MountainTrackerContext;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
+using System;
+using System.Text;
 
 namespace MountainTracker.Server.Services.LocalServices.Services;
 
@@ -51,5 +53,16 @@ public class RegionService : IRegionService
     {
         var list = await Regions.AsNoTracking().Where(c => provinceOrStateIds.Contains(c.ProvinceOrStateId)).ToListAsync();
         return list.ToLookup(list => list.ProvinceOrStateId);
+    }
+
+    public async Task<Regions?> updateRegion(int id, Regions region)
+    {
+        var entity = await Regions.FirstAsync(region => region.Id == id);
+        if (entity != null)
+        {
+            Regions.Entry(entity).CurrentValues.SetValues(region);
+            await Context.SaveChangesAsync();
+        }
+        return region;
     }
 }

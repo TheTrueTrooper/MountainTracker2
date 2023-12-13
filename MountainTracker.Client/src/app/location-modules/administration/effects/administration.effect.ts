@@ -7,8 +7,9 @@ import * as featureActions from '../actions';
 import * as featureSelectors from '../selectors';
 import { Store } from '@ngrx/store';
 import { ensureQlFields } from '../../../graphql-helpers';
-import { District, DistrictGeoFenceNode, Region, RegionGeoFenceNode, Zone, ZoneGeoFenceNode } from '../../../models';
+import { Area, AreaGeoFenceNode, District, DistrictGeoFenceNode, Region, RegionGeoFenceNode, RockClimbingRoute, RockClimbingWall, RockClimbingWallGeoFenceNode, Zone, ZoneGeoFenceNode } from '../../../models';
 import { normalize, schema } from 'normalizr';
+import { forkJoin } from 'rxjs';
  
 @Injectable()
 export class AdministrationEffects {
@@ -16,6 +17,10 @@ export class AdministrationEffects {
   constructor(
     protected readonly store: Store,
     protected readonly actions$: Actions,
+    protected readonly climbingQualityRatingService: localApi.ClimbingQualityRatingService,
+    protected readonly busyRatingService: localApi.BusyRatingService,
+    protected readonly rockClimbingDifficultyService: localApi.RockClimbingDifficultyService,
+    protected readonly rockClimbingTypeService: localApi.RockClimbingTypeService,
     protected readonly countryService: localApi.CountryService,
     protected readonly provinceOrStateService: localApi.ProvinceOrStateService,
     protected readonly regionService: localApi.RegionService,
@@ -26,12 +31,25 @@ export class AdministrationEffects {
     protected readonly rockClimbingRouteService: localApi.RockClimbingRouteService,
   ) {}
 
-  loadCoutry$ = createEffect(() =>
+  protected readonly intitCalls$ = forkJoin(
+    [
+      this.countryService.getAllCountries().pipe(map(result=>actions.loadCountriesSuccess({countries: result}))),
+      this.climbingQualityRatingService.getAllClimbingQualityRatings().pipe(map(result=>actions.loadClimbingQualityRatingsSuccess({climbingQualityRatings: result}))),
+      this.busyRatingService.getAllBusyRatings().pipe(map(result=>actions.loadBusyRatingsSuccess({busyRatings: result}))),
+      this.rockClimbingTypeService.getAllRockClimbingTypes().pipe(map(result=>actions.loadRockClimbingTypesSuccess({rockClimbingTypes: result}))),
+      this.rockClimbingDifficultyService.getAllRockClimbingDifficulties().pipe(map(result=>actions.loadRockClimbingDifficultiesSuccess({rockClimbingDifficulties: result}))),
+    ]
+  )
+
+  initLoad$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(actions.loadCountries),
-      exhaustMap(() => this.countryService.getAllCountries().pipe(map(result=>{
-        return actions.loadCountriesSuccess({countries: result})
-      })))));
+      ofType(featureActions.initLoad),
+      exhaustMap(()=>this.intitCalls$.pipe(switchMap(result=>
+        [
+          ...result, 
+          featureActions.initLoadSuccess()
+      ]))))
+  );
 
   countrySelected$ = createEffect(() =>
       this.actions$.pipe(
@@ -149,11 +167,11 @@ export class AdministrationEffects {
           }
         ]
       }).pipe(switchMap(result=>{
-        const districtGeoFenceNodeSchema = new schema.Entity('geoFenceNodes')
-        const districtSchema = new schema.Entity('zone', {
-          geoFenceNodes: [districtGeoFenceNodeSchema]
+        const zoneGeoFenceNodeSchema = new schema.Entity('geoFenceNodes')
+        const zoneSchema = new schema.Entity('zone', {
+          geoFenceNodes: [zoneGeoFenceNodeSchema]
         })
-        const entities = normalize(result, [districtSchema])
+        const entities = normalize(result, [zoneSchema])
         let zones: District[] = entities.entities['zone'] as any;
         let zoneGeoFenceNodes: DistrictGeoFenceNode[] = entities.entities['geoFenceNodes'] as any;
         zones = zones ? Object.keys(zones).map(id=>(zones as any)[id]) : [];
@@ -164,5 +182,119 @@ export class AdministrationEffects {
           actions.loadZoneGeoFenceNodesSuccess({zoneGeoFenceNodes: zoneGeoFenceNodes}), 
         ]
     }));
+  })));
+
+  zoneSelected$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(featureActions.selectZone),
+    exhaustMap(({id}) => {
+      if(id === null)
+      {
+        return [
+          featureActions.selectZoneSuccess(), 
+          actions.loadAreasSuccess({areas: []}), 
+          actions.loadAreaGeoFenceNodesSuccess({areaGeoFenceNodes: []})
+        ]
+      }
+      return this.areaService.getAreaByZone(id, {
+        fields: [ensureQlFields(Area)],
+        subSet: [
+          {
+            name: 'geoFenceNodes',
+            fields: [ensureQlFields(AreaGeoFenceNode)],
+          }
+        ]
+      }).pipe(switchMap(result=>{
+        const areaGeoFenceNodeSchema = new schema.Entity('geoFenceNodes')
+        const areaSchema = new schema.Entity('area', {
+          geoFenceNodes: [areaGeoFenceNodeSchema]
+        })
+        const entities = normalize(result, [areaSchema])
+        let areas: District[] = entities.entities['area'] as any;
+        let areaGeoFenceNodes: DistrictGeoFenceNode[] = entities.entities['geoFenceNodes'] as any;
+        areas = areas ? Object.keys(areas).map(id=>(areas as any)[id]) : [];
+        areaGeoFenceNodes = areaGeoFenceNodes ? Object.keys(areaGeoFenceNodes).map(id=>(areaGeoFenceNodes as any)[id]) : [];
+        return [
+          featureActions.selectZoneSuccess(), 
+          actions.loadAreasSuccess({areas: areas}), 
+          actions.loadAreaGeoFenceNodesSuccess({areaGeoFenceNodes: areaGeoFenceNodes}), 
+        ]
+    }));
+  })));
+
+  areaSelected$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(featureActions.selectArea),
+    exhaustMap(({id}) => {
+      if(id === null)
+      {
+        return [
+          featureActions.selectAreaSuccess(), 
+          actions.loadRockClimbingWallsSuccess({rockClimbingWalls: []}), 
+          actions.loadRockClimbingWallGeoFenceNodesSuccess({rockClimbingWallGeoFenceNodes: []})
+        ]
+      }
+      return this.rockClimbingWallService.getRockClimbingWallsByArea(id, {
+        fields: [ensureQlFields(RockClimbingWall)],
+        subSet: [
+          {
+            name: 'geoFenceNodes',
+            fields: [ensureQlFields(RockClimbingWallGeoFenceNode)],
+          }
+          //do not load busyRatings or climbQualityRatings as we can load this on load. Then reconnect with redux to save resources! and it simplifies the normalization now to save front end resources!
+          //by the design pattern of the redux normaized it will lose nothing to do it this way and have selectors reconnect the data!
+        ]
+      }).pipe(switchMap(result=>{
+        const rockClimbingWallGeoFenceNodeSchema = new schema.Entity('geoFenceNodes')
+        const rockClimbingWallSchema = new schema.Entity('rockClimbingWall', {
+          geoFenceNodes: [rockClimbingWallGeoFenceNodeSchema]
+        })
+        const entities = normalize(result, [rockClimbingWallSchema])
+        let rockClimbingWalls: RockClimbingWall[] = entities.entities['rockClimbingWall'] as any;
+        let rockClimbingWallGeoFenceNodes: DistrictGeoFenceNode[] = entities.entities['geoFenceNodes'] as any;
+        rockClimbingWalls = rockClimbingWalls ? Object.keys(rockClimbingWalls).map(id=>(rockClimbingWalls as any)[id]) : [];
+        rockClimbingWallGeoFenceNodes = rockClimbingWallGeoFenceNodes ? Object.keys(rockClimbingWallGeoFenceNodes).map(id=>(rockClimbingWallGeoFenceNodes as any)[id]) : [];
+        return [
+          featureActions.selectAreaSuccess(), 
+          actions.loadRockClimbingWallsSuccess({rockClimbingWalls: rockClimbingWalls}), 
+          actions.loadRockClimbingWallGeoFenceNodesSuccess({rockClimbingWallGeoFenceNodes: rockClimbingWallGeoFenceNodes}), 
+        ]
+    }));
+  })));
+
+  rockClimbingWallSelected$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(featureActions.selectRockClimbingWall),
+    exhaustMap(({id}) => {
+      if(id === null)
+      {
+        return [
+          featureActions.selectRockClimbingWallSuccess(), 
+          actions.loadRockClimbingRoutesSuccess({rockClimbingRoutes: []}), 
+        ]
+      }
+      return this.rockClimbingRouteService.getRockClimbingRoutesByRockClimbingWall(id).pipe(switchMap(result=>
+        [
+          featureActions.selectRockClimbingWallSuccess(), 
+          actions.loadRockClimbingRoutesSuccess({rockClimbingRoutes: result}), 
+        ]
+    ));
+  })));
+
+  rockClimbingRouteSelected$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(featureActions.selectRockClimbingRoute),
+    exhaustMap(({id}) => {
+      if(id === null)
+      {
+        return [
+          featureActions.selectRockClimbingRouteSuccess(), 
+        ]
+      }
+      return this.rockClimbingRouteService.getRockClimbingRoutesByRockClimbingWall(id).pipe(switchMap(result=>
+        [
+          featureActions.selectRockClimbingRouteSuccess(), 
+        ]
+    ));
   })));
 }

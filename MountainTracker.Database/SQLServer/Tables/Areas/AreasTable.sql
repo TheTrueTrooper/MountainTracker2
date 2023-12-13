@@ -14,7 +14,7 @@
 	CONSTRAINT [FK_Areas_Zones] FOREIGN KEY([ZoneID]) REFERENCES [dbo].[Zones] ([ID]),
 
 	CONSTRAINT [CK_Areas_LatitudeStartOrCenter_Max] CHECK ([LatitudeStartOrCenter]<=90),
-	CONSTRAINT [CK_Areas_LatitudeStartOrCenter_Min] CHECK ([LatitudeStartOrCenter]<=-90),
+	CONSTRAINT [CK_Areas_LatitudeStartOrCenter_Min] CHECK ([LatitudeStartOrCenter]>=-90),
 	CONSTRAINT [CK_Areas_LongitudeStartOrCenter_Max] CHECK ([LatitudeStartOrCenter]<=180),
-	CONSTRAINT [CK_Areas_LongitudeStartOrCenter_Min] CHECK ([LatitudeStartOrCenter]<=-180),
+	CONSTRAINT [CK_Areas_LongitudeStartOrCenter_Min] CHECK ([LatitudeStartOrCenter]>=-180),
 )

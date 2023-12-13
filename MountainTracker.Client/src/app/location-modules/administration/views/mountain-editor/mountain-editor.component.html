@@ -31,4 +31,39 @@
             [selectedRegionId]="(selectedRegionId$ | async)"
             [selectedDistrictId]="(selectedDistrictId$ | async)"
         ></district-edit>
+        <zone-edit
+            [cardIcon]="faObjectGroup" 
+            [selectedZoneOptions]="(selectionZone$ | async)" 
+            [selectZoneOptions]="(zones$ | async)" 
+            [selectedZoneGeoFenceNodeOptions]="(zoneGeoFenceNodes$ | async)"
+            (zoneSelected)="zoneSelected($event)" 
+            [selectedDistrictId]="(selectedDistrictId$ | async)"
+            [selectedZoneId]="(selectedZoneId$ | async)"
+        ></zone-edit>
+        <area-edit
+            [cardIcon]="faVectorSquare" 
+            [selectedAreaOptions]="(selectionArea$ | async)" 
+            [selectAreaOptions]="(areas$ | async)" 
+            [selectedAreaGeoFenceNodeOptions]="(areaGeoFenceNodes$ | async)"
+            (areaSelected)="areaSelected($event)" 
+            [selectedZoneId]="(selectedZoneId$ | async)"
+            [selectedAreaId]="(selectedAreaId$ | async)"
+        ></area-edit>
+        <rock-climbing-wall-edit
+            [cardIcon]="faMountainSun" 
+            [selectedRockClimbingWallOptions]="(selectionRockClimbingWall$ | async)" 
+            [selectRockClimbingWallOptions]="(rockClimbingWalls$ | async)" 
+            [selectedRockClimbingWallGeoFenceNodeOptions]="(rockClimbingWallGeoFenceNodes$ | async)"
+            (rockClimbingWallSelected)="rockClimbingWallSelected($event)" 
+            [selectedAreaId]="(selectedAreaId$ | async)"
+            [selectedRockClimbingWallId]="(selectedRockClimbingWallId$ | async)"
+        ></rock-climbing-wall-edit>
+        <rock-climbing-route-edit
+            [cardIcon]="faMountainSun" 
+            [selectedRockClimbingRouteOptions]="(selectionRockClimbingRoute$ | async)" 
+            [selectRockClimbingRouteOptions]="(rockClimbingRoutes$ | async)" 
+            (rockClimbingRouteSelected)="rockClimbingRouteSelected($event)" 
+            [selectedRockClimbingRouteId]="(selectedRockClimbingRouteId$ | async)"
+            [selectedRockClimbingWallId]="(selectedRockClimbingWallId$ | async)"
+        ></rock-climbing-route-edit>
     </div>

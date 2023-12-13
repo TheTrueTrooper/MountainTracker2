@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { AdminDistrict } from '../../../../models';
+import { GeoDisplayColumns } from '../geo-fence-edit-table/geo-fence-edit-table.component';
 
 @Component({
   selector: 'district-edit',
@@ -30,8 +31,7 @@ export class DistrictEditComponent {
   districtDisplayedColumns: ('rowNo' | 'id'| 'regionCode' | 'englishFullName' |'parentId' | 'latitudeStartOrCenter' | 'longitudeStartOrCenter' | 'thumbPictureBytes' | 'info')[]  
     = ['rowNo', 'id', 'regionCode', 'englishFullName', 'parentId', 'latitudeStartOrCenter', 'longitudeStartOrCenter'];
   @Input()
-  geoFenceDisplayedColumns: ('rowNo' | 'id'| 'parentId' | 'latitude' |'longitude')[]  
-    = ['rowNo', 'id', 'parentId', 'latitude', 'longitude'];
+  geoFenceDisplayedColumns: GeoDisplayColumns  = ['rowNo', 'id', 'parentId', 'latitude', 'longitude'];
   @Input()
   selectDistrictLabel: string = 'Select a District';
   @Input()

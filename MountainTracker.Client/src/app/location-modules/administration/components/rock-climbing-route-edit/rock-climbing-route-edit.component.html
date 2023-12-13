@@ -1,0 +1,30 @@
+<mat-card *ngIf="selectedRockClimbingWallId"  class="editor-card">
+    <mat-card-header>
+        <mat-card-title>
+            <fa-icon [icon]="cardIcon"></fa-icon>
+            Region
+        </mat-card-title>
+    </mat-card-header>    
+    <mat-card-content>
+        <div class="row container-fluid">
+            <div class="col-3 pt-4">
+                <focus-selector [noSelectLabel]="noSelectRockClimbingRouteLabel" [selectLabel]="selectRockClimbingRouteLabel" [selectOptions]="_selectRockClimbingRouteOptions" (itemSelected)="this.rockClimbingRouteSelected.emit($event)"></focus-selector>
+            </div>
+            <div class="col-12">
+                <rock-climbing-route-edit-table [source]="_selectedRockClimbingRouteOptions" [displayedColumns]="rockClimbingRouteDisplayedColumns"  ></rock-climbing-route-edit-table>
+            </div>
+            <!-- <div *ngIf="selectedRegionId" class="col-2">
+                <img class="thumb-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg"/>
+            </div>
+            <div *ngIf="selectedRegionId" class="col-5">
+                <geo-fence-edit-table [parentIdTitle]="'Region Id'" [geoFenceNodeSource]="_selectedRegionGeoFenceNodeOptions" [displayedColumns]="geoFenceDisplayedColumns"  ></geo-fence-edit-table>
+            </div>
+            <div *ngIf="selectedRegionId" class="col-5">
+                <mat-form-field class="info-editor">
+                    <mat-label>Info Editor</mat-label>
+                    <textarea matInput placeholder="Add Info"></textarea>
+                </mat-form-field>
+            </div> -->
+        </div>
+    </mat-card-content>
+</mat-card>

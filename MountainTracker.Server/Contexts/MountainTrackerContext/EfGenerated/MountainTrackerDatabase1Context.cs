@@ -494,6 +494,11 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_RockClimbingRoutes_RockClimbingWalls");
 
+            entity.HasOne(d => d.Difficulty).WithMany(p => p.RockClimbingRoutes)
+                .HasForeignKey(d => d.DifficultyId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_RockClimbingRoutes_RockClimbingDifficulties");
+
             entity.HasOne(d => d.Type).WithMany(p => p.RockClimbingRoutes)
                 .HasForeignKey(d => d.TypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)

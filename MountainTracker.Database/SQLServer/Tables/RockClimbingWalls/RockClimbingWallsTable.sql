@@ -65,8 +65,8 @@
 	CONSTRAINT [FK_RockClimbingWalls_Areas] FOREIGN KEY([AreaID]) REFERENCES [dbo].[Areas] ([ID]),
 
 	CONSTRAINT [CK_RockClimbingWalls_LatitudeStartOrCenter_Max] CHECK ([LatitudeStartOrCenter]<=90),
-	CONSTRAINT [CK_RockClimbingWalls_LatitudeStartOrCenter_Min] CHECK ([LatitudeStartOrCenter]<=-90),
+	CONSTRAINT [CK_RockClimbingWalls_LatitudeStartOrCenter_Min] CHECK ([LatitudeStartOrCenter]>=-90),
 	CONSTRAINT [CK_RockClimbingWalls_LongitudeStartOrCenter_Max] CHECK ([LatitudeStartOrCenter]<=180),
-	CONSTRAINT [CK_RockClimbingWalls_LongitudeStartOrCenter_Min] CHECK ([LatitudeStartOrCenter]<=-180),
+	CONSTRAINT [CK_RockClimbingWalls_LongitudeStartOrCenter_Min] CHECK ([LatitudeStartOrCenter]>=-180),
 )
 

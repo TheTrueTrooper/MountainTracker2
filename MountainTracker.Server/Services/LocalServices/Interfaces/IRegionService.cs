@@ -8,6 +8,8 @@ public interface IRegionService
 
     public Task<Regions?> GetRegionByCode(string regionCode);
 
+    public Task<Regions?> updateRegion(int id, Regions region);
+
     public Task<Regions?> GetRegionById(int id);
 
     public Task<IEnumerable<Regions>?> GetRegionsByProvinceOrState(short provinceOrStateId);

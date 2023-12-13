@@ -1,0 +1,30 @@
+<mat-card *ngIf="selectedZoneId"  class="editor-card">
+    <mat-card-header>
+        <mat-card-title>
+            <fa-icon [icon]="cardIcon"></fa-icon>
+            Area
+        </mat-card-title>
+    </mat-card-header>    
+    <mat-card-content>
+        <div class="row container-fluid">
+            <div class="col-3 pt-4">
+                <focus-selector [noSelectLabel]="noSelectAreaLabel" [selectLabel]="selectAreaLabel" [selectOptions]="_selectAreaOptions" (itemSelected)="this.areaSelected.emit($event)"></focus-selector>
+            </div>
+            <div class="col-9">
+                <edit-table [codeTitle]="'Area Code'" [parentTitle]="'Prov or State Id'" [source]="_selectedAreaOptions" [displayedColumns]="areaDisplayedColumns"  ></edit-table>
+            </div>
+            <div *ngIf="selectedAreaId" class="col-2">
+                <img class="thumb-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg"/>
+            </div>
+            <div *ngIf="selectedAreaId" class="col-5">
+                <geo-fence-edit-table [parentIdTitle]="'Area Id'" [geoFenceNodeSource]="_selectedAreaGeoFenceNodeOptions" [displayedColumns]="geoFenceDisplayedColumns"  ></geo-fence-edit-table>
+            </div>
+            <div *ngIf="selectedAreaId" class="col-5">
+                <mat-form-field class="info-editor">
+                    <mat-label>Info Editor</mat-label>
+                    <textarea matInput placeholder="Add Info"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

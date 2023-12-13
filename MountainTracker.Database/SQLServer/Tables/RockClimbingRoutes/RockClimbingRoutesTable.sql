@@ -44,4 +44,5 @@
 
 	CONSTRAINT [FK_RockClimbingRoutes_RockClimbingWalls] FOREIGN KEY ([ClimbingWallID]) REFERENCES [dbo].[RockClimbingWalls] ([ID]),
 	CONSTRAINT [FK_RockClimbingRoutes_RockWallClimbingTypes] FOREIGN KEY([TypeID]) REFERENCES [dbo].[RockClimbingTypes] ([ID]),
+	CONSTRAINT [FK_RockClimbingRoutes_RockClimbingDifficulties] FOREIGN KEY([DifficultyID]) REFERENCES [dbo].[RockClimbingDifficulties] ([ID]),
 )

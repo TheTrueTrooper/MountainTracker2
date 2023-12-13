@@ -6,15 +6,15 @@ import { services } from './shared-action-constants';
 const service = 'RockClimbingType'
 
 export const loadRockClimbingTypes = createAction(`[${services}/${service}] Load RockClimbingTypes`);
-export const loadRockClimbingTypesSuccess = createAction(`[${services}/${service}] Load RockClimbingTypes Success`, props<{ rockClimbingType: RockClimbingType[] }>());
+export const loadRockClimbingTypesSuccess = createAction(`[${services}/${service}] Load RockClimbingTypes Success`, props<{ rockClimbingTypes: RockClimbingType[] }>());
 export const loadRockClimbingTypesFailure = createAction(`[${services}/${service}] Load RockClimbingTypes Failure`, props<{ clearOnfail:boolean, error: string }>());
 
 export const setRockClimbingType = createAction(`[${services}/${service}] Set RockClimbingType`, props<{ rockClimbingType: RockClimbingType }>());
 export const setRockClimbingTypeSuccess = createAction(`[${services}/${service}] Set RockClimbingType Success`, props<{ rockClimbingType: RockClimbingType }>());
 export const setRockClimbingTypeFailure = createAction(`[${services}/${service}] Set RockClimbingType Failure`, props<{ error: string }>());
 
-export const setRockClimbingTypes = createAction(`[${services}/${service}] Set RockClimbingTypes`, props<{ rockClimbingType: RockClimbingType[] }>());
-export const setRockClimbingTypesSuccess = createAction(`[${services}/${service}] Set RockClimbingTypes Success`, props<{ rockClimbingType: RockClimbingType[] }>());
+export const setRockClimbingTypes = createAction(`[${services}/${service}] Set RockClimbingTypes`, props<{ rockClimbingTypes: RockClimbingType[] }>());
+export const setRockClimbingTypesSuccess = createAction(`[${services}/${service}] Set RockClimbingTypes Success`, props<{ rockClimbingTypes: RockClimbingType[] }>());
 export const setRockClimbingTypesFailure = createAction(`[${services}/${service}] Set RockClimbingTypes Failure`, props<{ clearOnfail:boolean, error: string }>());
 
 export const addRockClimbingType = createAction(`[${services}/${service}] Add RockClimbingType`, props<{ rockClimbingType: RockClimbingType }>());
@@ -25,12 +25,12 @@ export const upsertRockClimbingType = createAction(`[${services}/${service}] Ups
 export const upsertRockClimbingTypeSuccess = createAction(`[${services}/${service}] Upsert RockClimbingType Success`, props<{ rockClimbingType: RockClimbingType }>());
 export const upsertRockClimbingTypeFailure = createAction(`[${services}/${service}] Upsert RockClimbingType Failure`, props<{ clearOnfail:boolean, error: string }>());
 
-export const addRockClimbingTypes = createAction(`[${services}/${service}] Add RockClimbingTypes`, props<{ rockClimbingType: RockClimbingType[] }>());
-export const addRockClimbingTypesSuccess = createAction(`[${services}/${service}] Add RockClimbingTypes Success`, props<{ rockClimbingType: RockClimbingType[] }>());
+export const addRockClimbingTypes = createAction(`[${services}/${service}] Add RockClimbingTypes`, props<{ rockClimbingTypes: RockClimbingType[] }>());
+export const addRockClimbingTypesSuccess = createAction(`[${services}/${service}] Add RockClimbingTypes Success`, props<{ rockClimbingTypes: RockClimbingType[] }>());
 export const addRockClimbingTypesFailure = createAction(`[${services}/${service}] Add RockClimbingTypes Failure`, props<{ clearOnfail:boolean, error: string }>());
 
-export const upsertRockClimbingTypes = createAction(`[${services}/${service}] Upsert RockClimbingTypes`, props<{ rockClimbingType: RockClimbingType[] }>());
-export const upsertRockClimbingTypesSuccess = createAction(`[${services}/${service}] Upsert RockClimbingTypes Success`, props<{ rockClimbingType: RockClimbingType[] }>());
+export const upsertRockClimbingTypes = createAction(`[${services}/${service}] Upsert RockClimbingTypes`, props<{ rockClimbingTypes: RockClimbingType[] }>());
+export const upsertRockClimbingTypesSuccess = createAction(`[${services}/${service}] Upsert RockClimbingTypes Success`, props<{ rockClimbingTypes: RockClimbingType[] }>());
 export const upsertRockClimbingTypesFailure = createAction(`[${services}/${service}] Upsert RockClimbingTypes Failure`, props<{ clearOnfail:boolean, error: string }>());
 
 export const updateRockClimbingType = createAction(`[${services}/${service}] Update RockClimbingType`, props<{ update: Update<RockClimbingType> }>());

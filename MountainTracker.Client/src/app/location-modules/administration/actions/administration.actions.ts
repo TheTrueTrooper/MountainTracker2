@@ -3,6 +3,10 @@ import { createAction, props } from "@ngrx/store";
 const services = 'AdminisrtationFeature'
 const service = 'Area'
 
+export const initLoad = createAction(`[${services}/${service}] Init Load`);
+export const initLoadSuccess = createAction(`[${services}/${service}] Init Load Success`);
+export const initLoadFailure = createAction(`[${services}/${service}] Init Load Failure`);
+
 export const selectCountry = createAction(`[${services}/${service}] Select Country`, props<{ id: number | null }>());
 export const selectCountrySuccess = createAction(`[${services}/${service}] Select Country Success`);
 export const selectCountryFailure = createAction(`[${services}/${service}] Select Country Failure`, props<{ clearOnfail:boolean, error: string }>());
@@ -18,3 +22,19 @@ export const selectRegionFailure = createAction(`[${services}/${service}] Select
 export const selectDistrict = createAction(`[${services}/${service}] Select District`, props<{ id: number | null }>());
 export const selectDistrictSuccess = createAction(`[${services}/${service}] Select District Success`);
 export const selectDistrictFailure = createAction(`[${services}/${service}] Select District Failure`, props<{ clearOnfail:boolean, error: string }>());
+
+export const selectZone = createAction(`[${services}/${service}] Select Zone`, props<{ id: number | null }>());
+export const selectZoneSuccess = createAction(`[${services}/${service}] Select Zone Success`);
+export const selectZoneFailure = createAction(`[${services}/${service}] Select Zone Failure`, props<{ clearOnfail:boolean, error: string }>());
+
+export const selectArea = createAction(`[${services}/${service}] Select Area`, props<{ id: number | null }>());
+export const selectAreaSuccess = createAction(`[${services}/${service}] Select Area Success`);
+export const selectAreaFailure = createAction(`[${services}/${service}] Select Area Failure`, props<{ clearOnfail:boolean, error: string }>());
+
+export const selectRockClimbingWall = createAction(`[${services}/${service}] Select RockClimbingWall`, props<{ id: number | null }>());
+export const selectRockClimbingWallSuccess = createAction(`[${services}/${service}] Select RockClimbingWall Success`);
+export const selectRockClimbingWallFailure = createAction(`[${services}/${service}] Select RockClimbingWall Failure`, props<{ clearOnfail:boolean, error: string }>());
+
+export const selectRockClimbingRoute = createAction(`[${services}/${service}] Select RockClimbingRoute`, props<{ id: number | null }>());
+export const selectRockClimbingRouteSuccess = createAction(`[${services}/${service}] Select RockClimbingRoute Success`);
+export const selectRockClimbingRouteFailure = createAction(`[${services}/${service}] Select RockClimbingRoute Failure`, props<{ clearOnfail:boolean, error: string }>());

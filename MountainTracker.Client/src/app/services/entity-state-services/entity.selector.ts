@@ -14,6 +14,7 @@ export const selectProvinceOrStateState = createSelector(selectEntitiesState, st
 export const selectRegionGeoFenceNodeState = createSelector(selectEntitiesState, state=>state.regionGeoFenceNode);
 export const selectRegionState = createSelector(selectEntitiesState, state=>state.region);
 export const selectRockClimbingRouteState = createSelector(selectEntitiesState, state=>state.rockClimbingRoute);
+export const selectRockClimbingDifficultyState = createSelector(selectEntitiesState, state=>state.rockClimbingDifficulty);
 export const selectRockClimbingTypeState = createSelector(selectEntitiesState, state=>state.rockClimbingType);
 export const selectRockClimbingWallGeoFenceNodeState = createSelector(selectEntitiesState, state=>state.regionGeoFenceNode);
 export const selectRockClimbingWallState = createSelector(selectEntitiesState, state=>state.rockClimbingWall);

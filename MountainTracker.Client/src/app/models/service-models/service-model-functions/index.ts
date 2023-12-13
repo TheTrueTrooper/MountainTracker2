@@ -8,6 +8,7 @@ export * as districtHelpers from './district';
 export * as provinceOrStateHelpers from './province-or-state';
 export * as regionGeoFenceNodeHelpers from './region-geo-fence-node';
 export * as regionHelpers from './region';
+export * as rockClimbingdifficultyHelpers from './rock-climbing-difficulty';
 export * as rockClimbingRouteHelpers from './rock-climbing-route';
 export * as rockClimbingTypeHelpers from './rock-climbing-type';
 export * as rockClimbingWallGeoFenceNodeHelpers from './rock-climbing-wall-geo-fence-node';

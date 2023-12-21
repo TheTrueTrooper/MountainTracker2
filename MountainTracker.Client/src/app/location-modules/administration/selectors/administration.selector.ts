@@ -236,19 +236,19 @@ export const selectAreaSelection = createSelector(
 )
 
 export const selectRockClimbingWallSelection = createSelector(
-    selectSelectedAreaId,
+    selectSelectedRockClimbingWallId,
     selectors.selectRockClimbingWallEntities,
     selectors.selectClimbingQualityRatingEntities,
     selectors.selectBusyRatingEntities,
     selectors.selectAllRockClimbingWalls,
-    (selectSelectedAreaId, rockClimbingWalls, climbingQualityRatingEntities, busyRatingsEntities, allRockClimbingWalls)=>{
-        if(selectSelectedAreaId === null)
+    (selectSelectedRockClimbingWallId, rockClimbingWalls, climbingQualityRatingEntities, busyRatingsEntities, allRockClimbingWalls)=>{
+        if(selectSelectedRockClimbingWallId === null)
         {
             return allRockClimbingWallToAdminRockClimbingWall(allRockClimbingWalls, climbingQualityRatingEntities, busyRatingsEntities);
         }
         else
         {
-            return allRockClimbingWallToAdminRockClimbingWall(rockClimbingWalls[selectSelectedAreaId] ? [rockClimbingWalls[selectSelectedAreaId]!] : [], climbingQualityRatingEntities, busyRatingsEntities)
+            return allRockClimbingWallToAdminRockClimbingWall(rockClimbingWalls[selectSelectedRockClimbingWallId] ? [rockClimbingWalls[selectSelectedRockClimbingWallId]!] : [], climbingQualityRatingEntities, busyRatingsEntities)
         }
     }
 )
@@ -317,7 +317,7 @@ export const selectRockClimbingWalls = createSelector(
 )
 
 export const selectRockClimbingRoutes = createSelector(
-    selectSelectedAreaId,
+    selectSelectedRockClimbingWallId,
     selectors.selectRockClimbingDifficultyEntities,
     selectors.selectRockClimbingTypeEntities,
     selectors.selectAllRockClimbingRoutes,

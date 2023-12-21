@@ -10,7 +10,7 @@ public class RegionInput : InputObjectGraphType<Regions>
         Name = "RegionInput";
         Description = "Region Input Type";
 
-        Field(d => d.Id, nullable: false).Description("Database Id");
+        Field(d => d.Id, nullable: true).Description("Database Id");
         Field(d => d.RegionCode, nullable: false).Description("Code for region");
         Field(d => d.EnglishFullName, nullable: false).Description("Region's english name");
         Field(d => d.ProvinceOrStateId, nullable: false).Description("Region's province or state id");

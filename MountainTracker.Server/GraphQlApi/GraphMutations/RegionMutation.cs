@@ -7,14 +7,11 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphMutations;
 
-public class RegionMutation : ObjectGraphType
+public static class RegionMutation
 {
-    public RegionMutation(IRegionService regionService, IRegionGeoFenceNodeService regionGeoFenceNodeService)
+    public static void AddRegionMutation(this ObjectGraphType This, IRegionService regionService)
     {
-        Name = "RegionMutation";
-        Description = "Mutations for region type";
-
-        Field<RegionType, Regions>("updateRegionById")
+        This.Field<RegionType, Regions>("updateRegionById")
             .Argument<int>("id")
             .Argument<NonNullGraphType<RegionInput>>("region")
             .ResolveAsync(async context =>
@@ -25,7 +22,7 @@ public class RegionMutation : ObjectGraphType
             })
             .Description("Gets a region by its db id");
 
-        Field<RegionType, Regions>("createRegion")
+        This.Field<RegionType, Regions>("createRegion")
             .Argument<NonNullGraphType<RegionInput>>("region")
             .ResolveAsync(async context =>
             {
@@ -34,7 +31,7 @@ public class RegionMutation : ObjectGraphType
             })
             .Description("Gets a region by its db id");
 
-        Field<BooleanGraphType, bool>("deleteRegion")
+        This.Field<BooleanGraphType, bool>("deleteRegion")
             .Argument<int>("id")
             .ResolveAsync(async context =>
             {

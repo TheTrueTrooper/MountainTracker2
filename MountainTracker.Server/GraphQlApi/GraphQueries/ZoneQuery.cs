@@ -6,18 +6,15 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
-public class ZoneQuery : ObjectGraphType
+public static class ZoneQuery
 {
-    public ZoneQuery(IZoneService zoneService)
+    public static void AddZoneQuery(this ObjectGraphType This, IZoneService zoneService)
     {
-        Name = "ZoneQuery";
-        Description = "Queries for zone type";
-
-        Field<ListGraphType<ZoneType>, IEnumerable<Zones>>("allZones")
+        This.Field<ListGraphType<ZoneType>, IEnumerable<Zones>>("allZones")
             .ResolveAsync(async context => await zoneService.GetAllZones())
             .Description("Gets a list of all of the zones");
 
-        Field<ZoneType, Zones>("ZoneById")
+        This.Field<ZoneType, Zones>("ZoneById")
             .Argument<int>("id")
             .ResolveAsync(async context =>
             {
@@ -26,7 +23,7 @@ public class ZoneQuery : ObjectGraphType
             })
             .Description("Gets a zone by its db id");
 
-        Field<ZoneType, Zones>("zoneByCode")
+        This.Field<ZoneType, Zones>("zoneByCode")
             .Argument<StringGraphType>("zoneCode")
             .ResolveAsync(async context =>
             {
@@ -35,7 +32,7 @@ public class ZoneQuery : ObjectGraphType
             })
             .Description("Gets a zone by its zone code");
 
-        Field<ListGraphType<ZoneType>, IEnumerable<Zones>>("zonesByDistrict")
+        This.Field<ListGraphType<ZoneType>, IEnumerable<Zones>>("zonesByDistrict")
             .Argument<IntGraphType>("districtId")
             .ResolveAsync(async context =>
             {

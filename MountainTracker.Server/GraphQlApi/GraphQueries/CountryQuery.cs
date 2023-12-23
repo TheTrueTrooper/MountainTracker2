@@ -6,18 +6,15 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
-public class CountryQuery : ObjectGraphType
+public static class CountryQuery
 {
-    public CountryQuery(ICountryService countryService)
+    public static void AddCountryQuerys(this ObjectGraphType This, ICountryService countryService)
     {
-        Name = "CountryQuery";
-        Description = "Queries for country type";
-
-        Field<ListGraphType<CountryType>, IEnumerable<Countries>>("allCountries")
+        This.Field<ListGraphType<CountryType>, IEnumerable<Countries>>("allCountries")
             .ResolveAsync(async context => await countryService.GetAllCountries())
             .Description("Gets a list of all of the countries");
 
-        Field<CountryType, Countries>("countryById")
+        This.Field<CountryType, Countries>("countryById")
             .Argument<ByteGraphType>("id")
             .ResolveAsync(async context =>
             {
@@ -26,7 +23,7 @@ public class CountryQuery : ObjectGraphType
             })
             .Description("Gets a country by its db id");
 
-        Field<CountryType, Countries>("countryByCode")
+        This.Field<CountryType, Countries>("countryByCode")
             .Argument<StringGraphType>("countryCode")
             .ResolveAsync(async context =>
             {

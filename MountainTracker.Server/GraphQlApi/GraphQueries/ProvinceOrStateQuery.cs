@@ -6,18 +6,15 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
-public class ProvinceOrStateQuery : ObjectGraphType
+public static class ProvinceOrStateQuery
 {
-    public ProvinceOrStateQuery(IProvinceOrStateService provinceOrStateService)
+    public static void AddProvinceOrStateQuery(this ObjectGraphType This, IProvinceOrStateService provinceOrStateService)
     {
-        Name = "ProvinceOrStateQuery";
-        Description = "Queries for province or state type";
-
-        Field<ListGraphType<ProvinceOrStateType>, IEnumerable<ProvincesOrStates>>("allprovincesOrStates")
+        This.Field<ListGraphType<ProvinceOrStateType>, IEnumerable<ProvincesOrStates>>("allprovincesOrStates")
             .ResolveAsync(async context => await provinceOrStateService.GetAllProvincesOrStates())
             .Description("Gets a list of all of the provinces or states");
 
-        Field<ProvinceOrStateType, ProvincesOrStates>("provinceOrStateById")
+        This.Field<ProvinceOrStateType, ProvincesOrStates>("provinceOrStateById")
             .Argument<short>("id")
             .ResolveAsync(async context =>
             {
@@ -26,7 +23,7 @@ public class ProvinceOrStateQuery : ObjectGraphType
             })
             .Description("Gets a province or state by its db id");
 
-        Field<ProvinceOrStateType, ProvincesOrStates>("provinceOrStateByCode")
+        This.Field<ProvinceOrStateType, ProvincesOrStates>("provinceOrStateByCode")
             .Argument<StringGraphType>("regionCode")
             .ResolveAsync(async context =>
             {
@@ -35,7 +32,7 @@ public class ProvinceOrStateQuery : ObjectGraphType
             })
             .Description("Gets a province or state by its iso province or state code");
 
-        Field<ListGraphType<ProvinceOrStateType>, IEnumerable<ProvincesOrStates>>("provincesOrStatesByCountry")
+        This.Field<ListGraphType<ProvinceOrStateType>, IEnumerable<ProvincesOrStates>>("provincesOrStatesByCountry")
             .Argument<ByteGraphType>("countryId")
             .ResolveAsync(async context =>
             {

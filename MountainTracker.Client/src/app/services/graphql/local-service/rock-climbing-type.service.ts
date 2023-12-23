@@ -14,14 +14,12 @@ export class RockClimbingTypeService extends BaseQlService {
     super(apolloProvider)
    }
   //#region queries
-   protected override queryObj: string = "rockClimbingTypeQuery"
-
    public getAllRockClimbingTypes(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingType>): Observable<RockClimbingType[]>
    {
     const query = 'allRockClimbingTypes'
     return this.moutainTrackerApi.query<RockClimbingType[]>({
       query: this.generateQuery(RockClimbingType, query, selection),                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getRockClimbingTypeById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingType>): Observable<RockClimbingType>
@@ -34,7 +32,7 @@ export class RockClimbingTypeService extends BaseQlService {
       variables:{
         id: id
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
   //#endregion
 }

@@ -15,14 +15,12 @@ export class RockClimbingWallService extends BaseQlService {
   }
 
   //#region queries
-  protected override queryObj: string = "rockClimbingWallQuery"
-
   public getAllRockClimbingWall(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall[]>
   {
     const query = 'allRockClimbingWall'
       return this.moutainTrackerApi.query<RockClimbingWall[]>({
       query: this.generateQuery(RockClimbingWall, query, selection),                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getRockClimbingWallById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall>
@@ -35,7 +33,7 @@ export class RockClimbingWallService extends BaseQlService {
       variables:{
       id: id
     }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getRockClimbingWallByCode(wallCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall>
@@ -48,7 +46,7 @@ export class RockClimbingWallService extends BaseQlService {
       variables:{
         wallCode: wallCode
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getRockClimbingWallsByArea(areaId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall[]>
@@ -61,7 +59,7 @@ export class RockClimbingWallService extends BaseQlService {
       variables:{
         areaId: areaId
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
   //#endregion
 }

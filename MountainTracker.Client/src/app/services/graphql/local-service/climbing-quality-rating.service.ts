@@ -14,14 +14,12 @@ export class ClimbingQualityRatingService extends BaseQlService {
     super(apolloProvider)
    }
   //#region queries
-   protected override queryObj: string = "climbingQualityRatingQuery"
-
    public getAllClimbingQualityRatings(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ClimbingQualityRating>): Observable<ClimbingQualityRating[]>
    {
     const query = 'allClimbingQualityRatings'
     return this.moutainTrackerApi.query<ClimbingQualityRating[]>({
       query: this.generateQuery(ClimbingQualityRating, query, selection),                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getClimbingQualityRatingById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ClimbingQualityRating>): Observable<ClimbingQualityRating>
@@ -34,7 +32,7 @@ export class ClimbingQualityRatingService extends BaseQlService {
       variables:{
         id: id
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
   //#endregion
 }

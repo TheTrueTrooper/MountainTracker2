@@ -15,14 +15,12 @@ export class ZoneService extends BaseQlService {
   }
 
   //#region queries
-  protected override queryObj: string = "zoneQuery"
-
   public getAllZones(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Zone>): Observable<Zone[]>
   {
     const query = 'allZones'
       return this.moutainTrackerApi.query<Zone[]>({
       query: this.generateQuery(Zone, query, selection),                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getZoneById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Zone>): Observable<Zone>
@@ -35,7 +33,7 @@ export class ZoneService extends BaseQlService {
       variables:{
       id: id
     }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getZoneByCode(zoneCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Zone>): Observable<Zone>
@@ -48,7 +46,7 @@ export class ZoneService extends BaseQlService {
       variables:{
         zoneCode: zoneCode
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getZonesByDistrict(districtId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Zone>): Observable<Zone[]>
@@ -61,7 +59,7 @@ export class ZoneService extends BaseQlService {
       variables:{
         districtId: districtId
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
   //#endregion
 }

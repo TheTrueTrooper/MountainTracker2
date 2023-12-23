@@ -14,14 +14,12 @@ export class RockClimbingRouteService extends BaseQlService {
   super(apolloProvider)
   }
   //#region queries
-  protected override queryObj: string = "rockClimbingRouteQuery"
-
   public getAllRockClimbingRoutes(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingRoute>): Observable<RockClimbingRoute[]>
   {
     const query = 'allRockClimbingRoutes'
       return this.moutainTrackerApi.query<RockClimbingRoute[]>({
       query: this.generateQuery(RockClimbingRoute, query, selection),                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getRockClimbingRouteById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingRoute>): Observable<RockClimbingRoute>
@@ -34,7 +32,7 @@ export class RockClimbingRouteService extends BaseQlService {
       variables:{
       id: id
     }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getRockClimbingRouteByCode(routeCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingRoute>): Observable<RockClimbingRoute>
@@ -47,7 +45,7 @@ export class RockClimbingRouteService extends BaseQlService {
       variables:{
         routeCode: routeCode
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getRockClimbingRoutesByRockClimbingWall(climbingWallId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingRoute>): Observable<RockClimbingRoute[]>
@@ -60,7 +58,7 @@ export class RockClimbingRouteService extends BaseQlService {
       variables:{
         climbingWallId: climbingWallId
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
   //#endregion
 }

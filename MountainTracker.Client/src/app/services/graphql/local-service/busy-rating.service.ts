@@ -14,14 +14,12 @@ export class BusyRatingService extends BaseQlService {
     super(apolloProvider)
    }
   //#region queries
-   protected override queryObj: string = "busyRatingQuery"
-
    public getAllBusyRatings(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, BusyRating>): Observable<BusyRating[]>
    {
     const query = 'allBusyRatings'
     return this.moutainTrackerApi.query<BusyRating[]>({
       query: this.generateQuery(BusyRating, query, selection),                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getBusyRatingById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, BusyRating>): Observable<BusyRating>
@@ -34,7 +32,7 @@ export class BusyRatingService extends BaseQlService {
       variables:{
         id: id
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
   //#endregion
 }

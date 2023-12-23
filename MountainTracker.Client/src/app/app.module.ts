@@ -77,11 +77,11 @@ import {MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MatSelectModule} from '@angular/mat
             defaultOptions:{
               
               watchQuery: {
-                fetchPolicy: 'no-cache',
+                //fetchPolicy: 'no-cache',
                 //errorPolicy: 'ignore',
               },
               query: {
-                fetchPolicy: 'no-cache',
+                //fetchPolicy: 'no-cache',
                 //errorPolicy: 'all',
               },
             }

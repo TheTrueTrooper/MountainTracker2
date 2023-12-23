@@ -14,14 +14,12 @@ export class RegionService extends BaseQlService {
   super(apolloProvider)
   }
   //#region queries
-  protected override queryObj: string = "regionQuery"
-
   public getAllRegions(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Region>): Observable<Region[]>
   {
     const query = 'allRegions'
       return this.moutainTrackerApi.query<Region[]>({
       query: this.generateQuery(Region, query, selection),                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getRegionById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Region>): Observable<Region>
@@ -34,7 +32,7 @@ export class RegionService extends BaseQlService {
       variables:{
       id: id
     }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getRegionByCode(regionCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Region>): Observable<Region>
@@ -47,7 +45,7 @@ export class RegionService extends BaseQlService {
       variables:{
         regionCode: regionCode
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getRegionsByProvinceOrState(provinceOrStateId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Region>): Observable<Region[]>
@@ -60,7 +58,7 @@ export class RegionService extends BaseQlService {
       variables:{
         provinceOrStateId: provinceOrStateId
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
   //#endregion
 }

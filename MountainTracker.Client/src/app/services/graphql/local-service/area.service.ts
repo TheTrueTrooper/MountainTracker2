@@ -14,14 +14,12 @@ export class AreaService extends BaseQlService {
     super(apolloProvider)
    }
   //#region queries
-   protected override queryObj: string = "areaQuery"
-
    public getAllAreas(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Area>): Observable<Area[]>
    {
     const query = 'allAreas'
     return this.moutainTrackerApi.query<Area[]>({
       query: this.generateQuery(Area, query, selection),                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getAreaById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Area>): Observable<Area>
@@ -34,7 +32,7 @@ export class AreaService extends BaseQlService {
       variables:{
         id: id
       }                                                                                                                                                                                                                            
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getAreaByCode(areaCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Area>): Observable<Area>
@@ -47,7 +45,7 @@ export class AreaService extends BaseQlService {
       variables:{
         areaCode: areaCode
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getAreaByZone(zoneId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Area>): Observable<Area[]>
@@ -60,7 +58,7 @@ export class AreaService extends BaseQlService {
       variables:{
         zoneId: zoneId
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
   //#endregion
 }

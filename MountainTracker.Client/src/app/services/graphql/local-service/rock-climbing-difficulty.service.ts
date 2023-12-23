@@ -14,14 +14,12 @@ export class RockClimbingDifficultyService extends BaseQlService {
     super(apolloProvider)
    }
   //#region queries
-   protected override queryObj: string = "rockClimbingDifficultyQuery"
-
    public getAllRockClimbingDifficulties(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingDifficulty>): Observable<RockClimbingDifficulty[]>
    {
     const query = 'allRockClimbingDifficulties'
     return this.moutainTrackerApi.query<RockClimbingDifficulty[]>({
       query: this.generateQuery(RockClimbingDifficulty, query, selection),                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getRockClimbingDifficultyById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingDifficulty>): Observable<RockClimbingDifficulty>
@@ -34,7 +32,7 @@ export class RockClimbingDifficultyService extends BaseQlService {
       variables:{
         id: id
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
   //#endregion
 }

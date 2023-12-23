@@ -14,14 +14,12 @@ export class DistrictService extends BaseQlService {
     super(apolloProvider)
    }
   //#region queries
-   protected override queryObj: string = "districtQuery"
-
    public getAllDistricts(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, District>): Observable<District[]>
    {
     const query = 'allDistricts'
     return this.moutainTrackerApi.query<District[]>({
       query: this.generateQuery(District, query, selection),                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getDistrictById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, District>): Observable<District>
@@ -34,7 +32,7 @@ export class DistrictService extends BaseQlService {
       variables:{
         id: id
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getDistrictByCode(districtCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, District>): Observable<District>
@@ -47,7 +45,7 @@ export class DistrictService extends BaseQlService {
       variables:{
         districtCode: districtCode
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
 
   public getDistrictsByRegion(regionId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, District>): Observable<District[]>
@@ -60,7 +58,7 @@ export class DistrictService extends BaseQlService {
       variables:{
         regionId: regionId
       }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    }).pipe(map((result: any) => result.data[query]))
   }
   //#endregion
 }

@@ -4,7 +4,6 @@ import * as graphqlHelpers from '../../../graphql-helpers/graphql-helper';
 
 export abstract class BaseQlService {
     protected moutainTrackerApi: ApolloBase;
-    protected queryObj: string = "";
     constructor(protected apolloProvider: Apollo) {
       this.moutainTrackerApi = this.apolloProvider.use("MountainTracker");
      }
@@ -17,12 +16,9 @@ export abstract class BaseQlService {
    {
     const qlQuery = `query${queryVar}
     {
-      ${this.queryObj}
+      ${query}${queryParam}
       {
-        ${query}${queryParam}
-        {
-          ${graphqlHelpers.selectToQlFields(selection) ?? graphqlHelpers.ensureQlFields(classToGet.prototype.constructor)}
-        }
+        ${graphqlHelpers.selectToQlFields(selection) ?? graphqlHelpers.ensureQlFields(classToGet.prototype.constructor)}
       }
     }`
     return gql`${qlQuery}`

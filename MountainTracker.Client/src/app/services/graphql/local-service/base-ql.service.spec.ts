@@ -21,15 +21,9 @@ class BaseQlServiceTest extends BaseQlService {
       super(apolloProvider)
      }
 
-     protected override queryObj: string = "testQuery";
-
      public get getMoutainTrackerApi()
      {
       return this.moutainTrackerApi
-     }
-     public get getQueryObj()
-     {
-      return this.queryObj
      }
 
      public generateQueryTest<
@@ -61,25 +55,18 @@ describe('BaseQlService', () => {
     expect(service.getMoutainTrackerApi).toBeTruthy();
   });
 
-  it('should have queryObj set as per override', () => {
-    expect(service.getQueryObj).toBe("testQuery");
-  });
-
   it('should have generate generic query', () => {
     const query = 'testQuery2'
     let expected = gql`
     query
     {
-      testQuery
+      Test Level 2
       {
-        Test Level 2
+        testQuery2
         {
-          testQuery2
-          {
-            regionCode
-            englishFullName
-            countryId
-          }
+          regionCode
+          englishFullName
+          countryId
         }
       }
     }

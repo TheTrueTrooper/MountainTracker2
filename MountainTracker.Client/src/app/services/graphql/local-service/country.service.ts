@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { BaseQlService, QlMetaQuery, QlQueryParams } from './base-ql.service';
+import { BaseQlService, QlQueryMeta, QlQueryParams } from './base-ql.service';
 import { Observable, map, switchMap } from 'rxjs';
 import { Country } from '../../../models';
 import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
@@ -12,9 +12,9 @@ export class CountryService extends BaseQlService {
 
   constructor(protected override apolloProvider: Apollo) {
     super(apolloProvider)
-   }
+  }
   //#region queries
-  public getAllCountriesMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<QlMetaQuery<Country>>
+  public getAllCountriesMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<QlQueryMeta<Country>>
   {
     const query = 'allCountries'
     return this.generateQueryMeta(
@@ -35,7 +35,7 @@ export class CountryService extends BaseQlService {
     )
   }
 
-  public getCountryByIdMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<QlMetaQuery<Country>>
+  public getCountryByIdMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<QlQueryMeta<Country>>
   {
     const query = 'countryById'
     const queryParams: QlQueryParams[] = [
@@ -65,7 +65,7 @@ export class CountryService extends BaseQlService {
     )
   }
 
-  public getCountryByCodeMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<QlMetaQuery<Country>>
+  public getCountryByCodeMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<QlQueryMeta<Country>>
   {
     const query = 'countryByCode'
     const queryParams: QlQueryParams[] = [

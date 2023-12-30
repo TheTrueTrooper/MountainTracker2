@@ -9,7 +9,7 @@ export type QlQueryParams = {
   qlType: string
 };
 
-export class QlMetaQuery<T>{
+export class QlQueryMeta<T>{
   public readonly queryParamPrefix: string;
   public readonly queryParams: QlQueryParams[];
   public readonly selection: string;
@@ -54,7 +54,7 @@ export abstract class BaseQlService {
    T extends {
      new (): any;
    }
-   >(query: QlMetaQuery<any>): TypedDocumentNode<any, any>
+   >(query: QlQueryMeta<any>): TypedDocumentNode<any, any>
    {
     const hasParamValue: boolean = query.hasParamValues();
     const braceValues: (char: string)=>string = (char: string) => hasParamValue ? char : '';
@@ -85,12 +85,12 @@ export abstract class BaseQlService {
 
   protected generateQueryMeta<T extends {
     new (): any;
-  }>(classToField: T,query:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, any>, queryParams: QlQueryParams[] = [], queryParamPrefix: string | null = null): Observable<QlMetaQuery<T>>
+  }>(classToField: T,query:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, any>, queryParams: QlQueryParams[] = [], queryParamPrefix: string | null = null): Observable<QlQueryMeta<T>>
    {
-    return of(new QlMetaQuery<T>(classToField.prototype.constructor, query, selection, queryParams, queryParamPrefix));
+    return of(new QlQueryMeta<T>(classToField.prototype.constructor, query, selection, queryParams, queryParamPrefix));
   }
 
-  protected generateMergedQuery(queries: QlMetaQuery<any>[]): TypedDocumentNode<any, any>
+  protected generateMergedQuery(queries: QlQueryMeta<any>[]): TypedDocumentNode<any, any>
   {
     const hasParamValues: boolean = queries.some(x=>x.hasParamValues());
     const braceValues: (char: string)=>string = (char: string) => hasParamValues ? char : '';

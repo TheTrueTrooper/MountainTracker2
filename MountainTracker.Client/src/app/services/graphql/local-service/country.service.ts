@@ -4,7 +4,6 @@ import { BaseQlService, QlMetaQuery, QlQueryParams } from './base-ql.service';
 import { Observable, map, switchMap } from 'rxjs';
 import { Country } from '../../../models';
 import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
-import { query } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root'

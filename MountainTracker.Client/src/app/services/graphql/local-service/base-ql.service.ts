@@ -1,7 +1,7 @@
 import { Apollo, ApolloBase, TypedDocumentNode, gql } from "apollo-angular";
 import { QlSelectionSet, QlSelectionSetTyped } from "../../../graphql-helpers";
 import * as graphqlHelpers from '../../../graphql-helpers/graphql-helper';
-import { Observable, of } from "rxjs";
+import { Observable, map, of, switchMap } from "rxjs";
 
 export type QlQueryParams = {
   param: string, 
@@ -62,8 +62,6 @@ export abstract class BaseQlService {
     {
       ${query.selection}
     }`
-    console.log(qlQuery);
-    
     return gql`${qlQuery}`
   }
 
@@ -95,10 +93,19 @@ export abstract class BaseQlService {
     const hasParamValues: boolean = queries.some(x=>x.hasParamValues());
     const braceValues: (char: string)=>string = (char: string) => hasParamValues ? char : '';
 
-    const qlQuery = `query${braceValues('(')}${queries.map(x=>x.queryParamsFlat()).join(',')}${braceValues(')')}
+    const qlQuery = `query${braceValues('(')}${queries.map(x=>x.queryParamsFlat()).filter(x=>x!=='').join(',')}${braceValues(')')}
     {
       ${queries.map(x=>x.selection).join('\n')}
     }`
+    console.log(qlQuery);
     return gql`${qlQuery}`
+  }
+
+  public getMergedQuery(queries: QlQueryMeta<any>[]): Observable<{queries: QlQueryMeta<any>[], result: any}>
+  {
+    const query = this.generateMergedQuery(queries);
+    return this.moutainTrackerApi.query<any>({
+      query: query,                                                                                                                                                                                                                            
+    }).pipe(switchMap((result: any) => of({ queries: queries, result: result})))
   }
 } 

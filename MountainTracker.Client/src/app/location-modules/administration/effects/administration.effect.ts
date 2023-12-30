@@ -33,11 +33,11 @@ export class AdministrationEffects {
 
   protected readonly intitCalls$ = forkJoin(
     [
-      this.countryService.getAllCountries().pipe(map(result=>actions.loadCountriesSuccess({countries: result}))),
-      this.climbingQualityRatingService.getAllClimbingQualityRatings().pipe(map(result=>actions.loadClimbingQualityRatingsSuccess({climbingQualityRatings: result}))),
-      this.busyRatingService.getAllBusyRatings().pipe(map(result=>actions.loadBusyRatingsSuccess({busyRatings: result}))),
-      this.rockClimbingTypeService.getAllRockClimbingTypes().pipe(map(result=>actions.loadRockClimbingTypesSuccess({rockClimbingTypes: result}))),
-      this.rockClimbingDifficultyService.getAllRockClimbingDifficulties().pipe(map(result=>actions.loadRockClimbingDifficultiesSuccess({rockClimbingDifficulties: result}))),
+      this.countryService.getAllCountriesMeta(),//.pipe(map(result=>actions.loadCountriesSuccess({countries: result}))),
+      this.climbingQualityRatingService.getAllClimbingQualityRatingsMeta(),//.pipe(map(result=>actions.loadClimbingQualityRatingsSuccess({climbingQualityRatings: result}))),
+      this.busyRatingService.getAllBusyRatingsMeta(),//.pipe(map(result=>actions.loadBusyRatingsSuccess({busyRatings: result}))),
+      this.rockClimbingTypeService.getAllRockClimbingTypesMeta(),//.pipe(map(result=>actions.loadRockClimbingTypesSuccess({rockClimbingTypes: result}))),
+      this.rockClimbingDifficultyService.getAllRockClimbingDifficultiesMeta()//.pipe(map(result=>actions.loadRockClimbingDifficultiesSuccess({rockClimbingDifficulties: result}))),
     ]
   )
 
@@ -45,10 +45,18 @@ export class AdministrationEffects {
     this.actions$.pipe(
       ofType(featureActions.initLoad),
       exhaustMap(()=>this.intitCalls$.pipe(switchMap(result=>
-        [
-          ...result, 
-          featureActions.initLoadSuccess()
-      ]))))
+
+          this.countryService.getMergedQuery(
+            result
+          ).pipe(
+            switchMap(result=>{
+              return[
+                actions.loadCountriesSuccess({countries: result.result[result.queries[0].query]}),
+                featureActions.initLoadSuccess()
+              ]
+            })
+          ), 
+      ))))
   );
 
   countrySelected$ = createEffect(() =>

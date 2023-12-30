@@ -23,8 +23,8 @@ export class CountryService extends BaseQlService {
     )
   }
 
-   public getAllCountries(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<Country[]>
-   {
+  public getAllCountries(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<Country[]>
+  {
     return this.getAllCountriesMeta(selection).pipe(
       switchMap(
         query=>{
@@ -34,9 +34,6 @@ export class CountryService extends BaseQlService {
         }
       )
     )
-    // return this.moutainTrackerApi.query<Country[]>({
-    //   query: this.generateQuery(Country, query, selection),                                                                                                                                                                                                                                
-    // }).pipe(map((result: any) => result.data[query]))
   }
 
   public getCountryByIdMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<QlMetaQuery<Country>>
@@ -45,7 +42,6 @@ export class CountryService extends BaseQlService {
     const queryParams: QlQueryParams[] = [
       {
         param: 'id', 
-        //input: 'id', 
         qlType: 'Byte!'
       }
     ]
@@ -68,15 +64,6 @@ export class CountryService extends BaseQlService {
         }
       )
     )
-    // const queryVar = '($id: Byte!)'
-    // const query = 'countryById'
-    // const queryParam = '(id: $id)'
-    // return this.moutainTrackerApi.query<Country>({
-    //   query: this.generateQuery(Country, query, selection, queryVar, queryParam),
-    //   variables:{
-    //     id: id
-    //   }                                                                                                                                                                                                                                
-    // }).pipe(map((result: any) => result.data[query]))
   }
 
   public getCountryByCodeMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<QlMetaQuery<Country>>
@@ -108,15 +95,6 @@ export class CountryService extends BaseQlService {
         }
       )
     )
-    // const queryVar = '($countryCode: String!)'
-    // const query = 'countryByCode'
-    // const queryParam = '(countryCode: $countryCode)'
-    // return this.moutainTrackerApi.query<Country>({
-    //   query: this.generateQuery(Country, query, selection, queryVar, queryParam),
-    //   variables:{
-    //     countryCode: countryCode
-    //   }                                                                                                                                                                                                                                
-    // }).pipe(map((result: any) => result.data[query]))
   }
   //#endregion
 }

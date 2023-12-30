@@ -45,7 +45,7 @@ export class QlMetaQuery<T>{
 }  
 
 export abstract class BaseQlService {
-    protected moutainTrackerApi: ApolloBase;
+    public readonly moutainTrackerApi: ApolloBase;
     constructor(protected apolloProvider: Apollo) {
       this.moutainTrackerApi = this.apolloProvider.use("MountainTracker");
      }

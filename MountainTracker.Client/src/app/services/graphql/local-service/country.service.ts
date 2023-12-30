@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { BaseQlService, QlMetaQuery } from './base-ql.service';
+import { BaseQlService, QlMetaQuery, QlQueryParams } from './base-ql.service';
 import { Observable, map, switchMap } from 'rxjs';
 import { Country } from '../../../models';
 import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
@@ -39,17 +39,44 @@ export class CountryService extends BaseQlService {
     // }).pipe(map((result: any) => result.data[query]))
   }
 
+  public getCountryByIdMeta(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<QlMetaQuery<Country>>
+  {
+    const query = 'countryById'
+    const queryParams: QlQueryParams[] = [
+      {
+        param: 'id', 
+        input: 'id', 
+        qlType: 'Byte!'
+      }
+    ]
+    return this.generateQueryMeta(
+      Country, query, selection, queryParams
+    )
+  }
+
   public getCountryById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<Country>
   {
-    const queryVar = '($id: Byte!)'
-    const query = 'provinceOrStateServiceById'
-    const queryParam = '(id: $id)'
-    return this.moutainTrackerApi.query<Country>({
-      query: this.generateQuery(Country, query, selection, queryVar, queryParam),
-      variables:{
-        id: id
-      }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[query]))
+    return this.getCountryByIdMeta(id, selection).pipe(
+      switchMap(
+        query=>{
+          return this.moutainTrackerApi.query<Country[]>({
+            query: this.generateQuery2(query),
+            variables:{
+                  [query.getParamSelector("id")]: id
+                 }                                                                                                                                                                                                                                
+          }).pipe(map((result: any) => result.data[query.query]))
+        }
+      )
+    )
+    // const queryVar = '($id: Byte!)'
+    // const query = 'countryById'
+    // const queryParam = '(id: $id)'
+    // return this.moutainTrackerApi.query<Country>({
+    //   query: this.generateQuery(Country, query, selection, queryVar, queryParam),
+    //   variables:{
+    //     id: id
+    //   }                                                                                                                                                                                                                                
+    // }).pipe(map((result: any) => result.data[query]))
   }
 
   public getCountryByCode(countryCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<Country>

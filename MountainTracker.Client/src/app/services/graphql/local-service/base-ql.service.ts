@@ -3,6 +3,12 @@ import { QlSelectionSet, QlSelectionSetTyped } from "../../../graphql-helpers";
 import * as graphqlHelpers from '../../../graphql-helpers/graphql-helper';
 import { Observable, of } from "rxjs";
 
+export type QlQueryParams = {
+  param: string, 
+  input: string, 
+  qlType: string
+};
+
 export class QlMetaQuery<T>{
   public readonly queryParamPrefix: string;
   public readonly queryParams: {param: string, input: string, qlType: string}[];
@@ -16,10 +22,16 @@ export class QlMetaQuery<T>{
 
   public queryParamsFlat(): string
   {
-    return this.queryParams.map((x)=>`$${this.queryParamPrefix}_${x.param}: !${x.qlType}`).join(',')
+    return this.queryParams.map((x)=>`$${this.queryParamPrefix}_${x.param}: ${x.qlType}`).join(',')
   }
 
-  public constructor(classToField: T, query:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, any>, queryParams: {param: string, input: string, qlType: string}[] = [], queryParamPrefix: string | null = null){
+  public getParamSelector(param:string): string
+  {
+    const index = this.queryParams.findIndex(x=>x.param === param)
+    return `${this.queryParamPrefix}_${this.queryParams[index].param}`
+  }
+
+  public constructor(classToField: T, query:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, any>, queryParams: QlQueryParams[] = [], queryParamPrefix: string | null = null){
     this.query = query;
     this.queryParamPrefix = queryParamPrefix ?? (classToField as any).name
     this.queryParams = queryParams;
@@ -50,6 +62,8 @@ export abstract class BaseQlService {
     {
       ${query.selection}
     }`
+    console.log(qlQuery);
+    
     return gql`${qlQuery}`
   }
 

@@ -39,13 +39,13 @@ export class CountryService extends BaseQlService {
     // }).pipe(map((result: any) => result.data[query]))
   }
 
-  public getCountryByIdMeta(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<QlMetaQuery<Country>>
+  public getCountryByIdMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<QlMetaQuery<Country>>
   {
     const query = 'countryById'
     const queryParams: QlQueryParams[] = [
       {
         param: 'id', 
-        input: 'id', 
+        //input: 'id', 
         qlType: 'Byte!'
       }
     ]
@@ -56,7 +56,7 @@ export class CountryService extends BaseQlService {
 
   public getCountryById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<Country>
   {
-    return this.getCountryByIdMeta(id, selection).pipe(
+    return this.getCountryByIdMeta(selection).pipe(
       switchMap(
         query=>{
           return this.moutainTrackerApi.query<Country[]>({
@@ -79,17 +79,44 @@ export class CountryService extends BaseQlService {
     // }).pipe(map((result: any) => result.data[query]))
   }
 
+  public getCountryByCodeMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<QlMetaQuery<Country>>
+  {
+    const query = 'countryByCode'
+    const queryParams: QlQueryParams[] = [
+      {
+        param: 'countryCode', 
+        //input: 'countryCode', 
+        qlType: 'String!'
+      }
+    ]
+    return this.generateQueryMeta(
+      Country, query, selection, queryParams
+    )
+  }
+
   public getCountryByCode(countryCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Country>): Observable<Country>
   {
-    const queryVar = '($countryCode: String!)'
-    const query = 'countryByCode'
-    const queryParam = '(countryCode: $countryCode)'
-    return this.moutainTrackerApi.query<Country>({
-      query: this.generateQuery(Country, query, selection, queryVar, queryParam),
-      variables:{
-        countryCode: countryCode
-      }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[query]))
+    return this.getCountryByCodeMeta(selection).pipe(
+      switchMap(
+        query=>{
+          return this.moutainTrackerApi.query<Country[]>({
+            query: this.generateQuery2(query),
+            variables:{
+                  [query.getParamSelector("countryCode")]: countryCode
+                 }                                                                                                                                                                                                                                
+          }).pipe(map((result: any) => result.data[query.query]))
+        }
+      )
+    )
+    // const queryVar = '($countryCode: String!)'
+    // const query = 'countryByCode'
+    // const queryParam = '(countryCode: $countryCode)'
+    // return this.moutainTrackerApi.query<Country>({
+    //   query: this.generateQuery(Country, query, selection, queryVar, queryParam),
+    //   variables:{
+    //     countryCode: countryCode
+    //   }                                                                                                                                                                                                                                
+    // }).pipe(map((result: any) => result.data[query]))
   }
   //#endregion
 }

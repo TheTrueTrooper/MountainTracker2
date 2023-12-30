@@ -5,13 +5,13 @@ import { Observable, of } from "rxjs";
 
 export type QlQueryParams = {
   param: string, 
-  input: string, 
+  input?: string, 
   qlType: string
 };
 
 export class QlMetaQuery<T>{
   public readonly queryParamPrefix: string;
-  public readonly queryParams: {param: string, input: string, qlType: string}[];
+  public readonly queryParams: QlQueryParams[];
   public readonly selection: string;
   public readonly query: string;
 
@@ -37,7 +37,7 @@ export class QlMetaQuery<T>{
     this.queryParams = queryParams;
     const hasValues: boolean = this.hasParamValues();
     const braceValues: (char: string)=>string = (char: string) => hasValues ? char : '';
-    this.selection = `${query}${braceValues('(')}${this.queryParams.map((x)=>`${x.input}: $${this.queryParamPrefix}_${x.param}`).join(',')}${braceValues(')')}
+    this.selection = `${query}${braceValues('(')}${this.queryParams.map((x)=>`${x?.input ?? x.param}: $${this.queryParamPrefix}_${x.param}`).join(',')}${braceValues(')')}
     {
       ${graphqlHelpers.selectToQlFields(selection) ?? graphqlHelpers.ensureQlFields((classToField as any).prototype.constructor)}
     }`
@@ -85,7 +85,7 @@ export abstract class BaseQlService {
 
   protected generateQueryMeta<T extends {
     new (): any;
-  }>(classToField: T,query:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, any>, queryParams: {param: string, input: string, qlType: string}[] = [], queryParamPrefix: string | null = null): Observable<QlMetaQuery<T>>
+  }>(classToField: T,query:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, any>, queryParams: QlQueryParams[] = [], queryParamPrefix: string | null = null): Observable<QlMetaQuery<T>>
    {
     return of(new QlMetaQuery<T>(classToField.prototype.constructor, query, selection, queryParams, queryParamPrefix));
   }

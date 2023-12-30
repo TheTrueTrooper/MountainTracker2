@@ -8,8 +8,11 @@ namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
 public static class AreaQuery
 {
-    public static void AddAreaQuery(this ObjectGraphType This, IAreaService areaService)
+    public static void AddAreaQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
+        var scope = This.CreateScope(serviceProvider);
+        IAreaService areaService = scope.ServiceProvider.GetService<IAreaService>()!;
+
         This.Field<ListGraphType<AreaType>, IEnumerable<Areas>>("allAreas")
             .ResolveAsync(async context => await areaService.GetAllAreas())
             .Description("Gets a list of all of the areas");

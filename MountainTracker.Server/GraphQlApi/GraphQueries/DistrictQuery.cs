@@ -8,8 +8,11 @@ namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
 public static class DistrictQuery
 {
-    public static void AddDistrictQuery(this ObjectGraphType This, IDistrictService districtService)
+    public static void AddDistrictQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
+        var scope = This.CreateScope(serviceProvider);
+        IDistrictService districtService = scope.ServiceProvider.GetService<IDistrictService>()!;
+
         This.Field<ListGraphType<DistrictType>, IEnumerable<Districts>>("allDistricts")
             .ResolveAsync(async context => await districtService.GetAllDistricts())
             .Description("Gets a list of all of the districts");

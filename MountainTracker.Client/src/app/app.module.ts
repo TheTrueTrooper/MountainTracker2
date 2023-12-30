@@ -75,7 +75,6 @@ import {MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MatSelectModule} from '@angular/mat
               uri: config.GraphQlApiEndpoint!
             }),
             defaultOptions:{
-              
               watchQuery: {
                 //fetchPolicy: 'no-cache',
                 //errorPolicy: 'ignore',

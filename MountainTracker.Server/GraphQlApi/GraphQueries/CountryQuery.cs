@@ -8,8 +8,11 @@ namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
 public static class CountryQuery
 {
-    public static void AddCountryQuerys(this ObjectGraphType This, ICountryService countryService)
+    public static void AddCountryQuerys(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
+        var scope = This.CreateScope(serviceProvider);
+        ICountryService countryService = scope.ServiceProvider.GetService<ICountryService>()!;
+
         This.Field<ListGraphType<CountryType>, IEnumerable<Countries>>("allCountries")
             .ResolveAsync(async context => await countryService.GetAllCountries())
             .Description("Gets a list of all of the countries");

@@ -1,5 +1,6 @@
 ﻿using GraphQL;
 using GraphQL.Types;
+using Microsoft.Extensions.DependencyInjection;
 using MountainTracker.Server.GraphQlApi.GraphTypes;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
@@ -8,8 +9,11 @@ namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
 public static class RockClimbingWallQuery
 {
-    public static void AddRockClimbingWallQuery(this ObjectGraphType This, IRockClimbingWallService rockClimbingWallService)
+    public static void AddRockClimbingWallQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
+        var scope = This.CreateScope(serviceProvider);
+        IRockClimbingWallService rockClimbingWallService = scope.ServiceProvider.GetService<IRockClimbingWallService>()!;
+
         This.Field<ListGraphType<RockClimbingWallType>, IEnumerable<RockClimbingWalls>> ("allRockClimbingWall")
             .ResolveAsync(async context => await rockClimbingWallService.GetAllRockClimbingWalls())
             .Description("Gets a list of all of the rock climbing walls");

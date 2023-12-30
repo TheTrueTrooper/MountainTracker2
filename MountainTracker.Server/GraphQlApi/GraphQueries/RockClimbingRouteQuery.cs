@@ -8,8 +8,11 @@ namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
 public static class RockClimbingRouteQuery
 {
-    public static void AddRockClimbingRouteQuery(this ObjectGraphType This, IRockClimbingRouteService rockClimbingRouteService)
+    public static void AddRockClimbingRouteQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
+        var scope = This.CreateScope(serviceProvider);
+        IRockClimbingRouteService rockClimbingRouteService = scope.ServiceProvider.GetService<IRockClimbingRouteService>()!;
+
         This.Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>> ("allRockClimbingRoutes")
             .ResolveAsync(async context => await rockClimbingRouteService.GetAllRockClimbingRoutes())
             .Description("Gets a list of all of the rock climbing routes");

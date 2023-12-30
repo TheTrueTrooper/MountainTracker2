@@ -8,8 +8,11 @@ namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
 public static class BusyRatingQuery
 {
-    public static void AddBusyRatingQuery(this ObjectGraphType This, IBusyRatingService busyRatingService)
+    public static void AddBusyRatingQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
+        var scope = This.CreateScope(serviceProvider);
+        IBusyRatingService busyRatingService = scope.ServiceProvider.GetService<IBusyRatingService>()!;
+
         This.Field<ListGraphType<BusyRatingType>, IEnumerable<BusyRatings>>("allBusyRatings")
             .ResolveAsync(async context => await busyRatingService.GetAllBusyRatings())
             .Description("Gets a list of all of the climbing quality ratings");

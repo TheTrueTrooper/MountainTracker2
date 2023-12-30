@@ -8,8 +8,11 @@ namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
 public static class ClimbingQualityRatingQuery
 {
-    public static void AddClimbingQualityRatingQuery(this ObjectGraphType This, IClimbingQualityRatingService climbingQualityRatingsService)
+    public static void AddClimbingQualityRatingQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
+        var scope = This.CreateScope(serviceProvider);
+        IClimbingQualityRatingService climbingQualityRatingsService = scope.ServiceProvider.GetService<IClimbingQualityRatingService>()!;
+
         This.Field<ListGraphType<ClimbingQualityRatingType>, IEnumerable<ClimbingQualityRatings>>("allClimbingQualityRatings")
             .ResolveAsync(async context => await climbingQualityRatingsService.GetAllClimbingQualityRatings())
             .Description("Gets a list of all of the climbing quality ratings");

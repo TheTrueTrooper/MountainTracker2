@@ -9,8 +9,11 @@ namespace MountainTracker.Server.GraphQlApi.GraphMutations;
 
 public static class RegionMutation
 {
-    public static void AddRegionMutation(this ObjectGraphType This, IRegionService regionService)
+    public static void AddRegionMutation(this MountainTrackerMutation This, IServiceProvider serviceProvider)
     {
+        var scope = This.CreateScope(serviceProvider);
+        IRegionService regionService = scope.ServiceProvider.GetService<IRegionService>()!;
+
         This.Field<RegionType, Regions>("updateRegionById")
             .Argument<int>("id")
             .Argument<NonNullGraphType<RegionInput>>("region")

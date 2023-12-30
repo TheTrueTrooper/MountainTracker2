@@ -8,8 +8,11 @@ namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
 public static class ZoneQuery
 {
-    public static void AddZoneQuery(this ObjectGraphType This, IZoneService zoneService)
+    public static void AddZoneQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
+        var scope = This.CreateScope(serviceProvider);
+        IZoneService zoneService = scope.ServiceProvider.GetService<IZoneService>()!;
+
         This.Field<ListGraphType<ZoneType>, IEnumerable<Zones>>("allZones")
             .ResolveAsync(async context => await zoneService.GetAllZones())
             .Description("Gets a list of all of the zones");

@@ -8,8 +8,11 @@ namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
 public static class ProvinceOrStateQuery
 {
-    public static void AddProvinceOrStateQuery(this ObjectGraphType This, IProvinceOrStateService provinceOrStateService)
+    public static void AddProvinceOrStateQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
+        var scope = This.CreateScope(serviceProvider);
+        IProvinceOrStateService provinceOrStateService = scope.ServiceProvider.GetService<IProvinceOrStateService>()!;
+
         This.Field<ListGraphType<ProvinceOrStateType>, IEnumerable<ProvincesOrStates>>("allprovincesOrStates")
             .ResolveAsync(async context => await provinceOrStateService.GetAllProvincesOrStates())
             .Description("Gets a list of all of the provinces or states");

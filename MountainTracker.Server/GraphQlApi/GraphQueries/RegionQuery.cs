@@ -8,8 +8,11 @@ namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
 public static class RegionQuery
 {
-    public static void AddRegionQuery(this ObjectGraphType This, IRegionService regionService)
+    public static void AddRegionQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
+        var scope = This.CreateScope(serviceProvider);
+        IRegionService regionService = scope.ServiceProvider.GetService<IRegionService>()!;
+
         This.Field<ListGraphType<RegionType>, IEnumerable<Regions>>("allRegions")
             .ResolveAsync(async context => await regionService.GetAllRegions())
             .Description("Gets a list of all of the regions");

@@ -26,6 +26,10 @@ namespace MountainTracker.Server.Startup
                 .AddErrorInfoProvider(options => 
                 {
                     options.ExposeExceptionDetails = true;
+                    options.ExposeExtensions = true;
+                    options.ExposeCode = true;
+                    options.ExposeData = true;
+                    options.ExposeCodes = true;
                 })
                 .AddDataLoader()
                 .AddGraphTypes());

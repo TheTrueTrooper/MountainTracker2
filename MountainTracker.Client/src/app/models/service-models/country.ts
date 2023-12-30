@@ -12,4 +12,9 @@ export class Country
     public countryCode?:string
 
     public provincesOrStates?: ProvinceOrState[]
+
+    constructor()
+    {
+        
+    }
 }

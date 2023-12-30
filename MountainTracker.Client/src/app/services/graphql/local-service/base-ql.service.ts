@@ -101,7 +101,7 @@ export abstract class BaseQlService {
     return gql`${qlQuery}`
   }
 
-  public getMergedQuery(queries: QlQueryMeta<any>[]): Observable<{queries: QlQueryMeta<any>[], result: any}>
+  public getMergedQuery(queries: QlQueryMeta<any>[]): Observable<{queries: QlQueryMeta<any>[], result: { loading: boolean, networkStatus: any, data: any}}>
   {
     const query = this.generateMergedQuery(queries);
     return this.moutainTrackerApi.query<any>({

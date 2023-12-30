@@ -51,7 +51,11 @@ export class AdministrationEffects {
           ).pipe(
             switchMap(result=>{
               return[
-                actions.loadCountriesSuccess({countries: result.result[result.queries[0].query]}),
+                actions.loadCountriesSuccess({countries: result.result.data[result.queries[0].query]}),
+                actions.loadClimbingQualityRatingsSuccess({climbingQualityRatings: result.result.data[result.queries[1].query]}),
+                actions.loadBusyRatingsSuccess({busyRatings: result.result.data[result.queries[2].query]}),
+                actions.loadRockClimbingTypesSuccess({rockClimbingTypes: result.result.data[result.queries[3].query]}),
+                actions.loadRockClimbingDifficultiesSuccess({rockClimbingDifficulties: result.result.data[result.queries[4].query]}),
                 featureActions.initLoadSuccess()
               ]
             })

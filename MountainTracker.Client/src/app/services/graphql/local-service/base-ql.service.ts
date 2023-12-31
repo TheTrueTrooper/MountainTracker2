@@ -2,6 +2,7 @@ import { Apollo, ApolloBase, TypedDocumentNode, gql } from "apollo-angular";
 import { QlSelectionSet, QlSelectionSetTyped } from "../../../graphql-helpers";
 import * as graphqlHelpers from '../../../graphql-helpers/graphql-helper';
 import { Observable, map, of, switchMap } from "rxjs";
+import { ApolloQueryResult } from "@apollo/client/core";
 
 export type QlQueryParams = {
   param: string, 
@@ -101,23 +102,20 @@ export abstract class BaseQlService {
     return gql`${qlQuery}`
   }
 
-  public getMergedQuery<T extends QlQueryMeta<any>[] | {[key: string]: QlQueryMeta<any>}>(queries: T): Observable<{queries: T, result: { loading: boolean, networkStatus: any, data: any}}>
+  public getMergedQuery<T extends QlQueryMeta<any>[] | {[key: string]: QlQueryMeta<any>}>(queries: T): Observable<{queries: T, result: ApolloQueryResult<any>}>
   {
-    let queriesAsArray: QlQueryMeta<any>[] | null = null 
+    let queriesAsArray: QlQueryMeta<any>[];
     if(Array.isArray(queries))
     {
       queriesAsArray = queries;
     }
     else
     {
-      queriesAsArray = Object.keys(queries).map(i=>{
-        let item: QlQueryMeta<any> = queries[i];
-        return item;
-        })
+      queriesAsArray = Object.keys(queries).map(i=>queries[i] as QlQueryMeta<any>);
     }
     const query = this.generateMergedQuery(queriesAsArray!);
     return this.moutainTrackerApi.query<any>({
       query: query,                                                                                                                                                                                                                            
-    }).pipe(switchMap((result: any) => of({ queries: queries, result: result})))
+    }).pipe(switchMap((result) => of({ queries: queries, result: result})))
   }
 } 

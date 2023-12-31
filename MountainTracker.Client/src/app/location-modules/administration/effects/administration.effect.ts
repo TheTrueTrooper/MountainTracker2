@@ -7,7 +7,7 @@ import * as featureActions from '../actions';
 import * as featureSelectors from '../selectors';
 import { Store } from '@ngrx/store';
 import { ensureQlFields } from '../../../graphql-helpers';
-import { Area, AreaGeoFenceNode, District, DistrictGeoFenceNode, Region, RegionGeoFenceNode, RockClimbingRoute, RockClimbingWall, RockClimbingWallGeoFenceNode, Zone, ZoneGeoFenceNode } from '../../../models';
+import { Area, AreaGeoFenceNode, Country, District, DistrictGeoFenceNode, Region, RegionGeoFenceNode, RockClimbingRoute, RockClimbingWall, RockClimbingWallGeoFenceNode, Zone, ZoneGeoFenceNode } from '../../../models';
 import { normalize, schema } from 'normalizr';
 import { forkJoin } from 'rxjs';
  
@@ -32,13 +32,13 @@ export class AdministrationEffects {
   ) {}
 
   protected readonly intitCalls$ = forkJoin(
-    [
-      this.countryService.getAllCountriesMeta(),//.pipe(map(result=>actions.loadCountriesSuccess({countries: result}))),
-      this.climbingQualityRatingService.getAllClimbingQualityRatingsMeta(),//.pipe(map(result=>actions.loadClimbingQualityRatingsSuccess({climbingQualityRatings: result}))),
-      this.busyRatingService.getAllBusyRatingsMeta(),//.pipe(map(result=>actions.loadBusyRatingsSuccess({busyRatings: result}))),
-      this.rockClimbingTypeService.getAllRockClimbingTypesMeta(),//.pipe(map(result=>actions.loadRockClimbingTypesSuccess({rockClimbingTypes: result}))),
-      this.rockClimbingDifficultyService.getAllRockClimbingDifficultiesMeta()//.pipe(map(result=>actions.loadRockClimbingDifficultiesSuccess({rockClimbingDifficulties: result}))),
-    ]
+    {
+      country: this.countryService.getAllCountriesMeta(),
+      climbingQualityRatings: this.climbingQualityRatingService.getAllClimbingQualityRatingsMeta(),
+      busyRatings: this.busyRatingService.getAllBusyRatingsMeta(),
+      rockClimbingTypes: this.rockClimbingTypeService.getAllRockClimbingTypesMeta(),
+      rockClimbingDifficulties: this.rockClimbingDifficultyService.getAllRockClimbingDifficultiesMeta()
+    }
   )
 
   initLoad$ = createEffect(() =>
@@ -51,11 +51,11 @@ export class AdministrationEffects {
           ).pipe(
             switchMap(result=>{
               return[
-                actions.loadCountriesSuccess({countries: result.result.data[result.queries[0].query]}),
-                actions.loadClimbingQualityRatingsSuccess({climbingQualityRatings: result.result.data[result.queries[1].query]}),
-                actions.loadBusyRatingsSuccess({busyRatings: result.result.data[result.queries[2].query]}),
-                actions.loadRockClimbingTypesSuccess({rockClimbingTypes: result.result.data[result.queries[3].query]}),
-                actions.loadRockClimbingDifficultiesSuccess({rockClimbingDifficulties: result.result.data[result.queries[4].query]}),
+                actions.loadCountriesSuccess({countries: result.result.data[result.queries["country"].query]}),
+                actions.loadClimbingQualityRatingsSuccess({climbingQualityRatings: result.result.data[result.queries["climbingQualityRatings"].query]}),
+                actions.loadBusyRatingsSuccess({busyRatings: result.result.data[result.queries["busyRatings"].query]}),
+                actions.loadRockClimbingTypesSuccess({rockClimbingTypes: result.result.data[result.queries["rockClimbingTypes"].query]}),
+                actions.loadRockClimbingDifficultiesSuccess({rockClimbingDifficulties: result.result.data[result.queries["rockClimbingDifficulties"].query]}),
                 featureActions.initLoadSuccess()
               ]
             })

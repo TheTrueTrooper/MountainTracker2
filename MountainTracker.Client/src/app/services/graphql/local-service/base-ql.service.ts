@@ -93,7 +93,7 @@ export abstract class BaseQlService {
     const hasParamValues: boolean = queries.some(x=>x.hasParamValues());
     const braceValues: (char: string)=>string = (char: string) => hasParamValues ? char : '';
 
-    const qlQuery = `query${braceValues('(')}${queries.map(x=>x.queryParamsFlat()).filter(x=>x!=='').join(',')}${braceValues(')')}
+    const qlQuery = `query${braceValues('(')}${queries.filter(x=>x.queryParams.length > 0).map(x=>x.queryParamsFlat()).join(',')}${braceValues(')')}
     {
       ${queries.map(x=>x.selection).join('\n')}
     }`
@@ -101,9 +101,21 @@ export abstract class BaseQlService {
     return gql`${qlQuery}`
   }
 
-  public getMergedQuery(queries: QlQueryMeta<any>[]): Observable<{queries: QlQueryMeta<any>[], result: { loading: boolean, networkStatus: any, data: any}}>
+  public getMergedQuery<T extends QlQueryMeta<any>[] | {[key: string]: QlQueryMeta<any>}>(queries: T): Observable<{queries: T, result: { loading: boolean, networkStatus: any, data: any}}>
   {
-    const query = this.generateMergedQuery(queries);
+    let queriesAsArray: QlQueryMeta<any>[] | null = null 
+    if(Array.isArray(queries))
+    {
+      queriesAsArray = queries;
+    }
+    else
+    {
+      queriesAsArray = Object.keys(queries).map(i=>{
+        let item: QlQueryMeta<any> = queries[i];
+        return item;
+        })
+    }
+    const query = this.generateMergedQuery(queriesAsArray!);
     return this.moutainTrackerApi.query<any>({
       query: query,                                                                                                                                                                                                                            
     }).pipe(switchMap((result: any) => of({ queries: queries, result: result})))

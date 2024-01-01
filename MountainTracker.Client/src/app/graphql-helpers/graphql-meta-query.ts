@@ -46,8 +46,8 @@ export class QlQueryMeta<T>{
       const hasValues: boolean = this.hasParamValues();
       const braceValues: (char: string)=>string = (char: string) => hasValues ? char : '';
       this.selection = `${query}${braceValues('(')}${this.queryParams.map((x)=>`${x?.input ?? x.param}: $${this.queryParamPrefix}_${x.param}`).join(',')}${braceValues(')')}
-  {
-  ${selectToQlFields(selection) ?? ensureQlFields((classToField as any).prototype.constructor)}
-  }`
+{
+${selectToQlFields(selection) ?? ensureQlFields((classToField as any).prototype.constructor)}
+}`
     }
   }  

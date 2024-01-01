@@ -41,7 +41,11 @@ import { RockClimbingRouteEditTableComponent } from './components/rock-climbing-
     DistrictEditComponent, 
     ZoneEditComponent, 
     AreaEditComponent, 
-    RockClimbingWallEditComponent, RockClimbingWallEditTableComponent, RockClimbingWallSeasonalEditTableComponent, RockClimbingRouteEditComponent, RockClimbingRouteEditTableComponent,
+    RockClimbingWallEditComponent, 
+    RockClimbingWallEditTableComponent, 
+    RockClimbingWallSeasonalEditTableComponent, 
+    RockClimbingRouteEditComponent, 
+    RockClimbingRouteEditTableComponent,
   ],
   imports: [
     CommonModule,

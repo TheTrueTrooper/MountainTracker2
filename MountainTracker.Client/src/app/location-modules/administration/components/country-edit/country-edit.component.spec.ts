@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CountryEditComponent } from './country-edit.component';
+import { MatCardModule } from '@angular/material/card';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatSelectModule } from '@angular/material/select';
 
 describe('CountryEditComponent', () => {
   let component: CountryEditComponent;
@@ -8,7 +11,12 @@ describe('CountryEditComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CountryEditComponent]
+      declarations: [CountryEditComponent],
+      imports: [
+        MatCardModule,
+        MatSelectModule,
+        FontAwesomeModule,
+      ]
     })
     .compileComponents();
     

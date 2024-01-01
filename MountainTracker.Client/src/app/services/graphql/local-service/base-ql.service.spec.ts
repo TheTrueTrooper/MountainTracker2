@@ -7,11 +7,6 @@ import { ClientConfig } from '../../../configuration';
 import { Observable } from 'rxjs';
 
 const clientConfigMockFactory = ()=>({
-  LandingPage: {
-    AutoRotateDelay: 2500,
-    AutoRotate: true,
-    AutoLoad: true
-  },
   BaseEndpoint: "",
   GraphQlApiEndpoint: "https://localhost:44300/api/graphql",
 } as ClientConfig)
@@ -37,9 +32,9 @@ class BaseQlServiceTest extends BaseQlService {
       return this.moutainTrackerApi
      }
 
-   public generateQueryTest(query: QlQueryMeta<any>)
+   public generateQueryStringTest(query: QlQueryMeta<any>)
    {
-    return this.generateQuery(query)
+    return this.generateQueryString(query)
    }
 
   public generateQueryMetaTest<T extends {
@@ -56,9 +51,15 @@ describe('BaseQlService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{provide: ClientConfig, useFactory:clientConfigMockFactory}],
-      imports: [ApolloTestingModule]});
+      providers: [{provide: ClientConfig, useFactory:clientConfigMockFactory},
+        {provide: BaseQlServiceTest, useFactory:()=> new BaseQlServiceTest(TestBed.inject(Apollo))}],
+      imports: [ApolloTestingModule.withClients(['MountainTracker'])]});
     service = TestBed.inject(BaseQlServiceTest);
+    controller = TestBed.inject(ApolloTestingController);
+  });
+
+  afterEach(() => {
+    controller.verify();
   });
 
   it('should be created', () => {
@@ -69,20 +70,155 @@ describe('BaseQlService', () => {
     expect(service.getMoutainTrackerApi).toBeTruthy();
   });
 
-  it('should have generate generic query meta data on generateQueryMetaTest call', (done) => {
-    const query = 'testQuery'
-    const expectedFields = 'id\nfield1\nfield2'
-    const expectedPrefix = 'MockClass'
+  it('should have generate generic query meta data on generateQueryMeta call', (done) => {
+    const query = 'testQuery';
+    const expectedParams: QlQueryParams[] = [];
+    const expectedPrefix = 'MockClass';
+    const expectedFields = `${query}\n{\nid\nfield1\nfield2\n}`;
 
     let generated = service.generateQueryMetaTest(MockClass, query)
-    
+
     generated.subscribe(result=>{
       expect(result.query).toBe(query);
       expect(result.selection).toBe(expectedFields);
       expect(result.queryParamPrefix).toBe(expectedPrefix);
-      expect(result.queryParams).toBe([]);
+      expect(result.queryParams).toEqual(expectedParams);
       done();
     });
+  });
+
+  it('should have generate generic query string data on generateQueryString call', (done) => {
+    const query = 'testQuery';
+    const expectedQueryString = `query\n{\n${query}\n{\nid\nfield1\nfield2\n}\n}`;
+
+    let generated = service.generateQueryMetaTest(MockClass, query)
+
+    generated.subscribe(result=>{
+      let query = service.generateQueryStringTest(result);
+      expect(query).toBe(expectedQueryString);
+      done();
+    });
+  });
+
+  it('should have generate generic query meta data on generateQueryMeta call with params', (done) => {
+    const query = 'testQuery';
+    const Params: QlQueryParams[] = [{
+      param: "test",
+      qlType: "Int!"
+    }];
+    const expectedPrefix = 'MockClass';
+    const expectedFields = `${query}(${Params[0].param}: $${expectedPrefix}_${Params[0].param})\n{\nid\nfield1\nfield2\n}`;
     
+
+    let generated = service.generateQueryMetaTest(MockClass, query, undefined, Params)
+
+    generated.subscribe(result=>{
+      expect(result.query).toBe(query);
+      expect(result.selection).toBe(expectedFields);
+      expect(result.queryParamPrefix).toBe(expectedPrefix);
+      expect(result.queryParams).toEqual(Params);
+      done();
+    });
+  });
+
+  it('should have generate generic query string data on generateQueryString call with params', (done) => {
+    const query = 'testQuery';
+    const Params: QlQueryParams[] = [{
+      param: "test",
+      qlType: "Int!"
+    }];
+    const expectedPrefix = 'MockClass';
+    const expectedQueryString = `query($${expectedPrefix}_${Params[0].param}: ${Params[0].qlType})\n{\n${query}(${Params[0].param}: $${expectedPrefix}_${Params[0].param})\n{\nid\nfield1\nfield2\n}\n}`;
+    let generated = service.generateQueryMetaTest(MockClass, query, undefined, Params)
+
+    generated.subscribe(result=>{
+      let query = service.generateQueryStringTest(result);
+      expect(query).toBe(expectedQueryString);
+      done();
+    });
+  });
+
+  it('should have generate generic query meta data on generateQueryMeta call with Prefix override', (done) => {
+    const query = 'testQuery';
+    const Params: QlQueryParams[] = [{
+      param: "test",
+      qlType: "Int!"
+    }];
+    const Prefix = 'Override';
+    const expectedFields = `${query}(${Params[0].param}: $${Prefix}_${Params[0].param})\n{\nid\nfield1\nfield2\n}`;
+    
+
+    let generated = service.generateQueryMetaTest(MockClass, query, undefined, Params, Prefix)
+
+    generated.subscribe(result=>{
+      expect(result.query).toBe(query);
+      expect(result.selection).toBe(expectedFields);
+      expect(result.queryParamPrefix).toBe(Prefix);
+      expect(result.queryParams).toEqual(Params);
+      done();
+    });
+  });
+
+  it('should have generate generic query string data on generateQueryString call with Prefix override', (done) => {
+    const query = 'testQuery';
+    const Params: QlQueryParams[] = [{
+      param: "test",
+      qlType: "Int!"
+    }];
+    const Prefix = 'Override';
+    const expectedQueryString = `query($${Prefix}_${Params[0].param}: ${Params[0].qlType})\n{\n${query}(${Params[0].param}: $${Prefix}_${Params[0].param})\n{\nid\nfield1\nfield2\n}\n}`;
+    let generated = service.generateQueryMetaTest(MockClass, query, undefined, Params, Prefix)
+
+    generated.subscribe(result=>{
+      let query = service.generateQueryStringTest(result);
+      expect(query).toBe(expectedQueryString);
+      done();
+    });
+  });
+
+  it('should have generate generic query meta data on generateQueryMeta call with field select override ', (done) => {
+    const query = 'testQuery';
+    const Params: QlQueryParams[] = [{
+      param: "test",
+      qlType: "Int!"
+    }];
+    const fieldSelect = {
+      fields: ['id', 'field1']
+    } as QlSelectionSetTyped<undefined, MockClass>
+    const expectedPrefix = 'MockClass';
+    const expectedFields = `${query}(${Params[0].param}: $${expectedPrefix}_${Params[0].param})\n{\nid\nfield1\n}`;
+    
+
+    let generated = service.generateQueryMetaTest(MockClass, query, fieldSelect, Params)
+
+    generated.subscribe(result=>{
+      expect(result.query).toBe(query);
+      expect(result.selection).toBe(expectedFields);
+      expect(result.queryParamPrefix).toBe(expectedPrefix);
+      expect(result.queryParams).toEqual(Params);
+      done();
+    });
+  });
+
+  it('should have generate generic query string data on generateQueryString call with field select override ', (done) => {
+    const query = 'testQuery';
+    const Params: QlQueryParams[] = [{
+      param: "test",
+      qlType: "Int!"
+    }];
+    const fieldSelect = {
+      fields: ['id', 'field1']
+    } as QlSelectionSetTyped<undefined, MockClass>
+    const expectedPrefix = 'MockClass';
+    const expectedQueryString = `query($${expectedPrefix}_${Params[0].param}: ${Params[0].qlType})\n{\n${query}(${Params[0].param}: $${expectedPrefix}_${Params[0].param})\n{\nid\nfield1\n}\n}`;
+    
+
+    let generated = service.generateQueryMetaTest(MockClass, query, fieldSelect, Params)
+
+    generated.subscribe(result=>{
+      let query = service.generateQueryStringTest(result);
+      expect(query).toBe(expectedQueryString);
+      done();
+    });
   });
 });

@@ -9,15 +9,20 @@ export abstract class BaseQlService {
       this.moutainTrackerApi = this.apolloProvider.use("MountainTracker");
      }
 
-   protected generateQuery(query: QlQueryMeta<any>): TypedDocumentNode<any, any>
-   {
+  protected generateQueryString(query: QlQueryMeta<any>): string
+  {
     const hasParamValue: boolean = query.hasParamValues();
     const braceValues: (char: string)=>string = (char: string) => hasParamValue ? char : '';
     const qlQuery = `query${braceValues('(')}${query.queryParamsFlat()}${braceValues(')')}
 {
 ${query.selection}
 }`
-    return gql`${qlQuery}`
+    return qlQuery
+  }
+
+  protected generateQuery(query: QlQueryMeta<any>): TypedDocumentNode<any, any>
+  {
+    return gql`${this.generateQueryString(query)}`
   }
 
   protected generateQueryMeta<T extends {
@@ -36,7 +41,7 @@ ${query.selection}
 {
 ${queries.map(x=>x.selection).join('\n')}
 }`
-    console.log(qlQuery);
+    //console.log(qlQuery);
     return gql`${qlQuery}`
   }
 

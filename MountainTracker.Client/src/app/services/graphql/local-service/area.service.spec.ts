@@ -2,13 +2,9 @@ import { TestBed } from '@angular/core/testing';
 
 import { AreaService } from './area.service';
 import { ClientConfig } from '../../../configuration';
+import { ApolloTestingModule } from 'apollo-angular/testing';
 
 const clientConfigMockFactory = ()=>({
-  LandingPage: {
-    AutoRotateDelay: 2500,
-    AutoRotate: true,
-    AutoLoad: true
-  },
   BaseEndpoint: "",
   GraphQlApiEndpoint: "https://localhost:44300/api/graphql",
 } as ClientConfig)
@@ -18,10 +14,8 @@ describe('AreaService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-          {provide: ClientConfig, useFactory:clientConfigMockFactory}
-      ]
-    });
+      providers: [{provide: ClientConfig, useFactory:clientConfigMockFactory}],
+      imports: [ApolloTestingModule]});
     service = TestBed.inject(AreaService);
   });
 

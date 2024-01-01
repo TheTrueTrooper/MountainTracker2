@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BaseQlService, QlQueryMeta, QlQueryParams } from './base-ql.service';
+import { BaseQlService } from './base-ql.service';
 import { Apollo } from 'apollo-angular';
-import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
+import { QlQueryMeta, QlQueryParams, QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
 import { Observable, map, switchMap } from 'rxjs';
 import { BusyRating } from '../../../models';
 

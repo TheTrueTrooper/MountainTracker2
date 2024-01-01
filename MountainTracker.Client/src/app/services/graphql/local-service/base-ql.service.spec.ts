@@ -1,9 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { BaseQlService, QlQueryMeta, QlQueryParams } from './base-ql.service';
+import { BaseQlService } from './base-ql.service';
 import { ApolloTestingController, ApolloTestingModule } from 'apollo-angular/testing';
-import { Apollo, gql } from 'apollo-angular';
-import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
-import { Country } from '../../../models';
+import { Apollo } from 'apollo-angular';
+import { QlQueryMeta, QlQueryParams, QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
 import { ClientConfig } from '../../../configuration';
 import { Observable } from 'rxjs';
 

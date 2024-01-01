@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { BaseQlService, QlQueryMeta, QlQueryParams } from './base-ql.service';
+import { BaseQlService } from './base-ql.service';
 import { Observable, map, switchMap } from 'rxjs';
 import { ProvinceOrState } from '../../../models';
-import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
+import { QlQueryMeta, QlQueryParams, QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
 
 @Injectable({
   providedIn: 'root'

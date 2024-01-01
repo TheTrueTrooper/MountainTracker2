@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BaseQlService } from './base-ql.service';
+import { BaseQlService, QlQueryMeta, QlQueryParams } from './base-ql.service';
 import { Apollo } from 'apollo-angular';
 import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
-import { Observable, map } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 import { RockClimbingWall } from '../../../models';
 
 @Injectable({
@@ -15,51 +15,115 @@ export class RockClimbingWallService extends BaseQlService {
   }
 
   //#region queries
-  public getAllRockClimbingWall(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall[]>
+  public getAllRockClimbingWallsMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<QlQueryMeta<RockClimbingWall>>
   {
-    const query = 'allRockClimbingWall'
-      return this.moutainTrackerApi.query<RockClimbingWall[]>({
-      query: this.generateQuery(RockClimbingWall, query, selection),                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[query]))
+    const query = 'allRockClimbingWalls'
+    return this.generateQueryMeta(
+      RockClimbingWall, query, selection
+    )
+  }
+
+  public getAllRockClimbingWalls(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall[]>
+  {
+    return this.getAllRockClimbingWallsMeta(selection).pipe(
+      switchMap(
+        query=>{
+          return this.moutainTrackerApi.query<RockClimbingWall[]>({
+            query: this.generateQuery(query),                                                                                                                                                                                                                                
+          }).pipe(map((result: any) => result.data[query.query]))
+        }
+      )
+    )
+  }
+  
+  public getRockClimbingWallByIdMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<QlQueryMeta<RockClimbingWall>>
+  {
+    const query = 'rockClimbingWallById'
+    const queryParams: QlQueryParams[] = [
+      {
+        param: 'id', 
+        qlType: 'Int!'
+      }
+    ]
+    return this.generateQueryMeta(
+      RockClimbingWall, query, selection, queryParams
+    )
   }
 
   public getRockClimbingWallById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall>
   {
-    const queryVar = '($id: Int!)'
-    const query = 'rockClimbingWallById'
-    const queryParam = '(id: $id)'
-    return this.moutainTrackerApi.query<RockClimbingWall>({
-      query: this.generateQuery(RockClimbingWall, query, selection, queryVar, queryParam),
-      variables:{
-      id: id
-    }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[query]))
+    return this.getRockClimbingWallByIdMeta(selection).pipe(
+      switchMap(
+        query=>{
+          return this.moutainTrackerApi.query<RockClimbingWall>({
+            query: this.generateQuery(query),
+            variables:{
+                  [query.getParamSelector(query.queryParams[0].param)]: id
+                 }                                                                                                                                                                                                                                
+          }).pipe(map((result: any) => result.data[query.query]))
+        }
+      )
+    )
   }
 
-  public getRockClimbingWallByCode(wallCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall>
+  public getRockClimbingWallByCodeMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<QlQueryMeta<RockClimbingWall>>
   {
-    const queryVar = '($wallCode: String!)'
     const query = 'rockClimbingWallByCode'
-    const queryParam = '(wallCode: $wallCode)'
-    return this.moutainTrackerApi.query<RockClimbingWall>({
-      query: this.generateQuery(RockClimbingWall, query, selection, queryVar, queryParam),
-      variables:{
-        wallCode: wallCode
-      }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[query]))
+    const queryParams: QlQueryParams[] = [
+      {
+        param: 'wallCode', 
+        qlType: 'String!'
+      }
+    ]
+    return this.generateQueryMeta(
+      RockClimbingWall, query, selection, queryParams
+    )
+  }
+
+  public getRockClimbingRouteByCode(wallCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall>
+  {
+    return this.getRockClimbingWallByCodeMeta(selection).pipe(
+      switchMap(
+        query=>{
+          return this.moutainTrackerApi.query<RockClimbingWall>({
+            query: this.generateQuery(query),
+            variables:{
+                  [query.getParamSelector(query.queryParams[0].param)]: wallCode
+                 }                                                                                                                                                                                                                                
+          }).pipe(map((result: any) => result.data[query.query]))
+        }
+      )
+    )
+  }
+
+  public getRockClimbingWallsByAreaMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<QlQueryMeta<RockClimbingWall>>
+  {
+    const query = 'rockClimbingWallsByArea'
+    const queryParams: QlQueryParams[] = [
+      {
+        param: 'areaId', 
+        qlType: 'Int!'
+      }
+    ]
+    return this.generateQueryMeta(
+      RockClimbingWall, query, selection, queryParams
+    )
   }
 
   public getRockClimbingWallsByArea(areaId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall[]>
   {
-    const queryVar = '($areaId: Int!)'
-    const query = 'rockClimbingWallsByArea'
-    const queryParam = '(areaId: $areaId)'
-    return this.moutainTrackerApi.query<RockClimbingWall[]>({
-      query: this.generateQuery(RockClimbingWall, query, selection, queryVar, queryParam),
-      variables:{
-        areaId: areaId
-      }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[query]))
+    return this.getRockClimbingWallsByAreaMeta(selection).pipe(
+      switchMap(
+        query=>{
+          return this.moutainTrackerApi.query<RockClimbingWall[]>({
+            query: this.generateQuery(query),
+            variables:{
+                  [query.getParamSelector(query.queryParams[0].param)]: areaId
+                 }                                                                                                                                                                                                                                
+          }).pipe(map((result: any) => result.data[query.query]))
+        }
+      )
+    )
   }
   //#endregion
 }

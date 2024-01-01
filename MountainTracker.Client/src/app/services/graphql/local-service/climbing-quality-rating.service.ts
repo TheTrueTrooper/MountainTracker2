@@ -28,7 +28,7 @@ export class ClimbingQualityRatingService extends BaseQlService {
       switchMap(
         query=>{
           return this.moutainTrackerApi.query<ClimbingQualityRating[]>({
-            query: this.generateQuery2(query),                                                                                                                                                                                                                                
+            query: this.generateQuery(query),                                                                                                                                                                                                                                
           }).pipe(map((result: any) => result.data[query.query]))
         }
       )
@@ -54,10 +54,10 @@ export class ClimbingQualityRatingService extends BaseQlService {
     return this.getClimbingQualityRatingByIdMeta(selection).pipe(
       switchMap(
         query=>{
-          return this.moutainTrackerApi.query<ClimbingQualityRating[]>({
-            query: this.generateQuery2(query),
+          return this.moutainTrackerApi.query<ClimbingQualityRating>({
+            query: this.generateQuery(query),
             variables:{
-                  [query.getParamSelector("id")]: id
+                  [query.getParamSelector(query.queryParams[0].param)]: id
                  }                                                                                                                                                                                                                                
           }).pipe(map((result: any) => result.data[query.query]))
         }

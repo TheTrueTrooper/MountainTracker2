@@ -28,7 +28,7 @@ export class CountryService extends BaseQlService {
       switchMap(
         query=>{
           return this.moutainTrackerApi.query<Country[]>({
-            query: this.generateQuery2(query),                                                                                                                                                                                                                                
+            query: this.generateQuery(query),                                                                                                                                                                                                                                
           }).pipe(map((result: any) => result.data[query.query]))
         }
       )
@@ -54,10 +54,10 @@ export class CountryService extends BaseQlService {
     return this.getCountryByIdMeta(selection).pipe(
       switchMap(
         query=>{
-          return this.moutainTrackerApi.query<Country[]>({
-            query: this.generateQuery2(query),
+          return this.moutainTrackerApi.query<Country>({
+            query: this.generateQuery(query),
             variables:{
-                  [query.getParamSelector("id")]: id
+                  [query.getParamSelector(query.queryParams[0].param)]: id
                  }                                                                                                                                                                                                                                
           }).pipe(map((result: any) => result.data[query.query]))
         }
@@ -71,7 +71,6 @@ export class CountryService extends BaseQlService {
     const queryParams: QlQueryParams[] = [
       {
         param: 'countryCode', 
-        //input: 'countryCode', 
         qlType: 'String!'
       }
     ]
@@ -85,10 +84,10 @@ export class CountryService extends BaseQlService {
     return this.getCountryByCodeMeta(selection).pipe(
       switchMap(
         query=>{
-          return this.moutainTrackerApi.query<Country[]>({
-            query: this.generateQuery2(query),
+          return this.moutainTrackerApi.query<Country>({
+            query: this.generateQuery(query),
             variables:{
-                  [query.getParamSelector("countryCode")]: countryCode
+                  [query.getParamSelector(query.queryParams[0].param)]: countryCode
                  }                                                                                                                                                                                                                                
           }).pipe(map((result: any) => result.data[query.query]))
         }

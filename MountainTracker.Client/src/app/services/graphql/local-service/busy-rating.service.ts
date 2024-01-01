@@ -28,7 +28,7 @@ export class BusyRatingService extends BaseQlService {
       switchMap(
         query=>{
           return this.moutainTrackerApi.query<BusyRating[]>({
-            query: this.generateQuery2(query),                                                                                                                                                                                                                                
+            query: this.generateQuery(query),                                                                                                                                                                                                                                
           }).pipe(map((result: any) => result.data[query.query]))
         }
       )
@@ -55,9 +55,9 @@ export class BusyRatingService extends BaseQlService {
       switchMap(
         query=>{
           return this.moutainTrackerApi.query<BusyRating[]>({
-            query: this.generateQuery2(query),
+            query: this.generateQuery(query),
             variables:{
-                  [query.getParamSelector("id")]: id
+                  [query.getParamSelector(query.queryParams[0].param)]: id
                  }                                                                                                                                                                                                                                
           }).pipe(map((result: any) => result.data[query.query]))
         }

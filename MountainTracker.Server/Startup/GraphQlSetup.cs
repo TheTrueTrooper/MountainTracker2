@@ -44,7 +44,7 @@ namespace MountainTracker.Server.Startup
                 config.AuthorizationRequired = false;
                 config.HandlePost = true;
                 config.HandleWebSockets = true;
-                config.EnableBatchedRequests = false;
+                config.EnableBatchedRequests = true;
             });
             if (config.ShowUi)
             {

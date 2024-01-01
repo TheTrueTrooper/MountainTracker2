@@ -133,4 +133,10 @@ export class MountainEditorComponent {
   {
     this.store.dispatch(featureActions.selectRockClimbingRoute({id: id}));
   }
+
+  regionAddClicked()
+  {
+    console.log("region add clicked");
+    
+  }
 }

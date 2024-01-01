@@ -4,10 +4,20 @@ import * as graphqlHelpers from '../../../graphql-helpers/graphql-helper';
 import { Observable, map, of, switchMap } from "rxjs";
 import { ApolloQueryResult } from "@apollo/client/core";
 
+type CoreQlNullableTypes =    'String' |  'Int' |  'Float' |  'Boolean' |  'ID'
+type CoreQlNonNullableTypes = 'String!' | 'Int!' | 'Float!' | 'Boolean!' | 'ID!'
+type CoreQlNullableListTypes =    '[String]' |  '[Int]' |  '[Float]' |  '[Boolean]' |  '[ID]'
+type CoreQlNonNullableListTypes = '[String]!' | '[Int]!' | '[Float]!' | '[Boolean]!' | '[ID]!'
+type NetQlNullableTypes =    'BigInt' |  'Byte' |  'Date' |  'DateOnly' |  'DateTime' |  'DateTimeOffset' |  'Decimal' |  'Guid' |  'Half' |  'Long' |  'Milliseconds' |  'SByte' |  'Seconds' |  'Short' |  'TimeOnly' |  'UInt' |  'ULong' |  'Uri' |  'UShort'
+type NetQlNonNullableTypes = 'BigInt!' | 'Byte!' | 'Date!' | 'DateOnly!' | 'DateTime!' | 'DateTimeOffset!' | 'Decimal!' | 'Guid!' | 'Half!' | 'Long!' | 'Milliseconds!' | 'SByte!' | 'Seconds!' | 'Short!' | 'TimeOnly!' | 'UInt!' | 'ULong!' | 'Uri!' | 'UShort!'
+type NetQlNullableListTypes =    '[BigInt]' |  '[Byte]' |  '[Date]' |  '[DateOnly]' |  '[DateTime]' |  '[DateTimeOffset]' |  '[Decimal]' |  '[Guid]' |  '[Half]' |  '[Long]' |  '[Milliseconds]' |  '[SByte]' |  '[Seconds]' |  '[Short]' |  '[TimeOnly]' |  '[UInt]' |  '[ULong]' |  '[Uri]' |  '[UShort]'
+type NetQlNonNullableListTypes = '[BigInt]!' | '[Byte]!' | '[Date]!' | '[DateOnly]!' | '[DateTime]!' | '[DateTimeOffset]!' | '[Decimal]!' | '[Guid]!' | '[Half]!' | '[Long]!' | '[Milliseconds]!' | '[SByte]!' | '[Seconds]!' | '[Short]!' | '[TimeOnly]!' | '[UInt]!' | '[ULong]!' | '[Uri]!' | '[UShort]!'
+type BasicQLTypes = CoreQlNullableTypes | CoreQlNonNullableTypes | CoreQlNullableListTypes | CoreQlNonNullableListTypes | NetQlNullableTypes | NetQlNonNullableTypes | NetQlNullableListTypes | NetQlNonNullableListTypes
+
 export type QlQueryParams = {
   param: string, 
   input?: string, 
-  qlType: string
+  qlType: BasicQLTypes | string
 };
 
 export class QlQueryMeta<T>{
@@ -39,9 +49,9 @@ export class QlQueryMeta<T>{
     const hasValues: boolean = this.hasParamValues();
     const braceValues: (char: string)=>string = (char: string) => hasValues ? char : '';
     this.selection = `${query}${braceValues('(')}${this.queryParams.map((x)=>`${x?.input ?? x.param}: $${this.queryParamPrefix}_${x.param}`).join(',')}${braceValues(')')}
-    {
-      ${graphqlHelpers.selectToQlFields(selection) ?? graphqlHelpers.ensureQlFields((classToField as any).prototype.constructor)}
-    }`
+{
+${graphqlHelpers.selectToQlFields(selection) ?? graphqlHelpers.ensureQlFields((classToField as any).prototype.constructor)}
+}`
   }
 }  
 
@@ -51,34 +61,14 @@ export abstract class BaseQlService {
       this.moutainTrackerApi = this.apolloProvider.use("MountainTracker");
      }
 
-   protected generateQuery2<
-   T extends {
-     new (): any;
-   }
-   >(query: QlQueryMeta<any>): TypedDocumentNode<any, any>
+   protected generateQuery(query: QlQueryMeta<any>): TypedDocumentNode<any, any>
    {
     const hasParamValue: boolean = query.hasParamValues();
     const braceValues: (char: string)=>string = (char: string) => hasParamValue ? char : '';
     const qlQuery = `query${braceValues('(')}${query.queryParamsFlat()}${braceValues(')')}
-    {
-      ${query.selection}
-    }`
-    return gql`${qlQuery}`
-  }
-
-   protected generateQuery<
-   T extends {
-     new (): any;
-   }
-   >(classToGet: T, query:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, any>, queryVar: string = "", queryParam: string = ""): TypedDocumentNode<any, any>
-   {
-    const qlQuery = `query${queryVar}
-    {
-      ${query}${queryParam}
-      {
-        ${graphqlHelpers.selectToQlFields(selection) ?? graphqlHelpers.ensureQlFields(classToGet.prototype.constructor)}
-      }
-    }`
+{
+${query.selection}
+}`
     return gql`${qlQuery}`
   }
 
@@ -95,14 +85,14 @@ export abstract class BaseQlService {
     const braceValues: (char: string)=>string = (char: string) => hasParamValues ? char : '';
 
     const qlQuery = `query${braceValues('(')}${queries.filter(x=>x.queryParams.length > 0).map(x=>x.queryParamsFlat()).join(',')}${braceValues(')')}
-    {
-      ${queries.map(x=>x.selection).join('\n')}
-    }`
+{
+${queries.map(x=>x.selection).join('\n')}
+}`
     console.log(qlQuery);
     return gql`${qlQuery}`
   }
 
-  public getMergedQuery<T extends QlQueryMeta<any>[] | {[key: string]: QlQueryMeta<any>}>(queries: T): Observable<{queries: T, result: ApolloQueryResult<any>}>
+  public getMergedQuery<T extends QlQueryMeta<any>[] | {[key: string]: QlQueryMeta<any>}>(queries: T, variables?: {[key: string]: any}): Observable<{queries: T, result: ApolloQueryResult<any>}>
   {
     let queriesAsArray: QlQueryMeta<any>[];
     if(Array.isArray(queries))
@@ -115,7 +105,8 @@ export abstract class BaseQlService {
     }
     const query = this.generateMergedQuery(queriesAsArray!);
     return this.moutainTrackerApi.query<any>({
-      query: query,                                                                                                                                                                                                                            
+      query: query, 
+      variables: variables                                                                                                                                                                                                                           
     }).pipe(switchMap((result) => of({ queries: queries, result: result})))
   }
 } 

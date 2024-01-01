@@ -7,7 +7,7 @@ import { labeled } from '../../../../models';
   styleUrl: './focus-selector.component.scss'
   
 })
-export class RegionalSelectorComponent {
+export class FocusSelectorComponent {
   @Input()
   selectOptions: labeled[] | null = [];
   @Input()

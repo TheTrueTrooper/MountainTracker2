@@ -4,13 +4,13 @@ import { MountainEditorComponent } from './views';
 import { 
   EditTableComponent, 
   GeoFenceEditTableComponent, 
-  RegionalSelectorComponent, 
   CountryEditComponent, 
   ProvinceOrStateEditComponent, 
   RegionEditComponent,
   ZoneEditComponent,
   AreaEditComponent,
-  RockClimbingWallEditComponent
+  RockClimbingWallEditComponent,
+  FocusSelectorComponent
  } from './components';
 import { StoreModule } from '@ngrx/store';
 import { AdministrationFeature, administrationFeatureReducer } from './reducers';
@@ -31,7 +31,7 @@ import { RockClimbingRouteEditTableComponent } from './components/rock-climbing-
 
 @NgModule({
   declarations: [
-    RegionalSelectorComponent,
+    FocusSelectorComponent,
     EditTableComponent, 
     GeoFenceEditTableComponent,
     CountryEditComponent,

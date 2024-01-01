@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { BaseQlService } from './base-ql.service';
 import { ApolloTestingController, ApolloTestingModule } from 'apollo-angular/testing';
 import { Apollo } from 'apollo-angular';
-import { QlQueryMeta, QlQueryParams, QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
+import { QlField, QlIdField, QlQueryMeta, QlQueryParams, QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
 import { ClientConfig } from '../../../configuration';
 import { Observable } from 'rxjs';
 
@@ -15,6 +15,17 @@ const clientConfigMockFactory = ()=>({
   BaseEndpoint: "",
   GraphQlApiEndpoint: "https://localhost:44300/api/graphql",
 } as ClientConfig)
+
+export class MockClass
+{
+    @QlIdField()
+    @QlField()
+    public id?:number
+    @QlField()
+    public field1?:string
+    @QlField()
+    public field2?:string
+}
 
 class BaseQlServiceTest extends BaseQlService {
     constructor(protected override apolloProvider: Apollo) {
@@ -58,23 +69,20 @@ describe('BaseQlService', () => {
     expect(service.getMoutainTrackerApi).toBeTruthy();
   });
 
-  it('should have generate generic query', () => {
-    // const query = 'testQuery2'
-    // let expected = gql`
-    // query
-    // {
-    //   Test Level 2
-    //   {
-    //     testQuery2
-    //     {
-    //       regionCode
-    //       englishFullName
-    //       countryId
-    //     }
-    //   }
-    // }
-    // `
-    // let generated = service.generateQueryTest(Country, query)
-    // expect(generated).toBe(expected);
+  it('should have generate generic query meta data on generateQueryMetaTest call', (done) => {
+    const query = 'testQuery'
+    const expectedFields = 'id\nfield1\nfield2'
+    const expectedPrefix = 'MockClass'
+
+    let generated = service.generateQueryMetaTest(MockClass, query)
+    
+    generated.subscribe(result=>{
+      expect(result.query).toBe(query);
+      expect(result.selection).toBe(expectedFields);
+      expect(result.queryParamPrefix).toBe(expectedPrefix);
+      expect(result.queryParams).toBe([]);
+      done();
+    });
+    
   });
 });

@@ -73,7 +73,17 @@ import {MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MatSelectModule} from '@angular/mat
             cache: new InMemoryCache(),
             link: httpLink.create({
               uri: config.GraphQlApiEndpoint!
-            })
+            }),
+            defaultOptions:{
+              watchQuery: {
+                //fetchPolicy: 'no-cache',
+                //errorPolicy: 'ignore',
+              },
+              query: {
+                //fetchPolicy: 'no-cache',
+                //errorPolicy: 'all',
+              },
+            }
           },
         };
       },

@@ -55,7 +55,7 @@ public class RegionService : IRegionService
         return list.ToLookup(list => list.ProvinceOrStateId);
     }
 
-    public async Task<Regions?> updateRegion(int id, Regions region)
+    public async Task<Regions?> UpdateRegion(int id, Regions region)
     {
         var entity = await Regions.FirstAsync(region => region.Id == id);
         if (entity != null)
@@ -64,5 +64,24 @@ public class RegionService : IRegionService
             await Context.SaveChangesAsync();
         }
         return region;
+    }
+
+    public async Task<bool> DeleteRegion(int id)
+    {
+        var entity = await Regions.FirstAsync(region => region.Id == id);
+        if (entity != null)
+        {
+            Regions.Entry(entity).State = EntityState.Deleted;
+            await Context.SaveChangesAsync();
+            return true;
+        }
+        return false;
+    }
+
+    public async Task<Regions?> CreateRegion(Regions region)
+    {
+        var newEntity = await Regions.AddAsync(region);
+        await Context.SaveChangesAsync();
+        return newEntity.Entity;
     }
 }

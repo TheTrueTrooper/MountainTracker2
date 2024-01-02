@@ -8,7 +8,6 @@ describe('PageNotFoundComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PageNotFoundComponent]
     })
     .compileComponents();
     
@@ -19,5 +18,11 @@ describe('PageNotFoundComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should say not found', () => {
+    const html: HTMLElement = fixture.nativeElement;
+
+    expect(html.innerHTML.toLocaleLowerCase()).toContain("not found");
   });
 });

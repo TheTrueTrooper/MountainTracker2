@@ -6,18 +6,18 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
-public class DistrictQuery : ObjectGraphType
+public static class DistrictQuery
 {
-    public DistrictQuery(IDistrictService districtService)
+    public static void AddDistrictQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
-        Name = "DistrictQuery";
-        Description = "Queries for district type";
+        var scope = This.CreateScope(serviceProvider);
+        IDistrictService districtService = scope.ServiceProvider.GetService<IDistrictService>()!;
 
-        Field<ListGraphType<DistrictType>, IEnumerable<Districts>>("allDistricts")
+        This.Field<ListGraphType<DistrictType>, IEnumerable<Districts>>("allDistricts")
             .ResolveAsync(async context => await districtService.GetAllDistricts())
             .Description("Gets a list of all of the districts");
 
-        Field<DistrictType, Districts>("districtById")
+        This.Field<DistrictType, Districts>("districtById")
             .Argument<int>("id")
             .ResolveAsync(async context =>
             {
@@ -26,7 +26,7 @@ public class DistrictQuery : ObjectGraphType
             })
             .Description("Gets a district by its db id");
 
-        Field<DistrictType, Districts>("districtByCode")
+        This.Field<DistrictType, Districts>("districtByCode")
             .Argument<StringGraphType>("districtCode")
             .ResolveAsync(async context =>
             {
@@ -35,7 +35,7 @@ public class DistrictQuery : ObjectGraphType
             })
             .Description("Gets a district by its district code");
 
-        Field<ListGraphType<DistrictType>, IEnumerable<Districts>>("districtsByRegion")
+        This.Field<ListGraphType<DistrictType>, IEnumerable<Districts>>("districtsByRegion")
             .Argument<IntGraphType>("regionId")
             .ResolveAsync(async context =>
             {

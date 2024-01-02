@@ -25,6 +25,9 @@
                     <textarea matInput placeholder="Add Info"></textarea>
                 </mat-form-field>
             </div>
+            <div *ngIf="!selectedRegionId" class="col-12">
+                <button mat-raised-button class="float-end" color="primary" (click)="this.regionAddClicked.emit()">Add New Region</button>
+            </div>
         </div>
     </mat-card-content>
 </mat-card>

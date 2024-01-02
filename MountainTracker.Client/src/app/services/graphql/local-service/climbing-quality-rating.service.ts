@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BaseQlService } from './base-ql.service';
 import { Apollo } from 'apollo-angular';
-import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
-import { Observable, map } from 'rxjs';
+import { QlQueryMeta, QlQueryParams, QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
+import { Observable, map, switchMap } from 'rxjs';
 import { ClimbingQualityRating } from '../../../models';
 
 @Injectable({
@@ -14,27 +14,55 @@ export class ClimbingQualityRatingService extends BaseQlService {
     super(apolloProvider)
    }
   //#region queries
-   protected override queryObj: string = "climbingQualityRatingQuery"
-
-   public getAllClimbingQualityRatings(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ClimbingQualityRating>): Observable<ClimbingQualityRating[]>
-   {
+  public getAllClimbingQualityRatingsMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ClimbingQualityRating>): Observable<QlQueryMeta<ClimbingQualityRating>>
+  {
     const query = 'allClimbingQualityRatings'
-    return this.moutainTrackerApi.query<ClimbingQualityRating[]>({
-      query: this.generateQuery(ClimbingQualityRating, query, selection),                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    return this.generateQueryMeta(
+      ClimbingQualityRating, query, selection
+    )
+  }
+
+  public getAllClimbingQualityRatings(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ClimbingQualityRating>): Observable<ClimbingQualityRating[]>
+  {
+    return this.getAllClimbingQualityRatingsMeta(selection).pipe(
+      switchMap(
+        query=>{
+          return this.moutainTrackerApi.query<ClimbingQualityRating[]>({
+            query: this.generateQuery(query),                                                                                                                                                                                                                                
+          }).pipe(map((result: any) => result.data[query.query]))
+        }
+      )
+    )
+  }
+
+  public getClimbingQualityRatingByIdMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ClimbingQualityRating>): Observable<QlQueryMeta<ClimbingQualityRating>>
+  {
+    const query = 'climbingQualityRatingById'
+    const queryParams: QlQueryParams[] = [
+      {
+        param: 'id', 
+        qlType: 'Byte!'
+      }
+    ]
+    return this.generateQueryMeta(
+      ClimbingQualityRating, query, selection, queryParams
+    )
   }
 
   public getClimbingQualityRatingById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ClimbingQualityRating>): Observable<ClimbingQualityRating>
   {
-    const queryVar = '($id: Byte!)'
-    const query = 'climbingQualityRatingById'
-    const queryParam = '(id: $id)'
-    return this.moutainTrackerApi.query<ClimbingQualityRating>({
-      query: this.generateQuery(ClimbingQualityRating, query, selection, queryVar, queryParam),
-      variables:{
-        id: id
-      }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    return this.getClimbingQualityRatingByIdMeta(selection).pipe(
+      switchMap(
+        query=>{
+          return this.moutainTrackerApi.query<ClimbingQualityRating>({
+            query: this.generateQuery(query),
+            variables:{
+                  [query.getParamSelector(query.queryParams[0].param)]: id
+                 }                                                                                                                                                                                                                                
+          }).pipe(map((result: any) => result.data[query.query]))
+        }
+      )
+    )
   }
   //#endregion
 }

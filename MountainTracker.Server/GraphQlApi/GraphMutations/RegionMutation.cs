@@ -7,23 +7,40 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphMutations;
 
-public class RegionMutation : ObjectGraphType
+public static class RegionMutation
 {
-    public RegionMutation(IRegionService regionService)
+    public static void AddRegionMutation(this MountainTrackerMutation This, IServiceProvider serviceProvider)
     {
-        Name = "RegionMutation";
-        Description = "Mutations for region type";
+        var scope = This.CreateScope(serviceProvider);
+        IRegionService regionService = scope.ServiceProvider.GetService<IRegionService>()!;
 
-        Field<RegionType, Regions>("upateRegionById")
+        This.Field<RegionType, Regions>("updateRegionById")
             .Argument<int>("id")
             .Argument<NonNullGraphType<RegionInput>>("region")
             .ResolveAsync(async context =>
             {
                 int id = context.GetArgument<int>("id");
                 Regions region = context.GetArgument<Regions>("region");
-                return await regionService.updateRegion(id, region);
+                return await regionService.UpdateRegion(id, region);
             })
             .Description("Gets a region by its db id");
 
+        This.Field<RegionType, Regions>("createRegion")
+            .Argument<NonNullGraphType<RegionInput>>("region")
+            .ResolveAsync(async context =>
+            {
+                Regions region = context.GetArgument<Regions>("region");
+                return await regionService.CreateRegion(region);
+            })
+            .Description("Gets a region by its db id");
+
+        This.Field<BooleanGraphType, bool>("deleteRegion")
+            .Argument<int>("id")
+            .ResolveAsync(async context =>
+            {
+                int id = context.GetArgument<int>("id");
+                return await regionService.DeleteRegion(id);
+            })
+            .Description("Gets a region by its db id");
     }
 }

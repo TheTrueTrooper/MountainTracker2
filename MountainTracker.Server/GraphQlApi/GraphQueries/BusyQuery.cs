@@ -6,18 +6,18 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
-public class BusyRatingQuery : ObjectGraphType
+public static class BusyRatingQuery
 {
-    public BusyRatingQuery(IBusyRatingService busyRatingService)
+    public static void AddBusyRatingQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
-        Name = "BusyRatingQuery";
-        Description = "Queries for busy rating query type";
+        var scope = This.CreateScope(serviceProvider);
+        IBusyRatingService busyRatingService = scope.ServiceProvider.GetService<IBusyRatingService>()!;
 
-        Field<ListGraphType<BusyRatingType>, IEnumerable<BusyRatings>>("allBusyRatings")
+        This.Field<ListGraphType<BusyRatingType>, IEnumerable<BusyRatings>>("allBusyRatings")
             .ResolveAsync(async context => await busyRatingService.GetAllBusyRatings())
             .Description("Gets a list of all of the climbing quality ratings");
 
-        Field<BusyRatingType, BusyRatings>("busyRatingById")
+        This.Field<BusyRatingType, BusyRatings>("busyRatingById")
             .Argument<byte>("id")
             .ResolveAsync(async context =>
             {

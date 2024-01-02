@@ -1,23 +1,24 @@
 ﻿using GraphQL;
 using GraphQL.Types;
+using Microsoft.Extensions.DependencyInjection;
 using MountainTracker.Server.GraphQlApi.GraphTypes;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
-public class RockClimbingWallQuery : ObjectGraphType
+public static class RockClimbingWallQuery
 {
-    public RockClimbingWallQuery(IRockClimbingWallService rockClimbingWallService)
+    public static void AddRockClimbingWallQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
-        Name = "RockClimbingWallQuery";
-        Description = "Queries for rock climbing wall type";
+        var scope = This.CreateScope(serviceProvider);
+        IRockClimbingWallService rockClimbingWallService = scope.ServiceProvider.GetService<IRockClimbingWallService>()!;
 
-        Field<ListGraphType<RockClimbingWallType>, IEnumerable<RockClimbingWalls>> ("allRockClimbingWall")
+        This.Field<ListGraphType<RockClimbingWallType>, IEnumerable<RockClimbingWalls>> ("allRockClimbingWall")
             .ResolveAsync(async context => await rockClimbingWallService.GetAllRockClimbingWalls())
             .Description("Gets a list of all of the rock climbing walls");
 
-        Field<RockClimbingWallType, RockClimbingWalls>("rockClimbingWallById")
+        This.Field<RockClimbingWallType, RockClimbingWalls>("rockClimbingWallById")
             .Argument<int>("id")
             .ResolveAsync(async context =>
             {
@@ -26,7 +27,7 @@ public class RockClimbingWallQuery : ObjectGraphType
             })
             .Description("Gets a rock climbing wall by its db id");
 
-        Field<RockClimbingWallType, RockClimbingWalls>("rockClimbingWallByCode")
+        This.Field<RockClimbingWallType, RockClimbingWalls>("rockClimbingWallByCode")
             .Argument<StringGraphType>("wallCode")
             .ResolveAsync(async context =>
             {
@@ -35,7 +36,7 @@ public class RockClimbingWallQuery : ObjectGraphType
             })
             .Description("Gets a rock climbing wall by its rock climbing wall code");
 
-        Field<ListGraphType<RockClimbingWallType>, IEnumerable<RockClimbingWalls>>("rockClimbingWallsByArea")
+        This.Field<ListGraphType<RockClimbingWallType>, IEnumerable<RockClimbingWalls>>("rockClimbingWallsByArea")
             .Argument<IntGraphType>("areaId")
             .ResolveAsync(async context =>
             {

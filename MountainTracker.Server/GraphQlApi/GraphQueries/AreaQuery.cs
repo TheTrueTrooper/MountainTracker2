@@ -6,18 +6,18 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
-public class AreaQuery : ObjectGraphType
+public static class AreaQuery
 {
-    public AreaQuery(IAreaService areaService)
+    public static void AddAreaQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
-        Name = "AreaQuery";
-        Description = "Queries for area type";
+        var scope = This.CreateScope(serviceProvider);
+        IAreaService areaService = scope.ServiceProvider.GetService<IAreaService>()!;
 
-        Field<ListGraphType<AreaType>, IEnumerable<Areas>>("allAreas")
+        This.Field<ListGraphType<AreaType>, IEnumerable<Areas>>("allAreas")
             .ResolveAsync(async context => await areaService.GetAllAreas())
             .Description("Gets a list of all of the areas");
 
-        Field<AreaType, Areas>("areaById")
+        This.Field<AreaType, Areas>("areaById")
             .Argument<int>("id")
             .ResolveAsync(async context =>
             {
@@ -26,7 +26,7 @@ public class AreaQuery : ObjectGraphType
             })
             .Description("Gets a area by its db id");
 
-        Field<AreaType, Areas>("areaByCode")
+        This.Field<AreaType, Areas>("areaByCode")
             .Argument<StringGraphType>("areaCode")
             .ResolveAsync(async context =>
             {
@@ -35,7 +35,7 @@ public class AreaQuery : ObjectGraphType
             })
             .Description("Gets a area by its area code");
 
-        Field<ListGraphType<AreaType>, IEnumerable<Areas>>("areaByZone")
+        This.Field<ListGraphType<AreaType>, IEnumerable<Areas>>("areaByZone")
             .Argument<IntGraphType>("zoneId")
             .ResolveAsync(async context =>
             {

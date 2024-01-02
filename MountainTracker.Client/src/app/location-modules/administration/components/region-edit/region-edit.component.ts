@@ -48,4 +48,7 @@ export class RegionEditComponent {
 
   @Output()
   regionSelected: EventEmitter<number | null> = new EventEmitter<number | null>()
+
+  @Output()
+  regionAddClicked: EventEmitter<void> = new EventEmitter<void>()
 }

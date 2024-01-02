@@ -6,18 +6,18 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
-public class RegionQuery : ObjectGraphType
+public static class RegionQuery
 {
-    public RegionQuery(IRegionService regionService)
+    public static void AddRegionQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
-        Name = "RegionQuery";
-        Description = "Queries for region type";
+        var scope = This.CreateScope(serviceProvider);
+        IRegionService regionService = scope.ServiceProvider.GetService<IRegionService>()!;
 
-        Field<ListGraphType<RegionType>, IEnumerable<Regions>>("allRegions")
+        This.Field<ListGraphType<RegionType>, IEnumerable<Regions>>("allRegions")
             .ResolveAsync(async context => await regionService.GetAllRegions())
             .Description("Gets a list of all of the regions");
 
-        Field<RegionType, Regions>("regionById")
+        This.Field<RegionType, Regions>("regionById")
             .Argument<int>("id")
             .ResolveAsync(async context =>
             {
@@ -26,7 +26,7 @@ public class RegionQuery : ObjectGraphType
             })
             .Description("Gets a region by its db id");
 
-        Field<RegionType, Regions>("regionByCode")
+        This.Field<RegionType, Regions>("regionByCode")
             .Argument<StringGraphType>("regionCode")
             .ResolveAsync(async context =>
             {
@@ -35,7 +35,7 @@ public class RegionQuery : ObjectGraphType
             })
             .Description("Gets a region by its region code");
 
-        Field<ListGraphType<RegionType>, IEnumerable<Regions>>("regionsByProvinceOrState")
+        This.Field<ListGraphType<RegionType>, IEnumerable<Regions>>("regionsByProvinceOrState")
             .Argument<ShortGraphType>("provinceOrStateId")
             .ResolveAsync(async context =>
             {

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RockClimbingWallSeasonalEditTableComponent } from './rock-climbing-wall-seasonal-edit-table.component';
+import { MatTableModule } from '@angular/material/table';
 
 describe('RockClimbingWallSeasonalEditTableComponent', () => {
   let component: RockClimbingWallSeasonalEditTableComponent;
@@ -8,7 +9,10 @@ describe('RockClimbingWallSeasonalEditTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RockClimbingWallSeasonalEditTableComponent]
+      declarations: [RockClimbingWallSeasonalEditTableComponent],
+      imports: [
+        MatTableModule
+      ]
     })
     .compileComponents();
     

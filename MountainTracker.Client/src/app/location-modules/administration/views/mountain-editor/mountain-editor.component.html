@@ -21,6 +21,7 @@
             (regionSelected)="regionSelected($event)" 
             [selectedProvinceOrStateId]="(selectedProvinceOrStateId$ | async)"
             [selectedRegionId]="(selectedRegionId$ | async)"
+            (regionAddClicked)="regionAddClicked()"
         ></region-edit>
         <district-edit
             [cardIcon]="faMountainCity" 

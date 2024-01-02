@@ -8,7 +8,11 @@ public interface IRegionService
 
     public Task<Regions?> GetRegionByCode(string regionCode);
 
-    public Task<Regions?> updateRegion(int id, Regions region);
+    public Task<Regions?> CreateRegion(Regions region);
+
+    public Task<Regions?> UpdateRegion(int id, Regions region);
+
+    public Task<bool> DeleteRegion(int id);
 
     public Task<Regions?> GetRegionById(int id);
 

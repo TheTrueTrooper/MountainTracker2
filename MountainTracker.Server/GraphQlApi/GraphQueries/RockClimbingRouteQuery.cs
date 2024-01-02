@@ -6,18 +6,18 @@ using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.GraphQlApi.GraphQueries;
 
-public class RockClimbingRouteQuery : ObjectGraphType
+public static class RockClimbingRouteQuery
 {
-    public RockClimbingRouteQuery(IRockClimbingRouteService rockClimbingRouteService)
+    public static void AddRockClimbingRouteQuery(this MountainTrackerQuery This, IServiceProvider serviceProvider)
     {
-        Name = "RockClimbingRouteQuery";
-        Description = "Queries for rock climbing route type";
+        var scope = This.CreateScope(serviceProvider);
+        IRockClimbingRouteService rockClimbingRouteService = scope.ServiceProvider.GetService<IRockClimbingRouteService>()!;
 
-        Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>> ("allRockClimbingRoutes")
+        This.Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>> ("allRockClimbingRoutes")
             .ResolveAsync(async context => await rockClimbingRouteService.GetAllRockClimbingRoutes())
             .Description("Gets a list of all of the rock climbing routes");
 
-        Field<RockClimbingRouteType, RockClimbingRoutes>("rockClimbingRouteById")
+        This.Field<RockClimbingRouteType, RockClimbingRoutes>("rockClimbingRouteById")
             .Argument<int>("id")
             .ResolveAsync(async context =>
             {
@@ -26,7 +26,7 @@ public class RockClimbingRouteQuery : ObjectGraphType
             })
             .Description("Gets a rock climbing route by its db id");
 
-        Field<RockClimbingRouteType, RockClimbingRoutes>("rockClimbingRouteByCode")
+        This.Field<RockClimbingRouteType, RockClimbingRoutes>("rockClimbingRouteByCode")
             .Argument<StringGraphType>("routeCode")
             .ResolveAsync(async context =>
             {
@@ -35,7 +35,7 @@ public class RockClimbingRouteQuery : ObjectGraphType
             })
             .Description("Gets a rock climbing route by its rock climbing route code");
 
-        Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>>("rockClimbingRoutesByRockClimbingWall")
+        This.Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>>("rockClimbingRoutesByRockClimbingWall")
             .Argument<IntGraphType>("climbingWallId")
             .ResolveAsync(async context =>
             {

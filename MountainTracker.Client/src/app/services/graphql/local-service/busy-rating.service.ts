@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BaseQlService } from './base-ql.service';
 import { Apollo } from 'apollo-angular';
-import { QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
-import { Observable, map } from 'rxjs';
+import { QlQueryMeta, QlQueryParams, QlSelectionSet, QlSelectionSetTyped } from '../../../graphql-helpers';
+import { Observable, map, switchMap } from 'rxjs';
 import { BusyRating } from '../../../models';
 
 @Injectable({
@@ -14,27 +14,55 @@ export class BusyRatingService extends BaseQlService {
     super(apolloProvider)
    }
   //#region queries
-   protected override queryObj: string = "busyRatingQuery"
-
-   public getAllBusyRatings(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, BusyRating>): Observable<BusyRating[]>
-   {
+  public getAllBusyRatingsMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, BusyRating>): Observable<QlQueryMeta<BusyRating>>
+  {
     const query = 'allBusyRatings'
-    return this.moutainTrackerApi.query<BusyRating[]>({
-      query: this.generateQuery(BusyRating, query, selection),                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    return this.generateQueryMeta(
+      BusyRating, query, selection
+    )
+  }
+
+  public getAllBusyRatings(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, BusyRating>): Observable<BusyRating[]>
+  {
+    return this.getAllBusyRatingsMeta(selection).pipe(
+      switchMap(
+        query=>{
+          return this.moutainTrackerApi.query<BusyRating[]>({
+            query: this.generateQuery(query),                                                                                                                                                                                                                                
+          }).pipe(map((result: any) => result.data[query.query]))
+        }
+      )
+    )
+  }
+
+  public getBusyRatingByIdMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, BusyRating>): Observable<QlQueryMeta<BusyRating>>
+  {
+    const query = 'busyRatingById'
+    const queryParams: QlQueryParams[] = [
+      {
+        param: 'id', 
+        qlType: 'Byte!'
+      }
+    ]
+    return this.generateQueryMeta(
+      BusyRating, query, selection, queryParams
+    )
   }
 
   public getBusyRatingById(id:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, BusyRating>): Observable<BusyRating>
   {
-    const queryVar = '($id: Byte!)'
-    const query = 'busyRatingById'
-    const queryParam = '(id: $id)'
-    return this.moutainTrackerApi.query<BusyRating>({
-      query: this.generateQuery(BusyRating, query, selection, queryVar, queryParam),
-      variables:{
-        id: id
-      }                                                                                                                                                                                                                                
-    }).pipe(map((result: any) => result.data[this.queryObj][query]))
+    return this.getBusyRatingByIdMeta(selection).pipe(
+      switchMap(
+        query=>{
+          return this.moutainTrackerApi.query<BusyRating[]>({
+            query: this.generateQuery(query),
+            variables:{
+                  [query.getParamSelector(query.queryParams[0].param)]: id
+                 }                                                                                                                                                                                                                                
+          }).pipe(map((result: any) => result.data[query.query]))
+        }
+      )
+    )
   }
   //#endregion
 }

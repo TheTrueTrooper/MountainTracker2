@@ -26,6 +26,10 @@ namespace MountainTracker.Server.Startup
                 .AddErrorInfoProvider(options => 
                 {
                     options.ExposeExceptionDetails = true;
+                    options.ExposeExtensions = true;
+                    options.ExposeCode = true;
+                    options.ExposeData = true;
+                    options.ExposeCodes = true;
                 })
                 .AddDataLoader()
                 .AddGraphTypes());
@@ -40,7 +44,7 @@ namespace MountainTracker.Server.Startup
                 config.AuthorizationRequired = false;
                 config.HandlePost = true;
                 config.HandleWebSockets = true;
-                config.EnableBatchedRequests = false;
+                config.EnableBatchedRequests = true;
             });
             if (config.ShowUi)
             {

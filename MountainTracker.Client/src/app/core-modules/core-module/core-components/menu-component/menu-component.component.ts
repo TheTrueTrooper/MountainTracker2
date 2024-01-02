@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { faGear, faMountainSun, faBell, faMountain } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-menu',
+  selector: 'main-menu',
   templateUrl: './menu-component.component.html',
   styleUrl: './menu-component.component.scss'
 })

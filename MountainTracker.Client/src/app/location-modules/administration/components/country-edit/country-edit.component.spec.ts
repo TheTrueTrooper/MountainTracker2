@@ -5,6 +5,8 @@ import { MatCardModule } from '@angular/material/card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSelectModule } from '@angular/material/select';
 import { FocusSelectorComponent } from '../focus-selector/focus-selector.component';
+import { EditTableComponent } from '../edit-table/edit-table.component';
+import { faFlag } from '@fortawesome/free-solid-svg-icons';
 
 describe('CountryEditComponent', () => {
   let component: CountryEditComponent;
@@ -14,7 +16,8 @@ describe('CountryEditComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         CountryEditComponent,
-        MockComponent(FocusSelectorComponent)
+        MockComponent(FocusSelectorComponent),
+        MockComponent(EditTableComponent)
       ],
       imports: [
         MatCardModule,
@@ -26,6 +29,7 @@ describe('CountryEditComponent', () => {
     
     fixture = TestBed.createComponent(CountryEditComponent);
     component = fixture.componentInstance;
+    component.cardIcon = faFlag;
     fixture.detectChanges();
   });
 

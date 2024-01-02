@@ -32,7 +32,7 @@ ${query.selection}
     return of(new QlQueryMeta<T>(classToField.prototype.constructor, query, selection, queryParams, queryParamPrefix));
   }
 
-  protected generateMergedQuery(queries: QlQueryMeta<any>[]): TypedDocumentNode<any, any>
+  protected generateMergedQueryString(queries: QlQueryMeta<any>[]): string
   {
     const hasParamValues: boolean = queries.some(x=>x.hasParamValues());
     const braceValues: (char: string)=>string = (char: string) => hasParamValues ? char : '';
@@ -41,8 +41,12 @@ ${query.selection}
 {
 ${queries.map(x=>x.selection).join('\n')}
 }`
-    //console.log(qlQuery);
-    return gql`${qlQuery}`
+    return qlQuery
+  }
+
+  protected generateMergedQuery(queries: QlQueryMeta<any>[]): TypedDocumentNode<any, any>
+  {
+    return gql`${this.generateMergedQueryString(queries)}`
   }
 
   public getMergedQuery<T extends QlQueryMeta<any>[] | {[key: string]: QlQueryMeta<any>}>(queries: T, variables?: {[key: string]: any}): Observable<{queries: T, result: ApolloQueryResult<any>}>

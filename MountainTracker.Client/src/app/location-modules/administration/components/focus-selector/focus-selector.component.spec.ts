@@ -3,12 +3,11 @@ import { FocusSelectorComponent } from './focus-selector.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { BrowserModule, By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { labeled } from '../../../../models';
-import {HarnessLoader} from '@angular/cdk/testing';
-import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
+import { HarnessLoader } from '@angular/cdk/testing';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatSelectHarness } from '@angular/material/select/testing';
 
 class MockLabeled implements labeled {
@@ -32,8 +31,7 @@ describe('FocusSelectorComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [FocusSelectorComponent],
       imports:[
-        BrowserModule,
-        BrowserAnimationsModule,
+        NoopAnimationsModule,
         CommonModule,
         MatInputModule,
         MatFormFieldModule,

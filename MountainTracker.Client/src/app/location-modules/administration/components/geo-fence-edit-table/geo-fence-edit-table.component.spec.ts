@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GeoFenceEditTableComponent } from './geo-fence-edit-table.component';
+import { MatTableModule } from '@angular/material/table';
 
 describe('RegionGeoFenceEditTableComponent', () => {
   let component: GeoFenceEditTableComponent;
@@ -8,7 +9,10 @@ describe('RegionGeoFenceEditTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [GeoFenceEditTableComponent]
+      declarations: [GeoFenceEditTableComponent],
+      imports: [
+        MatTableModule
+      ]
     })
     .compileComponents();
     

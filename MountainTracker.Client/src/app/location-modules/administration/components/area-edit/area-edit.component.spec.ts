@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFlag } from '@fortawesome/free-solid-svg-icons';
+import { GeoFenceEditTableComponent } from '../geo-fence-edit-table/geo-fence-edit-table.component';
 
 describe('AreaEditComponent', () => {
   let component: AreaEditComponent;
@@ -18,7 +19,8 @@ describe('AreaEditComponent', () => {
       declarations: [
         AreaEditComponent,
         MockComponent(FocusSelectorComponent),
-        MockComponent(EditTableComponent)
+        MockComponent(EditTableComponent),
+        MockComponent(GeoFenceEditTableComponent)
       ],
       imports: [
         MatCardModule,

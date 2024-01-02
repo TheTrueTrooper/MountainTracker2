@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RockClimbingWallSeasonalEditTableComponent } from '../rock-climbing-wall-seasonal-edit-table/rock-climbing-wall-seasonal-edit-table.component';
 import { CommonModule } from '@angular/common';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('RockClimbingWallEditComponent', () => {
   let component: RockClimbingWallEditComponent;
@@ -27,6 +28,7 @@ describe('RockClimbingWallEditComponent', () => {
       MatCardModule,
       MatSelectModule,
       FontAwesomeModule,
+      NoopAnimationsModule,
     ]})
     .compileComponents();
     

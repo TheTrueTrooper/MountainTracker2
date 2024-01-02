@@ -8,7 +8,7 @@
 ->GraphQL as Apollo<br/>
 ->NgRx Store (with Entity Adapter & async Effects) for reactive state control and data management<br/>
 ->Some custom typescript decorators for custom reflection helpers<br/>
-->Testing will be as Jest</p>
+->Testing will be as Karma (kind of easier out of the box with truer runs) and maybe Jest for a pipeline if need</p>
 <p>-Server:<br/>
 ->ASP.NET Core with Angular 17 intergration<br/>
 ->API GraphQL as GraphGL.NET<br/>

@@ -80,7 +80,7 @@ export class RockClimbingWallService extends BaseQlService {
     )
   }
 
-  public getRockClimbingRouteByCode(wallCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall>
+  public getRockClimbingWallByCode(wallCode:string, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, RockClimbingWall>): Observable<RockClimbingWall>
   {
     return this.getRockClimbingWallByCodeMeta(selection).pipe(
       switchMap(

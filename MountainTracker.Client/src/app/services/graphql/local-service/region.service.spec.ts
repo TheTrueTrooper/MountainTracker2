@@ -114,7 +114,7 @@ describe('RegionService', () => {
     const expectedResult = {
       [expectedQuery]: [
         {
-          zoneId: 1,
+          provinceOrStateId: 1,
           id: 1,
           regionCode: 'AT1',
           englishFullName: 'Testing Region 1',
@@ -124,7 +124,7 @@ describe('RegionService', () => {
           thumbPictureBytes:  null,
         } as Region,
         {
-          zoneId: 1,
+          provinceOrStateId: 1,
           id: 2,
           regionCode: 'AT2',
           englishFullName: 'Testing Region 2',
@@ -173,7 +173,7 @@ describe('RegionService', () => {
     const expectedResult = {
       [expectedQuery]:
         {
-          zoneId: 1,
+          provinceOrStateId: 1,
           id: expectedId,
           regionCode: 'AT1',
           englishFullName: 'Testing Region 1',
@@ -221,7 +221,7 @@ describe('RegionService', () => {
     const expectedResult = {
       [expectedQuery]:
         {
-          zoneId: 1,
+          provinceOrStateId: 1,
           id: 1,
           regionCode: expectedCode,
           englishFullName: 'Testing Region 1',
@@ -269,7 +269,7 @@ describe('RegionService', () => {
     const expectedResult = {
       [expectedQuery]: [
         {
-          regionId: expectedId,
+          provinceOrStateId: expectedId,
           id: 1,
           regionCode: 'AT1',
           englishFullName: 'Testing Region 1',
@@ -279,7 +279,7 @@ describe('RegionService', () => {
           thumbPictureBytes:  null,
         } as Region,
         {
-          regionId: expectedId,
+          provinceOrStateId: expectedId,
           id: 2,
           regionCode: 'AT2',
           englishFullName: 'Testing Region 2',

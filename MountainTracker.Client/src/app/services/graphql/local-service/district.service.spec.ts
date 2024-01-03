@@ -114,7 +114,7 @@ describe('DistrictService', () => {
     const expectedResult = {
       [expectedQuery]: [
         {
-          zoneId: 1,
+          regionId: 1,
           id: 1,
           districtCode: 'AT1',
           englishFullName: 'Testing District 1',
@@ -124,7 +124,7 @@ describe('DistrictService', () => {
           thumbPictureBytes:  null,
         } as District,
         {
-          zoneId: 1,
+          regionId: 1,
           id: 2,
           districtCode: 'AT2',
           englishFullName: 'Testing District 2',
@@ -173,7 +173,7 @@ describe('DistrictService', () => {
     const expectedResult = {
       [expectedQuery]:
         {
-          zoneId: 1,
+          regionId: 1,
           id: expectedId,
           districtCode: 'AT1',
           englishFullName: 'Testing District 1',
@@ -221,7 +221,7 @@ describe('DistrictService', () => {
     const expectedResult = {
       [expectedQuery]:
         {
-          zoneId: 1,
+          regionId: 1,
           id: 1,
           districtCode: expectedCode,
           englishFullName: 'Testing District 1',

@@ -4,7 +4,6 @@ import { AreaService } from './area.service';
 import { ClientConfig } from '../../../configuration';
 import { ApolloTestingController, ApolloTestingModule } from 'apollo-angular/testing';
 import { QlQueryParams } from '../../../graphql-helpers';
-import { switchMap } from 'rxjs';
 import { TestingBaseQlServiceController, clientConfigMockFactory } from './base-ql.service.spec';
 import { Apollo, TypedDocumentNode } from 'apollo-angular';
 import { Area } from '../../../models';

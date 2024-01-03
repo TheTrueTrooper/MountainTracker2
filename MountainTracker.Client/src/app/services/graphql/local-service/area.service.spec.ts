@@ -29,13 +29,13 @@ describe('AreaService', () => {
   });
 
   //allthough, technly tested already this will be good for debugging your tests
-  it('should have api too have been created', () => {
+  it('should have api too also have been created', () => {
     expect(baseServiceController.getMoutainTrackerApi).toBeTruthy();
   });
 
   //note for testing the fields override is tested in the base class, there for I do not believe that they are need here
   //Also as before the merge is not meant to be used by same object queries. So I will also leave that out of scope here.
-  it('should be generate meta query data for allAreas', (done) => {
+  it('should be able to generate meta query data for allAreas', (done) => {
     const expectedQuery = 'allAreas';
     const expectedParams: QlQueryParams[] = [];
     const expectedParamPrefix = 'Area';
@@ -49,7 +49,7 @@ describe('AreaService', () => {
       })
   });
 
-  it('should be generate meta query data for areaById', (done) => {
+  it('should be able to generate meta query data for areaById', (done) => {
     const expectedQuery = 'areaById';
     const expectedParams: QlQueryParams[] = [
       {
@@ -68,7 +68,7 @@ describe('AreaService', () => {
       })
   });
 
-  it('should be generate meta query data for areaByCode', (done) => {
+  it('should be able to generate meta query data for areaByCode', (done) => {
     const expectedQuery = 'areaByCode';
     const expectedParams: QlQueryParams[] = [
       {
@@ -87,7 +87,7 @@ describe('AreaService', () => {
       })
   });
 
-  it('should be generate meta query data for areasByZone', (done) => {
+  it('should be able to generate meta query data for areasByZone', (done) => {
     const expectedQuery = 'areasByZone';
     const expectedParams: QlQueryParams[] = [
       {

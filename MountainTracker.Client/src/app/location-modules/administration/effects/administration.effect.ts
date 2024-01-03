@@ -208,7 +208,7 @@ export class AdministrationEffects {
           actions.loadAreaGeoFenceNodesSuccess({areaGeoFenceNodes: []})
         ]
       }
-      return this.areaService.getAreaByZone(id, {
+      return this.areaService.getAreasByZone(id, {
         fields: [ensureQlFields(Area)],
         subSet: [
           {

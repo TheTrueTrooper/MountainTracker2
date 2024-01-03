@@ -6,12 +6,12 @@ import { QlField, QlIdField, QlQueryMeta, QlQueryParams, QlSelectionSet, QlSelec
 import { ClientConfig } from '../../../configuration';
 import { Observable, forkJoin } from 'rxjs';
 
-const clientConfigMockFactory = ()=>({
+export const clientConfigMockFactory = ()=>({
   BaseEndpoint: "",
   GraphQlApiEndpoint: "https://localhost:44300/api/graphql",
 } as ClientConfig)
 
-export class MockClass
+class MockClass
 {
     @QlIdField()
     @QlField()
@@ -22,7 +22,7 @@ export class MockClass
     public field2?:string
 }
 
-export class MockClass2
+class MockClass2
 {
     @QlIdField()
     @QlField()
@@ -31,7 +31,7 @@ export class MockClass2
     public field1?:string
 }
 
-class BaseQlServiceTest extends BaseQlService {
+export class TestingBaseQlServiceController extends BaseQlService {
   constructor(protected override apolloProvider: Apollo) {
     super(apolloProvider)
   }
@@ -51,6 +51,11 @@ class BaseQlServiceTest extends BaseQlService {
     return this.generateMergedQueryString(query)
   }
 
+  public generateQueryTest(queries: QlQueryMeta<any>): TypedDocumentNode<any, any>
+  {
+    return this.generateQuery(queries);
+  }
+
   public generateMergedQueryTest(queries: QlQueryMeta<any>[]): TypedDocumentNode<any, any>
   {
     return this.generateMergedQuery(queries);
@@ -67,15 +72,15 @@ class BaseQlServiceTest extends BaseQlService {
 
 describe('BaseQlService', () => {
   const api =  'MountainTracker';
-  let service: BaseQlServiceTest;
+  let service: TestingBaseQlServiceController;
   let controller: ApolloTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [{provide: ClientConfig, useFactory:clientConfigMockFactory},
-        {provide: BaseQlServiceTest, useFactory:()=> new BaseQlServiceTest(TestBed.inject(Apollo))}],
+        {provide: TestingBaseQlServiceController, useFactory:()=> new TestingBaseQlServiceController(TestBed.inject(Apollo))}],
       imports: [ApolloTestingModule.withClients([api])]});
-    service = TestBed.inject(BaseQlServiceTest);
+    service = TestBed.inject(TestingBaseQlServiceController);
     controller = TestBed.inject(ApolloTestingController);
   });
 

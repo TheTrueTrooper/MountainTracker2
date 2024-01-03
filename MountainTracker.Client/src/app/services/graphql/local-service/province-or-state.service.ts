@@ -14,17 +14,17 @@ export class ProvinceOrStateService extends BaseQlService {
   super(apolloProvider)
   }
   //#region queries
-  public getAllprovincesOrStatesMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ProvinceOrState>): Observable<QlQueryMeta<ProvinceOrState>>
+  public getAllProvincesOrStatesMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ProvinceOrState>): Observable<QlQueryMeta<ProvinceOrState>>
   {
-    const query = 'allprovincesOrStates'
+    const query = 'allProvincesOrStates'
     return this.generateQueryMeta(
       ProvinceOrState, query, selection
     )
   }
 
-  public getAllprovincesOrStates(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ProvinceOrState>): Observable<ProvinceOrState[]>
+  public getAllProvincesOrStates(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, ProvinceOrState>): Observable<ProvinceOrState[]>
   {
-    return this.getAllprovincesOrStatesMeta(selection).pipe(
+    return this.getAllProvincesOrStatesMeta(selection).pipe(
       switchMap(
         query=>{
           return this.moutainTrackerApi.query<ProvinceOrState[]>({

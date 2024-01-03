@@ -95,9 +95,9 @@ export class AreaService extends BaseQlService {
     )
   }
 
-  public getAreaByZoneMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Area>): Observable<QlQueryMeta<Area>>
+  public getAreasByZoneMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Area>): Observable<QlQueryMeta<Area>>
   {
-    const query = 'areaByZone'
+    const query = 'areasByZone'
     const queryParams: QlQueryParams[] = [
       {
         param: 'zoneId', 
@@ -109,9 +109,9 @@ export class AreaService extends BaseQlService {
     )
   }
 
-  public getAreaByZone(zoneId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Area>): Observable<Area[]>
+  public getAreasByZone(zoneId:number, selection?: QlSelectionSet | QlSelectionSetTyped<undefined, Area>): Observable<Area[]>
   {
-    return this.getAreaByZoneMeta(selection).pipe(
+    return this.getAreasByZoneMeta(selection).pipe(
       switchMap(
         query=>{
           return this.moutainTrackerApi.query<Area[]>({

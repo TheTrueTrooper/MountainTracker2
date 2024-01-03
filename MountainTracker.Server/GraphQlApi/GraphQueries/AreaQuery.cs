@@ -35,7 +35,7 @@ public static class AreaQuery
             })
             .Description("Gets a area by its area code");
 
-        This.Field<ListGraphType<AreaType>, IEnumerable<Areas>>("areaByZone")
+        This.Field<ListGraphType<AreaType>, IEnumerable<Areas>>("areasByZone")
             .Argument<IntGraphType>("zoneId")
             .ResolveAsync(async context =>
             {

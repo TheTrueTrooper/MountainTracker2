@@ -13,7 +13,7 @@ public static class ProvinceOrStateQuery
         var scope = This.CreateScope(serviceProvider);
         IProvinceOrStateService provinceOrStateService = scope.ServiceProvider.GetService<IProvinceOrStateService>()!;
 
-        This.Field<ListGraphType<ProvinceOrStateType>, IEnumerable<ProvincesOrStates>>("allprovincesOrStates")
+        This.Field<ListGraphType<ProvinceOrStateType>, IEnumerable<ProvincesOrStates>>("allProvincesOrStates")
             .ResolveAsync(async context => await provinceOrStateService.GetAllProvincesOrStates())
             .Description("Gets a list of all of the provinces or states");
 

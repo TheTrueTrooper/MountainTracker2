@@ -16,7 +16,7 @@ export class DistrictService extends BaseQlService {
   //#region queries
   public getAllDistrictsMeta(selection?: QlSelectionSet | QlSelectionSetTyped<undefined, District>): Observable<QlQueryMeta<District>>
   {
-    const query = 'districts'
+    const query = 'allDistricts'
     return this.generateQueryMeta(
       District, query, selection
     )

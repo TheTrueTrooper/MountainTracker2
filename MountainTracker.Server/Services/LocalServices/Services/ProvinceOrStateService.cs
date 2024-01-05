@@ -2,7 +2,6 @@
 using MountainTracker.Server.Contexts.MountainTrackerContext;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
-using System.Linq;
 
 namespace MountainTracker.Server.Services.LocalServices.Services;
 

@@ -13,7 +13,7 @@ public static class RockClimbingRouteQuery
         var scope = This.CreateScope(serviceProvider);
         IRockClimbingRouteService rockClimbingRouteService = scope.ServiceProvider.GetService<IRockClimbingRouteService>()!;
 
-        This.Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>> ("allRockClimbingRoutes")
+        This.Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>>("allRockClimbingRoutes")
             .ResolveAsync(async context => await rockClimbingRouteService.GetAllRockClimbingRoutes())
             .Description("Gets a list of all of the rock climbing routes");
 

@@ -38,7 +38,7 @@ public class RockClimbingRouteService : IRockClimbingRouteService
 
     public async Task<IDictionary<int, RockClimbingRoutes>> GetRockClimbingRoutesByIds(IEnumerable<int> ids)
     {
-        return await RockClimbingRoutes.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
+        return await RockClimbingRoutes.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key => key.Id, value => value);
     }
 
     public async Task<IEnumerable<RockClimbingRoutes>?> GetRockClimbingRoutesByRockClimbingWall(int climbingWallId)

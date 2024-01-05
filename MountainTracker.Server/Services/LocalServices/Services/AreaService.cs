@@ -43,7 +43,7 @@ public class AreaService : IAreaService
 
     public async Task<IDictionary<int, Areas>> GetAreasByIds(IEnumerable<int> ids)
     {
-        return await Areas.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
+        return await Areas.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key => key.Id, value => value);
     }
 
     public async Task<ILookup<int, Areas>> GetAreasByZones(IEnumerable<int> zoneIds)

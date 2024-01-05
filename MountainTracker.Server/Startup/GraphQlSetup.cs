@@ -14,16 +14,16 @@ namespace MountainTracker.Server.Startup
             services.AddScoped<IDataLoaderContextAccessor, DataLoaderContextAccessor>();
             services.AddScoped<DataLoaderDocumentListener>();
             services.AddGraphQL(builder => builder
-                .ConfigureExecutionOptions(options=> 
+                .ConfigureExecutionOptions(options =>
                 {
                     options.ThrowOnUnhandledException = true;
                     options.EnableMetrics = true;
-                 })
+                })
                 .AddSelfActivatingSchema<MountainTrackerSchema>(GraphQL.DI.ServiceLifetime.Scoped)
                 .AddErrorInfoProvider()
                 .AddAutoClrMappings()
                 .AddSystemTextJson()
-                .AddErrorInfoProvider(options => 
+                .AddErrorInfoProvider(options =>
                 {
                     options.ExposeExceptionDetails = true;
                     options.ExposeExtensions = true;
@@ -40,7 +40,8 @@ namespace MountainTracker.Server.Startup
         {
             GraphQlConfig config = configuration.GetSection(configKey).Get<GraphQlConfig>()!;
 
-            webApp.UseGraphQL<MountainTrackerSchema>(config.GraphQlApiEndpoint, config => {
+            webApp.UseGraphQL<MountainTrackerSchema>(config.GraphQlApiEndpoint, config =>
+            {
                 config.AuthorizationRequired = false;
                 config.HandlePost = true;
                 config.HandleWebSockets = true;

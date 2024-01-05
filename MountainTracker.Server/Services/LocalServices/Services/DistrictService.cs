@@ -38,7 +38,7 @@ public class DistrictService : IDistrictService
 
     public async Task<IDictionary<int, Districts>> GetDistrictsByIds(IEnumerable<int> ids)
     {
-        return await Districts.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
+        return await Districts.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key => key.Id, value => value);
     }
 
     public async Task<IEnumerable<Districts>?> GetDistrictsByRegion(int regionId)

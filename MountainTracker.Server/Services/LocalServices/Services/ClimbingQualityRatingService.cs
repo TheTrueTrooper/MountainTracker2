@@ -28,6 +28,6 @@ public class ClimbingQualityRatingService : IClimbingQualityRatingService
 
     public async Task<IDictionary<byte, ClimbingQualityRatings>> GetClimbingQualityRatingByIds(IEnumerable<byte> ids)
     {
-        return await ClimbingQualityRatings.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
+        return await ClimbingQualityRatings.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key => key.Id, value => value);
     }
 }

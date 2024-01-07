@@ -12,7 +12,7 @@ internal static class MountainTrackerInMemoryDb
     public static MountainTrackerDatabase1Context GetInMemoryDatabase(Action<MountainTrackerDatabase1Context> seed = null, bool defaultSeed = true)
     {
         MountainTrackerDatabase1Context db;
-        //lock Num for db creation until it is done so that we don't get shared names when running in parrelle
+        //lock Num for db creation until it is done so that we don't get shared names when running in parallel
         lock (dbNumLock)
         {
             dbNum += 1;

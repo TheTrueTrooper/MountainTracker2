@@ -7,14 +7,20 @@ namespace MountainTracker.Testing.Server.UnitTests.Utilities.DbMocking;
 
 internal static class MountainTrackerInMemoryDb
 {
+    private static readonly object dbNumLock = new object();
     static int dbNum = 0;
     public static MountainTrackerDatabase1Context GetInMemoryDatabase(Action<MountainTrackerDatabase1Context> seed = null, bool defaultSeed = true)
     {
-        dbNum += 1;
-        var options = new DbContextOptionsBuilder<MountainTrackerDatabase1Context>()
-            .UseInMemoryDatabase(databaseName: $"MountainTrackerDatabase{dbNum}")
-            .Options;
-        var db = new MountainTrackerDatabase1Context(options);
+        MountainTrackerDatabase1Context db;
+        //lock Num for db creation until it is done so that we don't get shared names when running in parrelle
+        lock (dbNumLock)
+        {
+            dbNum += 1;
+            var options = new DbContextOptionsBuilder<MountainTrackerDatabase1Context>()
+                .UseInMemoryDatabase(databaseName: $"MountainTrackerDatabase{dbNum}")
+                .Options;
+            db = new MountainTrackerDatabase1Context(options);
+        }
         if (defaultSeed)
         {
             MountainTrackerInMemoryDb.defaultSeed(db);
@@ -23,6 +29,7 @@ internal static class MountainTrackerInMemoryDb
         {
             seed(db);
         }
+
         return db;
     }
 

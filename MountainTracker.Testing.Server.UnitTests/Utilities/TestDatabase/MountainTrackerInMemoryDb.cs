@@ -9,25 +9,26 @@ internal static class MountainTrackerInMemoryDb
 {
     private static readonly object dbNumLock = new object();
     static int dbNum = 0;
-    public static MountainTrackerDatabase1Context GetInMemoryDatabase(Action<MountainTrackerDatabase1Context> seed = null, bool defaultSeed = true)
+    public static MountainTrackerDatabase1Context GetInMemoryDatabase(Action<MountainTrackerDatabase1Context>? additionalSeed = null, bool defaultSeed = true)
     {
         MountainTrackerDatabase1Context db;
-        //lock Num for db creation until it is done so that we don't get shared names when running in parallel
+        DbContextOptions<MountainTrackerDatabase1Context> options;
+        //lock Num for db options creation until it is done so that we don't get shared names when running in parallel
         lock (dbNumLock)
         {
             dbNum += 1;
-            var options = new DbContextOptionsBuilder<MountainTrackerDatabase1Context>()
+            options = new DbContextOptionsBuilder<MountainTrackerDatabase1Context>()
                 .UseInMemoryDatabase(databaseName: $"MountainTrackerDatabase{dbNum}")
                 .Options;
-            db = new MountainTrackerDatabase1Context(options);
         }
+        db = new MountainTrackerDatabase1Context(options);
         if (defaultSeed)
         {
             MountainTrackerInMemoryDb.defaultSeed(db);
         }
-        if (seed != null)
+        if (additionalSeed != null)
         {
-            seed(db);
+            additionalSeed(db);
         }
 
         return db;

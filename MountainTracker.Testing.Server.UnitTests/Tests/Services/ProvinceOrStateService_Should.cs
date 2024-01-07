@@ -70,9 +70,9 @@ public class ProvinceOrStateService_Should
         ProvincesOrStates? provincesOrStates = stableExpectList.FirstOrDefault(x => x.Id == id);
         using (MountainTrackerDatabase1Context databaseContext = MountainTrackerInMemoryDb.GetInMemoryDatabase())
         {
-            ProvinceOrStateService sut_countryService = new ProvinceOrStateService(databaseContext);
+            ProvinceOrStateService sut_provinceOrStateServiceService = new ProvinceOrStateService(databaseContext);
 
-            ProvincesOrStates? result = await sut_countryService.GetProvinceOrStateById(id);
+            ProvincesOrStates? result = await sut_provinceOrStateServiceService.GetProvinceOrStateById(id);
 
             Assert.Equivalent(provincesOrStates, result);
         }
@@ -92,14 +92,15 @@ public class ProvinceOrStateService_Should
         IEnumerable<ProvincesOrStates> provincesOrStates = stableExpectList.Where(x => x.CountryId == countryId);
         using (MountainTrackerDatabase1Context databaseContext = MountainTrackerInMemoryDb.GetInMemoryDatabase())
         {
-            ProvinceOrStateService sut_countryService = new ProvinceOrStateService(databaseContext);
+            ProvinceOrStateService sut_provinceOrStateServiceService = new ProvinceOrStateService(databaseContext);
 
-            IEnumerable<ProvincesOrStates> result = await sut_countryService.GetProvincesOrStatesByCountry(countryId);
+            IEnumerable<ProvincesOrStates> result = await sut_provinceOrStateServiceService.GetProvincesOrStatesByCountry(countryId);
 
             Assert.Equivalent(provincesOrStates, result);
         }
     }
 
+    //data loader functions.
     [Theory]
     //edge cases
     [InlineData(new short[] { })]  // should return empty
@@ -116,9 +117,9 @@ public class ProvinceOrStateService_Should
         stableExpectList = stableExpectList.Where(x=>id.ToList().Contains(x.Id)).ToList();
         using (MountainTrackerDatabase1Context databaseContext = MountainTrackerInMemoryDb.GetInMemoryDatabase())
         {
-            ProvinceOrStateService sut_countryService = new ProvinceOrStateService(databaseContext);
+            ProvinceOrStateService sut_provinceOrStateServiceService = new ProvinceOrStateService(databaseContext);
 
-            IDictionary<short, ProvincesOrStates> result = await sut_countryService.GetProvincesOrStatesByIds(id);
+            IDictionary<short, ProvincesOrStates> result = await sut_provinceOrStateServiceService.GetProvincesOrStatesByIds(id);
 
             Assert.Equivalent(stableExpectList.ToDictionary(k=>k.Id, v=>v), result);
         }
@@ -140,9 +141,9 @@ public class ProvinceOrStateService_Should
         stableExpectList = stableExpectList.Where(x => id.ToList().Contains(x.CountryId)).ToList();
         using (MountainTrackerDatabase1Context databaseContext = MountainTrackerInMemoryDb.GetInMemoryDatabase())
         {
-            ProvinceOrStateService sut_countryService = new ProvinceOrStateService(databaseContext);
+            ProvinceOrStateService sut_provinceOrStateServiceService = new ProvinceOrStateService(databaseContext);
 
-            ILookup<byte, ProvincesOrStates> result = await sut_countryService.GetProvincesOrStatesByCountries(id);
+            ILookup<byte, ProvincesOrStates> result = await sut_provinceOrStateServiceService.GetProvincesOrStatesByCountries(id);
 
             Assert.Equivalent(stableExpectList.ToDictionary(k => k.Id, v => v), result);
         }

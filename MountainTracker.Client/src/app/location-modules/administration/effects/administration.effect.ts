@@ -77,7 +77,7 @@ export class AdministrationEffects {
           return this.provinceOrStateService.getProvincesOrStatesByCountry(id).pipe(switchMap(result=>{
             return [
               featureActions.selectCountrySuccess(), 
-              actions.loadProvincesOrStatesSuccess({provincesOrStates: result}), 
+              actions.loadProvincesOrStatesSuccess({provincesOrStates: result})
             ]
         }));
       })));
@@ -91,7 +91,7 @@ export class AdministrationEffects {
         return [
           featureActions.selectProvinceOrStateSuccess(), 
           actions.loadRegionsSuccess({regions: []}), 
-          actions.loadRegionGeoFenceNodesSuccess({regionGeoFenceNodes: []}),
+          actions.loadRegionGeoFenceNodesSuccess({regionGeoFenceNodes: []})
         ]
       }
       return this.regionService.getRegionsByProvinceOrState(id, {
@@ -115,7 +115,7 @@ export class AdministrationEffects {
         return [
           featureActions.selectProvinceOrStateSuccess(), 
           actions.loadRegionsSuccess({regions: regions}), 
-          actions.loadRegionGeoFenceNodesSuccess({regionGeoFenceNodes: regionGeoFenceNodes}), 
+          actions.loadRegionGeoFenceNodesSuccess({regionGeoFenceNodes: regionGeoFenceNodes})
         ]
     }));
   })));
@@ -153,7 +153,7 @@ export class AdministrationEffects {
         return [
           featureActions.selectRegionSuccess(), 
           actions.loadDistrictsSuccess({districts: districts}), 
-          actions.loadDistrictGeoFenceNodesSuccess({districtGeoFenceNodes: districtGeoFenceNodes}), 
+          actions.loadDistrictGeoFenceNodesSuccess({districtGeoFenceNodes: districtGeoFenceNodes})
         ]
     }));
   })));
@@ -191,7 +191,7 @@ export class AdministrationEffects {
         return [
           featureActions.selectDistrictSuccess(), 
           actions.loadZonesSuccess({zones: zones}), 
-          actions.loadZoneGeoFenceNodesSuccess({zoneGeoFenceNodes: zoneGeoFenceNodes}), 
+          actions.loadZoneGeoFenceNodesSuccess({zoneGeoFenceNodes: zoneGeoFenceNodes})
         ]
     }));
   })));
@@ -229,7 +229,7 @@ export class AdministrationEffects {
         return [
           featureActions.selectZoneSuccess(), 
           actions.loadAreasSuccess({areas: areas}), 
-          actions.loadAreaGeoFenceNodesSuccess({areaGeoFenceNodes: areaGeoFenceNodes}), 
+          actions.loadAreaGeoFenceNodesSuccess({areaGeoFenceNodes: areaGeoFenceNodes})
         ]
     }));
   })));
@@ -269,7 +269,7 @@ export class AdministrationEffects {
         return [
           featureActions.selectAreaSuccess(), 
           actions.loadRockClimbingWallsSuccess({rockClimbingWalls: rockClimbingWalls}), 
-          actions.loadRockClimbingWallGeoFenceNodesSuccess({rockClimbingWallGeoFenceNodes: rockClimbingWallGeoFenceNodes}), 
+          actions.loadRockClimbingWallGeoFenceNodesSuccess({rockClimbingWallGeoFenceNodes: rockClimbingWallGeoFenceNodes})
         ]
     }));
   })));
@@ -282,13 +282,13 @@ export class AdministrationEffects {
       {
         return [
           featureActions.selectRockClimbingWallSuccess(), 
-          actions.loadRockClimbingRoutesSuccess({rockClimbingRoutes: []}), 
+          actions.loadRockClimbingRoutesSuccess({rockClimbingRoutes: []})
         ]
       }
       return this.rockClimbingRouteService.getRockClimbingRoutesByRockClimbingWall(id).pipe(switchMap(result=>
         [
           featureActions.selectRockClimbingWallSuccess(), 
-          actions.loadRockClimbingRoutesSuccess({rockClimbingRoutes: result}), 
+          actions.loadRockClimbingRoutesSuccess({rockClimbingRoutes: result})
         ]
     ));
   })));

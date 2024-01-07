@@ -24,7 +24,7 @@ public class ZoneService : IZoneService
     public async Task<Zones?> GetZoneByCode(string zoneCode)
     {
         string[] codes = zoneCode.Split('-');
-        if (codes.Length < 5)
+        if (codes.Length != 5)
         {
             return null;
         }

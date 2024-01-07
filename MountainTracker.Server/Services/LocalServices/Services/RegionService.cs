@@ -25,7 +25,7 @@ public class RegionService : IRegionService
     public async Task<Regions?> GetRegionByCode(string regionCode)
     {
         string[] codes = regionCode.Split('-');
-        if (codes.Length < 3)
+        if (codes.Length != 3)
         {
             return null;
         }

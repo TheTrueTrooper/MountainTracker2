@@ -28,8 +28,8 @@ internal static class MountainTrackerInMemoryDb
 
     private static void defaultSeed(MountainTrackerDatabase1Context context)
     {
-        context.AddRange(Seed.GetDefaultCountries());
-
+        context.Countries.AddRange(Seed.GetDefaultCountries());
+        context.ProvincesOrStates.AddRange(Seed.GetDefaultProvinceOrState());
         context.SaveChanges();
     }
 }

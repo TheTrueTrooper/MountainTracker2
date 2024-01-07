@@ -24,7 +24,7 @@ public class CountryService : ICountryService
     public async Task<Countries?> GetCountryByCode(string countryCode)
     {
         string[] codes = countryCode.Split('-');
-        if (codes.Length < 1)
+        if (codes.Length != 1)
         {
             return null;
         }

@@ -24,6 +24,10 @@ public class ProvinceOrStateService : IProvinceOrStateService
     public async Task<ProvincesOrStates?> GetProvinceOrStateByCode(string regionCode)
     {
         string[] codes = regionCode.Split('-');
+        if (codes.Length != 2 )
+        {
+            return null;
+        }
         return await ProvincesOrStates.AsNoTracking().FirstOrDefaultAsync(c => c.RegionCode == codes[1] && c.Country.CountryCode == codes[0]);
     }
 

@@ -24,7 +24,7 @@ public class AreaService : IAreaService
     public async Task<Areas?> GetAreaByCode(string areaCode)
     {
         string[] codes = areaCode.Split('-');
-        if (codes.Length < 6)
+        if (codes.Length != 6)
         {
             return null;
         }

@@ -24,7 +24,7 @@ public class RockClimbingWallService : IRockClimbingWallService
     public async Task<RockClimbingWalls?> GetRockClimbingWallByCode(string wallCode)
     {
         string[] codes = wallCode.Split('-');
-        if (codes.Length < 7)
+        if (codes.Length != 7)
         {
             return null;
         }

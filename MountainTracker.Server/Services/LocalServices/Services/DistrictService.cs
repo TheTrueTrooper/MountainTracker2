@@ -24,7 +24,7 @@ public class DistrictService : IDistrictService
     public async Task<Districts?> GetDistrictByCode(string districtCode)
     {
         string[] codes = districtCode.Split('-');
-        if (codes.Length < 4)
+        if (codes.Length != 4)
         {
             return null;
         }

@@ -24,7 +24,7 @@ public class RockClimbingRouteService : IRockClimbingRouteService
     public async Task<RockClimbingRoutes?> GetRockClimbingRouteByCode(string routeCode)
     {
         string[] codes = routeCode.Split('-');
-        if (codes.Length < 8)
+        if (codes.Length != 8)
         {
             return null;
         }

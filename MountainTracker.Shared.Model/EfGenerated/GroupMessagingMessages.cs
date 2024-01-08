@@ -1,4 +1,7 @@
-﻿namespace MountainTracker.Shared.Model;
+﻿using System;
+using System.Collections.Generic;
+
+namespace MountainTracker.Shared.Model;
 
 public partial class GroupMessagingMessages
 {
@@ -14,5 +17,5 @@ public partial class GroupMessagingMessages
 
     public virtual GroupMessagingGroups GroupMessaging { get; set; } = null!;
 
-    public virtual Users User { get; set; } = null!;
+    public virtual ApplicationUsers User { get; set; } = null!;
 }

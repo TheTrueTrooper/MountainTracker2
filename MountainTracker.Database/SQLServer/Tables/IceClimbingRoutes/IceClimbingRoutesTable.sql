@@ -1,4 +1,4 @@
 ﻿CREATE TABLE [dbo].[IceClimbingRoutes](
-	[ClimbingWallID] int NOT NULL,
-	[ID] int NOT NULL PRIMARY KEY,
+	[ClimbingWallId] int NOT NULL,
+	[Id] int NOT NULL PRIMARY KEY,
 )

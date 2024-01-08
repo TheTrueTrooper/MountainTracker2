@@ -1,4 +1,7 @@
-﻿namespace MountainTracker.Shared.Model;
+﻿using System;
+using System.Collections.Generic;
+
+namespace MountainTracker.Shared.Model;
 
 public partial class UserDirectMessages
 {
@@ -14,7 +17,7 @@ public partial class UserDirectMessages
 
     public string Message { get; set; } = null!;
 
-    public virtual Users UserFrom { get; set; } = null!;
+    public virtual ApplicationUsers UserFrom { get; set; } = null!;
 
-    public virtual Users UserTo { get; set; } = null!;
+    public virtual ApplicationUsers UserTo { get; set; } = null!;
 }

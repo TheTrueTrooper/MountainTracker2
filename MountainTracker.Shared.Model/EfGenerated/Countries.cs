@@ -1,4 +1,7 @@
-﻿namespace MountainTracker.Shared.Model;
+﻿using System;
+using System.Collections.Generic;
+
+namespace MountainTracker.Shared.Model;
 
 public partial class Countries
 {
@@ -8,7 +11,7 @@ public partial class Countries
 
     public string CountryCode { get; set; } = null!;
 
-    public virtual ICollection<ProvincesOrStates> ProvincesOrStates { get; set; } = new List<ProvincesOrStates>();
+    public virtual ICollection<ApplicationUsers> ApplicationUsers { get; set; } = new List<ApplicationUsers>();
 
-    public virtual ICollection<Users> Users { get; set; } = new List<Users>();
+    public virtual ICollection<ProvincesOrStates> ProvincesOrStates { get; set; } = new List<ProvincesOrStates>();
 }

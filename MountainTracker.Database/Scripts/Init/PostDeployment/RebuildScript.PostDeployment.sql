@@ -266,7 +266,7 @@ VALUES
 ( 248, 'Zimbabwe', 'ZW');
 go
 
-if(exists(select ID from Countries where [EnglishFullName] = 'Zimbabwe' and [CountryCode] = 'ZW'))
+if(exists(select Id from Countries where [EnglishFullName] = 'Zimbabwe' and [CountryCode] = 'ZW'))
 	print 'Countries successfully populated'
 else
 begin
@@ -278,8 +278,8 @@ go
 --Add [ProvincesOrStates]
 --Add Provinces for Canada
 Declare @CountryCode as TinyInt
-select @CountryCode = ID from Countries where CountryCode = 'CA'
-INSERT INTO [ProvincesOrStates] ([ID], [EnglishFullName], [RegionCode], [CountryID])
+select @CountryCode = Id from Countries where CountryCode = 'CA'
+INSERT INTO [ProvincesOrStates] ([Id], [EnglishFullName], [RegionCode], [CountryID])
 VALUES 
 ( 0, 'Alberta', 'AB', @CountryCode),
 ( 1, 'British Columbia', 'BC', @CountryCode),
@@ -295,7 +295,7 @@ VALUES
 ( 11, 'Nunavut', 'NU', @CountryCode),
 ( 12, 'Yukon', 'YT', @CountryCode);
 
-if(exists(select ID from [ProvincesOrStates] where [EnglishFullName] = 'Nunavut' and [RegionCode] = 'NU' and @CountryCode = [CountryID]))
+if(exists(select Id from [ProvincesOrStates] where [EnglishFullName] = 'Nunavut' and [RegionCode] = 'NU' and @CountryCode = [CountryID]))
 	print 'Canadain Prov successfully populated'
 else
 begin
@@ -306,8 +306,8 @@ go
 
 --Add States for US
 Declare @CountryCode as TinyInt
-select @CountryCode = ID from Countries where CountryCode = 'US'
-INSERT INTO [ProvincesOrStates] ([ID], [EnglishFullName], [RegionCode], [CountryID])
+select @CountryCode = Id from Countries where CountryCode = 'US'
+INSERT INTO [ProvincesOrStates] ([Id], [EnglishFullName], [RegionCode], [CountryId])
 VALUES 
 ( 13, 'Alabama', 'AL', @CountryCode),
 ( 14, 'Alaska', 'AK', @CountryCode),
@@ -360,7 +360,7 @@ VALUES
 ( 61, 'Wisconsin', 'WI', @CountryCode),
 ( 62, 'Wyoming', 'WY', @CountryCode);
 
-if(exists(select ID from [ProvincesOrStates] where [EnglishFullName] = 'Wyoming' and [RegionCode] = 'WY' and @CountryCode = [CountryID]))
+if(exists(select Id from [ProvincesOrStates] where [EnglishFullName] = 'Wyoming' and [RegionCode] = 'WY' and @CountryCode = [CountryId]))
 	print 'US States successfully populated'
 else
 begin
@@ -371,13 +371,13 @@ go
 --------------------------------------------------------------------------------Add Prov or states for Countries here
 
 --Climbing types Populating
-INSERT INTO [ClimbingTypes] ([ID], [EnglishFullName])
+INSERT INTO [ClimbingTypes] ([Id], [EnglishFullName])
 VALUES 
 ( 0, 'Trad Climbing'),
 ( 1, 'Sport Climbing'),
 ( 2, 'Mixed Climbing');
 
-if(exists(select ID from [ClimbingTypes] where [EnglishFullName] = 'Trad Climbing'))
+if(exists(select Id from [ClimbingTypes] where [EnglishFullName] = 'Trad Climbing'))
 	print '[ClimbingTypes] successfully populated'
 else
 begin
@@ -387,7 +387,7 @@ end
 go
 
 --Climbing types Populating
-INSERT INTO [RockClimbingTypes] ([ID], [EnglishFullName], [ShortHand])
+INSERT INTO [RockClimbingTypes] ([Id], [EnglishFullName], [ShortHand])
 VALUES 
 ( 0,	'Unknown', 'Unkno'),
 ( 1,	'Open', 'open'),
@@ -396,7 +396,7 @@ VALUES
 ( 4,	'Sport Climbing','Sport'),
 ( 5,	'Mixed Climbing', 'Mixed');
 
-if(exists(select ID from [RockClimbingTypes] where [EnglishFullName] = 'Mixed Climbing'))
+if(exists(select Id from [RockClimbingTypes] where [EnglishFullName] = 'Mixed Climbing'))
 	print '[RockClimbingTypes] successfully populated'
 else
 begin
@@ -409,7 +409,7 @@ go
 --Gear Populating
 
 --Gear
-INSERT INTO [Gear] ([ID], [EnglishFullName])
+INSERT INTO [Gear] ([Id], [EnglishFullName])
 VALUES 
 ( 0, 'Rope'),
 ( 1, 'Quick Draw'),
@@ -424,7 +424,7 @@ VALUES
 ( 10, 'Alpine Rack'),
 ( 11, 'Bongs/Chocks');
 
-if(exists(select ID from [Gear] where [EnglishFullName] = 'Bongs/Chocks'))
+if(exists(select Id from [Gear] where [EnglishFullName] = 'Bongs/Chocks'))
 	print '[Gear] successfully populated'
 else
 begin
@@ -436,21 +436,21 @@ Declare @RopeCode as TinyInt, @QuickDrawCode as TinyInt, @AnchorCode as TinyInt,
 @WireStopperStandardCode as TinyInt, @WireStopperMicroCode as TinyInt, @OffsetStopperCode as TinyInt, 
 @TricamCode as TinyInt, @CamCode as TinyInt, @StandardRackCode as TinyInt,
 @AlpineRackCode as TinyInt, @BongAndChocksCode as TinyInt
-select @RopeCode = ID from [Gear] where [EnglishFullName] = 'Rope'
-select @QuickDrawCode = ID from [Gear] where [EnglishFullName] = 'Quick Draw'
-select @AnchorCode = ID from [Gear] where [EnglishFullName] = 'Anchor'
-select @HexStopperCode = ID from [Gear] where [EnglishFullName] = 'Hex Stopper'
-select @WireStopperStandardCode = ID from [Gear] where [EnglishFullName] = 'Wire Stopper Standard'
-select @WireStopperMicroCode = ID from [Gear] where [EnglishFullName] = 'Wire Stopper Micro'
-select @OffsetStopperCode = ID from [Gear] where [EnglishFullName] = 'Offset Stopper'
-select @TricamCode = ID from [Gear] where [EnglishFullName] = 'Tricam'
-select @CamCode = ID from [Gear] where [EnglishFullName] = 'Cam'
-select @StandardRackCode = ID from [Gear] where [EnglishFullName] = 'Standard Rack'
-select @AlpineRackCode = ID from [Gear] where [EnglishFullName] = 'Alpine Rack'
-select @BongAndChocksCode = ID from [Gear] where [EnglishFullName] = 'Bongs/Chocks'
+select @RopeCode = Id from [Gear] where [EnglishFullName] = 'Rope'
+select @QuickDrawCode = Id from [Gear] where [EnglishFullName] = 'Quick Draw'
+select @AnchorCode = Id from [Gear] where [EnglishFullName] = 'Anchor'
+select @HexStopperCode = Id from [Gear] where [EnglishFullName] = 'Hex Stopper'
+select @WireStopperStandardCode = Id from [Gear] where [EnglishFullName] = 'Wire Stopper Standard'
+select @WireStopperMicroCode = Id from [Gear] where [EnglishFullName] = 'Wire Stopper Micro'
+select @OffsetStopperCode = Id from [Gear] where [EnglishFullName] = 'Offset Stopper'
+select @TricamCode = Id from [Gear] where [EnglishFullName] = 'Tricam'
+select @CamCode = Id from [Gear] where [EnglishFullName] = 'Cam'
+select @StandardRackCode = Id from [Gear] where [EnglishFullName] = 'Standard Rack'
+select @AlpineRackCode = Id from [Gear] where [EnglishFullName] = 'Alpine Rack'
+select @BongAndChocksCode = Id from [Gear] where [EnglishFullName] = 'Bongs/Chocks'
 
 --Gear sizes
-INSERT INTO [GearSizes] ([ID], [EnglishFullName], [GearID])
+INSERT INTO [GearSizes] ([Id], [EnglishFullName], [GearId])
 VALUES 
 ( 0, '50 Meter Rope', @RopeCode),
 ( 1, '60 Meter Rope', @RopeCode),
@@ -584,7 +584,7 @@ VALUES
 ( 131, 'Bong/Chock - 6', @BongAndChocksCode),
 ( 132, 'Bong/Chock - 7', @BongAndChocksCode);
 
-if(exists(select ID from [GearSizes] where [EnglishFullName] = 'Bong/Chock - 7'))
+if(exists(select Id from [GearSizes] where [EnglishFullName] = 'Bong/Chock - 7'))
 	print '[GearSizes] successfully populated'
 else
 begin
@@ -594,28 +594,28 @@ end
 go
 --get Climing types
 Declare @TradClimbingCode as TinyInt
-select @TradClimbingCode = ID from [ClimbingTypes] where [EnglishFullName] = 'Trad Climbing'
+select @TradClimbingCode = Id from [ClimbingTypes] where [EnglishFullName] = 'Trad Climbing'
 
 --get gear codes
 Declare @RopeCode as TinyInt, @QuickDrawCode as TinyInt, @AnchorCode as TinyInt, @HexStopperCode as TinyInt,
 @WireStopperStandardCode as TinyInt, @WireStopperMicroCode as TinyInt, @OffsetStopperCode as TinyInt, 
 @TricamCode as TinyInt, @CamCode as TinyInt, @StandardRackCode as TinyInt,
 @AlpineRackCode as TinyInt, @BongAndChocksCode as TinyInt
-select @RopeCode = ID from [Gear] where [EnglishFullName] = 'Rope'
-select @QuickDrawCode = ID from [Gear] where [EnglishFullName] = 'Quick Draw'
-select @AnchorCode = ID from [Gear] where [EnglishFullName] = 'Anchor'
-select @HexStopperCode = ID from [Gear] where [EnglishFullName] = 'Hex Stopper'
-select @WireStopperStandardCode = ID from [Gear] where [EnglishFullName] = 'Wire Stopper Standard'
-select @WireStopperMicroCode = ID from [Gear] where [EnglishFullName] = 'Wire Stopper Micro'
-select @OffsetStopperCode = ID from [Gear] where [EnglishFullName] = 'Offset Stopper'
-select @TricamCode = ID from [Gear] where [EnglishFullName] = 'Tricam'
-select @CamCode = ID from [Gear] where [EnglishFullName] = 'Cam'
-select @StandardRackCode = ID from [Gear] where [EnglishFullName] = 'Standard Rack'
-select @AlpineRackCode = ID from [Gear] where [EnglishFullName] = 'Alpine Rack'
-select @BongAndChocksCode = ID from [Gear] where [EnglishFullName] = 'Bongs/Chocks'
+select @RopeCode = Id from [Gear] where [EnglishFullName] = 'Rope'
+select @QuickDrawCode = Id from [Gear] where [EnglishFullName] = 'Quick Draw'
+select @AnchorCode = Id from [Gear] where [EnglishFullName] = 'Anchor'
+select @HexStopperCode = Id from [Gear] where [EnglishFullName] = 'Hex Stopper'
+select @WireStopperStandardCode = Id from [Gear] where [EnglishFullName] = 'Wire Stopper Standard'
+select @WireStopperMicroCode = Id from [Gear] where [EnglishFullName] = 'Wire Stopper Micro'
+select @OffsetStopperCode = Id from [Gear] where [EnglishFullName] = 'Offset Stopper'
+select @TricamCode = Id from [Gear] where [EnglishFullName] = 'Tricam'
+select @CamCode = Id from [Gear] where [EnglishFullName] = 'Cam'
+select @StandardRackCode = Id from [Gear] where [EnglishFullName] = 'Standard Rack'
+select @AlpineRackCode = Id from [Gear] where [EnglishFullName] = 'Alpine Rack'
+select @BongAndChocksCode = Id from [Gear] where [EnglishFullName] = 'Bongs/Chocks'
 
 --Link Gear types to gear
-INSERT INTO [GearToGearTypeLinks] ([ClimbingTypeID], [GearID])
+INSERT INTO [GearToGearTypeLinks] ([ClimbingTypeId], [GearId])
 VALUES 
 --Used for all 
 (@TradClimbingCode, @RopeCode),--0,0
@@ -633,7 +633,7 @@ VALUES
 (@TradClimbingCode, @AlpineRackCode),
 (@TradClimbingCode, @BongAndChocksCode);
 
-if(exists(select [ClimbingTypeID], [GearID] from [GearToGearTypeLinks] where [ClimbingTypeID] = @TradClimbingCode and [GearID] = @BongAndChocksCode))
+if(exists(select [ClimbingTypeId], [GearId] from [GearToGearTypeLinks] where [ClimbingTypeId] = @TradClimbingCode and [GearId] = @BongAndChocksCode))
 	print '[GearToGearTypeLinks] successfully populated'
 else
 begin
@@ -643,7 +643,7 @@ end
 go
 
 --Add Rock Climbing Difficulties
-INSERT INTO [RockClimbingDifficulties] ([ID], [EnglishCode])
+INSERT INTO [RockClimbingDifficulties] ([Id], [EnglishCode])
 VALUES 
 (0, '5.1'),
 (1, '5.2'),
@@ -679,7 +679,7 @@ VALUES
 (31, '5.15c'),
 (32, '5.15d');
 
-if(exists(select [ID] from [RockClimbingDifficulties] where [EnglishCode] = '5.15d'))
+if(exists(select [Id] from [RockClimbingDifficulties] where [EnglishCode] = '5.15d'))
 	print '[RockClimbingDifficulties] successfully populated'
 else
 begin
@@ -689,7 +689,7 @@ end
 go
 
 --Add BusyRatings
-INSERT INTO [BusyRatings] ([ID], [EnglishName])
+INSERT INTO [BusyRatings] ([Id], [EnglishName])
 VALUES 
 (0, 'Unkown'),
 (1, 'Not Rated'),
@@ -700,7 +700,7 @@ VALUES
 (6, 'Exceptionally Busy')
 
 
-if(exists(select [ID] from [BusyRatings] where [EnglishName] = 'Exceptionally Busy'))
+if(exists(select [Id] from [BusyRatings] where [EnglishName] = 'Exceptionally Busy'))
 	print '[BusyRatings] successfully populated'
 else
 begin
@@ -710,7 +710,7 @@ end
 go
 
 --Add ClimbingQualityRatings
-INSERT INTO [ClimbingQualityRatings] ([ID], [EnglishName])
+INSERT INTO [ClimbingQualityRatings] ([Id], [EnglishName])
 VALUES 
 (0, 'Unkown'),
 (1, 'Not Rated'),
@@ -722,7 +722,7 @@ VALUES
 (7, 'Easy'),
 (9, 'Very Easy')
 
-if(exists(select [ID] from [BusyRatings] where [EnglishName] = 'Exceptionally Busy'))
+if(exists(select [Id] from [BusyRatings] where [EnglishName] = 'Exceptionally Busy'))
 	print '[BusyRatings] successfully populated'
 else
 begin
@@ -731,7 +731,7 @@ begin
 end
 go
 
-INSERT INTO [UserAccessLevels] ([ID], [EnglishName])
+INSERT INTO [UserAccessLevels] ([Id], [EnglishName])
 VALUES 
 (0, 'Unrestricted Admin'),
 (1, 'Admin'),
@@ -740,7 +740,7 @@ VALUES
 (4, 'PayedUser'),
 (5, 'User');
 
-if(exists(select [ID] from [UserAccessLevels] where [EnglishName] = 'User'))
+if(exists(select [Id] from [UserAccessLevels] where [EnglishName] = 'User'))
 	print '[UserAccessLevels] successfully populated'
 else
 begin
@@ -765,9 +765,9 @@ SELECT
 [PhoneValidated],
 [KeepPrivate],
 [MetricOverImperial],
-[CountryID],
-[ProvinceID],
-[AccessLevelID],
+[CountryId],
+[ProvinceId],
+[AccessLevelId],
 [HashedPassword],
 [Salt],
 [ProfilePictureBytes],
@@ -794,13 +794,13 @@ end
 
 	--Populate Regions
 INSERT INTO [Regions] 
-	(ProvinceOrStateID, EnglishFullName, RegionCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
+	(ProvinceOrStateId, EnglishFullName, RegionCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
 VALUES 
 	(1,	'East Kootenays', 'EK', NULL, NULL, NULL, NULL)
 
 	--Populate Districts
 INSERT INTO [Districts] 
-	(RegionID, EnglishFullName, DistrictCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
+	(RegionId, EnglishFullName, DistrictCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
 VALUES 
 	(1, 'Cranbrook',					'CB',	NULL, NULL, NULL, NULL),
 	(1, 'Canal Flats',					'CF',   NULL, NULL, NULL, NULL),
@@ -811,7 +811,7 @@ VALUES
 
 	--Populate DistrictZones
 INSERT INTO [Zones] 
-	(DistrictID, EnglishFullName, ZoneCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
+	(DistrictId, EnglishFullName, ZoneCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
 VALUES 
 	(1, 'Lumberton Moyie Canyon',	'LMC',  	NULL,	NULL,	NULL,	NULL),
 	(1, 'Wycliff',					'WYC',  	NULL,	NULL,	NULL,	NULL),
@@ -828,7 +828,7 @@ VALUES
 
 	--Populate ZoneAreas
 INSERT INTO [Areas] 
-	(ZoneID, EnglishFullName, AreaCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
+	(ZoneId, EnglishFullName, AreaCode, LatitudeStartOrCenter, LongitudeStartOrCenter, ThumbPictureBytes, Info)
 VALUES 
 	(1,	'Lumberton',		'A1',   	NULL,	NULL,	NULL,	NULL),
 	(3,	'Pedley Pass',		'A1',   	NULL,	NULL,	NULL,	NULL),
@@ -846,12 +846,12 @@ VALUES
 
 	--Populate Walls
 INSERT INTO [RockClimbingWalls] 
-	(AreaID, EnglishFullName, WallCode, Approach, LatitudeStartOrCenter, LongitudeStartOrCenter, LatitudeParking, LongitudeParking, ThumbPictureBytes, Info, 
-	JanSeasonalClimbingQualityRatingID, FebSeasonalClimbingQualityRatingID, MarSeasonalClimbingQualityRatingID, AprSeasonalClimbingQualityRatingID, MaySeasonalClimbingQualityRatingID, 
-	JunSeasonalClimbingQualityRatingID, JulSeasonalClimbingQualityRatingID, AugSeasonalClimbingQualityRatingID, SepSeasonalClimbingQualityRatingID, OctSeasonalClimbingQualityRatingID, 
-	NovSeasonalClimbingQualityRatingID, DecSeasonalClimbingQualityRatingID, 
-	JanSeasonalBusyRatingID, FebSeasonalBusyRatingID, MarSeasonalBusyRatingID, AprSeasonalBusyRatingID, MaySeasonalBusyRatingID, JunSeasonalBusyRatingID, 
-	JulSeasonalBusyRatingID, AugSeasonalBusyRatingID, SepSeasonalBusyRatingID, OctSeasonalBusyRatingID, NovSeasonalBusyRatingID, DecSeasonalBusyRatingID)
+	(AreaId, EnglishFullName, WallCode, Approach, LatitudeStartOrCenter, LongitudeStartOrCenter, LatitudeParking, LongitudeParking, ThumbPictureBytes, Info, 
+	JanSeasonalClimbingQualityRatingId, FebSeasonalClimbingQualityRatingId, MarSeasonalClimbingQualityRatingId, AprSeasonalClimbingQualityRatingId, MaySeasonalClimbingQualityRatingId, 
+	JunSeasonalClimbingQualityRatingId, JulSeasonalClimbingQualityRatingId, AugSeasonalClimbingQualityRatingId, SepSeasonalClimbingQualityRatingId, OctSeasonalClimbingQualityRatingId, 
+	NovSeasonalClimbingQualityRatingId, DecSeasonalClimbingQualityRatingId, 
+	JanSeasonalBusyRatingId, FebSeasonalBusyRatingId, MarSeasonalBusyRatingId, AprSeasonalBusyRatingId, MaySeasonalBusyRatingId, JunSeasonalBusyRatingId, 
+	JulSeasonalBusyRatingId, AugSeasonalBusyRatingId, SepSeasonalBusyRatingId, OctSeasonalBusyRatingId, NovSeasonalBusyRatingId, DecSeasonalBusyRatingId)
 VALUES 
 	(1,		'Woodpecker Acidophilus Arete Wall',	'W1',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
 	(1,		'Woodpecker Crag Left',					'W2',   	'Unknown',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0),
@@ -927,7 +927,7 @@ VALUES
 
 	--Populate RockClimbingRoutes
 INSERT INTO [RockClimbingRoutes] 
-	(ClimbingWallID, TypeID, DifficultyID, EnglishFullName, RouteCode, Rating, HeightInMeters, NumberOfPitchs, FirstAscent, FirstFreeAscent, 
+	(ClimbingWallId, TypeId, DifficultyId, EnglishFullName, RouteCode, Rating, HeightInMeters, NumberOfPitchs, FirstAscent, FirstFreeAscent, 
 	SunAM, SunPM, FilteredSun, Sunny, Shady, DriesFast, DryInRain, Windy, ClimbAnglesHaveSlabs, ClimbAnglesHaveVerticals, ClimbAnglesHaveOverHangs, ClimbAnglesHaveRoofs, 
 	RockFalls, Seepage, StickClip, Runout, Reachy, Dyno, Pumpy, Techy, Power, PockSlashHole, Crimpy, Slopey, SeatStart, 
 	Info, ThumbPictureBytes)
@@ -1248,100 +1248,4 @@ VALUES
 	(71,	4,	20,	'Lock It Down',								3,	5,	15,		1,	'Kevin Wilkinson',								'Unknown',		0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	'Only climnb on routes indicated, no further development is allowed. Do not touch or climb over pictographs. These are protected by Provincial and federal law, is a UNESCO heritage protected area. Climbing over or touching these sensitive areas will close this area for everyone',	NULL),
 	(71,	4,	11,	'Vert And Sunny',							4,	5,	15,		1,	'Jesse Cuthill',								'Unknown',		0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	'Only climnb on routes indicated, no further development is allowed. Do not touch or climb over pictographs. These are protected by Provincial and federal law, is a UNESCO heritage protected area. Climbing over or touching these sensitive areas will close this area for everyone',	NULL)
 	
-
---Quick Test Data build
-declare @Testing bit = 0
-if(@Testing = 1)
-begin
-INSERT INTO [ProvincesOrStates] ([ID], [EnglishFullName], [RegionCode], [CountryID])
-VALUES 
-( 63, 'Test1', 'T1', 0),
-( 64, 'Test2', 'T2', 0);
-INSERT INTO [Regions] ([ProvinceOrStateID], [EnglishFullName], [RegionCode])
-VALUES (63, 'Test1', 'T1')
-INSERT INTO [Districts] ([RegionID], [EnglishFullName], [DistrictCode])
-VALUES (1, 'Test1', 'T1')
-INSERT INTO [DistrictZones] ([DistrictID], [EnglishFullName], [ZoneCode])
-VALUES (1, 'Test1', 'T1')
-INSERT INTO [ZoneAreas] ([DistrictZoneID], [EnglishFullName], [AreaCode])
-VALUES (1, 'Test1', 'T1')
-INSERT INTO [ClimbingWalls] ([AreaID], [EnglishFullName], [WallCode])
-VALUES (1, 'Test1', 'T1')
-INSERT INTO [RockClimbingRoutes] 
-([ClimbingWallID],
-	[TypeID],
-	[DifficultyID],
-	[EnglishFullName],
-	[RouteCode],
-	[Rating],
-	[HeightInMeters],
-	[NumberOfPitchs],
-	[FirstAscent],
-	[FirstFreeAscent],
-	[SunAM],
-	[SunPM],
-	[FilteredSun],
-	[Sunny],
-	[Shady],
-	[DriesFast],
-	[DryInRain],
-	[Windy],
-	[ClimbAnglesHaveSlabs],
-	[ClimbAnglesHaveVerticals],
-	[ClimbAnglesHaveOverHangs],
-	[ClimbAnglesHaveRoofs],
-	[RockFalls],
-	[Seepage],
-	[StickClip],
-	[Runout],
-	[Reachy],
-	[Dyno],
-	[Pumpy],
-	[Techy],
-	[Power],
-	[PockSlashHole],
-	[Crimpy],
-	[Slopey],
-	[SeatStart],
-	[Info],
-	[ThumbPictureBytes])
-VALUES 
-(0,
-	0,
-	0,
-	'The Test Climing Route',
-	'cha',
-	2,
-	15,
-	2,
-	'The Test Climber',
-	'The Test Climber',
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	'test',
-	null)
-end
 go

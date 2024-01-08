@@ -15,7 +15,7 @@ IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.TempSaved
 DROP TABLE [dbo].[TempSavedUsers]
 CREATE TABLE [dbo].[TempSavedUsers]
 (
-	[ID] INT NOT NULL, 
+	[Id] INT NOT NULL, 
     [FirstName] NVARCHAR(50) NOT NULL, 
     [MiddleName] NVARCHAR(50) NULL, 
     [LastName] NVARCHAR(50) NOT NULL, 
@@ -26,9 +26,9 @@ CREATE TABLE [dbo].[TempSavedUsers]
     [PhoneValidated] BIT NOT NULL DEFAULT 0,
     [KeepPrivate] BIT NOT NULL DEFAULT 0, 
     [MetricOverImperial] BIT NOT NULL DEFAULT 1, 
-    [CountryID] TINYINT NULL DEFAULT NULL,
-    [ProvinceID] SMALLINT NULL DEFAULT NULL,
-    [AccessLevelID] TINYINT NOT NULL DEFAULT 5,
+    [CountryId] TINYINT NULL DEFAULT NULL,
+    [ProvinceId] SMALLINT NULL DEFAULT NULL,
+    [AccessLevelId] TINYINT NOT NULL DEFAULT 5,
     [HashedPassword] NCHAR(44) NOT NULL, 
 	[Salt] CHAR(44) NOT NULL,  
     [ProfilePictureBytes] VARBINARY(max) NULL,

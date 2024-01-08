@@ -1,10 +1,10 @@
 ﻿CREATE TABLE [dbo].[UsersRockClimbingWallFavorites](
-	[RockClimbingWallID] [int] NOT NULL,
-	[UserID] [int] NOT NULL,
+	[RockClimbingWallId] [int] NOT NULL,
+	[UserId] [int] NOT NULL,
 	[Notes] [varchar](2500) NULL,
 	
-	PRIMARY KEY ([UserID], [RockClimbingWallID]),
+	PRIMARY KEY ([UserId], [RockClimbingWallId]),
 
-	CONSTRAINT [FK_UsersWallFavorites_ClimbingWalls] FOREIGN KEY([RockClimbingWallID]) REFERENCES [dbo].[RockClimbingWalls] ([ID]),
-	CONSTRAINT [FK_UsersWallFavorites_Users] FOREIGN KEY([UserID]) REFERENCES [dbo].[Users] ([ID]),
+	CONSTRAINT [FK_UsersWallFavorites_ClimbingWalls] FOREIGN KEY([RockClimbingWallId]) REFERENCES [dbo].[RockClimbingWalls] ([Id]),
+	CONSTRAINT [FK_UsersWallFavorites_Users] FOREIGN KEY([UserId]) REFERENCES [dbo].[ApplicationUsers] ([Id]),
 )

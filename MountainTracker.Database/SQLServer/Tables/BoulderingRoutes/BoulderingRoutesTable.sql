@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[BoulderingRoutes](
-	[ClimbingWallID] int NOT NULL,
-	[ID] int NOT NULL PRIMARY KEY, 
+	[ClimbingWallId] int NOT NULL,
+	[Id] int NOT NULL PRIMARY KEY, 
 
-    CONSTRAINT [FK_BoulderingRoutes_ClimbingWalls] FOREIGN KEY ([ClimbingWallID]) REFERENCES [dbo].[RockClimbingWalls]([ID]),
+    CONSTRAINT [FK_BoulderingRoutes_ClimbingWalls] FOREIGN KEY ([ClimbingWallId]) REFERENCES [dbo].[RockClimbingWalls]([Id]),
 )

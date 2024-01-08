@@ -1,10 +1,10 @@
 ﻿CREATE PROCEDURE [dbo].[AcceptFriendRequest]
-	@UserToID int,
-	@UserFromID int
+	@UserToId int,
+	@UserFromId int
 AS
 	update UserFriends
 	set 
 	Accepted = 1,
 	RequestAcceptDate = getdate()
-	where UserToID = @UserToID and UserFromID = @UserFromID and Accepted = 0
+	where UserToId = @UserToId and UserFromId = @UserFromId and Accepted = 0
 RETURN 0

@@ -1,10 +1,10 @@
 ﻿CREATE TABLE [dbo].[UsersAreaFavorites](
-	[AreaID] [int] NOT NULL,
-	[UserID] [int] NOT NULL,
+	[AreaId] [int] NOT NULL,
+	[UserId] [int] NOT NULL,
 	[Notes] [varchar](2500) NULL,
 
-	PRIMARY KEY ([UserID], [AreaID]),
+	PRIMARY KEY ([UserId], [AreaId]),
 
-	CONSTRAINT [FK_UsersAreaFavorites_Users] FOREIGN KEY([UserID])REFERENCES [dbo].[Users] ([ID]),
-	CONSTRAINT [FK_UsersAreaFavorites_Areas] FOREIGN KEY([AreaID])REFERENCES [dbo].[Areas] ([ID]),
+	CONSTRAINT [FK_UsersAreaFavorites_Users] FOREIGN KEY([UserId])REFERENCES [dbo].[ApplicationUsers] ([Id]),
+	CONSTRAINT [FK_UsersAreaFavorites_Areas] FOREIGN KEY([AreaId])REFERENCES [dbo].[Areas] ([Id]),
 )

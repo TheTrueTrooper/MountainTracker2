@@ -1,7 +1,4 @@
-﻿using GraphQL;
-using Microsoft.Extensions.Configuration;
-
-namespace MountainTracker.Server.Startup;
+﻿namespace MountainTracker.Server.Startup;
 
 public static class CorsStartup
 {

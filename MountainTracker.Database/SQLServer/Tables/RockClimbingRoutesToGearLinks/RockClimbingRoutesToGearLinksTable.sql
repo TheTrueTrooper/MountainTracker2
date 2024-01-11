@@ -1,10 +1,10 @@
 ﻿CREATE TABLE [dbo].[RockClimbingRoutesToGearLinks](
-	[RockClimbingRoutesID] int NOT NULL,
-	[GearSizeID] tinyint NOT NULL,
+	[RockClimbingRoutesId] int NOT NULL,
+	[GearSizeId] tinyint NOT NULL,
 	[NumberRequired] smallint NOT NULL  DEFAULT (1),
 
-	PRIMARY KEY ([RockClimbingRoutesID], [GearSizeID]),
+	PRIMARY KEY ([RockClimbingRoutesId], [GearSizeId]),
 
-	CONSTRAINT [FK_RockClimbingRoutesGearLinkingTable_GearSizeID] FOREIGN KEY([GearSizeID]) REFERENCES [dbo].[GearSizes] ([ID]),
-	CONSTRAINT [FK_RockClimbingRoutesGearLinkingTable_RockClimbingRoutes] FOREIGN KEY([RockClimbingRoutesID]) REFERENCES [dbo].[RockClimbingRoutes] ([ID])
+	CONSTRAINT [FK_RockClimbingRoutesGearLinkingTable_GearSizeId] FOREIGN KEY([GearSizeId]) REFERENCES [dbo].[GearSizes] ([Id]),
+	CONSTRAINT [FK_RockClimbingRoutesGearLinkingTable_RockClimbingRoutes] FOREIGN KEY([RockClimbingRoutesId]) REFERENCES [dbo].[RockClimbingRoutes] ([Id])
 )

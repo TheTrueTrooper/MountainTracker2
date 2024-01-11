@@ -15,7 +15,7 @@ public static class ClientSetup
 
         config.GraphQlApiEndpoint = config.GraphQlApiEndpoint ?? graphConfig.GraphQlApiEndpoint;
 
-        services.AddScoped<IClientConfig, ClientConfig>(provider=>config);
+        services.AddScoped<IClientConfig, ClientConfig>(provider => config);
         return services;
     }
 }

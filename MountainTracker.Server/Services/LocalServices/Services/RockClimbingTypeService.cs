@@ -28,6 +28,6 @@ public class RockClimbingTypeService : IRockClimbingTypeService
 
     public async Task<IDictionary<byte, RockClimbingTypes>> GetRockClimbingTypeByIds(IEnumerable<byte> ids)
     {
-        return await RockClimbingTypes.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
+        return await RockClimbingTypes.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key => key.Id, value => value);
     }
 }

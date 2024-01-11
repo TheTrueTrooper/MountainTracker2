@@ -3,25 +3,43 @@ using System.Collections.Generic;
 
 namespace MountainTracker.Shared.Model;
 
-public partial class Users
+public partial class ApplicationUsers
 {
     public int Id { get; set; }
 
-    public string FirstName { get; set; } = null!;
+    public string? Email { get; set; }
 
-    public string? MiddleName { get; set; }
+    public bool EmailConfirmed { get; set; }
 
-    public string LastName { get; set; } = null!;
+    public string? PasswordHash { get; set; }
+
+    public string? SecurityStamp { get; set; }
+
+    public string? PhoneNumber { get; set; }
+
+    public bool PhoneNumberConfirmed { get; set; }
+
+    public bool TwoFactorEnabled { get; set; }
+
+    public DateTime? LockoutEndDateUtc { get; set; }
+
+    public bool LockoutEnabled { get; set; }
+
+    public int AccessFailedCount { get; set; }
 
     public string UserName { get; set; } = null!;
 
-    public string PrimaryPersonalEmail { get; set; } = null!;
+    public string? FirstName { get; set; }
 
-    public bool EmailValidated { get; set; }
+    public string? LastName { get; set; }
 
-    public string PrimaryPhone { get; set; } = null!;
+    public DateTime DateCreated { get; set; }
 
-    public bool PhoneValidated { get; set; }
+    public DateTime DateUpdated { get; set; }
+
+    public DateTime? LastLoginDate { get; set; }
+
+    public DateTime? PasswordChangeDate { get; set; }
 
     public bool KeepPrivate { get; set; }
 
@@ -31,12 +49,6 @@ public partial class Users
 
     public short? ProvinceId { get; set; }
 
-    public byte AccessLevelId { get; set; }
-
-    public string HashedPassword { get; set; } = null!;
-
-    public string Salt { get; set; } = null!;
-
     public byte[]? ProfilePictureBytes { get; set; }
 
     public byte[]? BannerPictureBytes { get; set; }
@@ -45,7 +57,9 @@ public partial class Users
 
     public string? ProfileUrl { get; set; }
 
-    public virtual UserAccessLevels AccessLevel { get; set; } = null!;
+    public virtual ICollection<ApplicationUserClaims> ApplicationUserClaims { get; set; } = new List<ApplicationUserClaims>();
+
+    public virtual ICollection<ApplicationUserLogins> ApplicationUserLogins { get; set; } = new List<ApplicationUserLogins>();
 
     public virtual Countries? Country { get; set; }
 
@@ -54,8 +68,6 @@ public partial class Users
     public virtual ICollection<GroupMessagingMessages> GroupMessagingMessages { get; set; } = new List<GroupMessagingMessages>();
 
     public virtual ProvincesOrStates? Province { get; set; }
-
-    public virtual ICollection<UserAccessTokens> UserAccessTokens { get; set; } = new List<UserAccessTokens>();
 
     public virtual ICollection<UserDirectMessages> UserDirectMessagesUserFrom { get; set; } = new List<UserDirectMessages>();
 
@@ -74,4 +86,6 @@ public partial class Users
     public virtual ICollection<UsersRockClimbingWallFavorites> UsersRockClimbingWallFavorites { get; set; } = new List<UsersRockClimbingWallFavorites>();
 
     public virtual ICollection<UsersRockClimbs> UsersRockClimbs { get; set; } = new List<UsersRockClimbs>();
+
+    public virtual ICollection<ApplicationRoles> Role { get; set; } = new List<ApplicationRoles>();
 }

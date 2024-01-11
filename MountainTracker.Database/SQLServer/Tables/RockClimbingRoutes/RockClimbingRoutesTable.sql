@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[RockClimbingRoutes](
-	[ClimbingWallID] int NOT NULL,
-	[TypeID] tinyint NOT NULL,
-	[DifficultyID] tinyint NOT NULL,
-	[ID] [int] NOT NULL IDENTITY(0,1) PRIMARY KEY,
+	[ClimbingWallId] int NOT NULL,
+	[TypeId] tinyint NOT NULL,
+	[DifficultyId] tinyint NOT NULL,
+	[Id] [int] NOT NULL IDENTITY(0,1) PRIMARY KEY,
 	[EnglishFullName] varchar(100) NOT NULL,
 	[RouteCode] char(5) NOT NULL,
 	[Rating] tinyint NOT NULL,
@@ -39,10 +39,10 @@
 	[Info] varchar(5000) NULL,
 	[ThumbPictureBytes] varbinary(max) NULL,
 
-	CONSTRAINT [UQ_RockClimbingRoutes_Code] UNIQUE NONCLUSTERED ([ClimbingWallID], [RouteCode]),
-	CONSTRAINT [UQ_RockClimbingRoutes_Name] UNIQUE NONCLUSTERED ([ClimbingWallID], [EnglishFullName]),
+	CONSTRAINT [UQ_RockClimbingRoutes_Code] UNIQUE NONCLUSTERED ([ClimbingWallId], [RouteCode]),
+	CONSTRAINT [UQ_RockClimbingRoutes_Name] UNIQUE NONCLUSTERED ([ClimbingWallId], [EnglishFullName]),
 
-	CONSTRAINT [FK_RockClimbingRoutes_RockClimbingWalls] FOREIGN KEY ([ClimbingWallID]) REFERENCES [dbo].[RockClimbingWalls] ([ID]),
-	CONSTRAINT [FK_RockClimbingRoutes_RockWallClimbingTypes] FOREIGN KEY([TypeID]) REFERENCES [dbo].[RockClimbingTypes] ([ID]),
-	CONSTRAINT [FK_RockClimbingRoutes_RockClimbingDifficulties] FOREIGN KEY([DifficultyID]) REFERENCES [dbo].[RockClimbingDifficulties] ([ID]),
+	CONSTRAINT [FK_RockClimbingRoutes_RockClimbingWalls] FOREIGN KEY ([ClimbingWallId]) REFERENCES [dbo].[RockClimbingWalls] ([Id]),
+	CONSTRAINT [FK_RockClimbingRoutes_RockWallClimbingTypes] FOREIGN KEY([TypeId]) REFERENCES [dbo].[RockClimbingTypes] ([Id]),
+	CONSTRAINT [FK_RockClimbingRoutes_RockClimbingDifficulties] FOREIGN KEY([DifficultyId]) REFERENCES [dbo].[RockClimbingDifficulties] ([Id]),
 )

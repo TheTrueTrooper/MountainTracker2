@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [dbo].[MountainToRockClimbingWallLinks](
-	[MountainID] int NOT NULL,
-	[ClimbingWallsID] int NOT NULL,
+	[MountainId] int NOT NULL,
+	[ClimbingWallsId] int NOT NULL,
 
-	PRIMARY KEY ([MountainID], [ClimbingWallsID]),
+	PRIMARY KEY ([MountainId], [ClimbingWallsId]),
 
-	CONSTRAINT [FK_MountainToRockClimbingWallLinks_ClimbingWalls] FOREIGN KEY([ClimbingWallsID]) REFERENCES [dbo].[RockClimbingWalls] ([ID]),
-	CONSTRAINT [FK_MountainToRockClimbingWallLinks_Mountains] FOREIGN KEY([MountainID]) REFERENCES [dbo].[Mountains] ([ID]),
+	CONSTRAINT [FK_MountainToRockClimbingWallLinks_ClimbingWalls] FOREIGN KEY([ClimbingWallsId]) REFERENCES [dbo].[RockClimbingWalls] ([Id]),
+	CONSTRAINT [FK_MountainToRockClimbingWallLinks_Mountains] FOREIGN KEY([MountainId]) REFERENCES [dbo].[Mountains] ([Id]),
 )

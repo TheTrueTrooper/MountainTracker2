@@ -24,7 +24,7 @@ public class ZoneService : IZoneService
     public async Task<Zones?> GetZoneByCode(string zoneCode)
     {
         string[] codes = zoneCode.Split('-');
-        if (codes.Length < 5)
+        if (codes.Length != 5)
         {
             return null;
         }
@@ -38,7 +38,7 @@ public class ZoneService : IZoneService
 
     public async Task<IDictionary<int, Zones>> GetZonesByIds(IEnumerable<int> ids)
     {
-        return await Zones.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
+        return await Zones.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key => key.Id, value => value);
     }
 
     public async Task<IEnumerable<Zones>?> GetZonesByDistrict(int districtId)

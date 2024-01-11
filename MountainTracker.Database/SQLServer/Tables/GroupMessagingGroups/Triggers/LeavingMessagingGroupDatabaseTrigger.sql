@@ -3,12 +3,12 @@
 	After DELETE
 	AS
 	BEGIN
-		declare @GroupID as int, @UsersID as int
-		select @UsersID = UserID, @GroupID = GroupMessagingID from deleted
+		declare @GroupId as int, @UsersId as int
+		select @UsersId = UserId, @GroupId = GroupMessagingId from deleted
 
-		if Not Exists(select GroupMessagingID from GroupMessagingMembers where GroupMessagingID = @GroupID)
+		if Not Exists(select GroupMessagingId from GroupMessagingMembers where GroupMessagingId = @GroupId)
 		begin
-			delete from GroupMessagingMessages where GroupMessagingID = @GroupID
-			delete from GroupMessagingGroups where ID = @GroupID
+			delete from GroupMessagingMessages where GroupMessagingId = @GroupId
+			delete from GroupMessagingGroups where Id = @GroupId
 		end
 	END

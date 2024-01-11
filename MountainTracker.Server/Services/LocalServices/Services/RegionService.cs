@@ -2,8 +2,6 @@
 using MountainTracker.Server.Contexts.MountainTrackerContext;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Shared.Model;
-using System;
-using System.Text;
 
 namespace MountainTracker.Server.Services.LocalServices.Services;
 
@@ -20,14 +18,14 @@ public class RegionService : IRegionService
 
     public async Task<IEnumerable<Regions>> GetAllRegions()
     {
-        
+
         return await Regions.AsNoTracking().ToArrayAsync();
     }
 
     public async Task<Regions?> GetRegionByCode(string regionCode)
     {
         string[] codes = regionCode.Split('-');
-        if (codes.Length < 3)
+        if (codes.Length != 3)
         {
             return null;
         }
@@ -41,7 +39,7 @@ public class RegionService : IRegionService
 
     public async Task<IDictionary<int, Regions>> GetRegionsByIds(IEnumerable<int> ids)
     {
-        return await Regions.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
+        return await Regions.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key => key.Id, value => value);
     }
 
     public async Task<IEnumerable<Regions>?> GetRegionsByProvinceOrState(short provinceOrStateId)

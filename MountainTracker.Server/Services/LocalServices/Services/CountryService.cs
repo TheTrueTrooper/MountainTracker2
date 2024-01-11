@@ -24,7 +24,7 @@ public class CountryService : ICountryService
     public async Task<Countries?> GetCountryByCode(string countryCode)
     {
         string[] codes = countryCode.Split('-');
-        if (codes.Length < 1)
+        if (codes.Length != 1)
         {
             return null;
         }
@@ -38,6 +38,6 @@ public class CountryService : ICountryService
 
     public async Task<IDictionary<byte, Countries>> GetCountriesByIds(IEnumerable<byte> ids)
     {
-        return await Countries.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
+        return await Countries.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key => key.Id, value => value);
     }
 }

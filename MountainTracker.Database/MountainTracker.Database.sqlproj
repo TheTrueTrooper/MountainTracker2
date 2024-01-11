@@ -66,7 +66,7 @@
     <Folder Include="SQLServer\Tables\Areas" />
     <Folder Include="SQLServer\Tables\UsersRockClimbComments" />
     <Folder Include="SQLServer\Tables\UserDirectMessages" />
-    <Folder Include="SQLServer\Tables\Users" />
+    <Folder Include="SQLServer\Tables\ApplicationUsers" />
     <Folder Include="SQLServer\Tables\UserFriends" />
     <Folder Include="SQLServer\Tables\UserAccessTokens" />
     <Folder Include="SQLServer\Tables\RockClimbingRoutes" />
@@ -96,18 +96,20 @@
     <Folder Include="SQLServer\Tables\RockClimbingRoutesToGearLinks" />
     <Folder Include="SQLServer\Tables\RockClimbingWallsGeoFenceNodes" />
     <Folder Include="SQLServer\Tables\ClimbingTypes" />
-    <Folder Include="SQLServer\Tables\UserAccessLevels" />
+    <Folder Include="SQLServer\Tables\ApplicationRoles" />
     <Folder Include="SQLServer\Tables\UsersAreaFavorites" />
     <Folder Include="SQLServer\Tables\UsersRockClimbRouteFavorites" />
     <Folder Include="SQLServer\Tables\UsersRockClimbs" />
     <Folder Include="SQLServer\Tables\UsersRockClimbingWallFavorites" />
     <Folder Include="SQLServer\Tables\AreasGeoFenceNodes" />
-    <Folder Include="SQLServer\Tables\Users\StoredProcedure" />
     <Folder Include="SQLServer\Tables\GroupMessagingGroups\StoredProcedure" />
     <Folder Include="SQLServer\Tables\GroupMessagingGroups\Triggers" />
     <Folder Include="SQLServer\Tables\UserAccessTokens\StoredProcedure" />
     <Folder Include="SQLServer\Tables\UserFriends\StoredProcedure" />
     <Folder Include="SQLServer\Tables\Regions\StoredProcedure" />
+    <Folder Include="SQLServer\Tables\ApplicationUserRoles" />
+    <Folder Include="SQLServer\Tables\ApplicationUserLogins" />
+    <Folder Include="SQLServer\Tables\ApplicationUserClaims" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Init\PostDeployment\RebuildScript.PostDeployment.sql" />
@@ -146,11 +148,11 @@
     <Build Include="SQLServer\Tables\RockClimbingWalls\RockClimbingWallsTable.sql" />
     <Build Include="SQLServer\Tables\RockClimbingWallsGeoFenceNodes\RockClimbingWallGeoFenceNodesTable.sql" />
     <Build Include="SQLServer\Tables\ClimbingTypes\ClimbingTypesTable.sql" />
-    <Build Include="SQLServer\Tables\UserAccessLevels\UserAccessLevelsTable.sql" />
+    <Build Include="SQLServer\Tables\ApplicationRoles\ApplicationRolesTable.sql" />
     <Build Include="SQLServer\Tables\UserAccessTokens\UserAccessTokensTable.sql" />
     <Build Include="SQLServer\Tables\UserDirectMessages\UserDirectMessagesTable.sql" />
     <Build Include="SQLServer\Tables\UserFriends\UserFriendsTable.sql" />
-    <Build Include="SQLServer\Tables\Users\UsersTable.sql" />
+    <Build Include="SQLServer\Tables\ApplicationUsers\ApplicationUsersTable.sql" />
     <Build Include="SQLServer\Tables\UsersAreaFavorites\UsersAreaFavoritesTable.sql" />
     <Build Include="SQLServer\Tables\UsersRockClimbComments\UsersRockClimbCommentsTable.sql" />
     <Build Include="SQLServer\Tables\UsersRockClimbRouteFavorites\UsersRockClimbRouteFavoritesTable.sql" />
@@ -158,12 +160,10 @@
     <Build Include="SQLServer\Tables\UsersRockClimbingWallFavorites\UsersRockClimbingWallFavoritesTable.sql" />
     <Build Include="SQLServer\Tables\Areas\AreasTable.sql" />
     <Build Include="SQLServer\Tables\AreasGeoFenceNodes\AreaGeoFenceNodesTable.sql" />
-    <Build Include="SQLServer\Tables\Users\StoredProcedure\UserLoginProcedure.sql" />
     <Build Include="SQLServer\Tables\GroupMessagingGroups\StoredProcedure\OpenNewMessageGroupProcedure.sql" />
     <Build Include="SQLServer\Tables\GroupMessagingGroups\Triggers\LeavingMessagingGroupDatabaseTrigger.sql" />
     <Build Include="SQLServer\Tables\GroupMessagingGroups\StoredProcedure\GetUsersMessageGroupsProcedure.sql" />
     <Build Include="SQLServer\Tables\GroupMessagingGroups\StoredProcedure\GetUsersMessageGroupInvitesProcedure.sql" />
-    <Build Include="SQLServer\Tables\Users\StoredProcedure\GetUserSaltProcedure.sql" />
     <Build Include="SQLServer\Tables\UserAccessTokens\StoredProcedure\CreateTokenProcedure.sql" />
     <Build Include="SQLServer\Tables\UserAccessTokens\StoredProcedure\CheckTokenWithAccessLevelProcedure.sql" />
     <Build Include="SQLServer\Tables\UserAccessTokens\StoredProcedure\CheckTokenProcedure.sql" />
@@ -171,5 +171,8 @@
     <Build Include="SQLServer\Tables\UserFriends\StoredProcedure\CheckIfFriendProcedure.sql" />
     <Build Include="SQLServer\Tables\UserFriends\StoredProcedure\AcceptFriendRequestProcedure.sql" />
     <Build Include="SQLServer\Tables\Regions\StoredProcedure\GetRegionsByCoordinatesProcedure.sql" />
+    <Build Include="SQLServer\Tables\ApplicationUserRoles\ApplicationUserRoles.sql" />
+    <Build Include="SQLServer\Tables\ApplicationUserLogins\ApplicationUserLoginsTable.sql" />
+    <Build Include="SQLServer\Tables\ApplicationUserClaims\ApplicationUserClaimsTable.sql" />
   </ItemGroup>
 </Project>

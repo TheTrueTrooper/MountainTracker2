@@ -1,17 +1,17 @@
 ﻿CREATE PROCEDURE [dbo].[OpenNewMessageGroup]
 	@NewGroupsName NVARCHAR(50),
-	@UserID int
+	@UserId int
 AS
 	begin Transaction
 
-	declare @NewGroupID int
+	declare @NewGroupId int
 
 	begin try
 		insert into [GroupMessagingGroups] ([GroupsName])
 		values (@NewGroupsName)
-		SELECT @NewGroupID = @@IDENTITY
-		insert into [GroupMessagingMembers] ([AcceptedInvite], [TimeJoined], [UserID], [GroupMessagingID])
-		values (1, GETDATE(), @UserID, @NewGroupID)
+		SELECT @NewGroupId = @@IDENTITY
+		insert into [GroupMessagingMembers] ([AcceptedInvite], [TimeJoined], [UserId], [GroupMessagingId])
+		values (1, GETDATE(), @UserId, @NewGroupId)
 		commit
 		RETURN 0
 	end try

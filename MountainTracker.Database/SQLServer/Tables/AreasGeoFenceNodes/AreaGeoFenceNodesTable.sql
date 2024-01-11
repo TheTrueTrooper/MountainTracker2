@@ -1,10 +1,10 @@
 ﻿CREATE TABLE [dbo].[AreaGeoFenceNodes](
-	[AreaID] [int] NOT NULL,
-	[ID] [int] NOT NULL IDENTITY(0,1) PRIMARY KEY,
+	[AreaId] [int] NOT NULL,
+	[Id] [int] NOT NULL IDENTITY(0,1) PRIMARY KEY,
 	[Latitude] [float] NOT NULL,
 	[Longitude] [float] NOT NULL,
 
-	CONSTRAINT [FK_AreaGeoFenceNodes_Areas] FOREIGN KEY([AreaID]) REFERENCES [dbo].[Areas] ([ID]),
+	CONSTRAINT [FK_AreaGeoFenceNodes_Areas] FOREIGN KEY([AreaId]) REFERENCES [dbo].[Areas] ([Id]),
 
 	CONSTRAINT [CK_AreaGeoFenceNodes_Latitude_Max] CHECK ([Latitude]<=90),
 	CONSTRAINT [CK_AreaGeoFenceNodes_Latitude_Min] CHECK ([Latitude]>=-90),

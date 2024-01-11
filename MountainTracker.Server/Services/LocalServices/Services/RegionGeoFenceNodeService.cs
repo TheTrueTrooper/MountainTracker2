@@ -28,7 +28,7 @@ public class RegionGeoFenceNodeService : IRegionGeoFenceNodeService
 
     public async Task<IDictionary<int, RegionGeoFenceNodes>> GetRegionGeoFenceNodesByIds(IEnumerable<int> ids)
     {
-        return await RegionGeoFenceNodes.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key=>key.Id, value=>value);
+        return await RegionGeoFenceNodes.AsNoTracking().Where(c => ids.Contains(c.Id)).ToDictionaryAsync(key => key.Id, value => value);
     }
 
     public async Task<IEnumerable<RegionGeoFenceNodes>?> GetRegionGeoFenceNodesByRegion(int regionId)

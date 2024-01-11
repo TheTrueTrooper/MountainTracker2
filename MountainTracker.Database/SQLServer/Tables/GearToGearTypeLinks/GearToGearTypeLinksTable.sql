@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [dbo].[GearToGearTypeLinks](
-	[ClimbingTypeID] tinyint NOT NULL,
-	[GearID] tinyint NOT NULL,
+	[ClimbingTypeId] tinyint NOT NULL,
+	[GearId] tinyint NOT NULL,
 
-	PRIMARY KEY (ClimbingTypeID,GearID),
+	PRIMARY KEY (ClimbingTypeId,GearId),
 
-	CONSTRAINT [FK_GearToGearTypeLinks_ClimbingTypes] FOREIGN KEY([ClimbingTypeID]) REFERENCES [dbo].[ClimbingTypes] ([ID]),
-	CONSTRAINT [FK_GearToGearTypeLinks_Gear] FOREIGN KEY([GearID]) REFERENCES [dbo].[Gear] ([ID]),
+	CONSTRAINT [FK_GearToGearTypeLinks_ClimbingTypes] FOREIGN KEY([ClimbingTypeId]) REFERENCES [dbo].[ClimbingTypes] ([Id]),
+	CONSTRAINT [FK_GearToGearTypeLinks_Gear] FOREIGN KEY([GearId]) REFERENCES [dbo].[Gear] ([Id]),
 )

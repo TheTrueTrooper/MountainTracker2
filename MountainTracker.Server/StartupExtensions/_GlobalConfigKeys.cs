@@ -1,4 +1,4 @@
-﻿namespace MountainTracker.Server.Startup;
+﻿namespace MountainTracker.Server.StartupExtensions;
 
 public static class GlobalConfigKeys
 {

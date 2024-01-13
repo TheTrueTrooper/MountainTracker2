@@ -1,4 +1,4 @@
-using MountainTracker.Server.Startup;
+using MountainTracker.Server.StartupExtensions;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {

@@ -3,7 +3,7 @@ using GraphQL.DataLoader;
 using MountainTracker.Server.Config;
 using MountainTracker.Server.GraphQlApi;
 
-namespace MountainTracker.Server.Startup
+namespace MountainTracker.Server.StartupExtensions
 {
     public static class GraphQlSetup
     {

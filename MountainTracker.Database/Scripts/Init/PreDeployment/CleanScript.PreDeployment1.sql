@@ -15,30 +15,42 @@ IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.TempSaved
 DROP TABLE [dbo].[TempSavedUsers]
 CREATE TABLE [dbo].[TempSavedUsers]
 (
-	[Id] INT NOT NULL, 
-    [FirstName] NVARCHAR(50) NOT NULL, 
-    [MiddleName] NVARCHAR(50) NULL, 
-    [LastName] NVARCHAR(50) NOT NULL, 
-    [UserName] NVARCHAR(50) NOT NULL, 
-    [PrimaryPersonalEmail] VARCHAR(320) NOT NULL, 
-    [EmailValidated] BIT NOT NULL DEFAULT 0,
-	[PrimaryPhone] VARCHAR(15) NOT NULL, 
-    [PhoneValidated] BIT NOT NULL DEFAULT 0,
-    [KeepPrivate] BIT NOT NULL DEFAULT 0, 
-    [MetricOverImperial] BIT NOT NULL DEFAULT 1, 
-    [CountryId] TINYINT NULL DEFAULT NULL,
-    [ProvinceId] SMALLINT NULL DEFAULT NULL,
-    [AccessLevelId] TINYINT NOT NULL DEFAULT 5,
-    [HashedPassword] NCHAR(44) NOT NULL, 
-	[Salt] CHAR(44) NOT NULL,  
-    [ProfilePictureBytes] VARBINARY(max) NULL,
-    [BannerPictureBytes] VARBINARY(max) NULL,
-    [Bio] NVARCHAR(2500) NULL, 
-	[ProfileURL] NVARCHAR(100) NULL
+	[Id]                   INT            NOT NULL,
+    [Email]                NVARCHAR (256) NULL,
+    [EmailConfirmed]       BIT            NOT NULL,
+    [PasswordHash]         NVARCHAR (512) NULL,
+    [SecurityStamp]        NVARCHAR (512) NULL,
+    [PhoneNumber]          NVARCHAR (128) NULL,
+    [PhoneNumberConfirmed] BIT            NOT NULL,
+    [TwoFactorEnabled]     BIT            NOT NULL,
+    [LockoutEndDateUtc]    DATETIME       NULL,
+    [LockoutEnabled]       BIT            NOT NULL,
+    [AccessFailedCount]    INT            NOT NULL,
+    [UserName]             NVARCHAR (256) NOT NULL,
+    [FirstName]            NVARCHAR (256) NULL,
+    [LastName]             NVARCHAR (256) NULL,
+    [DateCreated]          DATETIME       NOT NULL,
+    [DateUpdated]          DATETIME       NOT NULL,
+    [LastLoginDate]        DATETIME       NULL,
+    [PasswordChangeDate]   DATETIME       NULL,
+
+
+	[KeepPrivate] bit NOT NULL DEFAULT (0),
+	[MetricOverImperial] bit NOT NULL DEFAULT (1),
+
+
+	[CountryId] tinyint NULL DEFAULT (NULL),
+	[ProvinceId] smallint NULL DEFAULT (NULL),
+
+
+	[ProfilePictureBytes] varbinary(max) NULL,
+	[BannerPictureBytes] varbinary(max) NULL,
+	[Bio] nvarchar(2500) NULL,
+	[ProfileURL] nvarchar(100) NULL,
 )
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Users') AND Type = N'U')
+IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.ApplicationUsers') AND Type = N'U')
 INSERT INTO [TempSavedUsers]
-SELECT * FROM [Users]
+SELECT * FROM [ApplicationUsers]
 print '>>>Users Saved'
 GO
 
@@ -77,9 +89,6 @@ IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Districts
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Regions') AND Type = N'U')
 	delete Regions where 1=1
 
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Users') AND Type = N'U')
-	delete UserAccessTokens where 1=1
-
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.UserDMs') AND Type = N'U')
 	delete UserDMs where 1=1
 
@@ -94,9 +103,6 @@ IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Provinces
 	delete ProvincesOrStates where 1=1
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.Countries') AND Type = N'U')
 	delete Countries where 1=1
-
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.UserAccessLevels') AND Type = N'U')
-	delete UserAccessLevels where 1=1
 
 	-- busy ratings reset
 IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.BusyRatings') AND Type = N'U')

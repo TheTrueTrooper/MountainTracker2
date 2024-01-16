@@ -1,14 +1,25 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using MountainTracker.Server.Config.Client;
+using MountainTracker.Server.Services.IdentityServices.Store;
 
 namespace MountainTracker.Server.StartupExtensions;
 
 public static class SecuritySetup
 {
+    const string connectionKey = GlobalConfigKeys.SecurityKey;
 
     public static IServiceCollection AddIdentityAuthenticationAndAuthorization(this IServiceCollection services, ConfigurationManager configurationManager)
     {
-        services.AddAuthentication().AddCookie().AddOAuth("test", op=>op.);
+        SecurityConfig config = configurationManager.GetSection(connectionKey).Get<SecurityConfig>()!;
+
+        services.AddSingleton<UserStore>();
+        services.AddAuthentication()
+            .AddCookie(options =>
+            {
+                options.LoginPath = config.LoginPath;
+                options.AccessDeniedPath = config.AccessDeniedPath;
+                options.SlidingExpiration = config.SlidingExpiration;
+            });
+        services.AddAuthorization(options =>{});
 
 
         return services;

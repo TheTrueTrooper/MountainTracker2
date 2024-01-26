@@ -88,7 +88,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ApplicationRoles>(entity =>
+        modelBuilder.Entity<ApplicationRolesIdentity>(entity =>
         {
             entity.HasIndex(e => e.Name, "RoleNameIndex").IsUnique();
 

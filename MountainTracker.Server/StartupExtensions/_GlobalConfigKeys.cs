@@ -7,5 +7,7 @@ public static class GlobalConfigKeys
     internal const string CorsConfigKey = "AllowedOrigins";
     internal const string ConnectionKey = "Default";
 
+    internal const string SecurityKey = "Security";
+
     internal const string CorsName = "Cors";
 }

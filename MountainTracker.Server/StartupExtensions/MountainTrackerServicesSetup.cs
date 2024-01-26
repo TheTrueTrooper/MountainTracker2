@@ -10,7 +10,10 @@ public static class MountainTrackerServicesSetup
     const string connectionKey = GlobalConfigKeys.ConnectionKey;
     public static IServiceCollection AddMountainTrackerServices(this IServiceCollection services, ConfigurationManager configurationManager)
     {
-        services.AddDbContext<MountainTrackerDatabase1Context>(options => options.UseSqlServer(configurationManager.GetConnectionString(connectionKey)));
+        if (!services.Any(x => x.ServiceType == typeof(MountainTrackerDatabase1Context)))
+        {
+            services.AddDbContext<MountainTrackerDatabase1Context>(options => options.UseSqlServer(configurationManager.GetConnectionString(connectionKey)));
+        }
         services.AddScoped<IRockClimbingDifficultyService, RockClimbingDifficultyService>();
         services.AddScoped<IRockClimbingTypeService, RockClimbingTypeService>();
         services.AddScoped<IBusyRatingService, BusyRatingService>();

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity;
 
 namespace MountainTracker.Shared.Model;
 
-public partial class ApplicationRoles
-{
-    public int Id { get; set; }
-
-    public string Name { get; set; } = null!;
-
-    public virtual ICollection<ApplicationUsers> User { get; set; } = new List<ApplicationUsers>();
-}
+/// <summary>
+/// simply required to allow for the store. But I did not want to include it in the model objects... still considering how to handle this exactly
+/// </summary>
+public partial class ApplicationRolesIdentity: ApplicationRoles, IRole<int> {}

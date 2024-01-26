@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
 using MountainTracker.Shared.Model;
@@ -14,13 +13,12 @@ public class UserStore :
     IUserRoleStore<ApplicationUsersIdentity, int>,
     IUserPasswordStore<ApplicationUsersIdentity, int>,
     IUserSecurityStampStore<ApplicationUsersIdentity, int>,
-    IUserLockoutStore<ApplicationUsersIdentity, int>,
-    IRoleStore<ApplicationRolesIdentity, int>
+    IUserLockoutStore<ApplicationUsersIdentity, int>
 {
     protected MountainTrackerDatabase1Context DatabaseConnection;
     protected DbSet<ApplicationUsers> Users;
     protected DbSet<ApplicationUserClaims> UsersClaims;
-    protected DbSet<ApplicationRolesIdentity> Roles;
+    protected DbSet<ApplicationRoles> Roles;
 
 
     public UserStore(MountainTrackerDatabase1Context database1Context)
@@ -30,6 +28,11 @@ public class UserStore :
         Users = DatabaseConnection.ApplicationUsers;
         UsersClaims = DatabaseConnection.ApplicationUserClaims;
         Roles = DatabaseConnection.ApplicationRoles;
+    }
+
+    public void Dispose()
+    {
+        this.DatabaseConnection.Dispose();
     }
 
     public async Task CreateAsync(ApplicationUsersIdentity user)
@@ -44,11 +47,6 @@ public class UserStore :
         Users.Remove(user);
         await DatabaseConnection.SaveChangesAsync();
         return;
-    }
-
-    public void Dispose()
-    {
-        this.DatabaseConnection.Dispose();
     }
 
     public async Task<ApplicationUsersIdentity> FindByIdAsync(int userId)
@@ -191,7 +189,7 @@ public class UserStore :
     public async Task AddToRoleAsync(ApplicationUsersIdentity user, string roleName)
     {
         var updateUser = await Users.FirstAsync(user => user.Id == user.Id);
-        IEnumerable<ApplicationRolesIdentity> roles = Roles;
+        IEnumerable<ApplicationRolesIdentity> roles = Roles.Cast<ApplicationRolesIdentity>();
         if (updateUser != null && !updateUser.Role.Any(x => x.Name == roleName))
         {
             updateUser.Role.Add(roles.First(x => x.Name == roleName));
@@ -204,7 +202,7 @@ public class UserStore :
     public async Task RemoveFromRoleAsync(ApplicationUsersIdentity user, string roleName)
     {
         var updateUser = await Users.FirstAsync(user => user.Id == user.Id);
-        IEnumerable<ApplicationRolesIdentity> roles = Roles;
+        IEnumerable<ApplicationRolesIdentity> roles = Roles.Cast<ApplicationRolesIdentity>();
         if (updateUser != null && !updateUser.Role.Any(x => x.Name == roleName))
         {
             updateUser.Role.Remove(roles.First(x => x.Name == roleName));
@@ -222,30 +220,5 @@ public class UserStore :
     public async Task<bool> IsInRoleAsync(ApplicationUsersIdentity user, string roleName)
     {
         return (await Users.FirstAsync(user => user.Id == user.Id)).Role.Any(x => x.Name == roleName);
-    }
-
-    public Task CreateAsync(ApplicationRolesIdentity role)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task UpdateAsync(ApplicationRolesIdentity role)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task DeleteAsync(ApplicationRolesIdentity role)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<ApplicationRolesIdentity> IRoleStore<ApplicationRolesIdentity, int>.FindByIdAsync(int roleId)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<ApplicationRolesIdentity> IRoleStore<ApplicationRolesIdentity, int>.FindByNameAsync(string roleName)
-    {
-        throw new NotImplementedException();
     }
 }

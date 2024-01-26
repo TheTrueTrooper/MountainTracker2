@@ -1,17 +1,33 @@
-﻿using MountainTracker.Server.Config.Client;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using MountainTracker.Server.Config.Client;
+using MountainTracker.Server.Contexts.MountainTrackerContext;
 using MountainTracker.Server.Services.IdentityServices.Store;
+using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.StartupExtensions;
 
 public static class SecuritySetup
 {
-    const string connectionKey = GlobalConfigKeys.SecurityKey;
+    const string connectionKey = GlobalConfigKeys.ConnectionKey;
+    const string securityKey = GlobalConfigKeys.SecurityKey;
 
-    public static IServiceCollection AddIdentityAuthenticationAndAuthorization(this IServiceCollection services, ConfigurationManager configurationManager)
+    public static IServiceCollection AddAuthenticationAndAuthorization(this IServiceCollection services, ConfigurationManager configurationManager)
     {
-        SecurityConfig config = configurationManager.GetSection(connectionKey).Get<SecurityConfig>()!;
+        if (!services.Any(x => x.ServiceType == typeof(MountainTrackerDatabase1Context)))
+        {
+            services.AddDbContext<MountainTrackerDatabase1Context>(options => options.UseSqlServer(configurationManager.GetConnectionString(connectionKey)));
+        }
 
-        services.AddSingleton<UserStore>();
+        SecurityConfig config = configurationManager.GetSection(securityKey).Get<SecurityConfig>()!;
+
+        services.AddIdentity<ApplicationUsersIdentity, ApplicationRolesIdentity>()
+            .AddDefaultTokenProviders();
+
+        services.AddTransient<UserStore>();
+        services.AddTransient<IUserStore<ApplicationUsersIdentity, int>, UserStore>();
+        services.AddTransient<IRoleStore<ApplicationRolesIdentity, int>, RoleStore>();
         services.AddAuthentication()
             .AddCookie(options =>
             {
@@ -23,5 +39,13 @@ public static class SecuritySetup
 
 
         return services;
+    }
+
+    public static IApplicationBuilder UseAuthenticationAndAuthorization(this IApplicationBuilder webApp, IConfiguration configuration)
+    {
+        SecurityConfig config = configuration.GetSection(securityKey).Get<SecurityConfig>()!;
+
+        //webApp.CreatePerOwinContext();
+        return webApp;
     }
 }

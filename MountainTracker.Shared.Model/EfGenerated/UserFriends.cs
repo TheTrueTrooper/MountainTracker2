@@ -14,8 +14,4 @@ public partial class UserFriends
     public DateTime? RequestAcceptDate { get; set; }
 
     public bool Accepted { get; set; }
-
-    public virtual ApplicationUsers UserFrom { get; set; } = null!;
-
-    public virtual ApplicationUsers UserTo { get; set; } = null!;
 }

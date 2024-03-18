@@ -10,7 +10,8 @@
     <T4TemplateRoot>$(MSBuildProjectDirectory)\RootClassGenerate.t4</T4TemplateRoot>
   </PropertyGroup>
 
-  <ItemGroup><!--Disabled for now due to broken includes-->
+  <ItemGroup>
+    <!--Disabled for now due to broken includes-->
     <!--<None Update="Partial\_PartialGenerator.tt">
       <DependentUpon>_PartialGenerator.tt</DependentUpon>
       <Generator>TextTemplatingFileGenerator</Generator>

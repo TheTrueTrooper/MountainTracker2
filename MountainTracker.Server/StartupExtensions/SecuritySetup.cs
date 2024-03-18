@@ -1,33 +1,27 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Config.Client;
+using MountainTracker.Server.Contexts.Identity.EfGenerated;
 using MountainTracker.Server.Contexts.MountainTrackerContext;
-using MountainTracker.Server.Services.IdentityServices.Store;
 using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.StartupExtensions;
 
 public static class SecuritySetup
 {
-    const string connectionKey = GlobalConfigKeys.ConnectionKey;
+    const string connectionKey = GlobalConfigKeys.IdentityDataContextConnection;
     const string securityKey = GlobalConfigKeys.SecurityKey;
 
     public static IServiceCollection AddAuthenticationAndAuthorization(this IServiceCollection services, ConfigurationManager configurationManager)
     {
-        if (!services.Any(x => x.ServiceType == typeof(MountainTrackerDatabase1Context)))
-        {
-            services.AddDbContext<MountainTrackerDatabase1Context>(options => options.UseSqlServer(configurationManager.GetConnectionString(connectionKey)));
-        }
-
         SecurityConfig config = configurationManager.GetSection(securityKey).Get<SecurityConfig>()!;
+        
+        services.AddDbContext<IdentityDataContext>(options => options.UseSqlServer(configurationManager.GetConnectionString(connectionKey)));
 
-        services.AddIdentity<ApplicationUsersIdentity, ApplicationRolesIdentity>()
-            .AddDefaultTokenProviders();
+        services.AddDbContext<IdentityDataContext>(options => options.UseSqlServer(configurationManager.GetConnectionString(connectionKey)));
 
-        services.AddTransient<UserStore>();
-        services.AddTransient<IUserStore<ApplicationUsersIdentity, int>, UserStore>();
-        services.AddTransient<IRoleStore<ApplicationRolesIdentity, int>, RoleStore>();
+        services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityDataContext>();
+        
         services.AddAuthentication()
             .AddCookie(options =>
             {
@@ -35,8 +29,8 @@ public static class SecuritySetup
                 options.AccessDeniedPath = config.AccessDeniedPath;
                 options.SlidingExpiration = config.SlidingExpiration;
             });
-        services.AddAuthorization(options =>{});
 
+        services.AddAuthorization(options => { });
 
         return services;
     }

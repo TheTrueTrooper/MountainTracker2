@@ -6,6 +6,7 @@ public static class GlobalConfigKeys
     internal const string GraphQlConfigKey = "GraphQlConfig";
     internal const string CorsConfigKey = "AllowedOrigins";
     internal const string ConnectionKey = "Default";
+    internal const string IdentityDataContextConnection = "IdentityDataContextConnection";
 
     internal const string SecurityKey = "Security";
 

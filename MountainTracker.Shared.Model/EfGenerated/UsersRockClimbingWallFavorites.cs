@@ -12,6 +12,4 @@ public partial class UsersRockClimbingWallFavorites
     public string? Notes { get; set; }
 
     public virtual RockClimbingWalls RockClimbingWall { get; set; } = null!;
-
-    public virtual ApplicationUsers User { get; set; } = null!;
 }

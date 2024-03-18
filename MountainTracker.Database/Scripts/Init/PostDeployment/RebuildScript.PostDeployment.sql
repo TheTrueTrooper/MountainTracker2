@@ -731,48 +731,48 @@ begin
 end
 go
 
-print '<<<Reseeding ApplicationUsers'
-DBCC CHECKIDENT ('ApplicationUsers', RESEED, 0)
-print '>>>Reseeded ApplicationUsers'
-print '<<<Recalling ApplicationUsers'
-INSERT INTO ApplicationUsers
-SELECT 
-	[Email],
-    [EmailConfirmed],
-    [PasswordHash],
-    [SecurityStamp],
-    [PhoneNumber],
-    [PhoneNumberConfirmed],
-    [TwoFactorEnabled],
-    [LockoutEndDateUtc],
-    [LockoutEnabled],
-    [AccessFailedCount],
-    [UserName],
-    [FirstName],
-    [LastName],
-    [DateCreated],
-    [DateUpdated],
-    [LastLoginDate],
-    [PasswordChangeDate],
+--print '<<<Reseeding ApplicationUsers'
+--DBCC CHECKIDENT ('ApplicationUsers', RESEED, 0)
+--print '>>>Reseeded ApplicationUsers'
+--print '<<<Recalling ApplicationUsers'
+--INSERT INTO ApplicationUsers
+--SELECT 
+--	[Email],
+--    [EmailConfirmed],
+--    [PasswordHash],
+--    [SecurityStamp],
+--    [PhoneNumber],
+--    [PhoneNumberConfirmed],
+--    [TwoFactorEnabled],
+--    [LockoutEndDateUtc],
+--    [LockoutEnabled],
+--    [AccessFailedCount],
+--    [UserName],
+--    [FirstName],
+--    [LastName],
+--    [DateCreated],
+--    [DateUpdated],
+--    [LastLoginDate],
+--    [PasswordChangeDate],
 
 
-	[KeepPrivate],
-	[MetricOverImperial],
+--	[KeepPrivate],
+--	[MetricOverImperial],
 
-	[CountryId],
-	[ProvinceId],
+--	[CountryId],
+--	[ProvinceId],
 
 
-	[ProfilePictureBytes],
-	[BannerPictureBytes],
-	[Bio],
-	[ProfileURL] 
-FROM TempSavedUsers
-print '>>>Users Recalled'
-print '<<<Dropping Users Temp'
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.TempSavedUsers') AND Type = N'U')
-	drop table TempSavedUsers
-print '>>>Users Temp Dropped'
+--	[ProfilePictureBytes],
+--	[BannerPictureBytes],
+--	[Bio],
+--	[ProfileURL] 
+--FROM TempSavedUsers
+--print '>>>Users Recalled'
+--print '<<<Dropping Users Temp'
+--IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.TempSavedUsers') AND Type = N'U')
+--	drop table TempSavedUsers
+--print '>>>Users Temp Dropped'
 
 --Reseed
 declare @reseed bit = 1

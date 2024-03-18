@@ -20,6 +20,7 @@ public class ProvinceOrStateType : ObjectGraphType<ProvincesOrStates>, IDisposab
         Field(d => d.CountryId, nullable: false).Description("Province's or State's country id");
 
         var countryScope = CreateScope(serviceProvider);
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         Field<CountryType, Countries>("country")
             .ResolveAsync(async context =>
             {
@@ -38,6 +39,7 @@ public class ProvinceOrStateType : ObjectGraphType<ProvincesOrStates>, IDisposab
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Province's associated regions");
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     }
 
     private IServiceScope CreateScope(IServiceProvider serviceProvider)

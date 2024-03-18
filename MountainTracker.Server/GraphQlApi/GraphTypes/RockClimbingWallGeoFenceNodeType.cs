@@ -20,6 +20,7 @@ public class RockClimbingWallGeoFenceNodeType : ObjectGraphType<RockClimbingWall
         Field(d => d.Longitude, nullable: false).Description("Longitude of node in geo fence");
 
         var climbingWallScope = CreateScope(serviceProvider);
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         Field<RockClimbingWallType, RockClimbingWalls>("climbingWall")
         .ResolveAsync(async context =>
         {
@@ -28,7 +29,7 @@ public class RockClimbingWallGeoFenceNodeType : ObjectGraphType<RockClimbingWall
             return loader.LoadAsync(context.Source.ClimbingWallId);
         })
         .Description("Rock climbingWall geo fence node's associated wall");
-
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     }
 
     private IServiceScope CreateScope(IServiceProvider serviceProvider)

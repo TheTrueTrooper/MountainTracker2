@@ -18,6 +18,7 @@ public class BusyRatingType : ObjectGraphType<BusyRatings>, IDisposable
         Field(d => d.EnglishName, nullable: false).Description("Ratings name in English");
 
         var rockClimbingWallScope = CreateScope(serviceProvider);
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         Field<ListGraphType<RockClimbingWallType>, IEnumerable<RockClimbingWalls>>("rockClimbingWallsInApr")
             .ResolveAsync(async context =>
             {
@@ -125,6 +126,7 @@ public class BusyRatingType : ObjectGraphType<BusyRatings>, IDisposable
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Rating's associated walls");
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     }
 
     private IServiceScope CreateScope(IServiceProvider serviceProvider)

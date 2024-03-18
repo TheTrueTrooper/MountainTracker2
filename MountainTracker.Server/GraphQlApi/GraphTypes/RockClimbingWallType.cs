@@ -54,6 +54,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
         Field(d => d.DecSeasonalBusyRatingId, nullable: false).Description("Wall's busy climbing rating in December");
 
         var climbingQualityRatingScope = CreateScope(serviceProvider);
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         Field<ClimbingQualityRatingType, ClimbingQualityRatings>("janSeasonalClimbingQualityRating")
             .ResolveAsync(async context =>
             {
@@ -278,6 +279,7 @@ public class RockClimbingWallType : ObjectGraphType<RockClimbingWalls>, IDisposa
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Wall's associated geo fence nodes");
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     }
 
     private IServiceScope CreateScope(IServiceProvider serviceProvider)

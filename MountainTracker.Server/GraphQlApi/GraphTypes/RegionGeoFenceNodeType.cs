@@ -20,6 +20,7 @@ public class RegionGeoFenceNodeType : ObjectGraphType<RegionGeoFenceNodes>, IDis
         Field(d => d.Longitude, nullable: false).Description("Longitude of node in geo fence");
 
         var regionScope = CreateScope(serviceProvider);
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         Field<RegionType, Regions>("region")
             .ResolveAsync(async context =>
             {
@@ -28,6 +29,7 @@ public class RegionGeoFenceNodeType : ObjectGraphType<RegionGeoFenceNodes>, IDis
                 return loader.LoadAsync(context.Source.RegionId);
             })
             .Description("Region geo fence node's associated region");
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
     }
 

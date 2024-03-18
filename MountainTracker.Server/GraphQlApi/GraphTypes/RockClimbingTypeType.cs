@@ -19,6 +19,7 @@ public class RockClimbingTypeType : ObjectGraphType<RockClimbingTypes>, IDisposa
         Field(d => d.EnglishFullName, nullable: false).Description("Types's english name");
 
         var rockClimbingRouteScope = CreateScope(serviceProvider);
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         Field<ListGraphType<RockClimbingRouteType>, IEnumerable<RockClimbingRoutes>>("rockClimbingRoutes")
             .ResolveAsync(async context =>
             {
@@ -27,6 +28,7 @@ public class RockClimbingTypeType : ObjectGraphType<RockClimbingTypes>, IDisposa
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Rock climbing types's associated routes");
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     }
 
     private IServiceScope CreateScope(IServiceProvider serviceProvider)

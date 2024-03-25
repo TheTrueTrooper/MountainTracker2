@@ -15,6 +15,8 @@ builder.Services.AddCorsConfig(builder.Configuration);
 
 builder.Services.AddMountainTrackerServices(builder.Configuration);
 
+builder.Services.AddAuthenticationAndAuthorization(builder.Configuration);
+
 builder.Services.AddGraphQl(builder.Configuration);
 
 builder.Services.AddClientConfig(builder.Configuration);

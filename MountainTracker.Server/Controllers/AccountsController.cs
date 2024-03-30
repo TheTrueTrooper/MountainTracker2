@@ -41,7 +41,53 @@ public class AccountsController : Controller
                 var callbackUrl = Url.Page(
                     "/Account/ConfirmEmail",
                 pageHandler: null,
-                values: new { area = "Identity", userId = user.Id, code = code },
+                values: new { userId = user.Id, code = code },
+                protocol: Request.Scheme);
+
+                //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                if (UserManager.Options.SignIn.RequireConfirmedAccount)
+                {
+                    return RedirectToPage("RegisterConfirmation",
+                                          new { email = userForRegistration.Email });
+                }
+                else
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false);
+                    return LocalRedirect(returnUrl);
+                }
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+        }
+
+        // If we got this far, something failed, redisplay form
+        return LocalRedirect(returnUrl);
+    }
+
+    [Route("/Accounts/Login")]
+    [HttpPost]
+    public async Task<IActionResult> Login([FromBody] UserLogin userLogin, [FromQuery] string returnUrl = null)
+    {
+        returnUrl = returnUrl ?? Url.Content("~/");
+        var ExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+        if (ModelState.IsValid)
+        {
+            var result = -880userLoginuserLoginuserLoginuserLog
+            if (result.Succeeded)
+            {
+                Logger.LogInformation("User created a new account with password.");
+
+                var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                var callbackUrl = Url.Page(
+                    "/Dashboard",
+                pageHandler: null,
+                values: new { userId = user.Id, code = code },
                 protocol: Request.Scheme);
 
                 //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",

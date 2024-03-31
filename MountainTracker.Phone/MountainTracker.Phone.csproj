@@ -42,4 +42,7 @@
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MountainTracker.Shared.Model\MountainTracker.Shared.Model.csproj" />
+  </ItemGroup>
 </Project>

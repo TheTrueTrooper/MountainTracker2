@@ -11,4 +11,6 @@ public static class GlobalConfigKeys
     internal const string SecurityKey = "Security";
 
     internal const string CorsName = "Cors";
+
+    internal const string ApiToolsKey = "ApiTools";
 }

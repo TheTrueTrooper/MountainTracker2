@@ -1,15 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  
   <PropertyGroup>
     <T4TemplateRoot>$(MSBuildProjectDirectory)\RootClassGenerate.t4</T4TemplateRoot>
   </PropertyGroup>
-
   <ItemGroup>
     <!--Disabled for now due to broken includes-->
     <!--<None Update="Partial\_PartialGenerator.tt">
@@ -17,12 +14,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TextTemplate1.txt</LastGenOutput>
     </None>-->
-  
     <Folder Include="EfGenerated\" />
   </ItemGroup>
-
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
-
 </Project>

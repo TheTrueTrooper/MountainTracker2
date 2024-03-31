@@ -10,4 +10,5 @@ public class SecurityConfig : ISecurityConfig
     public LockoutOptions LockoutOptions { get; set; } = new LockoutOptions();
     public UserOptions UserOptions { get; set; } = new UserOptions();
     public SignInOptions SignInOptions { get; set; } = new SignInOptions();
+    public string securityEndpoint { get; set; } = "api/accounts/";
 }

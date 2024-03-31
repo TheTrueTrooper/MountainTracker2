@@ -2,8 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using MountainTracker.Server.Config;
 using MountainTracker.Server.Contexts.Identity.EfGenerated;
-using MountainTracker.Server.Contexts.MountainTrackerContext;
-using MountainTracker.Shared.Model;
 
 namespace MountainTracker.Server.StartupExtensions;
 
@@ -18,9 +16,8 @@ public static class SecuritySetup
         
         services.AddDbContext<IdentityDataContext>(options => options.UseSqlServer(configurationManager.GetConnectionString(connectionKey)));
 
-        services.AddDefaultIdentity<IdentityUser>(options => {
-            options.SignIn.RequireConfirmedAccount = config.SignInOptions.RequireConfirmedAccount;
-        }).AddEntityFrameworkStores<IdentityDataContext>();
+        services.AddIdentityApiEndpoints<IdentityUser>()
+            .AddEntityFrameworkStores<IdentityDataContext>();
 
         services.Configure<IdentityOptions>(options =>
         {
@@ -55,11 +52,16 @@ public static class SecuritySetup
         return services;
     }
 
-    public static IApplicationBuilder UseAuthenticationAndAuthorization(this IApplicationBuilder webApp, IConfiguration configuration)
+    public static IEndpointRouteBuilder UseAuthenticationAndAuthorization(this IEndpointRouteBuilder webApp, IConfiguration configuration)
     {
         SecurityConfig config = configuration.GetSection(securityKey).Get<SecurityConfig>()!;
-
-        //webApp.CreatePerOwinContext();
+        string[] urlSeg = config.securityEndpoint.Split('/').Where(str=>str!="").ToArray();
+        var mapper = webApp.MapGroup(urlSeg[0]);
+        for (int i = 1; i < urlSeg.Length; i++)
+        {
+            mapper.MapGroup(urlSeg[i])
+               .MapIdentityApi<IdentityUser>();
+        }
         return webApp;
     }
 }

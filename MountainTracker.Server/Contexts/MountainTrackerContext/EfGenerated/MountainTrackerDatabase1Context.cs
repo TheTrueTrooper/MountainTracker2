@@ -12,14 +12,6 @@ public partial class MountainTrackerDatabase1Context : DbContext
     {
     }
 
-    public virtual DbSet<ApplicationRoles> ApplicationRoles { get; set; }
-
-    public virtual DbSet<ApplicationUserClaims> ApplicationUserClaims { get; set; }
-
-    public virtual DbSet<ApplicationUserLogins> ApplicationUserLogins { get; set; }
-
-    public virtual DbSet<ApplicationUsers> ApplicationUsers { get; set; }
-
     public virtual DbSet<AreaGeoFenceNodes> AreaGeoFenceNodes { get; set; }
 
     public virtual DbSet<Areas> Areas { get; set; }
@@ -90,85 +82,6 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ApplicationRoles>(entity =>
-        {
-            entity.HasIndex(e => e.Name, "RoleNameIndex").IsUnique();
-
-            entity.Property(e => e.Name).HasMaxLength(256);
-        });
-
-        modelBuilder.Entity<ApplicationUserClaims>(entity =>
-        {
-            entity.HasIndex(e => e.UserId, "IX_UserId");
-
-            entity.HasOne(d => d.User).WithMany(p => p.ApplicationUserClaims).HasForeignKey(d => d.UserId);
-        });
-
-        modelBuilder.Entity<ApplicationUserLogins>(entity =>
-        {
-            entity.HasKey(e => new { e.LoginProvider, e.ProviderKey, e.UserId }).HasName("PK_dbo.ApplicationUserLogins");
-
-            entity.HasIndex(e => e.UserId, "IX_UserId");
-
-            entity.Property(e => e.LoginProvider).HasMaxLength(128);
-            entity.Property(e => e.ProviderKey).HasMaxLength(128);
-
-            entity.HasOne(d => d.User).WithMany(p => p.ApplicationUserLogins)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_dbo.ApplicationUserLogins_dbo.ApplicationUsers_Id");
-        });
-
-        modelBuilder.Entity<ApplicationUsers>(entity =>
-        {
-            entity.HasIndex(e => e.Email, "UQ_ApplicationUsers_Email").IsUnique();
-
-            entity.HasIndex(e => e.UserName, "UQ_ApplicationUsers_UserName").IsUnique();
-
-            entity.Property(e => e.Bio).HasMaxLength(2500);
-            entity.Property(e => e.DateCreated).HasColumnType("datetime");
-            entity.Property(e => e.DateUpdated).HasColumnType("datetime");
-            entity.Property(e => e.Email).HasMaxLength(256);
-            entity.Property(e => e.FirstName).HasMaxLength(256);
-            entity.Property(e => e.LastLoginDate).HasColumnType("datetime");
-            entity.Property(e => e.LastName).HasMaxLength(256);
-            entity.Property(e => e.LockoutEndDateUtc).HasColumnType("datetime");
-            entity.Property(e => e.MetricOverImperial)
-                .IsRequired()
-                .HasDefaultValueSql("((1))");
-            entity.Property(e => e.PasswordChangeDate).HasColumnType("datetime");
-            entity.Property(e => e.PasswordHash).HasMaxLength(512);
-            entity.Property(e => e.PhoneNumber).HasMaxLength(128);
-            entity.Property(e => e.ProfileUrl)
-                .HasMaxLength(100)
-                .HasColumnName("ProfileURL");
-            entity.Property(e => e.SecurityStamp).HasMaxLength(512);
-            entity.Property(e => e.UserName).HasMaxLength(256);
-
-            entity.HasOne(d => d.Country).WithMany(p => p.ApplicationUsers)
-                .HasForeignKey(d => d.CountryId)
-                .HasConstraintName("FK_ApplicationUsers_Countries");
-
-            entity.HasOne(d => d.Province).WithMany(p => p.ApplicationUsers)
-                .HasForeignKey(d => d.ProvinceId)
-                .HasConstraintName("FK_ApplicationUsers_ProvincesOrStates");
-
-            entity.HasMany(d => d.Role).WithMany(p => p.User)
-                .UsingEntity<Dictionary<string, object>>(
-                    "ApplicationUserRoles",
-                    r => r.HasOne<ApplicationRoles>().WithMany()
-                        .HasForeignKey("RoleId")
-                        .HasConstraintName("FK_dbo.ApplicationUserRoles_dbo.ApplicationRoles_RoleId"),
-                    l => l.HasOne<ApplicationUsers>().WithMany()
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("FK_dbo.ApplicationUserRoles_dbo.ApplicationUsers_UserId"),
-                    j =>
-                    {
-                        j.HasKey("UserId", "RoleId").HasName("PK_dbo.ApplicationUserRoles");
-                        j.HasIndex(new[] { "RoleId" }, "IX_RoleId");
-                        j.HasIndex(new[] { "UserId" }, "IX_UserId");
-                    });
-        });
-
         modelBuilder.Entity<AreaGeoFenceNodes>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC27DDCE7825");
@@ -389,11 +302,6 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasForeignKey(d => d.GroupMessagingId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_GroupMessagingMembers_GroupMessaging");
-
-            entity.HasOne(d => d.User).WithMany(p => p.GroupMessagingMembers)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_GroupMessagingMembers_Users");
         });
 
         modelBuilder.Entity<GroupMessagingMessages>(entity =>
@@ -412,11 +320,6 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasForeignKey(d => d.GroupMessagingId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_GroupMessagingMessages_GroupMessagingGroups");
-
-            entity.HasOne(d => d.User).WithMany(p => p.GroupMessagingMessages)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_GroupMessagingMessages_Users");
         });
 
         modelBuilder.Entity<IceClimbingRoutes>(entity =>
@@ -816,16 +719,6 @@ public partial class MountainTrackerDatabase1Context : DbContext
             entity.Property(e => e.Time)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-
-            entity.HasOne(d => d.UserFrom).WithMany(p => p.UserDirectMessagesUserFrom)
-                .HasForeignKey(d => d.UserFromId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserDirectMessages_Users_From");
-
-            entity.HasOne(d => d.UserTo).WithMany(p => p.UserDirectMessagesUserTo)
-                .HasForeignKey(d => d.UserToId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserDirectMessages_Users_To");
         });
 
         modelBuilder.Entity<UserFriends>(entity =>
@@ -838,16 +731,6 @@ public partial class MountainTrackerDatabase1Context : DbContext
             entity.Property(e => e.RequestCreationDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-
-            entity.HasOne(d => d.UserFrom).WithMany(p => p.UserFriendsUserFrom)
-                .HasForeignKey(d => d.UserFromId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserFriends_Users_From");
-
-            entity.HasOne(d => d.UserTo).WithMany(p => p.UserFriendsUserTo)
-                .HasForeignKey(d => d.UserToId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UserFriends_Users_To");
         });
 
         modelBuilder.Entity<UsersAreaFavorites>(entity =>
@@ -864,38 +747,23 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasForeignKey(d => d.AreaId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UsersAreaFavorites_Areas");
-
-            entity.HasOne(d => d.User).WithMany(p => p.UsersAreaFavorites)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UsersAreaFavorites_Users");
         });
 
         modelBuilder.Entity<UsersRockClimbComments>(entity =>
         {
-            entity.HasKey(e => e.CommentId).HasName("PK__UsersRoc__C3B4DFAA253AD024");
+            entity.HasKey(e => e.CommentId).HasName("PK__tmp_ms_x__C3B4DFCA716F81A5");
 
-            entity.Property(e => e.CommentId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("CommentID");
             entity.Property(e => e.Comments)
                 .HasMaxLength(2500)
                 .IsUnicode(false);
-            entity.Property(e => e.RockClimbingRoutesId).HasColumnName("RockClimbingRoutesID");
             entity.Property(e => e.Time)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.UserId).HasColumnName("UserID");
 
             entity.HasOne(d => d.RockClimbingRoutes).WithMany(p => p.UsersRockClimbComments)
                 .HasForeignKey(d => d.RockClimbingRoutesId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UsersRockClimbComments_RockClimbingRoutes");
-
-            entity.HasOne(d => d.User).WithMany(p => p.UsersRockClimbComments)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UsersRockClimbComments_Users");
         });
 
         modelBuilder.Entity<UsersRockClimbRouteFavorites>(entity =>
@@ -912,11 +780,6 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasForeignKey(d => d.RockClimbingRoutesId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UsersRockClimbRouteFavorites_RockClimbingRoutes");
-
-            entity.HasOne(d => d.User).WithMany(p => p.UsersRockClimbRouteFavorites)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UsersRockClimbRouteFavorites_ApplicationUsers");
         });
 
         modelBuilder.Entity<UsersRockClimbingWallFavorites>(entity =>
@@ -933,38 +796,23 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasForeignKey(d => d.RockClimbingWallId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UsersWallFavorites_ClimbingWalls");
-
-            entity.HasOne(d => d.User).WithMany(p => p.UsersRockClimbingWallFavorites)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UsersWallFavorites_Users");
         });
 
         modelBuilder.Entity<UsersRockClimbs>(entity =>
         {
-            entity.HasKey(e => e.ClimbId).HasName("PK__UsersRoc__2FC3D4C018D82566");
+            entity.HasKey(e => e.ClimbId).HasName("PK__tmp_ms_x__2FC3D4E014766057");
 
-            entity.Property(e => e.ClimbId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("ClimbID");
             entity.Property(e => e.Comments)
                 .HasMaxLength(2500)
                 .IsUnicode(false);
-            entity.Property(e => e.RockClimbingRoutesId).HasColumnName("RockClimbingRoutesID");
             entity.Property(e => e.Time)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.UserId).HasColumnName("UserID");
 
             entity.HasOne(d => d.RockClimbingRoutes).WithMany(p => p.UsersRockClimbs)
                 .HasForeignKey(d => d.RockClimbingRoutesId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UsersRockClimbTracker_RockClimbingRoutes");
-
-            entity.HasOne(d => d.User).WithMany(p => p.UsersRockClimbs)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_UsersRockClimbTracker_Users");
         });
 
         modelBuilder.Entity<ZoneGeoFenceNodes>(entity =>

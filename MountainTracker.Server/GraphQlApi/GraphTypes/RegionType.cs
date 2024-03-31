@@ -26,6 +26,7 @@ public class RegionType : ObjectGraphType<Regions>, IDisposable
 
         //create a scope for each service call. this will isolate them from one another. But it must be outside of the function or the data loader will suffer as it uses the scope to keep its self going.
         var provinceOrStateScope = CreateScope(serviceProvider);
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         Field<ProvinceOrStateType, ProvincesOrStates>("provinceOrState")
             .ResolveAsync(async context =>
             {
@@ -54,7 +55,7 @@ public class RegionType : ObjectGraphType<Regions>, IDisposable
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Region's associated geo fence nodes");
-
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     }
 
     private IServiceScope CreateScope(IServiceProvider serviceProvider)

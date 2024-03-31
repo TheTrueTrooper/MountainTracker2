@@ -16,6 +16,4 @@ public partial class GroupMessagingMessages
     public DateTime Time { get; set; }
 
     public virtual GroupMessagingGroups GroupMessaging { get; set; } = null!;
-
-    public virtual ApplicationUsers User { get; set; } = null!;
 }

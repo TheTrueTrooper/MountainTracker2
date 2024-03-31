@@ -1,4 +1,5 @@
-using MountainTracker.Server.Startup;
+using Microsoft.AspNetCore.Identity;
+using MountainTracker.Server.StartupExtensions;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
@@ -15,9 +16,12 @@ builder.Services.AddCorsConfig(builder.Configuration);
 
 builder.Services.AddMountainTrackerServices(builder.Configuration);
 
+builder.Services.AddAuthenticationAndAuthorization(builder.Configuration);
+
 builder.Services.AddGraphQl(builder.Configuration);
 
 builder.Services.AddClientConfig(builder.Configuration);
+builder.Services.AddTools(builder.Configuration);
 
 builder.Services.AddLogging(builder => builder.AddConsole());
 
@@ -44,7 +48,8 @@ app.UseWebSockets();
 
 app.MapFallbackToController("Index", "Home");
 app.MapControllers();
-
 app.AddGraphQl(app.Configuration);
+app.UseAuthenticationAndAuthorization(app.Configuration);
+app.UseTools(app.Configuration);
 
 app.Run();

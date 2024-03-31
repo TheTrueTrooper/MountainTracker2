@@ -3,7 +3,7 @@ using MountainTracker.Server.Contexts.MountainTrackerContext;
 using MountainTracker.Server.Services.LocalServices.Interfaces;
 using MountainTracker.Server.Services.LocalServices.Services;
 
-namespace MountainTracker.Server.Startup;
+namespace MountainTracker.Server.StartupExtensions;
 
 public static class MountainTrackerServicesSetup
 {
@@ -11,6 +11,7 @@ public static class MountainTrackerServicesSetup
     public static IServiceCollection AddMountainTrackerServices(this IServiceCollection services, ConfigurationManager configurationManager)
     {
         services.AddDbContext<MountainTrackerDatabase1Context>(options => options.UseSqlServer(configurationManager.GetConnectionString(connectionKey)));
+
         services.AddScoped<IRockClimbingDifficultyService, RockClimbingDifficultyService>();
         services.AddScoped<IRockClimbingTypeService, RockClimbingTypeService>();
         services.AddScoped<IBusyRatingService, BusyRatingService>();

@@ -25,6 +25,7 @@ public class AreaType : ObjectGraphType<Areas>, IDisposable
         Field(d => d.LongitudeStartOrCenter, nullable: true).Description("Area's latitude location by center or start");
 
         var zoneScope = CreateScope(serviceProvider);
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         Field<ZoneType, Zones>("zone")
             .ResolveAsync(async context =>
             {
@@ -53,6 +54,7 @@ public class AreaType : ObjectGraphType<Areas>, IDisposable
                 return loader.LoadAsync(context.Source.Id);
             })
             .Description("Area's associated geo fence nodes");
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     }
 
     private IServiceScope CreateScope(IServiceProvider serviceProvider)

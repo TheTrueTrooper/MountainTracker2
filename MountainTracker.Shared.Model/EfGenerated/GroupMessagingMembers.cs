@@ -18,6 +18,4 @@ public partial class GroupMessagingMembers
     public DateTime TimeLastSeen { get; set; }
 
     public virtual GroupMessagingGroups GroupMessaging { get; set; } = null!;
-
-    public virtual ApplicationUsers User { get; set; } = null!;
 }

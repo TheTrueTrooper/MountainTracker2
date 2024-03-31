@@ -11,7 +11,5 @@ public partial class Countries
 
     public string CountryCode { get; set; } = null!;
 
-    public virtual ICollection<ApplicationUsers> ApplicationUsers { get; set; } = new List<ApplicationUsers>();
-
     public virtual ICollection<ProvincesOrStates> ProvincesOrStates { get; set; } = new List<ProvincesOrStates>();
 }

@@ -12,6 +12,4 @@ public partial class UsersRockClimbRouteFavorites
     public string? Notes { get; set; }
 
     public virtual RockClimbingRoutes RockClimbingRoutes { get; set; } = null!;
-
-    public virtual ApplicationUsers User { get; set; } = null!;
 }

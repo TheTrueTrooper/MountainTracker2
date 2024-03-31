@@ -16,8 +16,4 @@ public partial class UserDirectMessages
     public bool Seen { get; set; }
 
     public string Message { get; set; } = null!;
-
-    public virtual ApplicationUsers UserFrom { get; set; } = null!;
-
-    public virtual ApplicationUsers UserTo { get; set; } = null!;
 }

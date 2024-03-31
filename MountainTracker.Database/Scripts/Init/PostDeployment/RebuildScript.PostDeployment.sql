@@ -731,54 +731,48 @@ begin
 end
 go
 
-INSERT INTO [UserAccessLevels] ([Id], [EnglishName])
-VALUES 
-(0, 'Unrestricted Admin'),
-(1, 'Admin'),
-(2, 'Moderater'),
-(3, 'Guide'),
-(4, 'PayedUser'),
-(5, 'User');
+--print '<<<Reseeding ApplicationUsers'
+--DBCC CHECKIDENT ('ApplicationUsers', RESEED, 0)
+--print '>>>Reseeded ApplicationUsers'
+--print '<<<Recalling ApplicationUsers'
+--INSERT INTO ApplicationUsers
+--SELECT 
+--	[Email],
+--    [EmailConfirmed],
+--    [PasswordHash],
+--    [SecurityStamp],
+--    [PhoneNumber],
+--    [PhoneNumberConfirmed],
+--    [TwoFactorEnabled],
+--    [LockoutEndDateUtc],
+--    [LockoutEnabled],
+--    [AccessFailedCount],
+--    [UserName],
+--    [FirstName],
+--    [LastName],
+--    [DateCreated],
+--    [DateUpdated],
+--    [LastLoginDate],
+--    [PasswordChangeDate],
 
-if(exists(select [Id] from [UserAccessLevels] where [EnglishName] = 'User'))
-	print '[UserAccessLevels] successfully populated'
-else
-begin
-	print '[UserAccessLevels] unsuccessfully populated'
-	raiserror('[UserAccessLevels] unsuccessfully populated', 20, -1) with log
-end
-go
 
-print '<<<Reseeding Users'
-DBCC CHECKIDENT ('Users', RESEED, 0)
-print '>>>Reseeded Users'
-print '<<<Recalling Users'
-INSERT INTO Users
-SELECT 
-[FirstName],
-[MiddleName],
-[LastName],
-[UserName],
-[PrimaryPersonalEmail],
-[EmailValidated],
-[PrimaryPhone],
-[PhoneValidated],
-[KeepPrivate],
-[MetricOverImperial],
-[CountryId],
-[ProvinceId],
-[AccessLevelId],
-[HashedPassword],
-[Salt],
-[ProfilePictureBytes],
-[BannerPictureBytes],
-[Bio],
-[ProfileURL] FROM TempSavedUsers
-print '>>>Users Recalled'
-print '<<<Dropping Users Temp'
-IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.TempSavedUsers') AND Type = N'U')
-	drop table TempSavedUsers
-print '>>>Users Temp Dropped'
+--	[KeepPrivate],
+--	[MetricOverImperial],
+
+--	[CountryId],
+--	[ProvinceId],
+
+
+--	[ProfilePictureBytes],
+--	[BannerPictureBytes],
+--	[Bio],
+--	[ProfileURL] 
+--FROM TempSavedUsers
+--print '>>>Users Recalled'
+--print '<<<Dropping Users Temp'
+--IF EXISTS(SELECT 1 FROM sys.Objects WHERE  Object_id = OBJECT_ID(N'dbo.TempSavedUsers') AND Type = N'U')
+--	drop table TempSavedUsers
+--print '>>>Users Temp Dropped'
 
 --Reseed
 declare @reseed bit = 1

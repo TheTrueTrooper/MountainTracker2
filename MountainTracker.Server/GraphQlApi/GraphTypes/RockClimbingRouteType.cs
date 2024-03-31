@@ -61,6 +61,7 @@ public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>, IDispo
         Field(d => d.DifficultyId, nullable: false).Description("Wall's difficulty id");
 
         var climbingWallScope = CreateScope(serviceProvider);
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         Field<RockClimbingWallType, RockClimbingWalls>("climbingWall")
             .ResolveAsync(async context =>
             {
@@ -89,6 +90,7 @@ public class RockClimbingRouteType : ObjectGraphType<RockClimbingRoutes>, IDispo
                 return loader.LoadAsync(context.Source.DifficultyId);
             })
             .Description("Route's associated difficulty");
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     }
 
     private IServiceScope CreateScope(IServiceProvider serviceProvider)

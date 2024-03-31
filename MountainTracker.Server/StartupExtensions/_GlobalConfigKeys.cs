@@ -1,4 +1,4 @@
-﻿namespace MountainTracker.Server.Startup;
+﻿namespace MountainTracker.Server.StartupExtensions;
 
 public static class GlobalConfigKeys
 {
@@ -6,6 +6,11 @@ public static class GlobalConfigKeys
     internal const string GraphQlConfigKey = "GraphQlConfig";
     internal const string CorsConfigKey = "AllowedOrigins";
     internal const string ConnectionKey = "Default";
+    internal const string IdentityDataContextConnection = "IdentityDataContextConnection";
+
+    internal const string SecurityKey = "Security";
 
     internal const string CorsName = "Cors";
+
+    internal const string ApiToolsKey = "ApiTools";
 }

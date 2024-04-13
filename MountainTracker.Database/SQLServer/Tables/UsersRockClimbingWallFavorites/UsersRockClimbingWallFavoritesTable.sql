@@ -6,5 +6,5 @@
 	PRIMARY KEY ([UserId], [RockClimbingWallId]),
 
 	CONSTRAINT [FK_UsersWallFavorites_ClimbingWalls] FOREIGN KEY([RockClimbingWallId]) REFERENCES [dbo].[RockClimbingWalls] ([Id]),
-	CONSTRAINT [FK_UsersRockClimbingWallFavorites_Users] FOREIGN KEY([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_UsersRockClimbingWallFavorites_Users] FOREIGN KEY([UserId]) REFERENCES [dbo].[UsersProfiles] ([Id]),
 )

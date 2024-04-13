@@ -110,6 +110,7 @@
     <Folder Include="SQLServer\Tables\AspNetUserRoles" />
     <Folder Include="SQLServer\Tables\AspNetUserTokens" />
     <Folder Include="SQLServer\Tables\AspNetRoleClaims" />
+    <Folder Include="SQLServer\Tables\UsersProfiles" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Init\PostDeployment\RebuildScript.PostDeployment.sql" />
@@ -172,5 +173,6 @@
     <Build Include="SQLServer\Tables\AspNetUserRoles\AspNetUserRolesTable.sql" />
     <Build Include="SQLServer\Tables\AspNetUserTokens\AspNetUserTokensTable.sql" />
     <Build Include="SQLServer\Tables\AspNetRoleClaims\AspNetRoleClaimsTable.sql" />
+    <Build Include="SQLServer\Tables\UsersProfiles\UsersProfilesTable.sql" />
   </ItemGroup>
 </Project>

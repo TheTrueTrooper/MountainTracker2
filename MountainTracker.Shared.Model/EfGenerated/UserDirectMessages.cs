@@ -5,9 +5,9 @@ namespace MountainTracker.Shared.Model;
 
 public partial class UserDirectMessages
 {
-    public int UserFromId { get; set; }
+    public string UserFromId { get; set; } = null!;
 
-    public int UserToId { get; set; }
+    public string UserToId { get; set; } = null!;
 
     public int DirectMessageId { get; set; }
 
@@ -16,4 +16,8 @@ public partial class UserDirectMessages
     public bool Seen { get; set; }
 
     public string Message { get; set; } = null!;
+
+    public virtual UsersProfiles UserFrom { get; set; } = null!;
+
+    public virtual UsersProfiles UserTo { get; set; } = null!;
 }

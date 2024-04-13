@@ -7,9 +7,11 @@ public partial class UsersAreaFavorites
 {
     public int AreaId { get; set; }
 
-    public int UserId { get; set; }
+    public string UserId { get; set; } = null!;
 
     public string? Notes { get; set; }
 
     public virtual Areas Area { get; set; } = null!;
+
+    public virtual UsersProfiles User { get; set; } = null!;
 }

@@ -6,5 +6,5 @@
 	[Comments] varchar(2500) NOT NULL,
 
 	CONSTRAINT [FK_UsersRockClimbComments_RockClimbingRoutes] FOREIGN KEY([RockClimbingRoutesId]) REFERENCES [dbo].[RockClimbingRoutes] ([Id]),
-	CONSTRAINT [FK_UsersRockClimbComments_Users] FOREIGN KEY([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_UsersRockClimbComments_Users] FOREIGN KEY([UserId]) REFERENCES [dbo].[UsersProfiles] ([Id]),
 )

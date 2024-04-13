@@ -6,5 +6,5 @@
 	[Time] datetime NOT NULL DEFAULT (getdate()),
 
 	CONSTRAINT [FK_GroupMessagingMessages_GroupMessagingGroups] FOREIGN KEY([GroupMessagingId]) REFERENCES [dbo].[GroupMessagingGroups] ([Id]),
-	CONSTRAINT [FK_GroupMessagingMessages_Users] FOREIGN KEY([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id])
+	CONSTRAINT [FK_GroupMessagingMessages_Users] FOREIGN KEY([UserId]) REFERENCES [dbo].[UsersProfiles] ([Id])
 )

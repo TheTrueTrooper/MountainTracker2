@@ -6,8 +6,8 @@
 	[Seen] bit NOT NULL DEFAULT (0),
 	[Message] varchar(2500) NOT NULL,
 
-	CONSTRAINT [FK_UserDirectMessages_Users_From] FOREIGN KEY([UserFromId]) REFERENCES [dbo].[AspNetUsers] ([Id]),
-	CONSTRAINT [FK_UserDirectMessages_Users_To] FOREIGN KEY([UserToId]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_UserDirectMessages_Users_From] FOREIGN KEY([UserFromId]) REFERENCES [dbo].[UsersProfiles] ([Id]),
+	CONSTRAINT [FK_UserDirectMessages_Users_To] FOREIGN KEY([UserToId]) REFERENCES [dbo].[UsersProfiles] ([Id]),
 
 	CONSTRAINT [CK_UserDirectMessages_NoMessageSelf] CHECK  (NOT [UserFromId]=[UserToId]),
 )

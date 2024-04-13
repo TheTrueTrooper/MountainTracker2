@@ -5,7 +5,7 @@ namespace MountainTracker.Shared.Model;
 
 public partial class GroupMessagingMembers
 {
-    public int UserId { get; set; }
+    public string UserId { get; set; } = null!;
 
     public int GroupMessagingId { get; set; }
 
@@ -18,4 +18,6 @@ public partial class GroupMessagingMembers
     public DateTime TimeLastSeen { get; set; }
 
     public virtual GroupMessagingGroups GroupMessaging { get; set; } = null!;
+
+    public virtual UsersProfiles User { get; set; } = null!;
 }

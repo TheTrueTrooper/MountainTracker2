@@ -9,5 +9,5 @@
     PRIMARY KEY CLUSTERED ([UserId], [GroupMessagingId]),
 
 	CONSTRAINT [FK_GroupMessagingMembers_GroupMessaging] FOREIGN KEY([GroupMessagingId]) REFERENCES [dbo].[GroupMessagingGroups] ([Id]),
-	CONSTRAINT [FK_GroupMessagingMembers_Users] FOREIGN KEY([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_GroupMessagingMembers_Users] FOREIGN KEY([UserId]) REFERENCES [dbo].[UsersProfiles] ([Id]),
 )

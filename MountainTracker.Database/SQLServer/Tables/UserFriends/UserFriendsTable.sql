@@ -7,8 +7,8 @@
 
 	PRIMARY KEY ([UserFromId], [UserToId]),
 
-	CONSTRAINT [FK_UserFriends_Users_From] FOREIGN KEY(UserFromId) REFERENCES [dbo].[AspNetUsers] ([Id]),
-	CONSTRAINT [FK_UserFriends_Users_To] FOREIGN KEY(UserToId) REFERENCES [dbo].[AspNetUsers] ([Id]),
+	CONSTRAINT [FK_UserFriends_Users_From] FOREIGN KEY(UserFromId) REFERENCES [dbo].[UsersProfiles] ([Id]),
+	CONSTRAINT [FK_UserFriends_Users_To] FOREIGN KEY(UserToId) REFERENCES [dbo].[UsersProfiles] ([Id]),
 
 	CONSTRAINT [CK_UserFriends_NoFriendSelf] CHECK  ((NOT [UserFromId]=[UserToId]))
 )

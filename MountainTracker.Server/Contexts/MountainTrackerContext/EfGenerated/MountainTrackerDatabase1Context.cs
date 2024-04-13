@@ -16,6 +16,18 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
     public virtual DbSet<Areas> Areas { get; set; }
 
+    public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
+
+    public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+
+    public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+
+    public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+
+    public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
+
+    public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+
     public virtual DbSet<BoulderingRoutes> BoulderingRoutes { get; set; }
 
     public virtual DbSet<BusyRatings> BusyRatings { get; set; }
@@ -67,6 +79,8 @@ public partial class MountainTrackerDatabase1Context : DbContext
     public virtual DbSet<UserFriends> UserFriends { get; set; }
 
     public virtual DbSet<UsersAreaFavorites> UsersAreaFavorites { get; set; }
+
+    public virtual DbSet<UsersProfiles> UsersProfiles { get; set; }
 
     public virtual DbSet<UsersRockClimbComments> UsersRockClimbComments { get; set; }
 
@@ -120,6 +134,77 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasForeignKey(d => d.ZoneId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Areas_Zones");
+        });
+
+        modelBuilder.Entity<AspNetRoleClaims>(entity =>
+        {
+            entity.HasIndex(e => e.RoleId, "IX_AspNetRoleClaims_RoleId");
+
+            entity.HasOne(d => d.Role).WithMany(p => p.AspNetRoleClaims).HasForeignKey(d => d.RoleId);
+        });
+
+        modelBuilder.Entity<AspNetRoles>(entity =>
+        {
+            entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
+                .IsUnique()
+                .HasFilter("([NormalizedName] IS NOT NULL)");
+
+            entity.Property(e => e.Name).HasMaxLength(256);
+            entity.Property(e => e.NormalizedName).HasMaxLength(256);
+        });
+
+        modelBuilder.Entity<AspNetUserClaims>(entity =>
+        {
+            entity.HasIndex(e => e.UserId, "IX_AspNetUserClaims_UserId");
+
+            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserClaims).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<AspNetUserLogins>(entity =>
+        {
+            entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+
+            entity.HasIndex(e => e.UserId, "IX_AspNetUserLogins_UserId");
+
+            entity.Property(e => e.LoginProvider).HasMaxLength(128);
+            entity.Property(e => e.ProviderKey).HasMaxLength(128);
+
+            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserLogins).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<AspNetUserTokens>(entity =>
+        {
+            entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
+
+            entity.Property(e => e.LoginProvider).HasMaxLength(128);
+            entity.Property(e => e.Name).HasMaxLength(128);
+
+            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserTokens).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<AspNetUsers>(entity =>
+        {
+            entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
+
+            entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
+                .IsUnique()
+                .HasFilter("([NormalizedUserName] IS NOT NULL)");
+
+            entity.Property(e => e.Email).HasMaxLength(256);
+            entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+            entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+            entity.Property(e => e.UserName).HasMaxLength(256);
+
+            entity.HasMany(d => d.Role).WithMany(p => p.User)
+                .UsingEntity<Dictionary<string, object>>(
+                    "AspNetUserRoles",
+                    r => r.HasOne<AspNetRoles>().WithMany().HasForeignKey("RoleId"),
+                    l => l.HasOne<AspNetUsers>().WithMany().HasForeignKey("UserId"),
+                    j =>
+                    {
+                        j.HasKey("UserId", "RoleId");
+                        j.HasIndex(new[] { "RoleId" }, "IX_AspNetUserRoles_RoleId");
+                    });
         });
 
         modelBuilder.Entity<BoulderingRoutes>(entity =>
@@ -282,12 +367,10 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
         modelBuilder.Entity<GroupMessagingMembers>(entity =>
         {
-            entity.HasKey(e => new { e.UserId, e.GroupMessagingId }).HasName("PK__GroupMes__3491EC20C2C70508");
+            entity.HasKey(e => new { e.UserId, e.GroupMessagingId }).HasName("PK__tmp_ms_x__3491ECDE46A1D71A");
 
             entity.ToTable(tb => tb.HasTrigger("LeavingMessagingGroupTrigger"));
 
-            entity.Property(e => e.UserId).HasColumnName("UserID");
-            entity.Property(e => e.GroupMessagingId).HasColumnName("GroupMessagingID");
             entity.Property(e => e.TimeInvited)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
@@ -302,6 +385,11 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasForeignKey(d => d.GroupMessagingId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_GroupMessagingMembers_GroupMessaging");
+
+            entity.HasOne(d => d.User).WithMany(p => p.GroupMessagingMembers)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_GroupMessagingMembers_Users");
         });
 
         modelBuilder.Entity<GroupMessagingMessages>(entity =>
@@ -314,12 +402,19 @@ public partial class MountainTrackerDatabase1Context : DbContext
             entity.Property(e => e.Time)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
-            entity.Property(e => e.UserId).HasColumnName("UserID");
+            entity.Property(e => e.UserId)
+                .HasMaxLength(450)
+                .HasColumnName("UserID");
 
             entity.HasOne(d => d.GroupMessaging).WithMany(p => p.GroupMessagingMessages)
                 .HasForeignKey(d => d.GroupMessagingId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_GroupMessagingMessages_GroupMessagingGroups");
+
+            entity.HasOne(d => d.User).WithMany(p => p.GroupMessagingMessages)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_GroupMessagingMessages_Users");
         });
 
         modelBuilder.Entity<IceClimbingRoutes>(entity =>
@@ -456,11 +551,11 @@ public partial class MountainTrackerDatabase1Context : DbContext
             entity.Property(e => e.FirstAscent)
                 .HasMaxLength(100)
                 .IsUnicode(false)
-                .HasDefaultValueSql("('Unknown')");
+                .HasDefaultValue("Unknown");
             entity.Property(e => e.FirstFreeAscent)
                 .HasMaxLength(100)
                 .IsUnicode(false)
-                .HasDefaultValueSql("('Unknown')");
+                .HasDefaultValue("Unknown");
             entity.Property(e => e.HeightInFeet).HasComputedColumnSql("((3.28084)*[HeightInMeters])", false);
             entity.Property(e => e.Info)
                 .HasMaxLength(5000)
@@ -495,7 +590,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
             entity.Property(e => e.RockClimbingRoutesId).HasColumnName("RockClimbingRoutesID");
             entity.Property(e => e.GearSizeId).HasColumnName("GearSizeID");
-            entity.Property(e => e.NumberRequired).HasDefaultValueSql("((1))");
+            entity.Property(e => e.NumberRequired).HasDefaultValue((short)1);
 
             entity.HasOne(d => d.GearSize).WithMany(p => p.RockClimbingRoutesToGearLinks)
                 .HasForeignKey(d => d.GearSizeId)
@@ -546,7 +641,7 @@ public partial class MountainTrackerDatabase1Context : DbContext
             entity.Property(e => e.Approach)
                 .HasMaxLength(50)
                 .IsUnicode(false)
-                .HasDefaultValueSql("('Unknown')");
+                .HasDefaultValue("Unknown");
             entity.Property(e => e.AprSeasonalBusyRatingId).HasColumnName("AprSeasonalBusyRatingID");
             entity.Property(e => e.AprSeasonalClimbingQualityRatingId).HasColumnName("AprSeasonalClimbingQualityRatingID");
             entity.Property(e => e.AreaId).HasColumnName("AreaID");
@@ -719,26 +814,46 @@ public partial class MountainTrackerDatabase1Context : DbContext
             entity.Property(e => e.Time)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.UserFromId).HasMaxLength(450);
+            entity.Property(e => e.UserToId).HasMaxLength(450);
+
+            entity.HasOne(d => d.UserFrom).WithMany(p => p.UserDirectMessagesUserFrom)
+                .HasForeignKey(d => d.UserFromId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserDirectMessages_Users_From");
+
+            entity.HasOne(d => d.UserTo).WithMany(p => p.UserDirectMessagesUserTo)
+                .HasForeignKey(d => d.UserToId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserDirectMessages_Users_To");
         });
 
         modelBuilder.Entity<UserFriends>(entity =>
         {
-            entity.HasKey(e => new { e.UserFromId, e.UserToId }).HasName("PK__UserFrie__D4302545F0D07AC5");
+            entity.HasKey(e => new { e.UserFromId, e.UserToId }).HasName("PK__tmp_ms_x__D4302527639BA749");
 
-            entity.Property(e => e.UserFromId).HasColumnName("UserFromID");
-            entity.Property(e => e.UserToId).HasColumnName("UserToID");
-            entity.Property(e => e.RequestAcceptDate).HasColumnType("datetime");
+            entity.Property(e => e.RequestAcceptDate)
+                .HasDefaultValueSql("(NULL)")
+                .HasColumnType("datetime");
             entity.Property(e => e.RequestCreationDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+
+            entity.HasOne(d => d.UserFrom).WithMany(p => p.UserFriendsUserFrom)
+                .HasForeignKey(d => d.UserFromId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserFriends_Users_From");
+
+            entity.HasOne(d => d.UserTo).WithMany(p => p.UserFriendsUserTo)
+                .HasForeignKey(d => d.UserToId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserFriends_Users_To");
         });
 
         modelBuilder.Entity<UsersAreaFavorites>(entity =>
         {
-            entity.HasKey(e => new { e.UserId, e.AreaId }).HasName("PK__UsersAre__80834EAE76DAF971");
+            entity.HasKey(e => new { e.UserId, e.AreaId }).HasName("PK__tmp_ms_x__80834E48E199CE90");
 
-            entity.Property(e => e.UserId).HasColumnName("UserID");
-            entity.Property(e => e.AreaId).HasColumnName("AreaID");
             entity.Property(e => e.Notes)
                 .HasMaxLength(2500)
                 .IsUnicode(false);
@@ -747,6 +862,60 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasForeignKey(d => d.AreaId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UsersAreaFavorites_Areas");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UsersAreaFavorites)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UsersAreaFavorites_Users");
+        });
+
+        modelBuilder.Entity<UsersProfiles>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC078E7CD5CA");
+
+            entity.HasIndex(e => e.FormAlias, "FormAlias")
+                .IsUnique()
+                .HasFilter("([FormAlias] IS NOT NULL)");
+
+            entity.HasIndex(e => e.ContactEmail, "UserContactEmailIndex")
+                .IsUnique()
+                .HasFilter("([ContactEmail] IS NOT NULL)");
+
+            entity.HasIndex(e => e.ContactPhone, "UserContactPhoneIndex")
+                .IsUnique()
+                .HasFilter("([ContactPhone] IS NOT NULL)");
+
+            entity.HasIndex(e => e.FirstName, "UserFirstNameIndex")
+                .IsUnique()
+                .HasFilter("([FirstName] IS NOT NULL)");
+
+            entity.HasIndex(e => e.LastName, "UserLastNameIndex")
+                .IsUnique()
+                .HasFilter("([LastName] IS NOT NULL)");
+
+            entity.Property(e => e.Bio).HasMaxLength(2500);
+            entity.Property(e => e.ContactEmail)
+                .HasMaxLength(320)
+                .IsUnicode(false);
+            entity.Property(e => e.ContactPhone)
+                .HasMaxLength(15)
+                .IsUnicode(false);
+            entity.Property(e => e.CountryId)
+                .HasDefaultValueSql("(NULL)")
+                .HasColumnName("CountryID");
+            entity.Property(e => e.FirstName).HasMaxLength(50);
+            entity.Property(e => e.FormAlias).HasMaxLength(50);
+            entity.Property(e => e.LastName).HasMaxLength(50);
+            entity.Property(e => e.MetricOverImperial).HasDefaultValue(true);
+            entity.Property(e => e.MiddleName).HasMaxLength(50);
+            entity.Property(e => e.ProfileUrl)
+                .HasMaxLength(100)
+                .HasColumnName("ProfileURL");
+            entity.Property(e => e.ProvinceId)
+                .HasDefaultValueSql("(NULL)")
+                .HasColumnName("ProvinceID");
+            entity.Property(e => e.UseFormAlias).HasDefaultValue(true);
+            entity.Property(e => e.UserName).HasMaxLength(50);
         });
 
         modelBuilder.Entity<UsersRockClimbComments>(entity =>
@@ -759,19 +928,23 @@ public partial class MountainTrackerDatabase1Context : DbContext
             entity.Property(e => e.Time)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.UserId).HasMaxLength(450);
 
             entity.HasOne(d => d.RockClimbingRoutes).WithMany(p => p.UsersRockClimbComments)
                 .HasForeignKey(d => d.RockClimbingRoutesId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UsersRockClimbComments_RockClimbingRoutes");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UsersRockClimbComments)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UsersRockClimbComments_Users");
         });
 
         modelBuilder.Entity<UsersRockClimbRouteFavorites>(entity =>
         {
-            entity.HasKey(e => new { e.UserId, e.RockClimbingRoutesId }).HasName("PK__UsersRoc__C5CBB65FA1853CBF");
+            entity.HasKey(e => new { e.UserId, e.RockClimbingRoutesId }).HasName("PK__tmp_ms_x__C5CBB6BD96584CBF");
 
-            entity.Property(e => e.UserId).HasColumnName("UserID");
-            entity.Property(e => e.RockClimbingRoutesId).HasColumnName("RockClimbingRoutesID");
             entity.Property(e => e.Notes)
                 .HasMaxLength(2500)
                 .IsUnicode(false);
@@ -780,14 +953,17 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasForeignKey(d => d.RockClimbingRoutesId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UsersRockClimbRouteFavorites_RockClimbingRoutes");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UsersRockClimbRouteFavorites)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UsersRockClimbRouteFavorites_Users");
         });
 
         modelBuilder.Entity<UsersRockClimbingWallFavorites>(entity =>
         {
-            entity.HasKey(e => new { e.UserId, e.RockClimbingWallId }).HasName("PK__UsersRoc__35FF1B6CC0138FFE");
+            entity.HasKey(e => new { e.UserId, e.RockClimbingWallId }).HasName("PK__tmp_ms_x__35FF1B8AA0EB1704");
 
-            entity.Property(e => e.UserId).HasColumnName("UserID");
-            entity.Property(e => e.RockClimbingWallId).HasColumnName("RockClimbingWallID");
             entity.Property(e => e.Notes)
                 .HasMaxLength(2500)
                 .IsUnicode(false);
@@ -796,6 +972,11 @@ public partial class MountainTrackerDatabase1Context : DbContext
                 .HasForeignKey(d => d.RockClimbingWallId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UsersWallFavorites_ClimbingWalls");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UsersRockClimbingWallFavorites)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UsersRockClimbingWallFavorites_Users");
         });
 
         modelBuilder.Entity<UsersRockClimbs>(entity =>
@@ -804,15 +985,22 @@ public partial class MountainTrackerDatabase1Context : DbContext
 
             entity.Property(e => e.Comments)
                 .HasMaxLength(2500)
-                .IsUnicode(false);
+                .IsUnicode(false)
+                .HasDefaultValueSql("(NULL)");
             entity.Property(e => e.Time)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.UserId).HasMaxLength(450);
 
             entity.HasOne(d => d.RockClimbingRoutes).WithMany(p => p.UsersRockClimbs)
                 .HasForeignKey(d => d.RockClimbingRoutesId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UsersRockClimbTracker_RockClimbingRoutes");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UsersRockClimbs)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UsersRockClimbTracker_Users");
         });
 
         modelBuilder.Entity<ZoneGeoFenceNodes>(entity =>
